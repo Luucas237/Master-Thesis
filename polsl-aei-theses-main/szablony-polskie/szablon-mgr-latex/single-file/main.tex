@@ -69,9 +69,9 @@
 
 % TODO
 % dane autora
-\newcommand{\FirstNameAuthor}{Imię}
-\newcommand{\SurnameAuthor}{Nazwisko}
-\newcommand{\IdAuthor}{$\langle$wpisać właściwy$\rangle$}   % numer albumu  (bez $\langle$ i $\rangle$)
+\newcommand{\FirstNameAuthor}{Łukasz}
+\newcommand{\SurnameAuthor}{Grabarski}
+\newcommand{\IdAuthor}{300434}   % numer albumu  (bez $\langle$ i $\rangle$)
 
 % drugi autor:
 %\newcommand{\FirstNameCoauthor}{Imię}   % Jeżeli jest drugi autor, to tutaj należy podać imię.
@@ -83,15 +83,15 @@
 \newcommand{\IdCoauthor}{}  % Jeżeli praca ma tylko jednego autora, to dane drugiego autora zostają puste.
 %%%%%%%%%%
 
-\newcommand{\Supervisor}{$\langle$tytuł lub stopień naukowy oraz imię i nazwisko$\rangle$}     % dane promotora (bez $\langle$ i $\rangle$)
-\newcommand{\Title}{Tytuł pracy dyplomowej magisterskiej}           % tytuł pracy po polsku
-\newcommand{\TitleAlt}{Thesis title in English}                     % thesis title in English
-\newcommand{\Program}{$\langle$wpisać właściwy$\rangle$}            % kierunek studiów  (bez $\langle$ i $\rangle$)
-\newcommand{\Specialisation}{$\langle$wpisać właściwą$\rangle$}     % specjalność  (bez $\langle$ i $\rangle$)
-\newcommand{\Departament}{$\langle$wpisać właściwą$\rangle$}        % katedra promotora  (bez $\langle$ i $\rangle$)
+\newcommand{\Supervisor}{dr hab. inż. Stanisław Wrona, prof. Pol. Śl.}     % dane promotora (bez $\langle$ i $\rangle$)
+\newcommand{\Title}{Opracowanie systemu śledzenia celu z wykorzystaniem niskomocowego lasera oraz korekcji optycznej}           % tytuł pracy po polsku
+\newcommand{\TitleAlt}{Development of a target tracking system using a low-power laser and optical correction}                     % thesis title in English
+\newcommand{\Program}{Automatyka i Robotyka}            % kierunek studiów  (bez $\langle$ i $\rangle$)
+\newcommand{\Specialisation}{Robotyka}     % specjalność  (bez $\langle$ i $\rangle$)
+\newcommand{\Departament}{Katedra Pomiarów i Systemów Sterowania}        % katedra promotora  (bez $\langle$ i $\rangle$)
 
 % Jeżeli został wyznaczony promotor pomocniczy lub opiekun, proszę go/ją wpisać ...
-\newcommand{\Consultant}{$\langle$stopień naukowy imię i nazwisko$\rangle$} % dane promotora pomocniczego, opiekuna (bez $\langle$ i $\rangle$)
+\newcommand{\Consultant}{} % dane promotora pomocniczego, opiekuna (bez $\langle$ i $\rangle$)
 % ... w przeciwnym razie proszę zostawić puste miejsce jak poniżej:
 %\newcommand{\Consultant}{} % brak promotowa pomocniczego / opiekuna
 
@@ -482,7 +482,7 @@ escapeinside={@*}{*@},%
 \Title
 
 \subsubsection*{Streszczenie}  
-(Streszczenie pracy – odpowiednie pole w systemie APD powinno zawierać kopię tego streszczenia.)
+Celem pracy jest zaprojektowanie i wykonanie demonstratora systemu kierowania niskomocowym laserem, zdolnego do automatycznego śledzenia poruszającego się celu na podstawie danych wizyjnych. W systemie zastosowany zostanie dedykowany marker w celu ułatwienia detekcji i korekcji trajektorii wiązki. System będzie symulował neutralizację celu poprzez utrzymanie wiązki lasera na markerze przez określony czas.
 
 \subsubsection*{Słowa kluczowe} 
 (2-5 slow (fraz) kluczowych, oddzielonych przecinkami)
@@ -534,7 +534,7 @@ escapeinside={@*}{*@},%
 
 
 % TODO
-\chapter{[Tytuł rozdziału]}  % Analiza tematu
+\chapter{Analiza tematu}  % Analiza tematu
 % 
 
 %\begin{itemize}
@@ -544,11 +544,20 @@ escapeinside={@*}{*@},%
 %\item Jakie są zalety i wady tych rozwiązań?
 %\end{itemize}
 
+%%%%%%%%%%%%%%%% LITERATURA %%%%%%%%%%%%%%%%
+\section{Analiza literatury}
+
+
+
+
+%%%%%%%%%%%%%%%% TIPY %%%%%%%%%%%%%%%%
 Odwołania do literatury: 
 książek \cite{bib:ksiazka},
 artykułów w czasopismach \cite{bib:artykul}, 
 materiałów konferencyjnych \cite{bib:konferencja}
 i stron www \cite{bib:internet}.
+
+\cite{bib:niino2016laser}
 
 Równania powinny być numerowane
 \begin{align}

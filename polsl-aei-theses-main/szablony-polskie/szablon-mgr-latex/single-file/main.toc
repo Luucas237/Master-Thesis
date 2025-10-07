@@ -1,0 +1,26 @@
+\babel@toc {polish}{}\relax 
+\babel@toc {british}{}\relax 
+\babel@toc {polish}{}\relax 
+\babel@toc {british}{}\relax 
+\babel@toc {polish}{}\relax 
+\babel@toc {british}{}\relax 
+\babel@toc {polish}{}\relax 
+\thispagestyle {empty}
+\contentsline {chapter}{\numberline {1}Wstęp}{1}{chapter.1}%
+\contentsline {chapter}{\numberline {2}Analiza tematu}{3}{chapter.2}%
+\contentsline {section}{\numberline {2.1}Analiza literatury}{3}{section.2.1}%
+\contentsline {chapter}{\numberline {3}[Tytuł rozdziału]}{5}{chapter.3}%
+\contentsline {section}{\numberline {3.1}[Tytuł podrozdziału]}{5}{section.3.1}%
+\contentsline {section}{\numberline {3.2}[Tytuł podrozdziału]}{5}{section.3.2}%
+\contentsline {chapter}{\numberline {4}Badania}{7}{chapter.4}%
+\contentsline {chapter}{\numberline {5}Podsumowanie}{9}{chapter.5}%
+\contentsline {chapter}{Bibliografia}{11}{section*.10}%
+\contentsline {chapter}{Dokumentacja techniczna}{15}{appendix*.12}%
+\contentsline {chapter}{Spis skrótów i symboli}{17}{appendix*.13}%
+\babel@toc {british}{}\relax 
+\babel@toc {polish}{}\relax 
+\babel@toc {british}{}\relax 
+\babel@toc {polish}{}\relax 
+\contentsline {chapter}{Lista dodatkowych plików, uzupełniających tekst pracy (jeżeli dotyczy)}{19}{appendix*.14}%
+\contentsline {chapter}{Spis rysunków}{21}{appendix*.15}%
+\contentsline {chapter}{Spis tabel}{23}{appendix*.16}%

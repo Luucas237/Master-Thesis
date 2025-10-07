@@ -1,0 +1,222 @@
+% $ biblatex auxiliary file $
+% $ biblatex bbl format version 3.2 $
+% Do not modify the above lines!
+%
+% This is an auxiliary file used by the 'biblatex' package.
+% This file may safely be deleted. It will be recreated as
+% required.
+%
+\begingroup
+\makeatletter
+\@ifundefined{ver@biblatex.sty}
+  {\@latex@error
+     {Missing 'biblatex' package}
+     {The bibliography requires the 'biblatex' package.}
+      \aftergroup\endinput}
+  {}
+\endgroup
+
+\datalist[entry]{nty/global//global/global}
+  \entry{bib:internet}{online}{}
+    \name{author}{2}{}{%
+      {{hash=NI}{%
+         family={Nazwisko},
+         familyi={N\bibinitperiod},
+         given={Imię},
+         giveni={I\bibinitperiod},
+      }}%
+      {{hash=NI}{%
+         family={Nazwisko},
+         familyi={N\bibinitperiod},
+         given={Imię},
+         giveni={I\bibinitperiod},
+      }}%
+    }
+    \strng{namehash}{NINI1}
+    \strng{fullhash}{NINI1}
+    \field{labelnamesource}{author}
+    \field{labeltitlesource}{title}
+    \field{sortinit}{N}
+    \field{sortinithash}{N}
+    \field{title}{Tytuł strony internetowej}
+    \verb{url}
+    \verb http://gdzies/w/internecie/internet.html
+    \endverb
+    \field{year}{2021}
+    \field{urlday}{30}
+    \field{urlmonth}{09}
+    \field{urlyear}{2021}
+  \endentry
+
+  \entry{bib:konferencja}{inproceedings}{}
+    \name{author}{3}{}{%
+      {{hash=NI}{%
+         family={Nazwisko},
+         familyi={N\bibinitperiod},
+         given={Imię},
+         giveni={I\bibinitperiod},
+      }}%
+      {{hash=NI}{%
+         family={Nazwisko},
+         familyi={N\bibinitperiod},
+         given={Imię},
+         giveni={I\bibinitperiod},
+      }}%
+      {{hash=NI}{%
+         family={Nazwisko},
+         familyi={N\bibinitperiod},
+         given={Imię},
+         giveni={I\bibinitperiod},
+      }}%
+    }
+    \strng{namehash}{NININI1}
+    \strng{fullhash}{NININI1}
+    \field{labelnamesource}{author}
+    \field{labeltitlesource}{title}
+    \field{sortinit}{N}
+    \field{sortinithash}{N}
+    \field{booktitle}{Nazwa konferecji}
+    \field{pages}{5346\bibrangedash 5349}
+    \field{title}{Tytuł artykułu konferencyjnego}
+    \field{year}{2006}
+  \endentry
+
+  \entry{bib:artykul}{article}{}
+    \name{author}{3}{}{%
+      {{hash=NI}{%
+         family={Nazwisko},
+         familyi={N\bibinitperiod},
+         given={Imię},
+         giveni={I\bibinitperiod},
+      }}%
+      {{hash=NI}{%
+         family={Nazwisko},
+         familyi={N\bibinitperiod},
+         given={Imię},
+         giveni={I\bibinitperiod},
+      }}%
+      {{hash=NI}{%
+         family={Nazwisko},
+         familyi={N\bibinitperiod},
+         given={Imię},
+         giveni={I\bibinitperiod},
+      }}%
+    }
+    \strng{namehash}{NININI1}
+    \strng{fullhash}{NININI1}
+    \field{labelnamesource}{author}
+    \field{labeltitlesource}{title}
+    \field{sortinit}{N}
+    \field{sortinithash}{N}
+    \field{number}{8}
+    \field{pages}{1092\bibrangedash 1113}
+    \field{title}{Tytuł artykułu w czasopiśmie}
+    \field{volume}{157}
+    \field{journaltitle}{Tytuł czasopisma}
+    \field{year}{2016}
+  \endentry
+
+  \entry{bib:ksiazka}{book}{}
+    \name{author}{3}{}{%
+      {{hash=NI}{%
+         family={Nazwisko},
+         familyi={N\bibinitperiod},
+         given={Imię},
+         giveni={I\bibinitperiod},
+      }}%
+      {{hash=NI}{%
+         family={Nazwisko},
+         familyi={N\bibinitperiod},
+         given={Imię},
+         giveni={I\bibinitperiod},
+      }}%
+      {{hash=NI}{%
+         family={Nazwisko},
+         familyi={N\bibinitperiod},
+         given={Imię},
+         giveni={I\bibinitperiod},
+      }}%
+    }
+    \list{publisher}{1}{%
+      {Wydawnictwo}%
+    }
+    \strng{namehash}{NININI1}
+    \strng{fullhash}{NININI1}
+    \field{labelnamesource}{author}
+    \field{labeltitlesource}{title}
+    \field{sortinit}{N}
+    \field{sortinithash}{N}
+    \field{isbn}{83-204-3229-9-434}
+    \field{title}{Tytuł książki}
+    \list{location}{1}{%
+      {Warszawa}%
+    }
+    \field{year}{2017}
+  \endentry
+
+  \entry{bib:niino2016laser}{article}{}
+    \name{author}{8}{}{%
+      {{hash=NH}{%
+         family={Niino},
+         familyi={N\bibinitperiod},
+         given={Hiroyuki},
+         giveni={H\bibinitperiod},
+      }}%
+      {{hash=HY}{%
+         family={Harada},
+         familyi={H\bibinitperiod},
+         given={Yoshihisa},
+         giveni={Y\bibinitperiod},
+      }}%
+      {{hash=AK}{%
+         family={Anzai},
+         familyi={A\bibinitperiod},
+         given={Kenji},
+         giveni={K\bibinitperiod},
+      }}%
+      {{hash=MM}{%
+         family={Matsushita},
+         familyi={M\bibinitperiod},
+         given={Masafumi},
+         giveni={M\bibinitperiod},
+      }}%
+      {{hash=FK}{%
+         family={Furukawa},
+         familyi={F\bibinitperiod},
+         given={Koichi},
+         giveni={K\bibinitperiod},
+      }}%
+      {{hash=NM}{%
+         family={Nishino},
+         familyi={N\bibinitperiod},
+         given={Michiteru},
+         giveni={M\bibinitperiod},
+      }}%
+      {{hash=FA}{%
+         family={Fujisaki},
+         familyi={F\bibinitperiod},
+         given={Akira},
+         giveni={A\bibinitperiod},
+      }}%
+      {{hash=MT}{%
+         family={Miyato},
+         familyi={M\bibinitperiod},
+         given={Taizo},
+         giveni={T\bibinitperiod},
+      }}%
+    }
+    \strng{namehash}{NH+1}
+    \strng{fullhash}{NHHYAKMMFKNMFAMT1}
+    \field{labelnamesource}{author}
+    \field{labeltitlesource}{title}
+    \field{sortinit}{N}
+    \field{sortinithash}{N}
+    \field{number}{1}
+    \field{title}{Laser cutting of carbon fiber reinforced plastics (CFRP and
+  CFRTP) by IR fiber laser irradiation.}
+    \field{volume}{11}
+    \field{journaltitle}{Journal of Laser Micro/Nanoengineering}
+    \field{year}{2016}
+  \endentry
+\enddatalist
+\endinput
