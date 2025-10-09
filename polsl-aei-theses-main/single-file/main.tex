@@ -547,7 +547,160 @@ Celem pracy jest zaprojektowanie i wykonanie demonstratora systemu kierowania ni
 %%%%%%%%%%%%%%%% LITERATURA %%%%%%%%%%%%%%%%
 \section{Analiza literatury}
 
+\subsection{Metody śledzenia obiektów}
 
+\subsection*{Wpływ sprzężenia zwrotnego obrazu na system ATP}
+
+W pracy Li i in. \cite{bib:Li2025} przeprowadzono szczegółową analizę wpływu 
+sprzężenia zwrotnego z obrazu na dynamikę systemu \textbf{ATP (Acquisition, Tracking, Pointing)}. 
+System tego typu można traktować jako układ serwomechanizmu, w którym sterowanie odbywa się na podstawie sygnału z kamery. 
+Ponieważ kamera charakteryzuje się \textbf{niską częstotliwością próbkowania} oraz \textbf{opóźnieniem przetwarzania}, 
+wpływa to negatywnie na stabilność i dokładność śledzenia.
+
+\paragraph{Kluczowe problemy}
+W literaturze wyróżnia się dwa główne problemy ograniczające możliwości śledzenia:
+\begin{enumerate}
+    \item \textbf{Opóźnienie obrazu (image feedback delay)} – np. 30~ms. Powoduje ono przesunięcie fazowe i zmniejszenie marginesu stabilności układu, co w praktyce ogranicza maksymalną prędkość kątową celu możliwą do śledzenia.
+    \item \textbf{Niska częstotliwość próbkowania obrazu} – np. 50~Hz. Pomiędzy kolejnymi próbkami system „nie wie”, gdzie znajduje się cel, co powoduje oscylacje i drgania.
+\end{enumerate}
+
+\paragraph{Proponowane rozwiązanie}
+Aby rozwiązać te problemy, autorzy zastosowali:
+\begin{itemize}
+    \item \textbf{Wieloczęstotliwościowy regulator feedforward (multi-rate controller)} – pozwala zsynchronizować wolne sprzężenie zwrotne z kamery z szybkim torem sterowania napędami. 
+    W praktyce oznacza to, że napędy mogą być sterowane z częstotliwością 5000~Hz, a obraz uaktualnia pozycję celu tylko co 20~ms.
+    \item \textbf{Predykcję trajektorii celu (reduced-order Kalman filter)} – algorytm przewiduje kolejne położenia celu na podstawie jego aktualnej prędkości i przyspieszenia. 
+    Dzięki temu w chwilach „braku danych” (pomiędzy klatkami) układ ma estymację położenia obiektu i nie musi czekać na kolejną próbkę.
+    \item \textbf{Sterowanie typu model-free} – regulator nie opiera się na dokładnym modelu matematycznym wieżyczki (momentów bezwładności, charakterystyk silników), ale działa poprawnie przy różnych konfiguracjach sprzętowych. 
+    W praktyce oznacza to, że algorytm można przenieść między różnymi platformami bez konieczności żmudnej identyfikacji parametrów.
+\end{itemize}
+
+\paragraph{Architektura systemu ATP}
+Typowy system ATP zbudowany jest z następujących elementów:
+\begin{itemize}
+    \item \textbf{Podsystem obrazowania (kamera CCD/CMOS)} – dostarcza położenie celu w polu widzenia, lecz z ograniczoną częstotliwością i opóźnieniem.
+    \item \textbf{Dwuosiowa wieżyczka (pan-tilt)} – realizuje ruch w azymucie i elewacji. Napędzana jest silnikami BLDC lub serwomechanizmami z enkoderami wysokiej rozdzielczości.
+    \item \textbf{Sterownik serwonapędów} – wykonuje sterowanie niskopoziomowe (PID, regulacja prędkości i pozycji).
+    \item \textbf{Moduł obliczeniowy (FPGA/komputer przemysłowy)} – implementuje algorytmy predykcji i kontroli wieloczęstotliwościowej.
+    \item \textbf{Laser niskomocowy} – służy do testów śledzenia i naprowadzania, docelowo jako źródło wiązki w systemach antydronowych.
+\end{itemize}
+
+
+Sprzężenie zwrotne pozycji dostarczane jest z kamery CCD, co można zapisać jako:
+\begin{equation}
+y(t) = \theta(t - T_{d}),
+\end{equation}
+gdzie $T_{d}$ jest opóźnieniem toru obrazu.
+
+\paragraph{Wpływ opóźnienia obrazu}
+W dziedzinie Laplace’a opóźnienie wprowadza czynnik:
+\begin{equation}
+e^{-sT_{d}} \approx \frac{1 - \frac{sT_{d}}{2}}{1 + \frac{sT_{d}}{2}},
+\end{equation}
+czyli aproksymację Padé rzędu pierwszego. 
+Pokazuje to, że obecność opóźnienia skutkuje dodatkowymi zerami i biegunami, 
+co obniża margines fazy i może prowadzić do oscylacji przy wyższych prędkościach celu.
+
+\paragraph{Wpływ niskiej częstotliwości próbkowania}
+Jeśli częstotliwość próbkowania obrazu wynosi $f_{s}$ (np. 50~Hz), 
+to czas pomiędzy kolejnymi próbkami wynosi $T_{s} = 1/f_{s} = 20$~ms. 
+Oznacza to, że aktualizacja położenia odbywa się skokowo, 
+a regulator musi działać na podstawie przestarzałej informacji. 
+Matematycznie można to przedstawić jako system z próbkowaniem:
+\begin{equation}
+y[k] = \theta(kT_{s} - T_{d}),
+\end{equation}
+co dodatkowo komplikuje analizę stabilności.
+
+\paragraph{Analiza częstotliwościowa}
+Autorzy pokazali, że im większe opóźnienie $T_{d}$ i im mniejsza częstotliwość próbkowania $f_{s}$, 
+tym szybciej pogarsza się zdolność śledzenia. 
+Szczególnie krytyczny jest wzrost amplitudy błędu przy wysokich częstotliwościach wymuszenia (manewrujący cel). 
+Dla przykładu, przy $T_{d} = 30$~ms i $f_{s} = 50$~Hz system traci stabilność już przy prędkości kątowej rzędu 90$^\circ$/s.
+
+\paragraph{Metody kompensacji}
+Aby przeciwdziałać degradacji wydajności systemu, 
+autorzy zaproponowali kilka metod:
+\begin{itemize}
+    \item zastosowanie regulatora \textbf{predykcyjnego} (Model Predictive Control, MPC), 
+    który przewiduje przyszłe wartości $\theta(t)$ na podstawie modelu ruchu celu,
+    \item \textbf{filtry predykcji zredukowanego rzędu} (np. constant acceleration Kalman filter), 
+    które estymują pozycję celu między próbkami,
+    \item wykorzystanie \textbf{sterowania wieloczęstotliwościowego}, 
+    w którym tor napędów pracuje z dużą częstotliwością (np. 5~kHz), 
+    a wolne sprzężenie zwrotne z kamery służy jedynie do okresowej korekty położenia.
+\end{itemize}
+
+\paragraph{Implementacja praktyczna}
+System został zbudowany eksperymentalnie i przetestowany w warunkach laboratoryjnych. 
+Wieżyczka dwuosiowa była napędzana silnikami BLDC, wyposażona w enkodery oraz kamerę CCD o rozdzielczości 1024x1024. 
+Tor sterowania działał z częstotliwością 5000~Hz, a obraz był próbkowany z częstotliwością 50~Hz i opóźnieniem 30~ms. 
+Cel symulowano za pomocą tarczy obrotowej napędzanej silnikiem krokowym, której prędkość można było regulować napięciem wejściowym.
+
+\paragraph{Rezultaty}
+W testach śledzono cele o różnych prędkościach i przyspieszeniach:
+\begin{itemize}
+    \item Prędkość kątowa do 90$^\circ$/s,
+    \item Przyspieszenie kątowe do 470$^\circ$/s$^2$.
+\end{itemize}
+Zastosowany algorytm zwiększył dokładność śledzenia o 70--89,9\% względem systemu niekompensowanego. 
+Ponadto zmniejszył ryzyko utraty celu, które w systemach klasycznych występuje przy gwałtownych zmianach kierunku lub wysokich prędkościach.
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\subsection{Właściwości silników BLDC}
+\subsection*{Analiza właściwości silników BLDC na podstawie literatury}
+
+W pracy \cite{bib:articleBLDC} przeprowadzono szczegółową analizę dynamicznych właściwości silników BLDC, wskazując, że ich odpowiedź zależy w dużym stopniu od parametrów konstrukcyjnych takich jak liczba zwojów, gęstość strumienia magnesów trwałych czy masa wirnika. Badania wykazały, iż przy odpowiedniej optymalizacji możliwe jest jednoczesne zwiększenie momentu obrotowego oraz prędkości kątowej przy istotnej redukcji drgań. Wynika to z faktu, że w silnikach BLDC komutacja odbywa się elektronicznie, co pozwala na uzyskanie bardziej płynnej charakterystyki momentu w porównaniu z silnikami krokowymi, które charakteryzują się ruchem skokowym i podatnością na rezonanse mechaniczne.
+
+Z punktu widzenia projektowanej wieżyczki śledzącej, istotne są trzy właściwości. Po pierwsze, silniki BLDC umożliwiają uzyskanie wysokiej dynamiki przy zachowaniu stabilności, co oznacza, że układ może szybko reagować na zmiany położenia celu bez ryzyka utraty synchronizacji. Silniki krokowe przy dużych przyspieszeniach tracą moment, a tym samym mogą gubić kroki, co prowadzi do błędów pozycjonowania. Po drugie, dzięki niskiemu momentowi bezwładności wirnika oraz możliwości precyzyjnego sterowania prądem fazowym, BLDC pozwalają na realizację szybkich i dokładnych manewrów głowicy optycznej, co jest kluczowe w sytuacji, gdy kamera musi utrzymać obiekt w polu widzenia przy gwałtownych ruchach drona. Po trzecie, istotna jest stabilność obrazu — wibracje i szarpnięcia, typowe dla napędów krokowych, mogą zakłócać pracę systemów wizyjnych. BLDC, dzięki płynnemu przebiegowi momentu i wyższemu stosunkowi momentu do masy, generują mniejsze drgania, co bezpośrednio przekłada się na lepszą jakość detekcji i śledzenia.
+
+Warto podkreślić również aspekt sterowania. Silniki krokowe w najprostszej konfiguracji nie dostarczają informacji zwrotnej o położeniu i wymagają pracy w trybie otwartej pętli, co zwiększa ryzyko błędów w dynamicznych scenariuszach. BLDC natomiast łatwo integrują się z enkoderami lub czujnikami Halla, umożliwiając implementację sterowania wektorowego (FOC), które zapewnia wysoką precyzję regulacji momentu i prędkości. Dzięki temu układ napędowy staje się odporny na zmienne obciążenia i może pracować w sposób deterministyczny, co jest szczególnie istotne przy konieczności synchronizacji ruchu z algorytmami wizyjnymi w czasie rzeczywistym.
+
+Podsumowując, wybór silników BLDC w systemie wieżyczki śledzącej znajduje uzasadnienie zarówno w literaturze, jak i w wymaganiach projektowych. W przeciwieństwie do silników krokowych, które lepiej sprawdzają się w wolniejszych aplikacjach wymagających prostego pozycjonowania, BLDC oferują wyższą precyzję, większą szybkość reakcji, niższe drgania oraz łatwość integracji z zaawansowanymi systemami sterowania, co czyni je rozwiązaniem adekwatnym dla systemów śledzenia obiektów w czasie rzeczywistym.
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\subsection{Cechy fizyczne dronów}
+\subsection*{Analiza materiałowa wirników quadrocopterów}
+
+W pracy \cite{bib:tiruvenkadam2024} przeprowadzono badania dotyczące doboru materiałów stosowanych w konstrukcji wirników dronów oraz ich wpływu na właściwości eksploatacyjne całego układu. W szczególności analizie poddano tworzywa polimerowe, takie jak poliwęglan (PC) i akrylonitryl-butadien-styren (ABS), a także kompozyty zbrojone włóknem węglowym (CFRP). Autorzy wykazali, że dobór materiału determinuje nie tylko wytrzymałość mechaniczną elementu, ale również jego odporność termiczną i podatność na deformacje, co bezpośrednio przekłada się na stabilność lotu.
+
+Poliwęglan charakteryzuje się wytrzymałością na rozciąganie rzędu 55--70~MPa, modułem Younga w zakresie 2,2--2,4~GPa oraz wysoką odpornością na uderzenia. Dzięki tym właściwościom PC zapewnia dobrą sprężystość i zdolność do absorbowania energii przy nagłych obciążeniach. Ważnym parametrem jest także odporność termiczna (HDT), wynosząca około 115--125$^\circ$C. Z kolei ABS wykazuje niższą wytrzymałość na rozciąganie (35--50~MPa) oraz zbliżony moduł sprężystości (ok. 2~GPa), jednak jego odporność udarowa i stabilność termiczna (90--100$^\circ$C) są słabsze niż w przypadku poliwęglanu. Najlepsze parametry uzyskano dla kompozytów CFRP, których wytrzymałość na rozciąganie przekracza 500~MPa, a moduł Younga mieści się w przedziale 70--200~GPa. Co więcej, odporność temperaturowa tych materiałów znacznie przewyższa tworzywa polimerowe i może sięgać ponad 200$^\circ$C, w zależności od użytej matrycy epoksydowej. CFRP zapewnia również najwyższy stosunek sztywności do masy, co czyni go materiałem preferowanym w konstrukcjach profesjonalnych i wyczynowych.
+
+W badaniach podkreślono, że kluczowym problemem eksploatacyjnym wirników jest ich podatność na deformacje spowodowane obciążeniami mechanicznymi lub podwyższoną temperaturą. Nawet niewielkie odkształcenia geometryczne mogą istotnie zmienić profil aerodynamiczny łopaty. Prowadzi to do spadku współczynnika siły nośnej, zwiększenia oporu oraz pojawienia się asymetrii pomiędzy poszczególnymi wirnikami. W efekcie mogą wystąpić dodatkowe momenty przechylające, powodujące wibracje konstrukcji, utratę stabilności oraz nadmierne obciążenie układu sterowania. W skrajnych przypadkach dron może wejść w niekontrolowane oscylacje lub całkowicie utracić zdolność utrzymania zadanej trajektorii. W praktyce oznacza to, że właściwości materiałowe wirników są krytyczne nie tylko dla trwałości elementów, ale również dla jakości całego systemu sterowania lotem.
+
+Wyniki badań potwierdzają, że materiały takie jak PC i ABS są wystarczające w dronach konsumenckich, gdzie priorytetem jest niski koszt i łatwość produkcji, natomiast w zastosowaniach wymagających wysokiej niezawodności i odporności na ekstremalne warunki środowiskowe konieczne jest stosowanie kompozytów CFRP.
+
+
+%%%%%%%%%%%%%%%%%%%%%
+\subsection{Lasery niskomocowe}
+
+
+\subsection*{Badania nad absorpcją energii lasera diodowego w różnych materiałach}
+
+W pracy \cite{bib:pantsar2004} przedstawiono szczegółowe badania nad absorpcją energii wiązki lasera diodowego o mocy 3~kW w powierzchniach stalowych poddanych różnym przygotowaniom. Zastosowany laser pracował w trybie ciągłym (CW, ang. continuous wave) z długością fali $\lambda = 940$~nm, typową dla przemysłowych laserów diodowych wykorzystywanych w procesach obróbki cieplnej. W układzie optycznym średnica ogniska wynosiła około 13~mm, a gęstość mocy dochodziła do 22~kW/cm$^2$.
+
+W badaniach oceniano absorpcję powierzchniową, definiowaną jako stosunek energii pochłoniętej do energii dostarczonej. Testy przeprowadzono dla kilku wariantów przygotowania próbek stalowych:
+\begin{enumerate}
+    \item \textbf{Stal w stanie surowym (po obróbce skrawaniem)} -- absorpcja mieściła się w zakresie 46--72\%, w zależności od czasu ekspozycji.
+    \item \textbf{Stal po piaskowaniu tlenkiem glinu} -- dzięki zwiększonej chropowatości i powstaniu warstwy tlenków, absorpcja wzrosła do wartości 66--81\%.
+    \item \textbf{Stal pokryta warstwą grafitu} -- zastosowanie powłoki znacząco podniosło zdolność pochłaniania energii, osiągając poziom powyżej 85\%.
+\end{enumerate}
+
+Czas oddziaływania wiązki laserowej był zmienny i wynosił od kilkuset milisekund do kilku sekund, co pozwalało na obserwację efektów cieplnych przy różnym czasie dostarczania energii. Wykazano, że krótszy czas ekspozycji przy tej samej energii skutkuje osiąganiem wyższych temperatur powierzchni, co związane jest z mniejszym rozpraszaniem ciepła do otoczenia. Z kolei dłuższe naświetlanie prowadziło do stabilizacji temperatury, lecz przy niższej wartości maksymalnej. W badaniach zarejestrowano, że powierzchnie stalowe mogły osiągać temperatury rzędu kilkuset stopni Celsjusza, co wystarczało do inicjacji procesów utleniania i lokalnych zmian strukturalnych.
+
+Odległość pomiędzy układem optycznym a próbką była utrzymywana na poziomie około 30~cm, przy czym układ ogniskujący zapewniał stałą średnicę plamki na powierzchni materiału. W ten sposób możliwe było uzyskanie powtarzalnych warunków eksperymentu i porównanie wpływu rodzaju powierzchni na absorpcję.
+
+Wyniki badań jednoznacznie pokazały, że zastosowanie warstw absorbujących, takich jak grafit, znacząco zwiększa efektywność nagrzewania wiązką laserową. W praktyce oznacza to, że procesy obróbki cieplnej, hartowania czy teoretyczne oddziaływanie lasera na cele ruchome mogą być zoptymalizowane poprzez modyfikację powierzchni obiektu, co prowadzi do efektywniejszego wykorzystania energii wiązki.
+
+%%%%%%%%%%%%%%
+
+\subsection*{Charakterystyka zastosowanego lasera i efektywność obróbki CFRP}
+
+W badaniach zastosowano laser włóknowy domieszkowany iterbem (Yb-fiber laser) firmy Furukawa Electric o długości fali $\lambda = 1084$~nm \cite{bib:niino2016laser}. Źródło pracowało w trybie ciągłym (cw) oraz quasi-ciągłym (qcw), przy średniej mocy w zakresie $2{-}3$~kW oraz średnicy rdzenia światłowodu wynoszącej 50~$\mu$m. Wiązka była skupiana przy pomocy soczewki typu f-theta (ogniskowa $f=306$~mm) i prowadzona po powierzchni materiału przy użyciu skanera galwanometrycznego. W procesie cięcia zastosowano metodę wielokrotnych przejść (multiple-scan-pass), realizowanych w powietrzu bez gazu osłonowego, z prędkością skanowania $3.6$~m/s. Oznacza to, że pojedyncze przejście wiązki nad obszarem roboczym o długości kilkudziesięciu milimetrów trwało rząd dziesiątych części sekundy (np. dla ścieżki $L=36$~mm czas wynosi $t \approx 0.01$~s). Kluczowym parametrem procesu była zatem nie tyle długość pojedynczej ekspozycji, ile liczba powtórzeń, determinująca skumulowaną dawkę energii dostarczoną do materiału.
+
+Analizie poddano dwa typy próbek: płyty CFRTP (carbon fiber reinforced thermoplastic) wytwarzane metodą formowania wtryskowego, zawierające włókna węglowe PAN (30\% wag.), oraz płyty CFRP (carbon fiber reinforced plastic) na bazie żywicy epoksydowej i włókien PAN, o grubości 3~mm. Układ warstw w laminacie CFRP miał charakter przekładany (cross-ply 0/90$^{\circ}$, 12 warstw, zawartość włókien 70\%).
+
+Efektywność procesu cięcia wiązką laserową była ściśle zależna od liczby przejść oraz trybu pracy źródła. Dla próbek CFRTP (ABS i PPS) uzyskano liniową zależność pomiędzy głębokością nacięcia a liczbą przejść wiązki, co pozwoliło na precyzyjne kontrolowanie procesu ablacji. Całkowite przecięcie płyty ABS następowało po około 15 przejściach, natomiast dla materiału PPS konieczne było 27 przejść przy mocy 2~kW. W obu przypadkach kerf (szerokość szczeliny) na powierzchni próbki wynosił ok. 500~$\mu$m, podczas gdy wewnątrz materiału zawężał się do 100--200~$\mu$m. Obserwacje z wykorzystaniem mikrotomografii rentgenowskiej (X-CT) wykazały ograniczone uszkodzenia cieplne (HAZ), ograniczone do strefy przyściennej o grubości 100--130~$\mu$m.
+
+W przypadku CFRP na bazie żywicy epoksydowej zależność efektywności od liczby przejść była bardziej złożona. Początkowo (do ok. 15 przejść) obserwowano wysoką i stabilną prędkość usuwania materiału, jednak w dalszych etapach proces ulegał spowolnieniu i wykazywał tendencję do nasycenia. Przy pracy w trybie ciągłym z mocą 3.3~kW konieczne było zastosowanie podwójnego śladu skanowania (z przerwą 0.1~mm) oraz do 50 przejść, aby uzyskać pełne przecięcie próbki. W trybie qcw (szczytowa moc impulsów 4.7~kW, wypełnienie 40\%, częstotliwość 800~Hz) całkowite cięcie osiągano po 25--30 przejściach. Szerokość szczeliny na powierzchni wynosiła wtedy ok. 450~$\mu$m, przy kerfie wewnętrznym rzędu 100~$\mu$m. Analiza przekrojów wskazała na obecność stref termicznego osłabienia żywicy (do 150~$\mu$m), a także zjawisk takich jak wysuwanie się włókien (fiber pull-out) i lokalna recesja matrycy.
 
 
 %%%%%%%%%%%%%%%% TIPY %%%%%%%%%%%%%%%%

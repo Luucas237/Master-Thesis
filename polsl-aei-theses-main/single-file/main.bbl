@@ -17,6 +17,113 @@
 \endgroup
 
 \datalist[entry]{nty/global//global/global}
+  \entry{bib:articleBLDC}{article}{}
+    \name{author}{3}{}{%
+      {{hash=HH}{%
+         family={Huang},
+         familyi={H\bibinitperiod},
+         given={H.},
+         giveni={H\bibinitperiod},
+      }}%
+      {{hash=XG}{%
+         family={Xu},
+         familyi={X\bibinitperiod},
+         given={G.},
+         giveni={G\bibinitperiod},
+      }}%
+      {{hash=JX}{%
+         family={Jiang},
+         familyi={J\bibinitperiod},
+         given={X.},
+         giveni={X\bibinitperiod},
+      }}%
+    }
+    \list{publisher}{1}{%
+      {Elsevier}%
+    }
+    \strng{namehash}{HHXGJX1}
+    \strng{fullhash}{HHXGJX1}
+    \field{labelnamesource}{author}
+    \field{labeltitlesource}{title}
+    \field{sortinit}{H}
+    \field{sortinithash}{H}
+    \field{number}{8}
+    \field{pages}{1928\bibrangedash 1944}
+    \field{title}{Dynamic sensitivity analysis of a brushless DC motor}
+    \field{volume}{331}
+    \field{journaltitle}{Journal of Sound and Vibration}
+    \field{year}{2012}
+  \endentry
+
+  \entry{bib:Li2025}{article}{}
+    \name{author}{7}{}{%
+      {{hash=LH}{%
+         family={Li},
+         familyi={L\bibinitperiod},
+         given={Hang},
+         giveni={H\bibinitperiod},
+      }}%
+      {{hash=PG}{%
+         family={Peng},
+         familyi={P\bibinitperiod},
+         given={Gaoliang},
+         giveni={G\bibinitperiod},
+      }}%
+      {{hash=SX}{%
+         family={Shan},
+         familyi={S\bibinitperiod},
+         given={Xiaobiao},
+         giveni={X\bibinitperiod},
+      }}%
+      {{hash=ZM}{%
+         family={Zhao},
+         familyi={Z\bibinitperiod},
+         given={Mingyuan},
+         giveni={M\bibinitperiod},
+      }}%
+      {{hash=ZW}{%
+         family={Zhang},
+         familyi={Z\bibinitperiod},
+         given={Wei},
+         giveni={W\bibinitperiod},
+      }}%
+      {{hash=WJ}{%
+         family={Wang},
+         familyi={W\bibinitperiod},
+         given={Jinghan},
+         giveni={J\bibinitperiod},
+      }}%
+      {{hash=CF}{%
+         family={Cheng},
+         familyi={C\bibinitperiod},
+         given={Feng},
+         giveni={F\bibinitperiod},
+      }}%
+    }
+    \list{publisher}{1}{%
+      {Elsevier B.V. on behalf of KeAi Communications Co. Ltd.}%
+    }
+    \strng{namehash}{LH+1}
+    \strng{fullhash}{LHPGSXZMZWWJCF1}
+    \field{labelnamesource}{author}
+    \field{labeltitlesource}{title}
+    \field{sortinit}{L}
+    \field{sortinithash}{L}
+    \verb{doi}
+    \verb 10.1016/j.dt.2025.03.008
+    \endverb
+    \field{pages}{137\bibrangedash 151}
+    \field{title}{Realizing high-speed target tracking by using multi-rate
+  feedforward predictive control for the acquisition, tracking, and pointing
+  system}
+    \verb{url}
+    \verb https://doi.org/10.1016/j.dt.2025.03.008
+    \endverb
+    \field{volume}{49}
+    \field{journaltitle}{Defence Technology}
+    \field{year}{2025}
+  \endentry
+
   \entry{bib:internet}{online}{}
     \name{author}{2}{}{%
       {{hash=NI}{%
@@ -217,6 +324,72 @@
     \field{volume}{11}
     \field{journaltitle}{Journal of Laser Micro/Nanoengineering}
     \field{year}{2016}
+  \endentry
+
+  \entry{bib:pantsar2004}{article}{}
+    \true{moreauthor}
+    \true{morelabelname}
+    \name{author}{1}{}{%
+      {{hash=PKJ}{%
+         family={Pantsar-Kujanp{\"a}{\"a}},
+         familyi={P\bibinithyphendelim K\bibinitperiod},
+         given={J.},
+         giveni={J\bibinitperiod},
+      }}%
+    }
+    \list{publisher}{1}{%
+      {Laser Institute of America}%
+    }
+    \strng{namehash}{PKJ+1}
+    \strng{fullhash}{PKJ+1}
+    \field{labelnamesource}{author}
+    \field{labeltitlesource}{title}
+    \field{sortinit}{P}
+    \field{sortinithash}{P}
+    \verb{doi}
+    \verb 10.2351/1.1710879
+    \endverb
+    \field{number}{1}
+    \field{pages}{46\bibrangedash 54}
+    \field{title}{Absorptivity of a diode laser at 940 nm in steels with
+  different surface conditions}
+    \field{volume}{16}
+    \field{journaltitle}{Journal of Laser Applications}
+    \field{year}{2004}
+  \endentry
+
+  \entry{bib:tiruvenkadam2024}{article}{}
+    \name{author}{2}{}{%
+      {{hash=TR}{%
+         family={Tiruvenkadam},
+         familyi={T\bibinitperiod},
+         given={R.},
+         giveni={R\bibinitperiod},
+      }}%
+      {{hash=O}{%
+         family={Others},
+         familyi={O\bibinitperiod},
+      }}%
+    }
+    \list{publisher}{1}{%
+      {IOP Publishing}%
+    }
+    \strng{namehash}{TRO1}
+    \strng{fullhash}{TRO1}
+    \field{labelnamesource}{author}
+    \field{labeltitlesource}{title}
+    \field{sortinit}{T}
+    \field{sortinithash}{T}
+    \verb{doi}
+    \verb 10.1088/1742-6596/2925/1/012002
+    \endverb
+    \field{number}{1}
+    \field{pages}{012002}
+    \field{title}{Analysis of propeller material properties for UAV
+  applications}
+    \field{volume}{2925}
+    \field{journaltitle}{Journal of Physics: Conference Series}
+    \field{year}{2024}
   \endentry
 \enddatalist
 \endinput
