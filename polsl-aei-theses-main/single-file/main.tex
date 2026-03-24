@@ -485,7 +485,7 @@ escapeinside={@*}{*@},%
 Celem pracy jest zaprojektowanie i wykonanie demonstratora systemu kierowania niskomocowym laserem, zdolnego do automatycznego śledzenia poruszającego się celu na podstawie danych wizyjnych. W systemie zastosowany zostanie dedykowany marker w celu ułatwienia detekcji i korekcji trajektorii wiązki. System będzie symulował neutralizację celu poprzez utrzymanie wiązki lasera na markerze przez określony czas.
 
 \subsubsection*{Słowa kluczowe} 
-(2-5 slow (fraz) kluczowych, oddzielonych przecinkami)
+Laser niskomocowy, BSP, system śledzenia, korekcja optyczna, neutralizacja celu.
 
 \subsubsection*{Thesis title} 
 \begin{otherlanguage}{british}
@@ -494,11 +494,15 @@ Celem pracy jest zaprojektowanie i wykonanie demonstratora systemu kierowania ni
 
 \subsubsection*{Abstract} 
 \begin{otherlanguage}{british}
-(Thesis abstract – to be copied into an appropriate field during an electronic submission – in English.)
+The aim of this work is to design and manufacture a demonstrator of a low-power laser steering system capable of automatically tracking a moving target at
+based on vision data. The system will use a dedicated marker at
+to facilitate detection and correction of the beam trajectory. The system will simulate the neutralisation
+of the target by keeping the laser beam on the marker for a specified period of time.
+
 \end{otherlanguage}
 \subsubsection*{Key words}  
 \begin{otherlanguage}{british}
-(2-5 keywords, separated by commas)
+Low-power laser, UAV, tracking system, optical correction, target neutralisation.
 \end{otherlanguage}
 
 
@@ -532,6 +536,53 @@ Celem pracy jest zaprojektowanie i wykonanie demonstratora systemu kierowania ni
 %\end{itemize}
 
 
+\section{Wprowadzenie do problematyki systemów antydronowych}
+
+Współczesne środowisko bezpieczeństwa cywilnego oraz militarnego narażone jest na rosnące zagrożenia związane z rozwojem technologii bezzałogowych statków powietrznych (BSP). Zwiększająca się dostępność niewielkich i tanich dronów wpłynęła na wzrost przestępczości w kontekście naruszania prywatności oraz zakłócania funkcjonowania infrastruktury krytycznej. Dodatkowo, ostatnie lata pokazały, że mogą być one wykorzystywane jako precyzyjny środek rażenia celów wrażliwych w konfliktach zbrojnych. Niskobudżetowe modyfikacje komercyjnych dronów sprawiają, że są one realnym zagrożeniem dla obiektów o znacznie wyższej wartości.
+
+W odpowiedzi na to wyzwanie testowane są systemy wykorzystujące wysokoenergetyczne wiązki laserowe, które postrzegane są jako optymalne rozwiązanie problemu asymetrii kosztów. W przeciwieństwie do konwencjonalnych systemów rakietowych czy artyleryjskich, gdzie koszt pojedynczego efektora może wynosić dziesiątki tysięcy dolarów, system laserowy oferuje możliwość oddania strzału za kwotę wynikającą jedynie z zużycia energii elektrycznej. Warto zaznaczyć, że wiązka lasera poruszająca się z prędkością światła eliminuje konieczność obliczania wyprzedzenia balistycznego, co teoretycznie upraszcza proces celowania. Jednakże implementacja napotyka na szereg barier inżynierskich m.in. odpowiednia regulacja mocy źródła promieniowania, optymalizacja detekecji w czasie rzeczywistym oraz mechaniczna precyzja systemu kierowania wiązką.
+
+Systemy klasy ATP, odpowiedzialne za akwizycję, śledzenie i wskazywanie celu, stanowią serce każdego urządzenia neutralizującego. Ich zadaniem jest utrzymanie skupionej plamki lasera na wrażliwym elemencie szybko poruszającego się obiektu przez czas niezbędny do jego termicznego uszkodzenia. O ile w systemach stacjonarnych dalekiego zasięgu problem ten rozwiązuje się poprzez masywne, stabilizowane żyroskopowo podstawy i kosztowne napędy bezpośrednie, o tyle w segmencie rozwiązań mobilnych i niskokosztowych wciąż brakuje skutecznych architektur. Niniejsza praca podejmuje próbę wypełnienia tej luki poprzez opracowanie zminiaturyzowanego systemu śledzącego, który integruje algorytmy przetwarzania obrazu w czasie rzeczywistym na niskobudżetowej platformie obliczeniowej wraz z możliwością działania na zewnętrznym źródle zasilania. Projekt ten ma na celu nie tylko demonstrację technologii, ale również zbadanie kluczowych problemów, takich jak opóźnienia w pętli sprzężenia zwrotnego, wpływ typu migawki kamery na jakość danych wejściowych oraz mechaniczne aspekty przeniesienia napędu. Ostatecznym celem jest stworzenie prototypu, który może służyć jako baza do dalszych badań i rozwoju w dziedzinie systemów antydronowych.
+
+
+
+% Współczesne środowisko bezpieczeństwa, podlega dynamicznym przemianom wymuszonym przez gwałtowny rozwój technologii bezzałogowych. Powszechna dostępność bezzałogowych statków powietrznych, potocznie określanych mianem dronów, doprowadziła do powstania nowych kategorii zagrożeń, z którymi tradycyjne systemy ochrony nie potrafią efektywnie rywalizować. Niewielkie, tanie i trudne do wykrycia platformy latające mogą być wykorzystywane nie tylko do naruszania prywatności czy zakłócania funkcjonowania infrastruktury krytycznej, takiej jak porty lotnicze, ale również jako precyzyjne środki rażenia w konfliktach. Obserwowane w ostatnich latach konflikty zbrojne jednoznacznie wykazały, że komercyjne drony, po niewielkich modyfikacjach, stają się skuteczną bronią, zdolną do unieszkodliwiania celów o wartości wielokrotnie przewyższającej koszt samego bezzałogowca. Zjawisko to zdefiniowało pilną potrzebę opracowania nowych metod neutralizacji, które byłyby ekonomicznie uzasadnione i technicznie skuteczne przeciwko masowym atakom małych obiektów latających.
+
+% W odpowiedzi na to wyzwanie inżynieria systemów obronnych intensywnie rozwija koncepcję broni skierowanej energii. Systemy wykorzystujące wysokoenergetyczne wiązki laserowe postrzegane są jako optymalne rozwiązanie problemu asymetrii kosztów. W przeciwieństwie do konwencjonalnych systemów rakietowych czy artyleryjskich, gdzie koszt pojedynczego efektora może wynosić dziesiątki tysięcy dolarów, system laserowy oferuje możliwość oddania strzału za kwotę wynikającą jedynie z zużycia energii elektrycznej. Co więcej, wiązka lasera poruszająca się z prędkością światła eliminuje konieczność obliczania wyprzedzenia balistycznego, co teoretycznie upraszcza proces celowania. Jednakże praktyczna implementacja tej technologii napotyka na szereg barier inżynierskich, z których najpoważniejszą nie jest obecnie sama moc źródła promieniowania, lecz precyzja i szybkość działania systemu kierowania wiązką.
+
+\section{Identyfikacja problemów badawczych}
+
+Zadanie te wiąże się z koniecznością rozwiązania złożonych problemów interdyscyplinarnych, obejmujących mechanikę, optoelektronikę oraz informatykę. 
+
+Pierwszym i kluczowym wyzwaniem jest opóźnienie w pętli sprzężenia zwrotnego układu sterowania. W systemach wizyjnych proces ten obejmuje akwizycję klatki obrazu, jej przesył do jednostki obliczeniowej, detekcję obiektu, wyznaczenie uchybu regulacji oraz wysterowanie napędów. Każdy z tych etapów wprowadza pewną zwłokę czasową. W przypadku śledzenia obiektów statycznych opóźnienie to jest pomijalne, jednak przy obiektach o wysokiej dynamice, takich jak drony wykonujące manewry unikowe, staje się ono przyczyną niestabilności układu. Liniowy sposób odczytu matrycy powoduje, że szybko poruszające się obiekty ulegają deformacjom geometrycznym, co drastycznie obniża skuteczność algorytmów detekcji opartych na uczeniu maszynowym.
+
+Drugim istotnym problemem jest jakość układu mechanicznego napędu. Precyzyjne celowanie wymaga mechanizmu o wysokiej sztywności i zerowym luzie zwrotnym. Tradycyjne przekładnie zębate, powszechnie stosowane w serwomechanizmach modelarskich, charakteryzują się luzem technologicznym niezbędnym do ich pracy, który jednak przy zmianie kierunku obrotu powoduje chwilowy brak reakcji układu wyjściowego. W systemie śledzącym, który nieustannie koryguje położenie w osiach azymutu i elewacji, zjawisko to uniemożliwia płynne podążanie za celem, wprowadzając drgania mechaniczne przenoszone na wiązkę lasera. 
+
+Trzecim aspektem jest interakcja promieniowania laserowego z materiałem celu. Większości systemów wzmacniane są włóknem węglowym jako głównym budulecem ram dronów i wykazują one specyficzne właściwości absorpcyjne. Istnieje zatem potrzeba zbadania efektywności źródeł promieniowania, które są w stanie wytworzyć wystarczającą ilość ciepła do uszkodzenia struktury kompozytowej.
+
+\section{Cel i zakres pracy}
+
+Głównym celem niniejszej pracy jest zaprojektowanie, wykonanie oraz weryfikacja eksperymentalna autonomicznego systemu mechatronicznego dwuosiowego, przeznaczonego do wykrywania, śledzenia i symulowanej neutralizacji dynamicznych celów powietrznych. Realizacja przyjętego celu wymagała skonstruowania dwóch wersji prototypu, w celu przeprowadzenia badań nad założeniami konstrukcyjnymi oraz algorytmicznymi.
+
+Zakres pracy obejmuje pełny proces inżynierski, począwszy od analizy teoretycznej, poprzez projektowanie CAD i dobór komponentów elektronicznych, aż po implementację oprogramowania i testy poligonowe. W warstwie mechanicznej praca koncentruje się na opracowaniu przekładni o uzębieniu strzałkowym mających na celu eliminację luzów zwrotnych. W warstwie informatycznej kluczowym elementem jest implementacja hybrydowego systemu wizyjnego, który łączy wydajność klasycznych metod analizy obrazu z precyzją głębokich sieci neuronowych oraz estymacją stanu obiektu za pomocą filtru Kalmana. Warstwa wykonawcza obejmuje integrację modułu lasera półprzewodnikowego dużej mocy oraz systemu bezpiecznego sterowania wiązką.
+
+\section{Układ pracy}
+
+Struktura niniejszej pracy przedstawia etapy procesu badawczego oraz ewolucję zaprojektowanego systemu w kierunku realizacji postawionych celów.
+Treść została podzielona na sześć zasadniczych rozdziałów.
+
+Rozdział drugi koncentruje się na teoretycznych podstawach zagadnienia. Przedstawiono w nim przegląd literatury dotyczącej współczesnych metod śledzenia obiektów. Zawiera również analizę dostępnych technologii laserowych oraz uzasadnienie doboru geometrii uzębienia na podstawie doniesień naukowych.
+
+Rozdział trzeci poświęcony jest szczegółowemu opisowi algorytmów detekcji i przetwarzania obrazu. Omówiono w nim architekturę hybrydowego systemu wizyjnego, który adaptuje się do dynamiki sceny, przełączając się między metodami detekcji ruchu na statycznym tle a zaawansowaną klasyfikacją obiektów przy użyciu sieci neuronowych. W tej części pracy przedstawiono również matematyczny model filtru Kalmana, zaimplementowanego w celu predykcji trajektorii celu.
+
+Rozdział czwarty opisuje proces budowy i działania pierwszej wersji urządzenia. Skoncentrowano się na weryfikacji założeń mechanicznych oraz testach algorytmów śledzenia na obiektach o przewidywalnej trajektorii balistycznej, takich jak podrzucona piłka na jednolitym oraz różnorodnym tle. Przedstawiono tu szczegóły konstrukcyjne pierwszego prototypu, schemat połączeń elektrycznych oraz wyniki wstępnych testów wydajnościowych, które pozwoliły zidentyfikować słabe punkty rozwiązania i zdefiniować kierunki dalszego rozwoju.
+
+Rozdział piąty prezentuje drugą, udoskonaloną wersję systemu, dedykowaną do śledzenia obiektów o nieprzewidywalnej trajektorii, czyli dronów. W tej części opisano wprowadzone modyfikacje mechaniczne, a także integrację docelowego modułu lasera.
+
+Rozdział szósty, zawiera porównanie obu opracowanych metod i konstrukcji oraz podsumowanie uzyskanych wyników. Przedstawiono w nim ocenę stopnia realizacji założonych celów, podkreślenie napotkanych problemów realizacyjnych oraz propozycje dalszych kierunków rozwoju systemu.
+
+
+
 
 % TODO
 \chapter{Analiza tematu}  % Analiza tematu
@@ -543,6 +594,31 @@ Celem pracy jest zaprojektowanie i wykonanie demonstratora systemu kierowania ni
 %\item Jak inni rozwiązują ten problem?
 %\item Jakie są zalety i wady tych rozwiązań?
 %\end{itemize}
+
+
+\section{Specyfika procesu neutralizacji kinetycznej i energetycznej}
+
+Zadanie polegające na wykryciu, śledzeniu i neutralizacji niewielkiego, szybko poruszającego się obiektu w przestrzeni powietrznej stanowi złożone wyzwanie. Cel, taki jak dron wyścigowy FPV czy amunicja krążąca, charakteryzuje się wysoką dynamiką zmian wektora prędkości, co w połączeniu z nieprzewidywalnymi zakłóceniami zewnętrznymi, takimi jak podmuchy wiatru, wymaga od układu sterowania reakcji w czasie zbliżonym do rzeczywistego.
+
+Istotą problemu jest zamknięcie pętli sprzężenia zwrotnego w układzie wizyjnym. Proces ten składa się z sekwencji zdarzeń obejmującej akwizycję fotonów przez matrycę światłoczułą, cyfrowy odczyt i transmisję danych, algorytmiczną detekcję obiektu, estymację błędu położenia oraz mechaniczną reakcję serwonapędów. Sumaryczny czas trwania tych operacji definiuje opóźnienie systemowe. W systemach śledzących, opóźnienie to wprowadza przesunięcie fazowe w sygnale sterującym. W praktyce oznacza to, że jeśli system reaguje zbyt wolno w stosunku do prędkości kątowej celu, wiązka lasera nie tylko nie trafi w obiekt, ale cały układ mechaniczny może wpaść w oscylacje o narastającej amplitudzie. Wyzwanie to jest potęgowane przez konieczność utrzymania skupionej plamki lasera na powierzchni celu przez czas niezbędny do przekazania niszczącej dawki energii termicznej.
+
+\section{Przegląd dostępnych rozwiązań i ich ograniczenia}
+
+Analiza rynku systemów antydronowych pozwala na wyodrębnienie dwóch skrajnych podejść do rozwiązania problemu śledzenia, z których żadne nie spełnia w pełni założeń projektowych dla taniego i mobilnego systemu ochrony.
+
+Pierwszą grupę stanowią profesjonalne systemy militarne klasy CIWS (ang. \textit{Close-In Weapon Systems}). Rozwiązania te wykorzystują aktywne radary śledzące oraz głowice optoelektroniczne. Napęd realizowany jest zazwyczaj poprzez silniki momentowe w układzie bezpośrednim, co eliminuje luzy mechaniczne i zapewnia dynamikę niezbędną do śledzenia obiektów naddźwiękowych. Mimo wysokiej skuteczności, bariera kosztowa oraz masa własna tych urządzeń wykluczają ich powszechne zastosowanie do ochrony infrastruktury cywilnej czy wykorzystanie w systemach przenośnych.
+
+Na przeciwległym biegunie znajdują się rozwiązania amatorskie i półprofesjonalne, bazujące na podzespołach modelarskich. Konstrukcje te wykorzystują zazwyczaj serwomechanizmy sterowane sygnałem PWM oraz tanie kamery internetowe lub przemysłowe standardu USB. Głównym ograniczeniem tych systemów jest niska sztywność mechaniczna oraz obecność znaczących luzów w przekładniach zębatych serwomechanizmów. Luz zwrotny powoduje powstanie strefy nieczułości przy zmianie kierunku obrotu wieżyczki, co uniemożliwia precyzyjne mikrokorekty położenia wiązki lasera. Ponadto, budżetowe systemy wizyjne w przeważającej większości korzystają z sensorów CMOS wyposażonych w migawkę postępującą (ang. \textit{rolling shutter}). Przy dużej prędkości obrotowej wieżyczki, liniowy sposób odczytu matrycy powoduje geometryczne zniekształcenia obrazu, co wprowadza błędne dane do algorytmów predykcji ruchu i często prowadzi do całkowitej rozbieżności modelu śledzenia.
+
+\section{Zidentyfikowane bariery technologiczne}
+
+Pierwszą barierą jest problem mechaniczny związany z precyzją przekładni. Wymóg niskiego kosztu i małej masy sugeruje wykorzystanie technologii druku 3D, jednak standardowe tworzywa termoplastyczne charakteryzują się mniejszą sztywnością niż metal. Konieczne jest zatem zaprojektowanie takiej geometrii uzębienia, która zapewni samocentrowanie układu, minimalizację luzów oraz równomierny rozkład naprężeń, co jest trudne do osiągnięcia przy użyciu klasycznych zębów prostych.
+
+Drugą barierą jest wydajność obliczeniowa w kontekście opóźnień. Zastosowanie zaawansowanych sieci neuronowych do detekcji dronów na platformach wbudowanych wiąże się ze znacznym obciążeniem procesora i spadkiem liczby klatek na sekundę. Wymaga to implementacji hybrydowych algorytmów sterowania, które potrafią estymować pozycję celu w chwilach braku nowych danych wizyjnych.
+
+Trzecią barierą jest efektywność energetyczna procesu neutralizacji. Typowe dla dronów komercyjnych materiały konstrukcyjne, takie jak polimery wzmacniane włóknem węglowym, wykazują zróżnicowaną absorpcję promieniowania. Wykorzystanie standardowych laserów często wymaga stosowania wysokich mocy, co komplikuje układ zasilania i chłodzenia. 
+
+Poniższa analiza literatury szczegółowo omawia stan wiedzy w zakresie metod kompensacji tych ograniczeń, stanowiąc teoretyczną podbudowę dla rozwiązań zaproponowanych w dalszej części pracy.
 
 %%%%%%%%%%%%%%%% LITERATURA %%%%%%%%%%%%%%%%
 \section{Analiza literatury}
@@ -560,18 +636,18 @@ wpływa to negatywnie na stabilność i dokładność śledzenia.
 \paragraph{Kluczowe problemy}
 W literaturze wyróżnia się dwa główne problemy ograniczające możliwości śledzenia:
 \begin{enumerate}
-    \item \textbf{Opóźnienie obrazu (image feedback delay)} – np. 30~ms. Powoduje ono przesunięcie fazowe i zmniejszenie marginesu stabilności układu, co w praktyce ogranicza maksymalną prędkość kątową celu możliwą do śledzenia.
+    \item \textbf{Opóźnienie obrazu} – np. 30~ms. Powoduje ono przesunięcie fazowe i zmniejszenie marginesu stabilności układu, co w praktyce ogranicza maksymalną prędkość kątową celu możliwą do śledzenia.
     \item \textbf{Niska częstotliwość próbkowania obrazu} – np. 50~Hz. Pomiędzy kolejnymi próbkami system „nie wie”, gdzie znajduje się cel, co powoduje oscylacje i drgania.
 \end{enumerate}
 
 \paragraph{Proponowane rozwiązanie}
 Aby rozwiązać te problemy, autorzy zastosowali:
 \begin{itemize}
-    \item \textbf{Wieloczęstotliwościowy regulator feedforward (multi-rate controller)} – pozwala zsynchronizować wolne sprzężenie zwrotne z kamery z szybkim torem sterowania napędami. 
+    \item \textbf{Wieloczęstotliwościowy regulator feedforward} – pozwala zsynchronizować wolne sprzężenie zwrotne z kamery z szybkim torem sterowania napędami. 
     W praktyce oznacza to, że napędy mogą być sterowane z częstotliwością 5000~Hz, a obraz uaktualnia pozycję celu tylko co 20~ms.
-    \item \textbf{Predykcję trajektorii celu (reduced-order Kalman filter)} – algorytm przewiduje kolejne położenia celu na podstawie jego aktualnej prędkości i przyspieszenia. 
-    Dzięki temu w chwilach „braku danych” (pomiędzy klatkami) układ ma estymację położenia obiektu i nie musi czekać na kolejną próbkę.
-    \item \textbf{Sterowanie typu model-free} – regulator nie opiera się na dokładnym modelu matematycznym wieżyczki (momentów bezwładności, charakterystyk silników), ale działa poprawnie przy różnych konfiguracjach sprzętowych. 
+    \item \textbf{Predykcję trajektorii celu} – algorytm przewiduje kolejne położenia celu na podstawie jego aktualnej prędkości i przyspieszenia. 
+    Dzięki temu w chwilach pomiędzy klatkami układ ma estymację położenia obiektu i nie musi czekać na kolejną próbkę.
+    \item \textbf{Sterowanie typu model-free} – regulator nie opiera się na dokładnym modelu matematycznym wieżyczki, ale działa poprawnie przy różnych konfiguracjach sprzętowych. 
     W praktyce oznacza to, że algorytm można przenieść między różnymi platformami bez konieczności żmudnej identyfikacji parametrów.
 \end{itemize}
 
@@ -579,18 +655,18 @@ Aby rozwiązać te problemy, autorzy zastosowali:
 Typowy system ATP zbudowany jest z następujących elementów:
 \begin{itemize}
     \item \textbf{Podsystem obrazowania (kamera CCD/CMOS)} – dostarcza położenie celu w polu widzenia, lecz z ograniczoną częstotliwością i opóźnieniem.
-    \item \textbf{Dwuosiowa wieżyczka (pan-tilt)} – realizuje ruch w azymucie i elewacji. Napędzana jest silnikami BLDC lub serwomechanizmami z enkoderami wysokiej rozdzielczości.
-    \item \textbf{Sterownik serwonapędów} – wykonuje sterowanie niskopoziomowe (PID, regulacja prędkości i pozycji).
-    \item \textbf{Moduł obliczeniowy (FPGA/komputer przemysłowy)} – implementuje algorytmy predykcji i kontroli wieloczęstotliwościowej.
+    \item \textbf{Dwuosiowa konstrukcja} – realizuje ruch w azymucie i elewacji. Napędzana jest silnikami BLDC lub serwomechanizmami z enkoderami wysokiej rozdzielczości.
+    \item \textbf{Sterownik serwonapędów} – wykonuje sterowanie niskopoziomowe.
+    \item \textbf{Moduł obliczeniowy} – implementuje algorytmy predykcji i kontroli wieloczęstotliwościowej.
     \item \textbf{Laser niskomocowy} – służy do testów śledzenia i naprowadzania, docelowo jako źródło wiązki w systemach antydronowych.
 \end{itemize}
 
 
-Sprzężenie zwrotne pozycji dostarczane jest z kamery CCD, co można zapisać jako:
-\begin{equation}
-y(t) = \theta(t - T_{d}),
-\end{equation}
-gdzie $T_{d}$ jest opóźnieniem toru obrazu.
+% Sprzężenie zwrotne pozycji dostarczane jest z kamery CCD, co można zapisać jako:
+% \begin{equation}
+% y(t) = \theta(t - T_{d}),
+% \end{equation}
+% gdzie $T_{d}$ jest opóźnieniem toru obrazu.
 
 \paragraph{Wpływ opóźnienia obrazu}
 W dziedzinie Laplace’a opóźnienie wprowadza czynnik:
@@ -615,25 +691,25 @@ co dodatkowo komplikuje analizę stabilności.
 \paragraph{Analiza częstotliwościowa}
 Autorzy pokazali, że im większe opóźnienie $T_{d}$ i im mniejsza częstotliwość próbkowania $f_{s}$, 
 tym szybciej pogarsza się zdolność śledzenia. 
-Szczególnie krytyczny jest wzrost amplitudy błędu przy wysokich częstotliwościach wymuszenia (manewrujący cel). 
+Szczególnie krytyczny jest wzrost amplitudy błędu przy wysokich częstotliwościach wymuszenia manewrującego celu. 
 Dla przykładu, przy $T_{d} = 30$~ms i $f_{s} = 50$~Hz system traci stabilność już przy prędkości kątowej rzędu 90$^\circ$/s.
 
 \paragraph{Metody kompensacji}
 Aby przeciwdziałać degradacji wydajności systemu, 
 autorzy zaproponowali kilka metod:
 \begin{itemize}
-    \item zastosowanie regulatora \textbf{predykcyjnego} (Model Predictive Control, MPC), 
+    \item zastosowanie regulatora predykcyjnego, 
     który przewiduje przyszłe wartości $\theta(t)$ na podstawie modelu ruchu celu,
-    \item \textbf{filtry predykcji zredukowanego rzędu} (np. constant acceleration Kalman filter), 
+    \item filtry predykcji zredukowanego rzędu, 
     które estymują pozycję celu między próbkami,
-    \item wykorzystanie \textbf{sterowania wieloczęstotliwościowego}, 
+    \item wykorzystanie sterowania wieloczęstotliwościowego, 
     w którym tor napędów pracuje z dużą częstotliwością (np. 5~kHz), 
     a wolne sprzężenie zwrotne z kamery służy jedynie do okresowej korekty położenia.
 \end{itemize}
 
 \paragraph{Implementacja praktyczna}
 System został zbudowany eksperymentalnie i przetestowany w warunkach laboratoryjnych. 
-Wieżyczka dwuosiowa była napędzana silnikami BLDC, wyposażona w enkodery oraz kamerę CCD o rozdzielczości 1024x1024. 
+Konstrukcja dwuosiowa była napędzana silnikami BLDC, wyposażona w enkodery oraz kamerę CCD o rozdzielczości 1024x1024. 
 Tor sterowania działał z częstotliwością 5000~Hz, a obraz był próbkowany z częstotliwością 50~Hz i opóźnieniem 30~ms. 
 Cel symulowano za pomocą tarczy obrotowej napędzanej silnikiem krokowym, której prędkość można było regulować napięciem wejściowym.
 
@@ -645,17 +721,43 @@ W testach śledzono cele o różnych prędkościach i przyspieszeniach:
 \end{itemize}
 Zastosowany algorytm zwiększył dokładność śledzenia o 70--89,9\% względem systemu niekompensowanego. 
 Ponadto zmniejszył ryzyko utraty celu, które w systemach klasycznych występuje przy gwałtownych zmianach kierunku lub wysokich prędkościach.
+
+\subsection{Hybrydowa detekcja obiektów w systemach o statycznym tle}
+
+W nawiązaniu do problematyki opóźnień w pętli sprzężenia zwrotnego, zidentyfikowanej w poprzednich rozdziałach, kluczowym wyzwaniem staje się minimalizacja czasu przetwarzania pojedynczej klatki obrazu. W klasycznym podejściu, wykorzystującym głębokie sieci neuronowe na pełnej rozdzielczości sensora, narzut obliczeniowy jest znaczny, co bezpośrednio przekłada się na degradację marginesu stabilności systemu śledzenia. Alternatywą dla tego rozwiązania, szczególnie efektywną w systemach stacjonarnych ochrony obiektów, jest zastosowanie dwuetapowej kaskady detekcyjnej, którą szczegółowo przeanalizowali Seidaliyeva i współpracownicy \cite{bib:Seidaliyeva2020}.
+
+Autorzy ci zaproponowali architekturę systemu detekcji, która integruje klasyczne metody przetwarzania obrazu z lekkimi sieciami neuronowymi w celu osiągnięcia działania w czasie rzeczywistym. Fundamentalnym założeniem tej metody jest statyczność obserwowanej sceny, co pozwala na wykorzystanie algorytmów odejmowania tła do wstępnej selekcji obszarów zainteresowania. Proces ten rozpoczyna się od konwersji obrazu do skali szarości oraz filtracji szumów przetwornika, po czym następuje detekcja ruchu przy użyciu algorytmu mieszaniny rozkładów Gaussa (MOG2). Pozwala to na skuteczne odseparowanie obiektów pierwszoplanowych od statycznego otoczenia, nawet przy zmiennych warunkach oświetleniowych.
+
+W kolejnym etapie, na wygenerowanej masce binarnej przeprowadzane są operacje morfologiczne dylatacji i erozji, mające na celu zamknięcie luk w wykrytych sylwetkach oraz eliminację drobnych artefaktów. Dopiero tak wyodrębnione fragmenty obrazu (ang. \textit{Regions of Interest}, ROI), zawierające potencjalny cel, są przekazywane do klasyfikatora opartego na sieci neuronowej. Główną zaletą tego podejścia jest drastyczna redukcja przestrzeni poszukiwań dla sieci głębokiej. Zamiast analizować miliony pikseli pełnej klatki, algorytm klasyfikuje jedynie niewielkie wycinki, co pozwala na utrzymanie wysokiej częstotliwości odświeżania pętli sterowania i precyzyjne odróżnienie dronów od innych obiektów ruchomych, takich jak ptaki, przy minimalnym obciążeniu jednostki obliczeniowej.
+
+Należy jednak podkreślić, że omawiana metoda bazująca na statycznym tle posiada istotne ograniczenie w kontekście systemów wyposażonych w głowice obrotowe. Ruch kamery podczas skanowania przestrzeni powoduje globalną zmianę wartości pikseli, co przez algorytmy klasy MOG2 interpretowane jest jako ruch całego otoczenia, generując lawinowo fałszywe detekcje. Z tego względu, w praktycznych aplikacjach obronnych, podsystem wizyjny powinien współpracować z zewnętrznym sensorem nadrzędnym, takim jak radar lub detektor akustyczny. W takiej konfiguracji sensor nadrzędny wstępnie wyznacza azymut celu, wymuszając obrót wieżyczki do zadanego sektora, a algorytm wizyjny aktywowany jest dopiero po zatrzymaniu i ustabilizowaniu głowicy, przejmując zadanie precyzyjnego celowania i identyfikacji.
+
+
+\subsection*{Rola filtru Kalmana w stabilizacji śledzenia i fuzji danych wizyjnych}
+
+W systemach śledzenia obiektów dynamicznych poleganie na surowych danych z detektora wizyjnego jest niewystarczające ze względu na występujący szum pomiarowy, opóźnienia przetwarzania oraz okresowe zaniki detekcji spowodowane zasłonięciem celu lub rozmyciem obrazu. Analiza najnowszej literatury przedmiotu wskazuje, że filtr Kalmana przestał pełnić w nowoczesnych systemach funkcję jedynie wygładzania trajektorii, stając się kluczowym elementem aktywnie wspierającym i sterującym procesem detekcji wizyjnej.
+
+Istotę predykcyjnego wykorzystania filtru w śledzeniu małych obiektów latających opisali Son i inni w pracy poświęconej śledzeniu mikrodronów \cite{bib:Son2021}. Badacze ci zwracają uwagę na problem gubienia celu przez klasyczne algorytmy wizyjne w momentach gwałtownych zmian oświetlenia lub wystąpienia rozmycia ruchu, co jest zjawiskiem powszechnym przy szybkim przemieszczaniu się kamery. W zaproponowanym przez nich rozwiązaniu filtr Kalmana pełni rolę nadrzędnego predyktora modelującego stan obiektu jako wektor zawierający pozycję oraz prędkość. W sytuacji gdy algorytmy wizyjne oparte na przepływie optycznym lub histogramach zawiodą i nie zwrócą poprawnego regionu zainteresowania, system płynnie przełącza się na estymację wynikającą z modelu kinematycznego. Dzięki temu, nawet przy chwilowym braku kontaktu wzrokowego z celem, mechanizm wykonawczy może kontynuować ruch zgodnie z przewidywanym wektorem prędkości. Takie podejście drastycznie zwiększa szansę na ponowne uchwycenie celu w momencie ustania zakłóceń, co potwierdzono eksperymentalnie dla obiektów o wysokiej dynamice.
+
+Jeszcze bardziej zaawansowane podejście do integracji filtru z systemem wizyjnym zaprezentowali Abdelkader i współpracownicy w systemie o nazwie SMART-TRACK \cite{bib:Abdelkader2025}. Autorzy ci adresują problem różnicy częstotliwości pracy poszczególnych podsystemów. Podczas gdy precyzyjne detektory oparte na głębokich sieciach neuronowych pracują ze stosunkowo niską częstotliwością rzędu kilkudziesięciu herców, pętla sterowania serwomechanizmów wymaga odświeżania na poziomie co najmniej stu herców. W rozwiązaniu tym stan estymowany przez filtr Kalmana nie jest jedynie wynikiem końcowym, lecz służy do aktywnego zawężania przestrzeni poszukiwań dla detektora wizyjnego. Wykorzystując macierz kowariancji błędu, algorytm wyznacza stochastyczny obszar niepewności wokół przewidywanej pozycji celu. W kolejnym kroku czasowym detektor wizyjny nie musi analizować pełnej klatki obrazu, lecz skupia się jedynie na wyznaczonym dynamicznie fragmencie. Strategia ta pozwala na znaczną oszczędność mocy obliczeniowej oraz utrzymanie ciągłości śledzenia w czasie rzeczywistym poprzez wypełnianie luk czasowych między rzadkimi pomiarami z sieci neuronowej wysokoczęstotliwościowymi predykcjami stanu.
+
+W kontekście projektowanego systemu implementacja filtru Kalmana pozwala zatem na realizację dwóch kluczowych funkcji. Po pierwsze umożliwia kompensację opóźnień poprzez estymację pozycji celu w przyszłej chwili czasu, co pozwala na wycelowanie wiązki w punkt wyprzedzenia zamiast w historyczną pozycję obiektu. Po drugie zapewnia odporność układu na chwilowe błędy detekcji wynikające ze specyfiki sensora wizyjnego, utrzymując płynność ruchu głowicy w sytuacjach krytycznych.
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-\subsection{Właściwości silników BLDC}
-\subsection*{Analiza właściwości silników BLDC na podstawie literatury}
 
-W pracy \cite{bib:articleBLDC} przeprowadzono szczegółową analizę dynamicznych właściwości silników BLDC, wskazując, że ich odpowiedź zależy w dużym stopniu od parametrów konstrukcyjnych takich jak liczba zwojów, gęstość strumienia magnesów trwałych czy masa wirnika. Badania wykazały, iż przy odpowiedniej optymalizacji możliwe jest jednoczesne zwiększenie momentu obrotowego oraz prędkości kątowej przy istotnej redukcji drgań. Wynika to z faktu, że w silnikach BLDC komutacja odbywa się elektronicznie, co pozwala na uzyskanie bardziej płynnej charakterystyki momentu w porównaniu z silnikami krokowymi, które charakteryzują się ruchem skokowym i podatnością na rezonanse mechaniczne.
+\subsection{Właściwości kamer o matrycy z jednoczesną ekspozycją w systemach percepcji robotów}
 
-Z punktu widzenia projektowanej wieżyczki śledzącej, istotne są trzy właściwości. Po pierwsze, silniki BLDC umożliwiają uzyskanie wysokiej dynamiki przy zachowaniu stabilności, co oznacza, że układ może szybko reagować na zmiany położenia celu bez ryzyka utraty synchronizacji. Silniki krokowe przy dużych przyspieszeniach tracą moment, a tym samym mogą gubić kroki, co prowadzi do błędów pozycjonowania. Po drugie, dzięki niskiemu momentowi bezwładności wirnika oraz możliwości precyzyjnego sterowania prądem fazowym, BLDC pozwalają na realizację szybkich i dokładnych manewrów głowicy optycznej, co jest kluczowe w sytuacji, gdy kamera musi utrzymać obiekt w polu widzenia przy gwałtownych ruchach drona. Po trzecie, istotna jest stabilność obrazu — wibracje i szarpnięcia, typowe dla napędów krokowych, mogą zakłócać pracę systemów wizyjnych. BLDC, dzięki płynnemu przebiegowi momentu i wyższemu stosunkowi momentu do masy, generują mniejsze drgania, co bezpośrednio przekłada się na lepszą jakość detekcji i śledzenia.
+Współczesne systemy wizyjne dedykowane do analizy zjawisk dynamicznych, takich jak śledzenie obiektów balistycznych czy nawigacja bezzałogowych statków powietrznych, wymagają sensorów o specyficznej architekturze, zdolnych do eliminacji zniekształceń geometrycznych powstających podczas rejestracji ruchu. Podstawową cechą odróżniającą kamery z migawką globalną (ang. \textit{global shutter}) od rozwiązań standardowych jest sposób naświetlania matrycy. W technologii tej proces akumulacji ładunku elektrycznego rozpoczyna się i kończy w tym samym momencie dla wszystkich pikseli sensora, co pozwala na wierne zamrożenie ruchu bez artefaktów czasowych charakterystycznych dla migawki postępującej (ang. \textit{rolling shutter}).
 
-Warto podkreślić również aspekt sterowania. Silniki krokowe w najprostszej konfiguracji nie dostarczają informacji zwrotnej o położeniu i wymagają pracy w trybie otwartej pętli, co zwiększa ryzyko błędów w dynamicznych scenariuszach. BLDC natomiast łatwo integrują się z enkoderami lub czujnikami Halla, umożliwiając implementację sterowania wektorowego (FOC), które zapewnia wysoką precyzję regulacji momentu i prędkości. Dzięki temu układ napędowy staje się odporny na zmienne obciążenia i może pracować w sposób deterministyczny, co jest szczególnie istotne przy konieczności synchronizacji ruchu z algorytmami wizyjnymi w czasie rzeczywistym.
+Implementacja tego mechanizmu wiąże się jednak ze znacznym skomplikowaniem struktury półprzewodnikowej pojedynczego piksela. Jak wykazują badania przeprowadzone przez Lauxtermanna i współpracowników, standardowa architektura czterotranzystorowa, powszechnie stosowana w sensorach konsumenckich ze względu na wysoką czułość i niski poziom szumów, okazuje się niewystarczająca dla trybu migawki globalnej. Fizycznym ograniczeniem jest w tym przypadku konieczność jednoczesnego przechowywania ładunku ze wszystkich pikseli przed ich sekwencyjnym odczytem. Wymaga to rozbudowy układu o dodatkowe elementy pamięciowe wewnątrz każdego piksela, co prowadzi do zmniejszenia współczynnika wypełnienia i potencjalnego spadku czułości \cite{bib:LauxtermannGlobalShutter}.
 
-Podsumowując, wybór silników BLDC w systemie wieżyczki śledzącej znajduje uzasadnienie zarówno w literaturze, jak i w wymaganiach projektowych. W przeciwieństwie do silników krokowych, które lepiej sprawdzają się w wolniejszych aplikacjach wymagających prostego pozycjonowania, BLDC oferują wyższą precyzję, większą szybkość reakcji, niższe drgania oraz łatwość integracji z zaawansowanymi systemami sterowania, co czyni je rozwiązaniem adekwatnym dla systemów śledzenia obiektów w czasie rzeczywistym.
+\subsection*{Analiza porównawcza i wpływ typu migawki na algorytmy sterowania}
+
+Analiza literatury przedmiotu wskazuje na istotny kompromis pomiędzy jakością odwzorowania ruchu a parametrami szumowymi i kosztem implementacji sensorów z migawką globalną. Lauxtermann, Lee, Stevens i Joshi dowodzą, że osiągnięcie wysokiej jakości obrazu w technologii \textit{Global Shutter} wymaga zastosowania zaawansowanych architektur, np. układów siedmiotranzystorowych z przypiętą fotodiodą, które pozwalają zredukować szum odczytu, lecz są podatne na zjawisko przecieku migawki. Z kolei Tandi i in. podkreślają, że mimo wyższych kosztów, sensory te stanowią niezbędne źródło referencyjne w systemach wymagających precyzji geometrycznej, której nie są w stanie zapewnić tańsze sensory z migawką postępującą bez skomplikowanego przetwarzania obliczeniowego \cite{bib:Tandi2025, bib:LauxtermannGlobalShutter}.
+
+Dobór sensora ma krytyczne znaczenie dla stabilności pętli sterowania opartej na wizji maszynowej, szczególnie w systemach wykorzystujących estymację stanu, takich jak filtr Kalmana. W początkowej fazie przetwarzania, opartej na segmentacji barwnej i wyznaczaniu centroidu obiektu (np. piłki), zniekształcenia geometryczne wprowadzane przez migawkę postępującą, powodują systematyczny błąd pomiaru pozycji, zależny od prędkości obiektu. Błąd ten, interpretowany przez predyktor Kalmana jako rzeczywista zmiana dynamiki ruchu, może prowadzić do oscylacji układu celującego i utraty śledzonego celu. Zastosowanie kamery \textit{Global Shutter} eliminuje ten problem u źródła, dostarczając pomiary zgodne z rzeczywistą geometrią sceny w danej chwili czasowej.
+
+Zasadność użycia tej technologii potwierdzają również badania nad skutecznością głębokich sieci neuronowych, których implementacja jest przewidziana w dalszych etapach rozwoju systemu. Kemeshi i współpracownicy przeprowadzili eksperyment porównawczy na mobilnej platformie robotycznej, badając wpływ typu migawki na skuteczność modelu detekcji YOLOv8. Wyniki wykazały, że przy identycznych warunkach dynamicznych, kamera z migawką globalną (AR0234) osiągnęła średnią dokładność detekcji na poziomie 84,7\%, podczas gdy dla kamery z migawką postępującą (IMX462) skuteczność spadła do 70,1\%. Autorzy wskazują, że deformacje kształtu obiektów w ruchu, charakterystyczne dla sensorów \textit{rolling shutter}, utrudniają ekstrakcję cech przez warstwy konwolucyjne sieci, co skutkuje znaczącym spadkiem efektywności detekcji. Wnioski te jednoznacznie przemawiają za wyborem sensora \textit{Global Shutter} jako rozwiązania zapewniającego integralność danych zarówno dla klasycznych algorytmów estymacji, jak i zaawansowanych metod sztucznej inteligencji \cite{bib:Kemeshi2024}.
+
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \subsection{Cechy fizyczne dronów}
 \subsection*{Analiza materiałowa wirników quadrocopterów}
@@ -666,8 +768,6 @@ Poliwęglan charakteryzuje się wytrzymałością na rozciąganie rzędu 55--70~
 
 W badaniach podkreślono, że kluczowym problemem eksploatacyjnym wirników jest ich podatność na deformacje spowodowane obciążeniami mechanicznymi lub podwyższoną temperaturą. Nawet niewielkie odkształcenia geometryczne mogą istotnie zmienić profil aerodynamiczny łopaty. Prowadzi to do spadku współczynnika siły nośnej, zwiększenia oporu oraz pojawienia się asymetrii pomiędzy poszczególnymi wirnikami. W efekcie mogą wystąpić dodatkowe momenty przechylające, powodujące wibracje konstrukcji, utratę stabilności oraz nadmierne obciążenie układu sterowania. W skrajnych przypadkach dron może wejść w niekontrolowane oscylacje lub całkowicie utracić zdolność utrzymania zadanej trajektorii. W praktyce oznacza to, że właściwości materiałowe wirników są krytyczne nie tylko dla trwałości elementów, ale również dla jakości całego systemu sterowania lotem.
 
-Wyniki badań potwierdzają, że materiały takie jak PC i ABS są wystarczające w dronach konsumenckich, gdzie priorytetem jest niski koszt i łatwość produkcji, natomiast w zastosowaniach wymagających wysokiej niezawodności i odporności na ekstremalne warunki środowiskowe konieczne jest stosowanie kompozytów CFRP.
-
 
 %%%%%%%%%%%%%%%%%%%%%
 \subsection{Lasery niskomocowe}
@@ -675,13 +775,13 @@ Wyniki badań potwierdzają, że materiały takie jak PC i ABS są wystarczając
 
 \subsection*{Badania nad absorpcją energii lasera diodowego w różnych materiałach}
 
-W pracy \cite{bib:pantsar2004} przedstawiono szczegółowe badania nad absorpcją energii wiązki lasera diodowego o mocy 3~kW w powierzchniach stalowych poddanych różnym przygotowaniom. Zastosowany laser pracował w trybie ciągłym (CW, ang. continuous wave) z długością fali $\lambda = 940$~nm, typową dla przemysłowych laserów diodowych wykorzystywanych w procesach obróbki cieplnej. W układzie optycznym średnica ogniska wynosiła około 13~mm, a gęstość mocy dochodziła do 22~kW/cm$^2$.
+W pracy \cite{bib:pantsar2004} przedstawiono szczegółowe badania nad absorpcją energii wiązki lasera diodowego o mocy 3~kW w powierzchniach stalowych poddanych różnym przygotowaniom. Zastosowany laser pracował w trybie ciągłym z długością fali $\lambda = 940$~nm, typową dla przemysłowych laserów diodowych wykorzystywanych w procesach obróbki cieplnej. W układzie optycznym średnica ogniska wynosiła około 13~mm, a gęstość mocy dochodziła do 22~kW/cm$^2$.
 
 W badaniach oceniano absorpcję powierzchniową, definiowaną jako stosunek energii pochłoniętej do energii dostarczonej. Testy przeprowadzono dla kilku wariantów przygotowania próbek stalowych:
 \begin{enumerate}
-    \item \textbf{Stal w stanie surowym (po obróbce skrawaniem)} -- absorpcja mieściła się w zakresie 46--72\%, w zależności od czasu ekspozycji.
-    \item \textbf{Stal po piaskowaniu tlenkiem glinu} -- dzięki zwiększonej chropowatości i powstaniu warstwy tlenków, absorpcja wzrosła do wartości 66--81\%.
-    \item \textbf{Stal pokryta warstwą grafitu} -- zastosowanie powłoki znacząco podniosło zdolność pochłaniania energii, osiągając poziom powyżej 85\%.
+    \item \textbf{Stal w stanie surowym (po obróbce skrawaniem)} - absorpcja mieściła się w zakresie 46--72\%, w zależności od czasu ekspozycji.
+    \item \textbf{Stal po piaskowaniu tlenkiem glinu} - dzięki zwiększonej chropowatości i powstaniu warstwy tlenków, absorpcja wzrosła do wartości 66--81\%.
+    \item \textbf{Stal pokryta warstwą grafitu} - zastosowanie powłoki znacząco podniosło zdolność pochłaniania energii, osiągając poziom powyżej 85\%.
 \end{enumerate}
 
 Czas oddziaływania wiązki laserowej był zmienny i wynosił od kilkuset milisekund do kilku sekund, co pozwalało na obserwację efektów cieplnych przy różnym czasie dostarczania energii. Wykazano, że krótszy czas ekspozycji przy tej samej energii skutkuje osiąganiem wyższych temperatur powierzchni, co związane jest z mniejszym rozpraszaniem ciepła do otoczenia. Z kolei dłuższe naświetlanie prowadziło do stabilizacji temperatury, lecz przy niższej wartości maksymalnej. W badaniach zarejestrowano, że powierzchnie stalowe mogły osiągać temperatury rzędu kilkuset stopni Celsjusza, co wystarczało do inicjacji procesów utleniania i lokalnych zmian strukturalnych.
@@ -694,28 +794,68 @@ Wyniki badań jednoznacznie pokazały, że zastosowanie warstw absorbujących, t
 
 \subsection*{Charakterystyka zastosowanego lasera i efektywność obróbki CFRP}
 
-W badaniach zastosowano laser włóknowy domieszkowany iterbem (Yb-fiber laser) firmy Furukawa Electric o długości fali $\lambda = 1084$~nm \cite{bib:niino2016laser}. Źródło pracowało w trybie ciągłym (cw) oraz quasi-ciągłym (qcw), przy średniej mocy w zakresie $2{-}3$~kW oraz średnicy rdzenia światłowodu wynoszącej 50~$\mu$m. Wiązka była skupiana przy pomocy soczewki typu f-theta (ogniskowa $f=306$~mm) i prowadzona po powierzchni materiału przy użyciu skanera galwanometrycznego. W procesie cięcia zastosowano metodę wielokrotnych przejść (multiple-scan-pass), realizowanych w powietrzu bez gazu osłonowego, z prędkością skanowania $3.6$~m/s. Oznacza to, że pojedyncze przejście wiązki nad obszarem roboczym o długości kilkudziesięciu milimetrów trwało rząd dziesiątych części sekundy (np. dla ścieżki $L=36$~mm czas wynosi $t \approx 0.01$~s). Kluczowym parametrem procesu była zatem nie tyle długość pojedynczej ekspozycji, ile liczba powtórzeń, determinująca skumulowaną dawkę energii dostarczoną do materiału.
+W badaniach zastosowano laser włóknowy domieszkowany iterbem (Yb-fiber laser) firmy Furukawa Electric o długości fali $\lambda = 1084$~nm \cite{bib:niino2016laser}. Źródło pracowało w trybie ciągłym oraz quasi-ciągłym, przy średniej mocy w zakresie $2{-}3$~kW oraz średnicy rdzenia światłowodu wynoszącej 50~$\mu$m. Wiązka była skupiana przy pomocy soczewki typu f-theta (ogniskowa $f=306$~mm) i prowadzona po powierzchni materiału przy użyciu skanera galwanometrycznego. W procesie cięcia zastosowano metodę wielokrotnych przejść, realizowanych w powietrzu bez gazu osłonowego, z prędkością skanowania $3.6$~m/s. Oznacza to, że pojedyncze przejście wiązki nad obszarem roboczym o długości kilkudziesięciu milimetrów trwało rząd dziesiątych części sekundy (np. dla ścieżki $L=36$~mm czas wynosi $t \approx 0.01$~s). Kluczowym parametrem procesu była zatem nie tyle długość pojedynczej ekspozycji, ile liczba powtórzeń, determinująca skumulowaną dawkę energii dostarczoną do materiału.
 
-Analizie poddano dwa typy próbek: płyty CFRTP (carbon fiber reinforced thermoplastic) wytwarzane metodą formowania wtryskowego, zawierające włókna węglowe PAN (30\% wag.), oraz płyty CFRP (carbon fiber reinforced plastic) na bazie żywicy epoksydowej i włókien PAN, o grubości 3~mm. Układ warstw w laminacie CFRP miał charakter przekładany (cross-ply 0/90$^{\circ}$, 12 warstw, zawartość włókien 70\%).
+Analizie poddano dwa typy próbek: płyty CFRTP wytwarzane metodą formowania wtryskowego, zawierające włókna węglowe PAN (30\% wag.), oraz płyty CFRP na bazie żywicy epoksydowej i włókien PAN, o grubości 3~mm. Układ warstw w laminacie CFRP miał charakter przekładany (cross-ply 0/90$^{\circ}$, 12 warstw, zawartość włókien 70\%).
 
-Efektywność procesu cięcia wiązką laserową była ściśle zależna od liczby przejść oraz trybu pracy źródła. Dla próbek CFRTP (ABS i PPS) uzyskano liniową zależność pomiędzy głębokością nacięcia a liczbą przejść wiązki, co pozwoliło na precyzyjne kontrolowanie procesu ablacji. Całkowite przecięcie płyty ABS następowało po około 15 przejściach, natomiast dla materiału PPS konieczne było 27 przejść przy mocy 2~kW. W obu przypadkach kerf (szerokość szczeliny) na powierzchni próbki wynosił ok. 500~$\mu$m, podczas gdy wewnątrz materiału zawężał się do 100--200~$\mu$m. Obserwacje z wykorzystaniem mikrotomografii rentgenowskiej (X-CT) wykazały ograniczone uszkodzenia cieplne (HAZ), ograniczone do strefy przyściennej o grubości 100--130~$\mu$m.
+Efektywność procesu cięcia wiązką laserową była ściśle zależna od liczby przejść oraz trybu pracy źródła. Dla próbek CFRTP (ABS i PPS) uzyskano liniową zależność pomiędzy głębokością nacięcia a liczbą przejść wiązki, co pozwoliło na precyzyjne kontrolowanie procesu ablacji. Całkowite przecięcie płyty ABS następowało po około 15 przejściach, natomiast dla materiału PPS konieczne było 27 przejść przy mocy 2~kW. W obu przypadkach szerokość szczeliny na powierzchni próbki wynosiła ok. 500~$\mu$m, podczas gdy wewnątrz materiału zawężał się do 100--200~$\mu$m. Obserwacje z wykorzystaniem mikrotomografii rentgenowskiej wykazały ograniczone uszkodzenia cieplne, ograniczone do strefy przyściennej o grubości 100--130~$\mu$m.
 
-W przypadku CFRP na bazie żywicy epoksydowej zależność efektywności od liczby przejść była bardziej złożona. Początkowo (do ok. 15 przejść) obserwowano wysoką i stabilną prędkość usuwania materiału, jednak w dalszych etapach proces ulegał spowolnieniu i wykazywał tendencję do nasycenia. Przy pracy w trybie ciągłym z mocą 3.3~kW konieczne było zastosowanie podwójnego śladu skanowania (z przerwą 0.1~mm) oraz do 50 przejść, aby uzyskać pełne przecięcie próbki. W trybie qcw (szczytowa moc impulsów 4.7~kW, wypełnienie 40\%, częstotliwość 800~Hz) całkowite cięcie osiągano po 25--30 przejściach. Szerokość szczeliny na powierzchni wynosiła wtedy ok. 450~$\mu$m, przy kerfie wewnętrznym rzędu 100~$\mu$m. Analiza przekrojów wskazała na obecność stref termicznego osłabienia żywicy (do 150~$\mu$m), a także zjawisk takich jak wysuwanie się włókien (fiber pull-out) i lokalna recesja matrycy.
+W przypadku CFRP na bazie żywicy epoksydowej zależność efektywności od liczby przejść była bardziej złożona. Początkowo (do ok. 15 przejść) obserwowano wysoką i stabilną prędkość usuwania materiału, jednak w dalszych etapach proces ulegał spowolnieniu i wykazywał tendencję do nasycenia. Przy pracy w trybie ciągłym z mocą 3.3~kW konieczne było zastosowanie podwójnego śladu skanowania (z przerwą 0.1~mm) oraz do 50 przejść, aby uzyskać pełne przecięcie próbki. W trybie qcw (szczytowa moc impulsów 4.7~kW, wypełnienie 40\%, częstotliwość 800~Hz) całkowite cięcie osiągano po 25--30 przejściach. Szerokość szczeliny na powierzchni wynosiła wtedy ok. 450~$\mu$m, przy kerfie wewnętrznym rzędu 100~$\mu$m. Analiza przekrojów wskazała na obecność stref termicznego osłabienia żywicy (do 150~$\mu$m), a także zjawisk takich jak wysuwanie się włókien i lokalna recesja matrycy.
+
+\subsection*{Specyfikacja źródła laserowego w badaniach własnych}
+
+W odróżnieniu od opisanych w literaturze systemów dużej mocy bazujących na podczerwieni, w projektowanym systemie zastosowano niebieski moduł laserowy NICHIA NUBB23. Jest to zintegrowana macierz diod laserowych, charakteryzująca się emisją promieniowania o długości fali w zakresie $\lambda_d = 449{-}455$~nm (typowo 450~nm) \cite{bib:datasheetNUBB23}.
+
+Zgodnie ze specyfikacją techniczną, moduł ten oferuje typową moc optyczną wyjściową $P_o = 22$~W przy pracy w trybie ciągłym i prądzie zasilania $I_F = 3.0$~A. Maksymalny dopuszczalny prąd pracy wynosi 3.5~A, a napięcie przewodzenia kształtuje się na poziomie $33.5$~V. Układ przystosowany jest do pracy w temperaturze obudowy ($T_c$) od $0^{\circ}$C do $70^{\circ}$C.
+
+Wykorzystanie lasera o długości fali $\sim$450~nm jest uzasadnione wyższym współczynnikiem absorpcji światła niebieskiego przez materiały węglowe (CFRP) w porównaniu do standardowych laserów włóknowych (1064--1084~nm). Pozwala to na efektywne sprzęganie energii z materiałem mimo znacznie niższej mocy nominalnej (22~W) w porównaniu do rozwiązań przemysłowych (2~kW).
+
+\subsection{Dobór geometrii uzębienia i struktury kinematycznej napędu}
+
+W projektowaniu precyzyjnych mechanizmów celujących, istotnym zagadnieniem jest eliminacja luzów zwrotnych oraz drgań własnych przekładni, które bezpośrednio wpływają na błąd pozycjonowania lasera. Na podstawie analizy literatury przedmiotu, w projekcie zdecydowano się na zastosowanie kół zębatych o profilu strzałkowym.
+
+W przeciwieństwie do klasycznego uzębienia prostego, koła strzałkowe zapewniają ciągłość zazębienia, co przekłada się na płynniejszą pracę przy wysokich prędkościach obrotowych. Jak wskazują Mo i in. w badaniach nad dynamiką układów napędowych, przekładnie te charakteryzują się „wyjątkową nośnością, wysokim współczynnikiem pokrycia oraz stabilnością transmisji” \cite{bib:Mo2025}. Co szczególnie istotne w kontekście projektowania elementów drukowanych w technologii 3D, specyficzna geometria powoduje wzajemne znoszenie się sił osiowych generowanych przez skośne zęby. Cecha ta pozwala na uproszczenie konstrukcji węzłów łożyskowych, eliminując konieczność stosowania ciężkich łożysk oporowych, które byłyby niezbędne w przypadku standardowych kół śrubowych \cite{bib:Mo2025}.
+
+Wybór ten stanowi również fundament pod implementację docelowego układu kinematycznego w postaci przekładni planetarnej. Integracja uzębienia strzałkowego w systemie planetarnym pozwala na stworzenie napędu o wysokiej gęstości mocy, który jest samocentrujący i pozbawiony sił poosiowych działających na jarzmo czy koło słoneczne. Takie rozwiązanie łączy zalety kompaktowej budowy przekładni planetarnej z precyzją i cichobieżnością profilu strzałkowego.
+
+Uzasadnienie doboru geometrii uzębienia znajduje również potwierdzenie w analizie dostępnych technologii wytwarzania. Dix i in. wskazują, że choć koła strzałkowe pozwalają na znaczną redukcję objętości przekładni przy zachowaniu zdolności do przenoszenia wysokich momentów obrotowych, ich konwencjonalna produkcja wiąże się z istotnymi ograniczeniami \cite{bib:Dix2023}. Tradycyjne metody ubytkowe, takie jak dłutowanie czy, wymuszają zazwyczaj zaprojektowanie technologicznego rowka pomiędzy lewą a prawą helisą uzębienia, niezbędnego dla wybiegu narzędzia skrawającego. Obecność tego rowka zwiększa całkowitą szerokość koła – często o 20--40\% względem szerokości czynnej – oraz może negatywnie wpływać na sztywność układu.
+
+W projektowanym systemie wieżyczki ograniczenie to wyeliminowano poprzez zastosowanie technologii przyrostowych. Metoda ta uwalnia projektanta od restrykcji wynikających z kinematyki narzędzia skrawającego, umożliwiając wytworzenie kół o zwartej budowie, bez rowka technologicznego, w których obie części uzębienia stykają się bezpośrednio. Takie podejście pozwala na pełną integrację zalet mechanicznych opisanych przez Dixa – tj. płynności pracy i redukcji drgań – z minimalizacją masy i gabarytów, co jest krytyczne dla dynamiki układu śledzącego ATP.
+
+
+
+\section{Synteza analizy i koncepcja autorska}
+
+Na podstawie przeprowadzonej analizy literatury oraz zidentyfikowanych ograniczeń technologicznych, sformułowano koncepcję dwuetapowego rozwoju systemu śledzenia ATP. Analiza prac Seidaliyeva \cite{bib:Seidaliyeva2020} oraz Kemeshi \cite{bib:Kemeshi2024} wskazuje, że skuteczny system neutralizacji musi dynamicznie przełączać się między trybem detekcji na statycznym tle a trybem aktywnego śledzenia w ruchu, co determinuje dobór sprzętu i algorytmów. Poniżej przedstawiono założenia dla etapu eksperymentalnego czyli śledzenie obiektu balistycznego oraz koncepcję docelową skupiającą się na zwalczaniu bezzałogowców.
+
+\subsection*{Etap 1: Śledzenie obiektu balistycznego}
+
+W pierwszej fazie badań, system wieżyczki stacjonarnej ma za zadanie wykryć, a następnie precyzyjnie śledzić obiekt poruszający się po torze parabolicznym (podrzucona piłka) utrzymując na nim wiązkę laserową o znikomej mocy 5mW. Scenariusz ten pozwala na weryfikację krytycznych parametrów systemu w kontrolowanych warunkach.
+W fazie oczekiwania, konstrukcja pozostaje nieruchoma, co zapewnia spełnienie warunku statycznego tła. Pozwala to na zastosowanie wydajnego algorytmu detekcji ruchu opartego na mieszaninie rozkładów Gaussa (MOG2), zgodnie z metodologią opisaną przez Seidaliyeva i in. \cite{bib:Seidaliyeva2020}. Eliminuje to konieczność ciągłego przetwarzania obrazu przez obciążające sieci neuronowe, co minimalizuje opóźnienia początkowe.
+
+Moment wykrycia ruchu stanowi sygnał wyzwalający przejście do fazy aktywnej. W tym momencie system uruchamia serwomechanizmy w celu utrzymania obiektu w centrum kadru. Krytycznym wyzwaniem staje się tu ruch samej kamery, który uniemożliwia dalsze stosowanie metod odejmowania tła. Z tego względu, w fazie śledzenia system przełącza się na algorytm śledzenia obiektowego, wspierany predykcją filtra Kalmana. Ponieważ ruch piłki podlega znanym prawom fizyki czyli grawitacji i oporowi powietrza, filtr Kalmana może z wysoką skutecznością estymować przyszłą pozycję celu, kompensując opóźnienia pętli sprzężenia zwrotnego zidentyfikowane przez Li i in. \cite{bib:Li2025}. Kluczowym elementem sprzętowym na tym etapie jest zastosowanie kamery typu \textit{Global Shutter}. Zgodnie z badaniami Kemeshi \cite{bib:Kemeshi2024}, eliminuje ona zniekształcenia geometryczne obiektu podczas szybkiego ruchu głowicy, co jest niezbędne, aby algorytmy wizyjne nie gubiły śledzonego celu w trakcie wykonywania dynamicznego ruchu parabolicznego.
+
+\subsection*{Etap 2: Koncepcja systemu antydronowego}
+Docelowa aplikacja systemu zakłada adaptację opracowanych rozwiązań do zwalczania bezzałogowych statków powietrznych. W tym scenariuszu obiekt nie porusza się po przewidywalnej paraboli, lecz może wykonywać gwałtowne manewry, co wymaga modyfikacji modelu predykcji. Konstrukcja mechaniczna w układzie "T" (kamera i laser rozdzielone osiowo) wprowadza zagadnienie błędu paralaksy, który musi być kompensowany programowo w zależności od dystansu do celu.
+
+Istotnym wyzwaniem pozostaje strategia przeszukiwania przestrzeni. Ciągły ruch skanujący wieżyczki wyklucza stosowanie prostych metod detekcji ruchu ze względu na zmienność tła. Jako rozwiązanie rozwojowe proponuje się implementację strategii "skok i patrz" lub integrację z zewnętrznym systemem wskazania celu (np. radar, detektor akustyczny). W takiej konfiguracji sensor nadrzędny wstępnie kieruje wieżyczkę w odpowiedni sektor, a system wizyjny przejmuje cel dopiero po jego ustabilizowaniu, wykorzystując sprawdzoną w etapie 1 kaskadę: detekcja na statycznym tle, a następnie płynne przejście do śledzenia z wykorzystaniem sensora \textit{Global Shutter} \cite{bib:Seidaliyeva2020, bib:Kemeshi2024}.
+
+
 
 
 %%%%%%%%%%%%%%%% TIPY %%%%%%%%%%%%%%%%
-Odwołania do literatury: 
-książek \cite{bib:ksiazka},
-artykułów w czasopismach \cite{bib:artykul}, 
-materiałów konferencyjnych \cite{bib:konferencja}
-i stron www \cite{bib:internet}.
+% Odwołania do literatury: 
+% % książek \cite{bib:ksiazka},
+% % artykułów w czasopismach \cite{bib:artykul}, 
+% % materiałów konferencyjnych \cite{bib:konferencja}
+% % i stron www \cite{bib:internet}.
 
-\cite{bib:niino2016laser}
+% % \cite{bib:niino2016laser}
 
-Równania powinny być numerowane
-\begin{align}
-y = \frac{\partial x}{\partial t}
-\end{align}
+% Równania powinny być numerowane
+% \begin{align}
+% y = \frac{\partial x}{\partial t}
+% \end{align}
 
 %
 %\begin{itemize}
@@ -746,39 +886,38 @@ y = \frac{\partial x}{\partial t}
 
 \chapter{[Tytuł rozdziału]} 
 
-tekst
 
 \section{[Tytuł podrozdziału]}
 
 \section{[Tytuł podrozdziału]}
 
-W całym dokumencie powinny znajdować się odniesienia do zawartych w nim ilustracji (rys. \ref{fig:2}).
+% W całym dokumencie powinny znajdować się odniesienia do zawartych w nim ilustracji (rys. \ref{fig:2}).
 
-\begin{figure}
-\centering
-\begin{tikzpicture}
-\begin{axis}[
-    y tick label style={
-        /pgf/number format/.cd,
-            fixed,   % po zakomentowaniu os rzednych jest indeksowana wykladniczo
-            fixed zerofill, % 1.0 zamiast 1
-            precision=1,
-        /tikz/.cd
-    },
-    x tick label style={
-        /pgf/number format/.cd,
-            fixed,
-            fixed zerofill,
-            precision=2,
-        /tikz/.cd
-    }
-]
-\addplot [domain=0.0:0.1] {rnd};
-\end{axis} 
-\end{tikzpicture}
-\caption{Wykres przebiegu funkcji.} % Podpis jest zawsze POD rysunkiem.
-\label{fig:2}
-\end{figure}
+% \begin{figure}
+% \centering
+% \begin{tikzpicture}
+% \begin{axis}[
+%     y tick label style={
+%         /pgf/number format/.cd,
+%             fixed,   % po zakomentowaniu os rzednych jest indeksowana wykladniczo
+%             fixed zerofill, % 1.0 zamiast 1
+%             precision=1,
+%         /tikz/.cd
+%     },
+%     x tick label style={
+%         /pgf/number format/.cd,
+%             fixed,
+%             fixed zerofill,
+%             precision=2,
+%         /tikz/.cd
+%     }
+% ]
+% \addplot [domain=0.0:0.1] {rnd};
+% \end{axis} 
+% \end{tikzpicture}
+% \caption{Wykres przebiegu funkcji.} % Podpis jest zawsze POD rysunkiem.
+% \label{fig:2}
+% \end{figure}
 
 
 %%%%%%%%%%%%%%%%%%%%%
@@ -829,34 +968,34 @@ W całym dokumencie powinny znajdować się odniesienia do zawartych w nim ilust
 %%%%%%%%%%%%%%%%%%%%%
 
 
-Tekst dokumentu powinien również zawierać odniesienia do tabel (tab. \ref{id:tab:wyniki}).
+% Tekst dokumentu powinien również zawierać odniesienia do tabel (tab. \ref{id:tab:wyniki}).
 
-\begin{table}
-\centering
-\caption{Opis tabeli nad nią.}
-\label{id:tab:wyniki}
-\begin{tabular}{rrrrrrrr}
-\toprule
-	         &                                     \multicolumn{7}{c}{metoda}                                      \\
-	         \cmidrule{2-8}
-	         &         &         &        \multicolumn{3}{c}{alg. 3}        & \multicolumn{2}{c}{alg. 4, $\gamma = 2$} \\
-	         \cmidrule(r){4-6}\cmidrule(r){7-8}
-	$\zeta$ &     alg. 1 &   alg. 2 & $\alpha= 1.5$ & $\alpha= 2$ & $\alpha= 3$ &   $\beta = 0.1$  &   $\beta = -0.1$ \\
-\midrule
-	       0 &  8.3250 & 1.45305 &       7.5791 &    14.8517 &    20.0028 & 1.16396 &                       1.1365 \\
-	       5 &  0.6111 & 2.27126 &       6.9952 &    13.8560 &    18.6064 & 1.18659 &                       1.1630 \\
-	      10 & 11.6126 & 2.69218 &       6.2520 &    12.5202 &    16.8278 & 1.23180 &                       1.2045 \\
-	      15 &  0.5665 & 2.95046 &       5.7753 &    11.4588 &    15.4837 & 1.25131 &                       1.2614 \\
-	      20 & 15.8728 & 3.07225 &       5.3071 &    10.3935 &    13.8738 & 1.25307 &                       1.2217 \\
-	      25 &  0.9791 & 3.19034 &       5.4575 &     9.9533 &    13.0721 & 1.27104 &                       1.2640 \\
-	      30 &  2.0228 & 3.27474 &       5.7461 &     9.7164 &    12.2637 & 1.33404 &                       1.3209 \\
-	      35 & 13.4210 & 3.36086 &       6.6735 &    10.0442 &    12.0270 & 1.35385 &                       1.3059 \\
-	      40 & 13.2226 & 3.36420 &       7.7248 &    10.4495 &    12.0379 & 1.34919 &                       1.2768 \\
-	      45 & 12.8445 & 3.47436 &       8.5539 &    10.8552 &    12.2773 & 1.42303 &                       1.4362 \\
-	      50 & 12.9245 & 3.58228 &       9.2702 &    11.2183 &    12.3990 & 1.40922 &                       1.3724 \\
-\bottomrule
-\end{tabular}
-\end{table}  
+% \begin{table}
+% \centering
+% \caption{Opis tabeli nad nią.}
+% \label{id:tab:wyniki}
+% \begin{tabular}{rrrrrrrr}
+% \toprule
+% 	         &                                     \multicolumn{7}{c}{metoda}                                      \\
+% 	         \cmidrule{2-8}
+% 	         &         &         &        \multicolumn{3}{c}{alg. 3}        & \multicolumn{2}{c}{alg. 4, $\gamma = 2$} \\
+% 	         \cmidrule(r){4-6}\cmidrule(r){7-8}
+% 	$\zeta$ &     alg. 1 &   alg. 2 & $\alpha= 1.5$ & $\alpha= 2$ & $\alpha= 3$ &   $\beta = 0.1$  &   $\beta = -0.1$ \\
+% \midrule
+% 	       0 &  8.3250 & 1.45305 &       7.5791 &    14.8517 &    20.0028 & 1.16396 &                       1.1365 \\
+% 	       5 &  0.6111 & 2.27126 &       6.9952 &    13.8560 &    18.6064 & 1.18659 &                       1.1630 \\
+% 	      10 & 11.6126 & 2.69218 &       6.2520 &    12.5202 &    16.8278 & 1.23180 &                       1.2045 \\
+% 	      15 &  0.5665 & 2.95046 &       5.7753 &    11.4588 &    15.4837 & 1.25131 &                       1.2614 \\
+% 	      20 & 15.8728 & 3.07225 &       5.3071 &    10.3935 &    13.8738 & 1.25307 &                       1.2217 \\
+% 	      25 &  0.9791 & 3.19034 &       5.4575 &     9.9533 &    13.0721 & 1.27104 &                       1.2640 \\
+% 	      30 &  2.0228 & 3.27474 &       5.7461 &     9.7164 &    12.2637 & 1.33404 &                       1.3209 \\
+% 	      35 & 13.4210 & 3.36086 &       6.6735 &    10.0442 &    12.0270 & 1.35385 &                       1.3059 \\
+% 	      40 & 13.2226 & 3.36420 &       7.7248 &    10.4495 &    12.0379 & 1.34919 &                       1.2768 \\
+% 	      45 & 12.8445 & 3.47436 &       8.5539 &    10.8552 &    12.2773 & 1.42303 &                       1.4362 \\
+% 	      50 & 12.9245 & 3.58228 &       9.2702 &    11.2183 &    12.3990 & 1.40922 &                       1.3724 \\
+% \bottomrule
+% \end{tabular}
+% \end{table}  
 
 %\chapter{[Przedmiot pracy]}
 %

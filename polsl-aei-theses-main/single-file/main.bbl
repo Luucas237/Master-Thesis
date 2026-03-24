@@ -17,42 +17,233 @@
 \endgroup
 
 \datalist[entry]{nty/global//global/global}
-  \entry{bib:articleBLDC}{article}{}
-    \name{author}{3}{}{%
-      {{hash=HH}{%
-         family={Huang},
-         familyi={H\bibinitperiod},
-         given={H.},
-         giveni={H\bibinitperiod},
+  \entry{bib:Abdelkader2025}{article}{}
+    \name{author}{5}{}{%
+      {{hash=AM}{%
+         family={Abdelkader},
+         familyi={A\bibinitperiod},
+         given={Mohamed},
+         giveni={M\bibinitperiod},
       }}%
-      {{hash=XG}{%
-         family={Xu},
-         familyi={X\bibinitperiod},
-         given={G.},
-         giveni={G\bibinitperiod},
+      {{hash=GK}{%
+         family={Gabr},
+         familyi={G\bibinitperiod},
+         given={Khaled},
+         giveni={K\bibinitperiod},
       }}%
-      {{hash=JX}{%
-         family={Jiang},
+      {{hash=JI}{%
+         family={Jarraya},
          familyi={J\bibinitperiod},
-         given={X.},
-         giveni={X\bibinitperiod},
+         given={Imen},
+         giveni={I\bibinitperiod},
+      }}%
+      {{hash=AA}{%
+         family={Almusalami},
+         familyi={A\bibinitperiod},
+         given={Abdullah},
+         giveni={A\bibinitperiod},
+      }}%
+      {{hash=KA}{%
+         family={Koubaa},
+         familyi={K\bibinitperiod},
+         given={Anis},
+         giveni={A\bibinitperiod},
+      }}%
+    }
+    \list{publisher}{1}{%
+      {IEEE}%
+    }
+    \strng{namehash}{AM+1}
+    \strng{fullhash}{AMGKJIAAKA1}
+    \field{labelnamesource}{author}
+    \field{labeltitlesource}{title}
+    \field{sortinit}{A}
+    \field{sortinithash}{A}
+    \field{number}{2}
+    \field{pages}{3086\bibrangedash 3098}
+    \field{title}{SMART-TRACK: A Novel Kalman Filter-Guided Sensor Fusion for
+  Robust UAV Object Tracking in Dynamic Environments}
+    \field{volume}{25}
+    \field{journaltitle}{IEEE Sensors Journal}
+    \field{year}{2025}
+  \endentry
+
+  \entry{bib:Dix2023}{article}{}
+    \name{author}{11}{}{%
+      {{hash=DM}{%
+         family={Dix},
+         familyi={D\bibinitperiod},
+         given={Martin},
+         giveni={M\bibinitperiod},
+      }}%
+      {{hash=DWG}{%
+         family={Drossel},
+         familyi={D\bibinitperiod},
+         given={Welf-Guntram},
+         giveni={W\bibinithyphendelim G\bibinitperiod},
+      }}%
+      {{hash=SB}{%
+         family={Schlecht},
+         familyi={S\bibinitperiod},
+         given={Berthold},
+         giveni={B\bibinitperiod},
+      }}%
+      {{hash=BR}{%
+         family={Bauer},
+         familyi={B\bibinitperiod},
+         given={Ruben},
+         giveni={R\bibinitperiod},
+      }}%
+      {{hash=KV}{%
+         family={Kr{\"a}usel},
+         familyi={K\bibinitperiod},
+         given={Verena},
+         giveni={V\bibinitperiod},
+      }}%
+      {{hash=LM}{%
+         family={Lahl},
+         familyi={L\bibinitperiod},
+         given={Mike},
+         giveni={M\bibinitperiod},
+      }}%
+      {{hash=UC}{%
+         family={Ulrich},
+         familyi={U\bibinitperiod},
+         given={Carsten},
+         giveni={C\bibinitperiod},
+      }}%
+      {{hash=HE}{%
+         family={Hensel},
+         familyi={H\bibinitperiod},
+         given={Eric},
+         giveni={E\bibinitperiod},
+      }}%
+      {{hash=RJ}{%
+         family={Regel},
+         familyi={R\bibinitperiod},
+         given={Joachim},
+         giveni={J\bibinitperiod},
+      }}%
+      {{hash=BJ}{%
+         family={B{\"o}ttger},
+         familyi={B\bibinitperiod},
+         given={Jonas},
+         giveni={J\bibinitperiod},
+      }}%
+      {{hash=RT}{%
+         family={Rosenl{\"o}cher},
+         familyi={R\bibinitperiod},
+         given={Thomas},
+         giveni={T\bibinitperiod},
       }}%
     }
     \list{publisher}{1}{%
       {Elsevier}%
     }
-    \strng{namehash}{HHXGJX1}
-    \strng{fullhash}{HHXGJX1}
+    \strng{namehash}{DM+1}
+    \strng{fullhash}{DMDWGSBBRKVLMUCHERJBJRT1}
     \field{labelnamesource}{author}
     \field{labeltitlesource}{title}
-    \field{sortinit}{H}
-    \field{sortinithash}{H}
-    \field{number}{8}
-    \field{pages}{1928\bibrangedash 1944}
-    \field{title}{Dynamic sensitivity analysis of a brushless DC motor}
-    \field{volume}{331}
-    \field{journaltitle}{Journal of Sound and Vibration}
-    \field{year}{2012}
+    \field{sortinit}{D}
+    \field{sortinithash}{D}
+    \field{pages}{151\bibrangedash 161}
+    \field{title}{Potentials and limitations in production and use of
+  herringbone gearings for high-performance gearboxes}
+    \field{volume}{45}
+    \field{journaltitle}{CIRP Journal of Manufacturing Science and Technology}
+    \field{year}{2023}
+  \endentry
+
+  \entry{bib:Kemeshi2024}{inproceedings}{}
+    \name{author}{4}{}{%
+      {{hash=KJ}{%
+         family={Kemeshi},
+         familyi={K\bibinitperiod},
+         given={James},
+         giveni={J\bibinitperiod},
+      }}%
+      {{hash=CY}{%
+         family={Chang},
+         familyi={C\bibinitperiod},
+         given={Young},
+         giveni={Y\bibinitperiod},
+      }}%
+      {{hash=YPK}{%
+         family={Yadav},
+         familyi={Y\bibinitperiod},
+         given={Pappu\bibnamedelima Kumar},
+         giveni={P\bibinitperiod\bibinitdelim K\bibinitperiod},
+      }}%
+      {{hash=AMA}{%
+         family={Alahe},
+         familyi={A\bibinitperiod},
+         given={Mohammad\bibnamedelima Ashik},
+         giveni={M\bibinitperiod\bibinitdelim A\bibinitperiod},
+      }}%
+    }
+    \list{organization}{1}{%
+      {International Society of Precision Agriculture}%
+    }
+    \strng{namehash}{KJ+1}
+    \strng{fullhash}{KJCYYPKAMA1}
+    \field{labelnamesource}{author}
+    \field{labeltitlesource}{title}
+    \field{sortinit}{K}
+    \field{sortinithash}{K}
+    \field{booktitle}{Proceedings of the 16th International Conference on
+  Precision Agriculture}
+    \field{title}{Comparing Global Shutter and Rolling Shutter Cameras for
+  Pattern Detection in Motion on a Ground Robot}
+    \list{location}{1}{%
+      {Manhattan, Kansas, USA}%
+    }
+    \field{year}{2024}
+  \endentry
+
+  \entry{bib:LauxtermannGlobalShutter}{report}{}
+    \name{author}{4}{}{%
+      {{hash=LS}{%
+         family={Lauxtermann},
+         familyi={L\bibinitperiod},
+         given={Stefan},
+         giveni={S\bibinitperiod},
+      }}%
+      {{hash=LA}{%
+         family={Lee},
+         familyi={L\bibinitperiod},
+         given={Adam},
+         giveni={A\bibinitperiod},
+      }}%
+      {{hash=SJ}{%
+         family={Stevens},
+         familyi={S\bibinitperiod},
+         given={John},
+         giveni={J\bibinitperiod},
+      }}%
+      {{hash=JA}{%
+         family={Joshi},
+         familyi={J\bibinitperiod},
+         given={Atul},
+         giveni={A\bibinitperiod},
+      }}%
+    }
+    \strng{namehash}{LS+1}
+    \strng{fullhash}{LSLASJJA1}
+    \field{labelnamesource}{author}
+    \field{labeltitlesource}{title}
+    \field{sortinit}{L}
+    \field{sortinithash}{L}
+    \field{note}{Presented at IEEE Workshop on Charge-Coupled Devices and
+  Advanced Image Sensors}
+    \field{title}{Comparison of Global Shutter Pixels for CMOS Image Sensors}
+    \list{location}{1}{%
+      {Camarillo, CA, USA}%
+    }
+    \list{institution}{1}{%
+      {Teledyne Imaging Sensors}%
+    }
+    \field{type}{techreport}
+    \field{year}{2005}
   \endentry
 
   \entry{bib:Li2025}{article}{}
@@ -109,156 +300,64 @@
     \field{labeltitlesource}{title}
     \field{sortinit}{L}
     \field{sortinithash}{L}
-    \verb{doi}
-    \verb 10.1016/j.dt.2025.03.008
-    \endverb
     \field{pages}{137\bibrangedash 151}
     \field{title}{Realizing high-speed target tracking by using multi-rate
   feedforward predictive control for the acquisition, tracking, and pointing
   system}
-    \verb{url}
-    \verb https://doi.org/10.1016/j.dt.2025.03.008
-    \endverb
     \field{volume}{49}
     \field{journaltitle}{Defence Technology}
     \field{year}{2025}
   \endentry
 
-  \entry{bib:internet}{online}{}
-    \name{author}{2}{}{%
-      {{hash=NI}{%
-         family={Nazwisko},
-         familyi={N\bibinitperiod},
-         given={Imię},
-         giveni={I\bibinitperiod},
+  \entry{bib:Mo2025}{article}{}
+    \name{author}{5}{}{%
+      {{hash=MS}{%
+         family={Mo},
+         familyi={M\bibinitperiod},
+         given={Shuai},
+         giveni={S\bibinitperiod},
       }}%
-      {{hash=NI}{%
-         family={Nazwisko},
-         familyi={N\bibinitperiod},
-         given={Imię},
-         giveni={I\bibinitperiod},
+      {{hash=WD}{%
+         family={Wang},
+         familyi={W\bibinitperiod},
+         given={Dongdong},
+         giveni={D\bibinitperiod},
       }}%
-    }
-    \strng{namehash}{NINI1}
-    \strng{fullhash}{NINI1}
-    \field{labelnamesource}{author}
-    \field{labeltitlesource}{title}
-    \field{sortinit}{N}
-    \field{sortinithash}{N}
-    \field{title}{Tytuł strony internetowej}
-    \verb{url}
-    \verb http://gdzies/w/internecie/internet.html
-    \endverb
-    \field{year}{2021}
-    \field{urlday}{30}
-    \field{urlmonth}{09}
-    \field{urlyear}{2021}
-  \endentry
-
-  \entry{bib:konferencja}{inproceedings}{}
-    \name{author}{3}{}{%
-      {{hash=NI}{%
-         family={Nazwisko},
-         familyi={N\bibinitperiod},
-         given={Imię},
-         giveni={I\bibinitperiod},
+      {{hash=CB}{%
+         family={Chang},
+         familyi={C\bibinitperiod},
+         given={Boyan},
+         giveni={B\bibinitperiod},
       }}%
-      {{hash=NI}{%
-         family={Nazwisko},
-         familyi={N\bibinitperiod},
-         given={Imię},
-         giveni={I\bibinitperiod},
+      {{hash=ZX}{%
+         family={Zhao},
+         familyi={Z\bibinitperiod},
+         given={Xinhao},
+         giveni={X\bibinitperiod},
       }}%
-      {{hash=NI}{%
-         family={Nazwisko},
-         familyi={N\bibinitperiod},
-         given={Imię},
-         giveni={I\bibinitperiod},
-      }}%
-    }
-    \strng{namehash}{NININI1}
-    \strng{fullhash}{NININI1}
-    \field{labelnamesource}{author}
-    \field{labeltitlesource}{title}
-    \field{sortinit}{N}
-    \field{sortinithash}{N}
-    \field{booktitle}{Nazwa konferecji}
-    \field{pages}{5346\bibrangedash 5349}
-    \field{title}{Tytuł artykułu konferencyjnego}
-    \field{year}{2006}
-  \endentry
-
-  \entry{bib:artykul}{article}{}
-    \name{author}{3}{}{%
-      {{hash=NI}{%
-         family={Nazwisko},
-         familyi={N\bibinitperiod},
-         given={Imię},
-         giveni={I\bibinitperiod},
-      }}%
-      {{hash=NI}{%
-         family={Nazwisko},
-         familyi={N\bibinitperiod},
-         given={Imię},
-         giveni={I\bibinitperiod},
-      }}%
-      {{hash=NI}{%
-         family={Nazwisko},
-         familyi={N\bibinitperiod},
-         given={Imię},
-         giveni={I\bibinitperiod},
-      }}%
-    }
-    \strng{namehash}{NININI1}
-    \strng{fullhash}{NININI1}
-    \field{labelnamesource}{author}
-    \field{labeltitlesource}{title}
-    \field{sortinit}{N}
-    \field{sortinithash}{N}
-    \field{number}{8}
-    \field{pages}{1092\bibrangedash 1113}
-    \field{title}{Tytuł artykułu w czasopiśmie}
-    \field{volume}{157}
-    \field{journaltitle}{Tytuł czasopisma}
-    \field{year}{2016}
-  \endentry
-
-  \entry{bib:ksiazka}{book}{}
-    \name{author}{3}{}{%
-      {{hash=NI}{%
-         family={Nazwisko},
-         familyi={N\bibinitperiod},
-         given={Imię},
-         giveni={I\bibinitperiod},
-      }}%
-      {{hash=NI}{%
-         family={Nazwisko},
-         familyi={N\bibinitperiod},
-         given={Imię},
-         giveni={I\bibinitperiod},
-      }}%
-      {{hash=NI}{%
-         family={Nazwisko},
-         familyi={N\bibinitperiod},
-         given={Imię},
-         giveni={I\bibinitperiod},
+      {{hash=HH}{%
+         family={Houjoh},
+         familyi={H\bibinitperiod},
+         given={Haruo},
+         giveni={H\bibinitperiod},
       }}%
     }
     \list{publisher}{1}{%
-      {Wydawnictwo}%
+      {Elsevier}%
     }
-    \strng{namehash}{NININI1}
-    \strng{fullhash}{NININI1}
+    \strng{namehash}{MS+1}
+    \strng{fullhash}{MSWDCBZXHH1}
     \field{labelnamesource}{author}
     \field{labeltitlesource}{title}
-    \field{sortinit}{N}
-    \field{sortinithash}{N}
-    \field{isbn}{83-204-3229-9-434}
-    \field{title}{Tytuł książki}
-    \list{location}{1}{%
-      {Warszawa}%
-    }
-    \field{year}{2017}
+    \field{sortinit}{M}
+    \field{sortinithash}{M}
+    \field{pages}{108572}
+    \field{title}{Nonlinear dynamic characteristics analysis of herringbone
+  gear transmission system with tooth root crack}
+    \field{volume}{142}
+    \field{journaltitle}{Communications in Nonlinear Science and Numerical
+  Simulation}
+    \field{year}{2025}
   \endentry
 
   \entry{bib:niino2016laser}{article}{}
@@ -346,9 +445,6 @@
     \field{labeltitlesource}{title}
     \field{sortinit}{P}
     \field{sortinithash}{P}
-    \verb{doi}
-    \verb 10.2351/1.1710879
-    \endverb
     \field{number}{1}
     \field{pages}{46\bibrangedash 54}
     \field{title}{Absorptivity of a diode laser at 940 nm in steels with
@@ -356,6 +452,157 @@
     \field{volume}{16}
     \field{journaltitle}{Journal of Laser Applications}
     \field{year}{2004}
+  \endentry
+
+  \entry{bib:Seidaliyeva2020}{article}{}
+    \name{author}{4}{}{%
+      {{hash=SU}{%
+         family={Seidaliyeva},
+         familyi={S\bibinitperiod},
+         given={Ulzhalgas},
+         giveni={U\bibinitperiod},
+      }}%
+      {{hash=AD}{%
+         family={Akhmetov},
+         familyi={A\bibinitperiod},
+         given={Daryn},
+         giveni={D\bibinitperiod},
+      }}%
+      {{hash=IL}{%
+         family={Ilipbayeva},
+         familyi={I\bibinitperiod},
+         given={Lyazzat},
+         giveni={L\bibinitperiod},
+      }}%
+      {{hash=MET}{%
+         family={Matson},
+         familyi={M\bibinitperiod},
+         given={Eric\bibnamedelima T.},
+         giveni={E\bibinitperiod\bibinitdelim T\bibinitperiod},
+      }}%
+    }
+    \list{publisher}{1}{%
+      {MDPI}%
+    }
+    \strng{namehash}{SU+1}
+    \strng{fullhash}{SUADILMET1}
+    \field{labelnamesource}{author}
+    \field{labeltitlesource}{title}
+    \field{sortinit}{S}
+    \field{sortinithash}{S}
+    \field{number}{14}
+    \field{title}{Real-Time and Accurate Drone Detection in a Video with a
+  Static Background}
+    \field{volume}{20}
+    \field{journaltitle}{Sensors}
+    \field{year}{2020}
+  \endentry
+
+  \entry{bib:Son2021}{article}{}
+    \name{author}{4}{}{%
+      {{hash=SS}{%
+         family={Son},
+         familyi={S\bibinitperiod},
+         given={Sohee},
+         giveni={S\bibinitperiod},
+      }}%
+      {{hash=KJ}{%
+         family={Kwon},
+         familyi={K\bibinitperiod},
+         given={Jeongin},
+         giveni={J\bibinitperiod},
+      }}%
+      {{hash=KHY}{%
+         family={Kim},
+         familyi={K\bibinitperiod},
+         given={Hui-Yong},
+         giveni={H\bibinithyphendelim Y\bibinitperiod},
+      }}%
+      {{hash=CH}{%
+         family={Choi},
+         familyi={C\bibinitperiod},
+         given={Haechul},
+         giveni={H\bibinitperiod},
+      }}%
+    }
+    \list{publisher}{1}{%
+      {KSII}%
+    }
+    \strng{namehash}{SS+1}
+    \strng{fullhash}{SSKJKHYCH1}
+    \field{labelnamesource}{author}
+    \field{labeltitlesource}{title}
+    \field{sortinit}{S}
+    \field{sortinithash}{S}
+    \field{number}{11}
+    \field{pages}{2412\bibrangedash 2429}
+    \field{title}{Tiny Drone Tracking Framework Using Multiple Trackers and
+  Kalman-based Predictor}
+    \field{volume}{15}
+    \field{journaltitle}{KSII Transactions on Internet and Information Systems}
+    \field{year}{2021}
+  \endentry
+
+  \entry{bib:datasheetNUBB23}{manual}{}
+    \list{organization}{1}{%
+      {Nichia Corporation}%
+    }
+    \field{labeltitlesource}{title}
+    \field{sortinit}{S}
+    \field{sortinithash}{S}
+    \field{note}{Datasheet}
+    \field{title}{Specifications for Nichia Blue Laser Diode Part No. NUBB23}
+    \field{year}{2023}
+  \endentry
+
+  \entry{bib:Tandi2025}{inproceedings}{}
+    \name{author}{5}{}{%
+      {{hash=TK}{%
+         family={Tandi},
+         familyi={T\bibinitperiod},
+         given={Kevin},
+         giveni={K\bibinitperiod},
+      }}%
+      {{hash=DX}{%
+         family={Dai},
+         familyi={D\bibinitperiod},
+         given={Xiang},
+         giveni={X\bibinitperiod},
+      }}%
+      {{hash=TC}{%
+         family={Talegaonkar},
+         familyi={T\bibinitperiod},
+         given={Chinmay},
+         giveni={C\bibinitperiod},
+      }}%
+      {{hash=MG}{%
+         family={Mishne},
+         familyi={M\bibinitperiod},
+         given={Gal},
+         giveni={G\bibinitperiod},
+      }}%
+      {{hash=AN}{%
+         family={Antipa},
+         familyi={A\bibinitperiod},
+         given={Nick},
+         giveni={N\bibinitperiod},
+      }}%
+    }
+    \list{publisher}{1}{%
+      {IEEE}%
+    }
+    \strng{namehash}{TK+1}
+    \strng{fullhash}{TKDXTCMGAN1}
+    \field{labelnamesource}{author}
+    \field{labeltitlesource}{title}
+    \field{sortinit}{T}
+    \field{sortinithash}{T}
+    \field{booktitle}{Proceedings of the IEEE/CVF International Conference on
+  Computer Vision (ICCV)}
+    \field{pages}{8830\bibrangedash 8840}
+    \field{title}{RnGCam: High-speed video from rolling \& global shutter
+  measurements}
+    \field{year}{2025}
   \endentry
 
   \entry{bib:tiruvenkadam2024}{article}{}
@@ -380,9 +627,6 @@
     \field{labeltitlesource}{title}
     \field{sortinit}{T}
     \field{sortinithash}{T}
-    \verb{doi}
-    \verb 10.1088/1742-6596/2925/1/012002
-    \endverb
     \field{number}{1}
     \field{pages}{012002}
     \field{title}{Analysis of propeller material properties for UAV
