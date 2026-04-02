@@ -1,0 +1,152 @@
+<?xml version="1.0"?>
+<robot xmlns:xacro="http://www.ros.org/wiki/xacro" name="wiezyczka_pan_tilt">
+
+  <link name="dummy_root"/>
+  <joint name="fixed_to_dummy" type="fixed">
+    <parent link="dummy_root"/>
+    <child link="base_link"/>
+  </joint>
+
+  <xacro:macro name="dummy_inertia">
+    <inertial>
+      <mass value="0.1"/>
+      <inertia ixx="0.001" ixy="0" ixz="0" iyy="0.001" iyz="0" izz="0.001"/>
+    </inertial>
+  </xacro:macro>
+
+  <link name="base_link">
+    <visual>
+      <origin xyz="0 0 0" rpy="0 0 0"/>
+      <geometry>
+        <mesh filename="file://$(find pan_tilt_description)/meshes/base.stl" scale="0.001 0.001 0.001" />
+      </geometry>
+      <material name="gray"><color rgba="0.5 0.5 0.5 1.0"/></material>
+    </visual>
+    <collision>
+      <geometry><box size="0.1 0.1 0.1"/></geometry>
+    </collision>
+    <xacro:dummy_inertia/>
+  </link>
+
+  <joint name="pan_joint" type="revolute">
+    <parent link="base_link"/>
+    <child link="pan_link"/>
+    <origin xyz="0 0 0.04" rpy="0 0 0"/> 
+    <axis xyz="0 0 1"/> 
+    <limit lower="-3.14" upper="3.14" effort="10.0" velocity="1.0"/>
+    <dynamics damping="1.0" friction="1.0"/> </joint>
+
+  <link name="pan_link">
+    <visual>
+      <origin xyz="0 0 0" rpy="0 0 0"/>
+      <geometry>
+        <mesh filename="file://$(find pan_tilt_description)/meshes/pan_link.stl" scale="0.001 0.001 0.001" />
+      </geometry>
+      <material name="dark_gray"><color rgba="0.3 0.3 0.3 1.0"/></material>
+    </visual>
+    <collision>
+      <geometry><cylinder radius="0.05" length="0.1"/></geometry>
+    </collision>
+    <xacro:dummy_inertia/>
+  </link>
+
+  <joint name="tilt_joint" type="revolute">
+    <parent link="pan_link"/>
+    <child link="tilt_link"/>
+    <origin xyz="0.01 0 0.12" rpy="0 0 3.14159"/> 
+    <axis xyz="1 0 0"/> 
+    <limit lower="-1.57" upper="1.57" effort="10.0" velocity="1.0"/>
+    <dynamics damping="1.0" friction="1.0"/> </joint>
+
+  <link name="tilt_link">
+    <visual>
+      <origin xyz="0 0 0" rpy="0 0 0"/> 
+      <geometry>
+        <mesh filename="file://$(find pan_tilt_description)/meshes/tilt_link.stl" scale="0.001 0.001 0.001" />
+      </geometry>
+      <material name="dark_gray"><color rgba="0.3 0.3 0.3 1.0"/></material>
+    </visual>
+    <collision>
+      <geometry><cylinder radius="0.05" length="0.1"/></geometry>
+    </collision>
+    <xacro:dummy_inertia/>
+  </link>
+
+  <joint name="camera_joint" type="fixed">
+    <origin xyz="0.01 0.08 0" rpy="0 0 1.57075"/>
+    <parent link="tilt_link"/>
+    <child link="camera_link"/>
+  </joint>
+
+  <link name="camera_link">
+    <visual>
+      <geometry>
+        <box size="0.02 0.05 0.05"/>
+      </geometry>
+      <material name="red"><color rgba="1.0 0.0 0.0 1.0"/></material>
+    </visual>
+    <inertial>
+      <mass value="0.0001"/>
+      <inertia ixx="0.000001" ixy="0" ixz="0" iyy="0.000001" iyz="0" izz="0.000001"/>
+    </inertial>
+  </link>
+
+  <gazebo reference="camera_joint">
+    <disableFixedJointLumping>true</disableFixedJointLumping>
+  </gazebo>
+
+  <gazebo reference="base_link">
+    <material>Gazebo/Grey</material>
+  </gazebo>
+  <gazebo reference="pan_link">
+    <material>Gazebo/DarkGrey</material>
+  </gazebo>
+  <gazebo reference="tilt_link">
+    <material>Gazebo/DarkGrey</material>
+  </gazebo>
+
+  <gazebo reference="camera_link">
+    <material>Gazebo/Red</material>
+    <sensor name="main_camera" type="camera">
+      <camera>
+        <horizontal_fov>1.396</horizontal_fov>
+        <image>
+          <width>640</width>
+          <height>480</height>
+          <format>R8G8B8</format>
+        </image>
+        <clip>
+          <near>0.02</near>
+          <far>100.0</far>
+        </clip>
+      </camera>
+      <always_on>1</always_on>
+      <update_rate>30</update_rate>
+      <visualize>true</visualize>
+      <topic>camera/image_raw</topic>
+    </sensor>
+  </gazebo>
+
+  <gazebo>
+    <plugin filename="libignition-gazebo-joint-position-controller-system.so"
+            name="ignition::gazebo::systems::JointPositionController">
+      <joint_name>pan_joint</joint_name>
+      <topic>model/pan_tilt_turret/joint/pan_joint/cmd_pos</topic>
+      <p_gain>5.0</p_gain>
+      <i_gain>0.1</i_gain>
+      <d_gain>0.5</d_gain>
+    </plugin>
+  </gazebo>
+
+  <gazebo>
+    <plugin filename="libignition-gazebo-joint-position-controller-system.so"
+            name="ignition::gazebo::systems::JointPositionController">
+      <joint_name>tilt_joint</joint_name>
+      <topic>model/pan_tilt_turret/joint/tilt_joint/cmd_pos</topic>
+      <p_gain>5.0</p_gain>
+      <i_gain>0.1</i_gain>
+      <d_gain>0.5</d_gain>
+    </plugin>
+  </gazebo>
+
+</robot>
