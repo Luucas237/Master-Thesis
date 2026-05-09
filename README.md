@@ -18,12 +18,13 @@ ros2 run pan_tilt_description turret_gui.py
 ## ===== Launching =====
 **Rasbian **
 ```bash
-rpicam-vid -n -t 0 --width 1280 --height 720 --framerate 30 --codec h264 --inline --listen -o tcp://0.0.0.0:5000  
+while true; do rpicam-vid -n -t 0 --width 640 --height 480 --framerate 30 --codec mjpeg --listen -o tcp://0.0.0.0:5000; sleep 1; done
 ```
 **Rasbian ssh ubuntu**
 ```bash
 cd /home/lukasgrab/Turret
 python3 esp_test.py
+python3 tracker.py
 ```
 **Ubuntu**
 ```bash
