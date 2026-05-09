@@ -8,6 +8,7 @@ install(PROGRAMS
   scripts/vision_tracker.py
   scripts/roi_detection.py
   scripts/roi_detection_simulation.py  # <--- UPEWNIJ SIĘ, ŻE TO TU JEST
+  gui/turret_gui.py
   DESTINATION lib/${PROJECT_NAME}
 )
 
@@ -18,6 +19,7 @@ install(DIRECTORY
   urdf
   worlds
   scripts
+  gui
   DESTINATION share/${PROJECT_NAME}
 )
 
