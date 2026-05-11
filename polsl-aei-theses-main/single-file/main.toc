@@ -32,11 +32,27 @@
 \contentsline {subsection}{\numberline {2.4.5}Lasery niskomocowe}{14}{subsection.2.4.5}%
 \contentsline {subsection}{\numberline {2.4.6}Dobór geometrii uzębienia i struktury kinematycznej napędu}{16}{subsection.2.4.6}%
 \contentsline {section}{\numberline {2.5}Synteza analizy i koncepcja autorska}{17}{section.2.5}%
-\contentsline {chapter}{\numberline {3}[Tytuł rozdziału]}{19}{chapter.3}%
-\contentsline {section}{\numberline {3.1}[Tytuł podrozdziału]}{19}{section.3.1}%
-\contentsline {section}{\numberline {3.2}[Tytuł podrozdziału]}{19}{section.3.2}%
+\contentsline {chapter}{\numberline {3}Projekt demonstratora systemu kierowania}{19}{chapter.3}%
+\contentsline {section}{\numberline {3.1}CAD i modelowanie 3D}{19}{section.3.1}%
+\contentsline {subsection}{\numberline {3.1.1}Modelowanie mechaniczne i analiza kinematyczna}{19}{subsection.3.1.1}%
+\contentsline {section}{\numberline {3.2}Elektronika}{19}{section.3.2}%
+\contentsline {subsection}{\numberline {3.2.1}Dobór komponentów}{19}{subsection.3.2.1}%
+\contentsline {subsection}{\numberline {3.2.2}Schemat podłączeń i opis funkcjonalny układu sterowania}{19}{subsection.3.2.2}%
+\contentsline {section}{\numberline {3.3}Oprogramowanie i algorytmy sterowania}{19}{section.3.3}%
+\contentsline {subsection}{\numberline {3.3.1}Architektura oprogramowania}{19}{subsection.3.3.1}%
+\contentsline {subsection}{\numberline {3.3.2}Implementacja komunikacji}{19}{subsection.3.3.2}%
+\contentsline {subsection}{\numberline {3.3.3}Implementacja algorytmów detekcji i śledzenia}{19}{subsection.3.3.3}%
+\contentsline {subsection}{\numberline {3.3.4}Implementacja algorytmów sterowania silnikami}{19}{subsection.3.3.4}%
+\contentsline {subsection}{\numberline {3.3.5}Symulacja dynamiki i optymalizacja parametrów}{19}{subsection.3.3.5}%
 \contentsline {chapter}{\numberline {4}Badania}{21}{chapter.4}%
+\contentsline {section}{\numberline {4.1}Metodyka badań}{21}{section.4.1}%
+\contentsline {section}{\numberline {4.2}Zbiory danych}{21}{section.4.2}%
+\contentsline {section}{\numberline {4.3}Wyniki}{21}{section.4.3}%
 \contentsline {chapter}{\numberline {5}Podsumowanie}{23}{chapter.5}%
+\contentsline {section}{\numberline {5.1}Rozwiązanie problemu badawczego}{23}{section.5.1}%
+\contentsline {section}{\numberline {5.2}Ocena osiągniętych wyników}{23}{section.5.2}%
+\contentsline {section}{\numberline {5.3}Wnioski i rekomendacje}{23}{section.5.3}%
+\contentsline {section}{\numberline {5.4}Perspektywy rozwoju i dalszych badań}{23}{section.5.4}%
 \contentsline {chapter}{Bibliografia}{25}{section*.26}%
 \contentsline {chapter}{Dokumentacja techniczna}{29}{appendix*.28}%
 \contentsline {chapter}{Spis skrótów i symboli}{31}{appendix*.29}%
