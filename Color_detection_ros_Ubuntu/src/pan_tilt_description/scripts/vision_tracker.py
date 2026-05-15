@@ -7,7 +7,6 @@ import cv2
 import numpy as np
 import time
 
-# --- PROSTY REGULATOR PID ---
 class PIDController:
     def __init__(self, kp, ki, kd):
         self.kp = kp
@@ -24,7 +23,6 @@ class PIDController:
         self.prev_error = error
         return (self.kp * error) + (self.ki * self.integral) + (self.kd * derivative)
 
-# --- GŁÓWNY WĘZEŁ ROS 2 ---
 class TurretTracker(Node):
     def __init__(self):
         super().__init__('vision_tracker')
@@ -40,18 +38,16 @@ class TurretTracker(Node):
         self.center_x = self.width // 2
         self.center_y = self.height // 2
 
-        # --- KONFIGURACJA GUI ---
         self.window_name = "Kamera - Widok z celownikiem"
         cv2.namedWindow(self.window_name)
         cv2.setMouseCallback(self.window_name, self.mouse_callback)
         
         self.color_picked = False
         self.target_hsv = None
-        self.target_bgr = None  # Do wyświetlania koloru w kwadraciku
+        self.target_bgr = None
         self.current_hsv_frame = None
         self.current_bgr_frame = None
 
-        # --- FILTR KALMANA ---
         self.kalman = cv2.KalmanFilter(4, 2)
         self.kalman.measurementMatrix = np.array([[1, 0, 0, 0], 
                                                   [0, 1, 0, 0]], np.float32)
@@ -61,15 +57,13 @@ class TurretTracker(Node):
                                                  [0, 0, 0, 1]], np.float32)
         self.kalman.processNoiseCov = np.eye(4, dtype=np.float32) * 0.03
 
-        # --- REGULATORY PID ---
         self.pid_pan = PIDController(kp=0.0008, ki=0.0, kd=0.0004)
         self.pid_tilt = PIDController(kp=0.0008, ki=0.0, kd=0.0004)
 
         self.current_pan = 0.0
         self.current_tilt = 0.0
         self.last_time = time.time()
-        
-        # Kernel (element strukturalny) do operacji morfologicznych
+
         self.morph_kernel = np.ones((7, 7), np.uint8)
 
         self.timer = self.create_timer(0.033, self.timer_callback)
@@ -119,12 +113,9 @@ class TurretTracker(Node):
         dt = current_time - self.last_time
         self.last_time = current_time
 
-        # --- GENEROWANIE I CZYSZCZENIE MASKI ---
         if self.color_picked:
             mask = self.get_dynamic_mask(hsv_frame)
-            # 1. MORPH_OPEN: Usuwamy małe szumy (np. usta, drobne refleksy)
             mask = cv2.morphologyEx(mask, cv2.MORPH_OPEN, self.morph_kernel, iterations=2)
-            # 2. MORPH_CLOSE: Łatamy dziury wewnątrz wykrytego obiektu
             mask = cv2.morphologyEx(mask, cv2.MORPH_CLOSE, self.morph_kernel, iterations=2)
         else:
             mask = np.zeros(hsv_frame.shape[:2], dtype=np.uint8)
@@ -136,7 +127,6 @@ class TurretTracker(Node):
 
         if contours and self.color_picked:
             c = max(contours, key=cv2.contourArea)
-            # Zwiększyliśmy próg z 500 na 1000, bo po morfologii szum jest ubity, szukamy konkretnych brył
             if cv2.contourArea(c) > 1000:
                 M = cv2.moments(c)
                 if M["m00"] > 0:
@@ -168,27 +158,21 @@ class TurretTracker(Node):
             self.current_pan = max(-3.14, min(3.14, self.current_pan))
             self.current_tilt = max(-1.57, min(1.57, self.current_tilt))
 
-        # --- RYSUJEMY INTERFEJS (HUD) ---
-        # 1. FPS (Lewy górny róg)
         fps_val = int(1.0 / dt) if dt > 0 else 0
         cv2.putText(frame, f"FPS: {fps_val}", (10, 30), cv2.FONT_HERSHEY_SIMPLEX, 0.7, (0, 255, 0), 2)
         
-        # 2. Kwadrat z pobranym kolorem (Pod FPS)
         if self.color_picked:
             color_to_draw = (int(self.target_bgr[0]), int(self.target_bgr[1]), int(self.target_bgr[2]))
             cv2.rectangle(frame, (10, 45), (40, 75), color_to_draw, -1)
-            cv2.rectangle(frame, (10, 45), (40, 75), (255, 255, 255), 1) # Biała ramka wokół kwadratu
+            cv2.rectangle(frame, (10, 45), (40, 75), (255, 255, 255), 1)
 
-        # 3. Status SEARCHING / LOCKED IN (Prawy górny róg)
         status_text = "LOCKED IN" if ball_detected else "SEARCHING"
         status_color = (0, 0, 255) if ball_detected else (150, 150, 150)
-        
-        # Obliczamy szerokość tekstu, żeby równać do prawej
+ 
         text_size = cv2.getTextSize(status_text, cv2.FONT_HERSHEY_SIMPLEX, 0.7, 2)[0]
         text_x = self.width - text_size[0] - 10
         cv2.putText(frame, status_text, (text_x, 30), cv2.FONT_HERSHEY_SIMPLEX, 0.7, status_color, 2)
 
-        # Publikacja pozycji na kanał ROS 2
         msg = JointState()
         msg.header = Header()
         msg.header.stamp = self.get_clock().now().to_msg()
