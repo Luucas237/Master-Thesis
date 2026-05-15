@@ -9,24 +9,20 @@ from PyQt5.QtWidgets import (QApplication, QMainWindow, QWidget, QVBoxLayout,
 from PyQt5.QtGui import QImage, QPixmap
 from PyQt5.QtCore import QTimer, Qt
 
-# WPISZ TUTAJ TWARDE IP MALINKI!
 RASPBERRY_IP = "192.168.0.43" 
 
 class CommandCenterGUI(QMainWindow):
     def __init__(self):
         super().__init__()
-        
-        # --- KONFIGURACJA ZMQ ---
+
         self.context = zmq.Context()
-        
-        # Odbieranie wideo
+
         self.sub_socket = self.context.socket(zmq.SUB)
         self.sub_socket.connect(f"tcp://{RASPBERRY_IP}:5555")
         self.sub_socket.setsockopt(zmq.SUBSCRIBE, b"RGB")
         self.sub_socket.setsockopt(zmq.SUBSCRIBE, b"MASK")
         self.sub_socket.setsockopt(zmq.SUBSCRIBE, b"FPS")
-        
-        # Wysyłanie komend
+
         self.pub_socket = self.context.socket(zmq.PUB)
         self.pub_socket.connect(f"tcp://{RASPBERRY_IP}:5556")
 
@@ -49,10 +45,9 @@ class CommandCenterGUI(QMainWindow):
 
         self.lbl_fps = QLabel("FPS: 0")
         self.lbl_fps.setStyleSheet("color: lime; font-weight: bold; font-size: 14px;")
-        # Dodaj do układu (np. na górze lewej kolumny)
+
         left_layout.insertWidget(0, self.lbl_fps)
 
-        # === LEWA STRONA (Wideo) ===
         left_layout = QVBoxLayout()
         self.lbl_rgb = QLabel("Czekam na obraz...")
         self.lbl_rgb.setFixedSize(640, 480)
@@ -68,10 +63,8 @@ class CommandCenterGUI(QMainWindow):
         left_layout.addWidget(self.lbl_mask)
         main_layout.addLayout(left_layout)
 
-        # === PRAWA STRONA (Panele Sterowania) ===
         right_layout = QVBoxLayout()
 
-        # 1. WYBÓR TRYBU
         mode_group = QGroupBox("Tryb Pracy Systemu")
         mode_layout = QHBoxLayout()
         self.radio_auto = QRadioButton("AUTOMATYCZNY")
@@ -82,8 +75,7 @@ class CommandCenterGUI(QMainWindow):
         mode_layout.addWidget(self.radio_manual)
         mode_group.setLayout(mode_layout)
         right_layout.addWidget(mode_group)
-        
-        # 2. PANEL PID (Działa w Auto)
+
         pid_group = QGroupBox("Nastawy Pełnego PID (Tryb Auto)")
         pid_layout = QFormLayout()
         self.input_kp = QLineEdit("0.05")
@@ -98,7 +90,6 @@ class CommandCenterGUI(QMainWindow):
         pid_group.setLayout(pid_layout)
         right_layout.addWidget(pid_group)
 
-        # 3. PANEL RĘCZNY (Działa w Manual)
         manual_group = QGroupBox("Sterowanie Ręczne (PAN TILT LASER)")
         manual_layout = QFormLayout()
         self.input_pan = QLineEdit("0")
@@ -114,7 +105,6 @@ class CommandCenterGUI(QMainWindow):
         manual_group.setLayout(manual_layout)
         right_layout.addWidget(manual_group)
 
-        # 4. PIPETA
         color_group = QGroupBox("Cel HSV (Pipeta)")
         color_layout = QVBoxLayout()
         self.lbl_color_patch = QLabel("Kliknij na RGB")
@@ -126,7 +116,6 @@ class CommandCenterGUI(QMainWindow):
         right_layout.addStretch()
         main_layout.addLayout(right_layout)
 
-    # --- FUNKCJE WYSYŁAJĄCE ---
     def change_mode(self):
         mode = "AUTO" if self.radio_auto.isChecked() else "MANUAL"
         self.pub_socket.send_multipart([b"MODE", mode.encode('utf-8')])
@@ -139,12 +128,12 @@ class CommandCenterGUI(QMainWindow):
         print(f"[ZMQ] Wysłano PID: {msg}")
 
     def apply_manual(self):
-        # Wymuszamy tryb ręczny w GUI
+
         self.radio_manual.setChecked(True) 
-        # Pobieramy wartości z pól
+
         pan = self.input_pan.text()
         tilt = self.input_tilt.text()
-        laser = self.input_laser.text() # To musi być "0" lub "1"
+        laser = self.input_laser.text()
         
         msg = f"{pan} {tilt} {laser}"
         self.pub_socket.send_multipart([b"MANUAL", msg.encode('utf-8')])
