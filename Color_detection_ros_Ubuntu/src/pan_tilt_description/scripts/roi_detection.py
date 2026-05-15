@@ -45,9 +45,8 @@ class RoiTracker(Node):
         self.current_hsv_frame = None
         self.current_bgr_frame = None
 
-        # --- MASZYNA STANÓW I ROI ---
         self.state = "SEARCHING"
-        self.roi_size = 280      # ZWIĘKSZONE: Pozwala złapać szybki ruch ręki i piłki
+        self.roi_size = 280
         self.roi_center = (self.center_x, self.center_y)
         self.lost_time = 0.0
         self.bg_accumulator = None 
@@ -55,18 +54,15 @@ class RoiTracker(Node):
         # --- FILTRY I PID ---
         self.kalman = cv2.KalmanFilter(4, 2)
         self.kalman.measurementMatrix = np.array([[1, 0, 0, 0], [0, 1, 0, 0]], np.float32)
-        # Transition Matrix określa uwzględnianie prędkości (dx, dy)
         self.kalman.transitionMatrix = np.array([[1, 0, 1, 0], [0, 1, 0, 1], [0, 0, 1, 0], [0, 0, 0, 1]], np.float32)
         self.kalman.processNoiseCov = np.eye(4, dtype=np.float32) * 0.03
         self.pid_pan = PIDController(kp=0.0008, ki=0.0, kd=0.0004)
         self.pid_tilt = PIDController(kp=0.0008, ki=0.0, kd=0.0004)
         self.current_pan, self.current_tilt = 0.0, 0.0
         self.last_time = time.time()
-        
-        # ZMNIEJSZONY KERNEL: 3x3 nie usunie tak łatwo rozmazanej, szybkiej piłki
+
         self.morph_kernel = np.ones((3, 3), np.uint8)
 
-        # ODBLOKOWANE FPS: 0.016s = ~60 FPS
         self.timer = self.create_timer(0.016, self.timer_callback)
         self.get_logger().info("System PREDYKCYJNEGO ROI uruchomiony!")
 
@@ -76,15 +72,12 @@ class RoiTracker(Node):
             self.target_bgr = self.current_bgr_frame[y, x]
             self.color_picked = True
             self.state = "SEARCHING"
-            # Reset Kalmana przy nowym kliknięciu (Wymuszony float32!)
             self.kalman.statePre = np.array([[x], [y], [0], [0]], dtype=np.float32)
             self.kalman.statePost = np.array([[x], [y], [0], [0]], dtype=np.float32)
 
     def get_dynamic_mask(self, hsv_frame):
         h, s, v = self.target_hsv
-        # ZACIŚNIĘTE FILTRY: H=10 (odcina żółty i skórę), S/V=50 (wymaga czystego koloru)
         h_tol, s_tol, v_tol = 10, 50, 50
-        # Podnosimy też dolny, sztywny próg jasności z 30 na 80, żeby ignorować cienie i ciemne obiekty
         lower_bound = np.array([max(0, int(h)-h_tol), max(80, int(s)-s_tol), max(80, int(v)-v_tol)], dtype=np.uint8)
         upper_bound = np.array([min(179, int(h)+h_tol), min(255, int(s)+s_tol), min(255, int(v)+v_tol)], dtype=np.uint8)
         mask = cv2.inRange(hsv_frame, lower_bound, upper_bound)
@@ -125,9 +118,6 @@ class RoiTracker(Node):
             cv2.putText(frame, "KLIKNIJ ABY WYBRAC KOLOR", (10, 100), cv2.FONT_HERSHEY_SIMPLEX, 0.7, (0,0,255), 2)
             cv2.accumulateWeighted(gray_frame, self.bg_accumulator, 0.5)
 
-        # ==========================================
-        # STAN: SEARCHING (Szukanie ruchu po całości)
-        # ==========================================
         elif self.state == "SEARCHING":
             cv2.accumulateWeighted(gray_frame, self.bg_accumulator, 0.1)
             bg_frame = cv2.convertScaleAbs(self.bg_accumulator)
@@ -145,13 +135,11 @@ class RoiTracker(Node):
                         self.roi_center = (int(M["m10"]/M["m00"]), int(M["m01"]/M["m00"]))
                         self.state = "TRACKING"
                         self.lost_time = 0.0
-                        # Nadpisujemy Kalmana, żeby nie uciekł na start (Wymuszony float32!)
+
                         self.kalman.statePre = np.array([[self.roi_center[0]], [self.roi_center[1]], [0], [0]], dtype=np.float32)
                         self.kalman.statePost = np.array([[self.roi_center[0]], [self.roi_center[1]], [0], [0]], dtype=np.float32)
 
-        # ==========================================
-        # STAN: TRACKING (Analiza koloru tylko w ROI)
-        # ==========================================
+
         if self.state == "TRACKING":
             rx, ry = self.roi_center
             half_s = self.roi_size // 2
@@ -164,7 +152,7 @@ class RoiTracker(Node):
                 roi_hsv = cv2.cvtColor(roi_bgr, cv2.COLOR_BGR2HSV)
                 
                 mask = self.get_dynamic_mask(roi_hsv)
-                # TYLKO 1 ITERACJA: Delikatne usuwanie szumów, żeby zachować smugę rozmytej piłki
+
                 mask = cv2.morphologyEx(mask, cv2.MORPH_OPEN, self.morph_kernel, iterations=1)
                 mask = cv2.morphologyEx(mask, cv2.MORPH_CLOSE, self.morph_kernel, iterations=2)
                 
@@ -177,7 +165,7 @@ class RoiTracker(Node):
                 contours, _ = cv2.findContours(mask, cv2.RETR_TREE, cv2.CHAIN_APPROX_SIMPLE)
                 if contours:
                     c = max(contours, key=cv2.contourArea)
-                    if cv2.contourArea(c) > 100: # Drastycznie obniżony próg dla rozmytych smug!
+                    if cv2.contourArea(c) > 100:
                         M = cv2.moments(c)
                         if M["m00"] > 0:
                             local_x = int(M["m10"] / M["m00"])
@@ -194,20 +182,17 @@ class RoiTracker(Node):
                     self.state = "SEARCHING"
                     self.bg_accumulator = gray_frame.copy().astype("float")
 
-        # --- AKTUALIZACJA KALMANA I PID ---
         if ball_detected:
             measurement = np.array([[np.float32(measured_x)], [np.float32(measured_y)]])
             self.kalman.correct(measurement)
             cv2.circle(frame, (measured_x, measured_y), 5, (0, 255, 255), -1)
 
-        # KALMAN PRZEWIDUJE PRZYSZŁOŚĆ: Nawet jeśli w tej klatce nie wykryto piłki (zgubiona na ułamek sekundy)
         prediction = self.kalman.predict()
         est_x, est_y = int(prediction[0]), int(prediction[1])
         cv2.circle(frame, (est_x, est_y), 8, (0, 0, 255), -1)
         cv2.drawMarker(frame, (self.center_x, self.center_y), (0, 255, 0), cv2.MARKER_CROSS, 20, 2)
 
         if self.state == "TRACKING":
-            # PREDYKCYJNY ROI: Ustawiamy środek ROI na następną klatkę tam, gdzie Kalman zakłada że doleci piłka!
             self.roi_center = (est_x, est_y)
 
         if ball_detected:
@@ -223,7 +208,6 @@ class RoiTracker(Node):
         msg.position = [self.current_pan, self.current_tilt]
         self.publisher_.publish(msg)
 
-        # --- HUD (INTERFEJS) ---
         fps_val = int(1.0 / dt) if dt > 0 else 0
         cv2.putText(frame, f"FPS: {fps_val}", (10, 30), cv2.FONT_HERSHEY_SIMPLEX, 0.7, (0, 255, 0), 2)
         
