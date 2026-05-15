@@ -60,14 +60,9 @@ class SimRoiTracker(Node):
         self.current_pan, self.current_tilt = 0.0, 0.0
         self.last_time = time.time()
 
-        # =========================================================
-        # AUTOMATYCZNE STROJENIE PID (AUTO-TUNER)
-        # =========================================================
-
-        #-> NOWY REKORD! Kp:0.00285, Ki:0.000000, Kd:0.00135
-        self.AUTOTUNE_ENABLED = True  # Ustaw na False, gdy już znajdziesz nastawy
-        self.epoch_duration = 20    # Czas trwania jednego testu (w sekundach)
-        self.epoch_max = 40           # Ile testów ma wykonać
+        self.AUTOTUNE_ENABLED = True
+        self.epoch_duration = 20 
+        self.epoch_max = 40 
         
         self.best_mse = float('inf')
         self.best_kp = 0.001
@@ -83,7 +78,6 @@ class SimRoiTracker(Node):
         self.epoch_error_sum = 0.0
         self.epoch_frame_count = 0
 
-        # Inicjalizacja początkowych PID
         self.pid_pan = PIDController(self.current_test_kp, self.current_test_ki, self.current_test_kd)
         self.pid_tilt = PIDController(self.current_test_kp, self.current_test_ki, self.current_test_kd)
 
@@ -198,16 +192,11 @@ class SimRoiTracker(Node):
         if self.state == "TRACKING":
             self.roi_center = (est_x, est_y)
 
-        # =========================================================
-        # LOGIKA AUTO-TUNERA (Obliczanie błędu i modyfikacja PID)
-        # =========================================================
         if self.AUTOTUNE_ENABLED and ball_detected:
-            # Oblicz kwadrat błędu odległości od środka i dodaj do sumy
             error_sq = (self.center_x - est_x)**2 + (self.center_y - est_y)**2
             self.epoch_error_sum += error_sq
             self.epoch_frame_count += 1
-            
-            # Sprawdź, czy epoka minęła
+
             current_time = time.time()
             if current_time - self.epoch_start_time >= self.epoch_duration:
                 mse = self.epoch_error_sum / max(1, self.epoch_frame_count)
@@ -225,11 +214,11 @@ class SimRoiTracker(Node):
                 if self.epoch_current > self.epoch_max:
                     self.get_logger().info(f"[AUTOTUNE] KONIEC! Najlepsze nastawy: Kp:{self.best_kp:.5f}, Ki:{self.best_ki:.6f}, Kd:{self.best_kd:.5f}")
                     self.AUTOTUNE_ENABLED = False
-                    # Zastosuj ostateczne, najlepsze nastawy
+
                     self.pid_pan = PIDController(self.best_kp, self.best_ki, self.best_kd)
                     self.pid_tilt = PIDController(self.best_kp, self.best_ki, self.best_kd)
                 else:
-                    # Generuj nowe parametry: Najlepsze znane + losowy szum poszukiwawczy
+
                     self.current_test_kp = max(0.0001, self.best_kp + random.uniform(-0.001, 0.001))
                     self.current_test_ki = max(0.0, self.best_ki + random.uniform(-0.00005, 0.00005))
                     self.current_test_kd = max(0.0, self.best_kd + random.uniform(-0.0005, 0.0005))
@@ -237,12 +226,9 @@ class SimRoiTracker(Node):
                     self.pid_pan = PIDController(self.current_test_kp, self.current_test_ki, self.current_test_kd)
                     self.pid_tilt = PIDController(self.current_test_kp, self.current_test_ki, self.current_test_kd)
 
-                # Reset epoki
                 self.epoch_error_sum = 0.0
                 self.epoch_frame_count = 0
                 self.epoch_start_time = time.time()
-
-        # =========================================================
 
         if ball_detected:
             delta_pan = self.pid_pan.compute(self.center_x - est_x, dt)
