@@ -28,5 +28,5 @@ python3 tracker.py
 ```
 **Ubuntu**
 ```bash
-mpv tcp://192.168.0.43:5000 --profile=low-latency --fps=30 --untimed
+mpv tcp://192.168.0.43:5000 --profile=low-latency --untimed --demuxer=lavf --demuxer-lavf-format=mjpeg
 ```
