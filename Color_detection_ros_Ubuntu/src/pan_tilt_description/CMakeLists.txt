@@ -8,6 +8,7 @@ install(PROGRAMS
   scripts/vision_tracker.py
   scripts/roi_detection.py
   scripts/roi_detection_simulation.py
+  scripts/plot.py
   gui/turret_gui.py
   DESTINATION lib/${PROJECT_NAME}
 )

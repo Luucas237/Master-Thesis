@@ -3,6 +3,7 @@ import sys
 import cv2
 import numpy as np
 import zmq
+import pygame  # NOWOŚĆ: Biblioteka do płynnego audio
 
 from PyQt5.QtWidgets import (QApplication, QMainWindow, QWidget, QVBoxLayout, 
                              QHBoxLayout, QLabel, QLineEdit, QPushButton, QFormLayout, QGroupBox, QRadioButton)
@@ -15,6 +16,12 @@ class CommandCenterGUI(QMainWindow):
     def __init__(self):
         super().__init__()
 
+        # --- INICJALIZACJA AUDIO ---
+        pygame.mixer.init()
+        self.sound_enabled = True
+        self.laser_firing = False
+        # Upewnij się, że plik laser.mp3 jest w tym samym folderze co ten skrypt!
+
         self.context = zmq.Context()
 
         self.sub_socket = self.context.socket(zmq.SUB)
@@ -22,6 +29,7 @@ class CommandCenterGUI(QMainWindow):
         self.sub_socket.setsockopt(zmq.SUBSCRIBE, b"RGB")
         self.sub_socket.setsockopt(zmq.SUBSCRIBE, b"MASK")
         self.sub_socket.setsockopt(zmq.SUBSCRIBE, b"FPS")
+        self.sub_socket.setsockopt(zmq.SUBSCRIBE, b"LASER_STATE") # NOWOŚĆ: Nasłuchujemy lasera
 
         self.pub_socket = self.context.socket(zmq.PUB)
         self.pub_socket.connect(f"tcp://{RASPBERRY_IP}:5556")
@@ -45,10 +53,8 @@ class CommandCenterGUI(QMainWindow):
 
         self.lbl_fps = QLabel("FPS: 0")
         self.lbl_fps.setStyleSheet("color: lime; font-weight: bold; font-size: 14px;")
+        left_layout.addWidget(self.lbl_fps)
 
-        left_layout.insertWidget(0, self.lbl_fps)
-
-        left_layout = QVBoxLayout()
         self.lbl_rgb = QLabel("Czekam na obraz...")
         self.lbl_rgb.setFixedSize(640, 480)
         self.lbl_rgb.setAlignment(Qt.AlignCenter)
@@ -64,6 +70,18 @@ class CommandCenterGUI(QMainWindow):
         main_layout.addLayout(left_layout)
 
         right_layout = QVBoxLayout()
+
+        # --- NOWOŚĆ: MODUŁ AUDIO ---
+        audio_group = QGroupBox("Efekty Dźwiękowe")
+        audio_layout = QHBoxLayout()
+        self.btn_audio = QPushButton("🔊 ON")
+        self.btn_audio.setCheckable(True)
+        self.btn_audio.setChecked(True) # Domyślnie włączony
+        self.btn_audio.setStyleSheet("background-color: #27ae60; color: white; font-weight: bold;")
+        self.btn_audio.clicked.connect(self.toggle_audio)
+        audio_layout.addWidget(self.btn_audio)
+        audio_group.setLayout(audio_layout)
+        right_layout.addWidget(audio_group)
 
         mode_group = QGroupBox("Tryb Pracy Systemu")
         mode_layout = QHBoxLayout()
@@ -94,7 +112,7 @@ class CommandCenterGUI(QMainWindow):
         manual_layout = QFormLayout()
         self.input_pan = QLineEdit("0")
         self.input_tilt = QLineEdit("0")
-        self.input_laser = QLineEdit("0") # 0 lub 1
+        self.input_laser = QLineEdit("0")
         btn_apply_manual = QPushButton("Wyślij Komendę Ręczną")
         btn_apply_manual.setStyleSheet("background-color: #e67e22; color: white;")
         btn_apply_manual.clicked.connect(self.apply_manual)
@@ -116,6 +134,17 @@ class CommandCenterGUI(QMainWindow):
         right_layout.addStretch()
         main_layout.addLayout(right_layout)
 
+    # --- NOWOŚĆ: OBSŁUGA AUDIO ---
+    def toggle_audio(self):
+        self.sound_enabled = self.btn_audio.isChecked()
+        if self.sound_enabled:
+            self.btn_audio.setText("🔊 ON")
+            self.btn_audio.setStyleSheet("background-color: #27ae60; color: white; font-weight: bold;")
+        else:
+            self.btn_audio.setText("🔇 OFF")
+            self.btn_audio.setStyleSheet("background-color: #c0392b; color: white; font-weight: bold;")
+            pygame.mixer.music.stop() # Wyłącz natychmiast, jeśli grał
+
     def change_mode(self):
         mode = "AUTO" if self.radio_auto.isChecked() else "MANUAL"
         self.pub_socket.send_multipart([b"MODE", mode.encode('utf-8')])
@@ -125,16 +154,12 @@ class CommandCenterGUI(QMainWindow):
         kp, ki, kd = self.input_kp.text(), self.input_ki.text(), self.input_kd.text()
         msg = f"{kp} {ki} {kd}"
         self.pub_socket.send_multipart([b"PID", msg.encode('utf-8')])
-        print(f"[ZMQ] Wysłano PID: {msg}")
 
     def apply_manual(self):
-
         self.radio_manual.setChecked(True) 
-
         pan = self.input_pan.text()
         tilt = self.input_tilt.text()
         laser = self.input_laser.text()
-        
         msg = f"{pan} {tilt} {laser}"
         self.pub_socket.send_multipart([b"MANUAL", msg.encode('utf-8')])
 
@@ -153,13 +178,31 @@ class CommandCenterGUI(QMainWindow):
         try:
             while True:
                 topic, msg = self.sub_socket.recv_multipart(flags=zmq.NOBLOCK)
-                np_arr = np.frombuffer(msg, np.uint8)
-                if topic == b"RGB":
+                
+                # --- LOGIKA LASERA I DŹWIĘKU ---
+                if topic == b"LASER_STATE":
+                    state = int(msg.decode('utf-8'))
+                    if state == 1 and not self.laser_firing:
+                        self.laser_firing = True
+                        if self.sound_enabled:
+                            try:
+                                pygame.mixer.music.load("/workspace/src/pan_tilt_description/gui/laser1.mp3")
+                                pygame.mixer.music.play(-1)
+                            except Exception as e:
+                                print(f"Błąd odtwarzania audio: {e}")
+                    
+                    elif state == 0 and self.laser_firing:
+                        self.laser_firing = False
+                        pygame.mixer.music.stop()
+                        
+                elif topic == b"RGB":
+                    np_arr = np.frombuffer(msg, np.uint8)
                     frame = cv2.imdecode(np_arr, cv2.IMREAD_COLOR)
                     self.latest_rgb_bgr = frame
                     qimg = QImage(frame.data, frame.shape[1], frame.shape[0], frame.shape[2] * frame.shape[1], QImage.Format_BGR888)
                     self.lbl_rgb.setPixmap(QPixmap.fromImage(qimg))
                 elif topic == b"MASK":
+                    np_arr = np.frombuffer(msg, np.uint8)
                     mask_frame = cv2.resize(cv2.imdecode(np_arr, cv2.IMREAD_GRAYSCALE), (640, 240)) 
                     qimg = QImage(mask_frame.data, mask_frame.shape[1], mask_frame.shape[0], mask_frame.shape[1], QImage.Format_Grayscale8)
                     self.lbl_mask.setPixmap(QPixmap.fromImage(qimg))
