@@ -1,26 +1,27 @@
 #!/usr/bin/env python3
 import sys
+import os
 import cv2
 import numpy as np
 import zmq
-import pygame  # NOWOŚĆ: Biblioteka do płynnego audio
+import pygame
 
+from ament_index_python.packages import get_package_share_directory
 from PyQt5.QtWidgets import (QApplication, QMainWindow, QWidget, QVBoxLayout, 
-                             QHBoxLayout, QLabel, QLineEdit, QPushButton, QFormLayout, QGroupBox, QRadioButton)
+                             QHBoxLayout, QLabel, QLineEdit, QPushButton, QFormLayout, QGroupBox, QRadioButton, QCheckBox)
 from PyQt5.QtGui import QImage, QPixmap
 from PyQt5.QtCore import QTimer, Qt
 
-RASPBERRY_IP = "192.168.0.43" 
+# RASPBERRY_IP = "192.168.0.43"
+RASPBERRY_IP = "172.20.10.9" 
 
 class CommandCenterGUI(QMainWindow):
     def __init__(self):
         super().__init__()
 
-        # --- INICJALIZACJA AUDIO ---
         pygame.mixer.init()
         self.sound_enabled = True
         self.laser_firing = False
-        # Upewnij się, że plik laser.mp3 jest w tym samym folderze co ten skrypt!
 
         self.context = zmq.Context()
 
@@ -29,7 +30,7 @@ class CommandCenterGUI(QMainWindow):
         self.sub_socket.setsockopt(zmq.SUBSCRIBE, b"RGB")
         self.sub_socket.setsockopt(zmq.SUBSCRIBE, b"MASK")
         self.sub_socket.setsockopt(zmq.SUBSCRIBE, b"FPS")
-        self.sub_socket.setsockopt(zmq.SUBSCRIBE, b"LASER_STATE") # NOWOŚĆ: Nasłuchujemy lasera
+        self.sub_socket.setsockopt(zmq.SUBSCRIBE, b"LASER_STATE")
 
         self.pub_socket = self.context.socket(zmq.PUB)
         self.pub_socket.connect(f"tcp://{RASPBERRY_IP}:5556")
@@ -42,8 +43,8 @@ class CommandCenterGUI(QMainWindow):
         self.timer.start(16) 
 
     def initUI(self):
-        self.setWindowTitle('Centrum Dowodzenia - Tryb Hybrydowy ZMQ')
-        self.resize(1100, 800)
+        self.setWindowTitle('Centrum Dowodzenia - Strojenie PID i Kontrola Ręczna')
+        self.resize(1100, 900) # Lekko powiększone okno by zmieścić wszystko
 
         central_widget = QWidget()
         self.setCentralWidget(central_widget)
@@ -71,19 +72,20 @@ class CommandCenterGUI(QMainWindow):
 
         right_layout = QVBoxLayout()
 
-        # --- NOWOŚĆ: MODUŁ AUDIO ---
+        # 1. AUDIO
         audio_group = QGroupBox("Efekty Dźwiękowe")
         audio_layout = QHBoxLayout()
-        self.btn_audio = QPushButton("🔊 ON")
+        self.btn_audio = QPushButton("🔊 Dźwięk WŁĄCZONY")
         self.btn_audio.setCheckable(True)
-        self.btn_audio.setChecked(True) # Domyślnie włączony
+        self.btn_audio.setChecked(True)
         self.btn_audio.setStyleSheet("background-color: #27ae60; color: white; font-weight: bold;")
         self.btn_audio.clicked.connect(self.toggle_audio)
         audio_layout.addWidget(self.btn_audio)
         audio_group.setLayout(audio_layout)
         right_layout.addWidget(audio_group)
 
-        mode_group = QGroupBox("Tryb Pracy Systemu")
+        # 2. TRYB PRACY
+        mode_group = QGroupBox("Tryb Pracy")
         mode_layout = QHBoxLayout()
         self.radio_auto = QRadioButton("AUTOMATYCZNY")
         self.radio_manual = QRadioButton("RĘCZNY")
@@ -94,25 +96,58 @@ class CommandCenterGUI(QMainWindow):
         mode_group.setLayout(mode_layout)
         right_layout.addWidget(mode_group)
 
-        pid_group = QGroupBox("Nastawy Pełnego PID (Tryb Auto)")
-        pid_layout = QFormLayout()
-        self.input_kp = QLineEdit("0.05")
-        self.input_ki = QLineEdit("0.001")
-        self.input_kd = QLineEdit("0.01")
-        btn_apply_pid = QPushButton("Wyślij PID")
+        # 3. AKTYWACJA OSI (TESTOWANIE)
+        axes_group = QGroupBox("Aktywacja Osi (Do strojenia)")
+        axes_layout = QHBoxLayout()
+        self.chk_pan = QCheckBox("Aktywuj PAN (Poziom)")
+        self.chk_tilt = QCheckBox("Aktywuj TILT (Pion)")
+        self.chk_pan.setChecked(True)
+        self.chk_tilt.setChecked(True)
+        self.chk_pan.stateChanged.connect(self.apply_axes)
+        self.chk_tilt.stateChanged.connect(self.apply_axes)
+        axes_layout.addWidget(self.chk_pan)
+        axes_layout.addWidget(self.chk_tilt)
+        axes_group.setLayout(axes_layout)
+        right_layout.addWidget(axes_group)
+
+        # 4. NASTAWY PID
+        pid_group = QGroupBox("Nastawy PID")
+        pid_layout = QVBoxLayout()
+        
+        pan_form = QFormLayout()
+        self.input_kp_pan = QLineEdit("0.01")
+        self.input_ki_pan = QLineEdit("0.0")
+        self.input_kd_pan = QLineEdit("0.001")
+        pan_form.addRow("PAN Kp:", self.input_kp_pan)
+        pan_form.addRow("PAN Ki:", self.input_ki_pan)
+        pan_form.addRow("PAN Kd:", self.input_kd_pan)
+        
+        tilt_form = QFormLayout()
+        self.input_kp_tilt = QLineEdit("0.01")
+        self.input_ki_tilt = QLineEdit("0.0")
+        self.input_kd_tilt = QLineEdit("0.001")
+        tilt_form.addRow("TILT Kp:", self.input_kp_tilt)
+        tilt_form.addRow("TILT Ki:", self.input_ki_tilt)
+        tilt_form.addRow("TILT Kd:", self.input_kd_tilt)
+
+        pid_layout.addLayout(pan_form)
+        pid_layout.addWidget(QLabel("---"))
+        pid_layout.addLayout(tilt_form)
+
+        btn_apply_pid = QPushButton("Wyślij PID (PAN + TILT)")
+        btn_apply_pid.setStyleSheet("background-color: #3498db; color: white;")
         btn_apply_pid.clicked.connect(self.apply_pid)
-        pid_layout.addRow("Kp:", self.input_kp)
-        pid_layout.addRow("Ki:", self.input_ki)
-        pid_layout.addRow("Kd:", self.input_kd)
-        pid_layout.addRow(btn_apply_pid)
+        pid_layout.addWidget(btn_apply_pid)
+        
         pid_group.setLayout(pid_layout)
         right_layout.addWidget(pid_group)
 
+        # 5. STEROWANIE RĘCZNE (PRZYWRÓCONE)
         manual_group = QGroupBox("Sterowanie Ręczne (PAN TILT LASER)")
         manual_layout = QFormLayout()
         self.input_pan = QLineEdit("0")
         self.input_tilt = QLineEdit("0")
-        self.input_laser = QLineEdit("0")
+        self.input_laser = QLineEdit("0") # 0 lub 1
         btn_apply_manual = QPushButton("Wyślij Komendę Ręczną")
         btn_apply_manual.setStyleSheet("background-color: #e67e22; color: white;")
         btn_apply_manual.clicked.connect(self.apply_manual)
@@ -123,6 +158,7 @@ class CommandCenterGUI(QMainWindow):
         manual_group.setLayout(manual_layout)
         right_layout.addWidget(manual_group)
 
+        # 6. PIPETA
         color_group = QGroupBox("Cel HSV (Pipeta)")
         color_layout = QVBoxLayout()
         self.lbl_color_patch = QLabel("Kliknij na RGB")
@@ -134,32 +170,44 @@ class CommandCenterGUI(QMainWindow):
         right_layout.addStretch()
         main_layout.addLayout(right_layout)
 
-    # --- NOWOŚĆ: OBSŁUGA AUDIO ---
     def toggle_audio(self):
         self.sound_enabled = self.btn_audio.isChecked()
         if self.sound_enabled:
-            self.btn_audio.setText("🔊 ON")
+            self.btn_audio.setText("🔊 Dźwięk WŁĄCZONY")
             self.btn_audio.setStyleSheet("background-color: #27ae60; color: white; font-weight: bold;")
+            if self.laser_firing:
+                try:
+                    pygame.mixer.music.play(-1)
+                except Exception as e:
+                    print(f"Audio resume error: {e}")
         else:
-            self.btn_audio.setText("🔇 OFF")
+            self.btn_audio.setText("🔇 Wyciszony (MUTE)")
             self.btn_audio.setStyleSheet("background-color: #c0392b; color: white; font-weight: bold;")
-            pygame.mixer.music.stop() # Wyłącz natychmiast, jeśli grał
+            pygame.mixer.music.stop()
 
     def change_mode(self):
         mode = "AUTO" if self.radio_auto.isChecked() else "MANUAL"
         self.pub_socket.send_multipart([b"MODE", mode.encode('utf-8')])
-        print(f"[ZMQ] Zmiana trybu na: {mode}")
+
+    def apply_axes(self):
+        pan_en = 1 if self.chk_pan.isChecked() else 0
+        tilt_en = 1 if self.chk_tilt.isChecked() else 0
+        msg = f"{pan_en} {tilt_en}"
+        self.pub_socket.send_multipart([b"AXIS", msg.encode('utf-8')])
 
     def apply_pid(self):
-        kp, ki, kd = self.input_kp.text(), self.input_ki.text(), self.input_kd.text()
-        msg = f"{kp} {ki} {kd}"
+        kp_p, ki_p, kd_p = self.input_kp_pan.text(), self.input_ki_pan.text(), self.input_kd_pan.text()
+        kp_t, ki_t, kd_t = self.input_kp_tilt.text(), self.input_ki_tilt.text(), self.input_kd_tilt.text()
+        msg = f"{kp_p} {ki_p} {kd_p} {kp_t} {ki_t} {kd_t}"
         self.pub_socket.send_multipart([b"PID", msg.encode('utf-8')])
 
+    # PRZYWRÓCONA FUNKCJA MANUAL
     def apply_manual(self):
         self.radio_manual.setChecked(True) 
         pan = self.input_pan.text()
         tilt = self.input_tilt.text()
         laser = self.input_laser.text()
+        
         msg = f"{pan} {tilt} {laser}"
         self.pub_socket.send_multipart([b"MANUAL", msg.encode('utf-8')])
 
@@ -179,18 +227,18 @@ class CommandCenterGUI(QMainWindow):
             while True:
                 topic, msg = self.sub_socket.recv_multipart(flags=zmq.NOBLOCK)
                 
-                # --- LOGIKA LASERA I DŹWIĘKU ---
                 if topic == b"LASER_STATE":
                     state = int(msg.decode('utf-8'))
                     if state == 1 and not self.laser_firing:
                         self.laser_firing = True
                         if self.sound_enabled:
                             try:
-                                pygame.mixer.music.load("/workspace/src/pan_tilt_description/gui/laser1.mp3")
+                                pkg_dir = get_package_share_directory('pan_tilt_description')
+                                laser_mp3_path = os.path.join(pkg_dir, 'gui', 'laser.mp3')
+                                pygame.mixer.music.load(laser_mp3_path)
                                 pygame.mixer.music.play(-1)
                             except Exception as e:
-                                print(f"Błąd odtwarzania audio: {e}")
-                    
+                                pass
                     elif state == 0 and self.laser_firing:
                         self.laser_firing = False
                         pygame.mixer.music.stop()

@@ -23,6 +23,12 @@ RUN apt-get update && apt-get install -y \
     python3-pip \
     python3-serial \
     nano \
+    \
+    alsa-utils \
+    mpg123 \
+    gstreamer1.0-plugins-ugly \
+    libsdl2-mixer-2.0-0 \
     && rm -rf /var/lib/apt/lists/*
 
-RUN pip3 install pyzmq pygame
+
+RUN pip3 install pyzmq pygame pandas matplotlib "numpy<2"
