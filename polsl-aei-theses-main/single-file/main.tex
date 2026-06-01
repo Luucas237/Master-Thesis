@@ -884,21 +884,165 @@ Istotnym wyzwaniem pozostaje strategia przeszukiwania przestrzeni. Ciągły ruch
 
 % TODO
 
-\chapter{Projekt demonstratora systemu kierowania} 
+\chapter{Koncepcja i projekt demonstratora systemu nadążnego} 
 
-\section{CAD i modelowanie 3D}
-\subsection{Modelowanie mechaniczne i analiza kinematyczna}
+\section{Projekt mechaniczny platformy nadążnej}
 
-\section{Elektronika}
-\subsection{Dobór komponentów}
-\subsection{Schemat podłączeń i opis funkcjonalny układu sterowania}
+Faza projektowania mechanicznego stanowiła krytyczny etap w budowie demonstratora, determinujący późniejsze możliwości algorytmów sterowania i wizji komputerowej. Zasadniczym celem tego procesu była translacja założeń funkcjonalnych – takich jak zdolność do ciągłego śledzenia obiektu oraz integracja bogatego zaplecza elektronicznego – na stabilną i precyzyjną fizyczną konstrukcję. 
 
-\section{Oprogramowanie i algorytmy sterowania}
+Z uwagi na powszechnie przyjętą nomenklaturę w dziedzinie robotyki mobilnej oraz systemów wizyjnych, w niniejszej pracy wprowadzono ujednolicone nazewnictwo osi kinematycznych głowicy. Oś napędowa odpowiadająca za ruch w płaszczyźnie horyzontalnej (obrót wzdłuż osi pionowej, z ang. \textit{panning}) określona została mianem osi \textbf{PAN}. Z kolei oś realizująca ruch w płaszczyźnie wertykalnej (podnoszenie i opuszczanie głowicy optycznej, z ang. \textit{tilting}) zdefiniowana została jako oś \textbf{TILT}. W celu zachowania zwięzłości tekstu oraz spójności z anglojęzyczną literaturą branżową, autor w dalszej części dysertacji będzie posługiwał się wyłącznie tymi skrótowymi terminami.
+
+W poniższej sekcji przedstawiono tok rozumowania inżynierskiego, począwszy od wyboru koncepcji kinematycznej i optymalizacji architektury modułowej, przez modelowanie przestrzenne detali, aż po analityczny dobór układu napędowego opartego na bezluzowych przekładniach zębatych.
+
+\subsection{Założenia projektowe i koncepcja kinematyczna}
+
+Proces syntezy układu mechanicznego demonstratora poprzedzono szczegółową analizą dostępnych rozwiązań komercyjnych oraz otwartych projektów inżynierskich (ang. \textit{open-source}), udokumentowanych w literaturze oraz materiałach audiowizualnych. Szczególną uwagę zwrócono na zrobotyzowane głowice kinematograficzne, stosowane na planach zdjęciowych do płynnego i wysoce precyzyjnego pozycjonowania sprzętu optycznego \cite{Miejsce_na_cytowanie_np_z_Google_Scholar}. Główne wymagania stawiane projektowanej konstrukcji obejmowały minimalizację drgań przenoszonych na układ optyczny kamery, eliminację luzów mechanicznych oraz zdolność do szybkiej reorientacji układu w przestrzeni.
+
+Większość konwencjonalnych konstrukcji amatorskich zakłada umieszczenie całej logiki sterującej oraz zasilania w stałej, płaskiej podstawie urządzenia. W klasycznych aplikacjach jest to uzasadnione, ponieważ ruchoma głowica przenosi na ogół jedynie prosty układ optyczny, niewymagający skomplikowanego okablowania. W przypadku projektowanego demonstratora uwarunkowania sprzętowe były jednak odmienne. Ze względu na minimalizm gabarytowy zastosowanej kamery, przy jednoczesnej dużej złożoności i liczbie wymaganych komponentów (mikrokomputer Raspberry Pi, mikrokontroler ESP32, emiter lasera, moduły zasilania oraz sterowniki silników), klasyczne podejście skutkowałoby koniecznością poprowadzenia grubej i podatnej na uszkodzenia mechaniczne wiązki sygnałowej przez obrotowy przegub osi PAN.
+
+Dlatego w niniejszej pracy zdecydowano się na zoptymalizowaną, odwróconą architekturę systemową. Cała elektronika obliczeniowa i wykonawcza została zintegrowana bezpośrednio wewnątrz ruchomej, hemisferycznej głowicy. Taki zabieg zredukował do absolutnego minimum liczbę przewodów pracujących na zginanie i skręcanie – do wnętrza kopuły wprowadzono jedynie niezbędne okablowanie od zewnętrznie zamontowanych silników krokowych. Taka topologia, w odróżnieniu od napędów współosiowych wbudowanych w jarzmo, pozwala na ułatwione odprowadzanie ciepła z korpusów silników, zapewnia łatwy dostęp serwisowy oraz umożliwia bezinwazyjną wymianę przełożeń zębatych w fazie prototypowania.
+
+Aby zapewnić stabilność tak obciążonej konstrukcji głowicy i zapobiec jej chwianiu podczas nagłych nawrotów, odstąpiono od stosowania cienkich osi obrotu. Zamiast tego zaimplementowano wielkogabarytowe łożysko wieńcowe o średnicy zewnętrznej $140\text{ mm}$ i wewnętrznej $80\text{ mm}$. Jego zastosowanie pozwoliło na maksymalne poszerzenie bazy podparcia dla elementów obrotowych, co skutecznie przenosi momenty wywracające i niweluje luzy promieniowe układu.
+
+%% RYSUNEK Z PLIKU
+%
+%\begin{figure}
+%\centering
+%\includegraphics[width=0.5\textwidth]{./politechnika_sl_logo_bw_pion_pl.pdf}
+%\caption{Podpis rysunku zawsze pod rysunkiem.}
+%\label{fig:etykieta-rysunku}
+%\end{figure}
+%Rys. \ref{fig:etykieta-rysunku} przestawia …
+
+Z punktu widzenia kinematyki i procesu montażowego, cały demonstrator został podzielony na trzy współpracujące ze sobą główne moduły mechaniczne:
+\begin{itemize}
+    \item \textbf{Moduł I: Stacjonarna podstawa bazowa} -- element gwarantujący stabilne osadzenie na podłożu. Ma postać płyty nośnej, w której zintegrowano centralny otwór montażowy pozycjonujący zewnętrzną bieżnię głównego łożyska. Podstawa została wyposażona w nieruchomy wieniec zębaty o zębach daszkowych, z którym współpracuje zębnik układu napędowego osi PAN.
+    \item \textbf{Moduł II: Ruchoma platforma nośna} -- element precyzyjnie spasowany z wewnętrzną średnicą łożyska, co zapewnia płynny obrót względem stacjonarnej podstawy. Z jego rdzenia wyprowadzono ramiona pionowe, na których zamontowano silniki krokowe. Silnik osi PAN współpracuje z wieńcem bazy, natomiast silnik osi TILT odpowiada za podnoszenie głowicy optycznej.
+    \item \textbf{Moduł III: Głowica optyczno-elektroniczna} -- ruchoma czasza wyposażona we własną zębatkę napędową w płaszczyźnie TILT. Stanowi centrum sterowania układem. We wnętrzu zaprojektowano dedykowane punkty montażowe pod obwody drukowane, a w samej obudowie przewidziano precyzyjne otwory przepustowe na okablowanie silników. Moduł uzupełniono o zintegrowany przełącznik bistabilny do natychmiastowego odcinania zasilania aparatury w warunkach testowych.
+\end{itemize}
+
+    %% RYSUNEK Z PLIKU
+%
+%\begin{figure}
+%\centering
+%\includegraphics[width=0.5\textwidth]{./politechnika_sl_logo_bw_pion_pl.pdf}
+%\caption{Podpis rysunku zawsze pod rysunkiem.}
+%\label{fig:etykieta-rysunku}
+%\end{figure}
+%Rys. \ref{fig:etykieta-rysunku} przestawia …
+    %% RYSUNEK Z PLIKU
+%
+%\begin{figure}
+%\centering
+%\includegraphics[width=0.5\textwidth]{./politechnika_sl_logo_bw_pion_pl.pdf}
+%\caption{Podpis rysunku zawsze pod rysunkiem.}
+%\label{fig:etykieta-rysunku}
+%\end{figure}
+%Rys. \ref{fig:etykieta-rysunku} przestawia …
+    %% RYSUNEK Z PLIKU
+%
+%\begin{figure}
+%\centering
+%\includegraphics[width=0.5\textwidth]{./politechnika_sl_logo_bw_pion_pl.pdf}
+%\caption{Podpis rysunku zawsze pod rysunkiem.}
+%\label{fig:etykieta-rysunku}
+%\end{figure}
+%Rys. \ref{fig:etykieta-rysunku} przestawia …
+
+\subsection{Modelowanie przestrzenne i rozkład mas}
+
+Wszystkie elementy mechaniczne demonstratora zostały zamodelowane z wykorzystaniem środowiska projektowego CAD 3D. Cyfrowe odwzorowanie konstrukcji pozwoliło na wczesną detekcję kolizji, odpowiednie tolerowanie otworów pod wały napędowe oraz weryfikację całkowitej przestrzeni roboczej robota.
+
+%% RYSUNEK Z PLIKU
+%
+%\begin{figure}
+%\centering
+%\includegraphics[width=0.5\textwidth]{./politechnika_sl_logo_bw_pion_pl.pdf}
+%\caption{Podpis rysunku zawsze pod rysunkiem.}
+%\label{fig:etykieta-rysunku}
+%\end{figure}
+%Rys. \ref{fig:etykieta-rysunku} przestawia …
+
+Szczególny nacisk podczas projektowania położono na optymalizację rozkładu mas. Zastosowanie dwuramiennego jarzma wsporczego (Moduł II) znacząco zwiększyło sztywność skrętną osi poziomej, zapobiegając ugięciom sprężystym, które dyskwalifikowałyby pomiary dokonywane przez algorytm wizyjny. Ponadto, punkty mocowania wewnętrznej elektroniki oraz kamery z laserem w Module III dobrano tak, aby środek masy całej kopuły pokrywał się z fizyczną osią obrotu wału TILT. Zbalansowanie układu drastycznie zminimalizowało statyczny moment gnący, co pozwoliło ograniczyć prąd trzymania silników krokowych i zredukować generowanie ciepła.
+
+\subsection{Analiza układu napędowego i przekładni zębatej}
+
+Osiągnięcie odpowiedniej rozdzielczości ruchowej i płynności śledzenia w układach nadążnych wymaga starannego doboru przełożeń redukcyjnych. Zastosowanie tradycyjnych kół zębatych o zębach prostych zostało na wczesnym etapie odrzucone ze względu na nieodłączne zjawisko luzu międzyzębnego. Aby spełnić rygorystyczne wymagania układu celowania, w projekcie wdrożono przekładnie o zębach daszkowych.
+
+Pochylenie linii zęba w dwóch przeciwnych kierunkach powoduje wzajemne znoszenie się sił osiowych, co chroni łożyska silników NEMA przed przedwczesnym zużyciem. Co ważniejsze dla zastosowań robotycznych, zarys daszkowy charakteryzuje się samoosiowaniem współpracujących kół oraz dopuszcza ciaśniejsze spasowanie profilu. Pozwala to na mechaniczną eliminację luzu zwrotnego, zapobiegając szarpaniu i klatkowaniu obrazu przy szybkich zmianach kierunku śledzenia przez mikrokontroler sterujący.
+
+Układ kinematyczny celowo zróżnicowano pod względem redukcji kątowej. Całkowite przełożenie mechaniczne $i$ określa się stosunkiem liczby zębów koła napędzanego $z_2$ do koła napędzającego $z_1$:
+\begin{equation}
+    i = \frac{z_2}{z_1}
+\end{equation}
+
+Dla głównej osi obrotu (PAN), obciążonej znaczną bezwładnością obrotową Modułu II i III, zaprojektowano przekładnię o przełożeniu $i_{PAN} = 5.25$ ($z_1 = \text{20}$, $z_2 = \text{105}$). Wysoka redukcja gwarantuje wymagany moment obrotowy do dynamicznego przyspieszania i hamowania struktury. Z kolei dla osi podnoszenia (TILT), która operuje zbalansowaną masowo głowicą, zastosowano łagodniejsze przełożenie $i_{TILT} = 1.60$ ($z_3 = \text{24}$, $z_4 = \text{38}$), co kompensuje fizyczną prędkość nadążania w pionie.
+
+Zaimplementowane przełożenia bezpośrednio determinują fizyczną rozdzielczość kątową systemu $\Delta\theta$. Dla użytych napędów krokowych o podstawowym skoku wynoszącym $1.8^\circ$, rozdzielczość na wale wyjściowym wyraża się zależnością:
+\begin{equation}
+    \Delta\theta = \frac{1.8^\circ}{i \cdot \mu}
+\end{equation}
+gdzie $\mu$ oznacza zaimplementowany mnożnik podziału mikrokroku. Odpowiednie zwiększenie przełożenia redukcyjnego było niezbędne do utworzenia sprzętowego filtru dolnoprzepustowego, zdolnego do wygładzenia mikroskoków silnika i redukcji hałasu mechanicznego wywoływanego przez drobne oscylacje algorytmu śledzącego punkt docelowy.
+
+
+\section{Architektura sprzętowa i integracja elektroniczna}
+
+Działanie zaprojektowanego układu mechanicznego wymagało implementacji odpowiednio dobranej warstwy elektronicznej. Ze względu na architekturę systemu, obejmującą ciągłą akwizycję strumienia wideo, przetwarzanie obrazu oraz precyzyjne sterowanie napędami, przyjęto rozproszoną architekturę sprzętową. W poniższej sekcji omówiono dobór kluczowych komponentów, strukturę zasilania zapobiegającą propagacji zakłóceń elektromagnetycznych oraz fizyczne interfejsy wymiany danych.
+
+\subsection{Dobór głównych komponentów systemu}
+
+W architekturze systemu wyodrębniono dwa główne poziomy sterowania zlokalizowane bezpośrednio w głowicy: nadrzędny oraz wykonawczy. 
+
+Funkcję pokładowej jednostki nadrzędnej powierzono mikrokomputerowi \textbf{Raspberry Pi 4B} wyposażonemu w 8 GB pamięci RAM. Wybór tej platformy podyktowany był koniecznością uruchomienia bazowego systemu operacyjnego Raspberry Pi OS (opartego na dystrybucji Debian) oraz bezpośredniego wykonywania skryptów sterujących i komunikacyjnych. Duża pojemność pamięci operacyjnej jest istotna dla bezstratnej obsługi strumieni wideo oraz płynnego działania algorytmów detekcji wizyjnej zaimplementowanych z wykorzystaniem biblioteki OpenCV. 
+
+Do akwizycji obrazu wykorzystano dedykowany moduł wizyjny \textbf{[Wpisz model kamery, np. Raspberry Pi Camera Module 2/3]}, który został podłączony do mikrokomputera z wykorzystaniem sprzętowego interfejsu szeregowego MIPI CSI (ang. \textit{Camera Serial Interface}) za pomocą elastycznej taśmy sygnałowej FFC. Zastosowanie tego interfejsu, w przeciwieństwie do kamer podłączanych przez port USB, znacząco zmniejsza obciążenie procesora oraz redukuje opóźnienia w przesyłaniu klatek obrazu do pamięci operacyjnej.
+
+System operacyjny Raspberry Pi OS, jako system z podziałem czasu, nie gwarantuje determinizmu czasowego, co dyskwalifikuje go z bezpośredniego generowania precyzyjnych sygnałów \textit{krok/kierunek} dla sterowników silników. Z tego powodu w warstwie wykonawczej zaimplementowano platformę deweloperską \textbf{ESP32 DevKitC-32E V4} (bazującą na module ESP-WROOM-32E z łącznością Wi-Fi oraz Bluetooth 4.2). Zadaniem mikrokontrolera jest odbiór wyliczonych wartości uchybu oraz sprzętowe, rygorystyczne czasowo taktowanie impulsów sterujących mechaniką.
+
+Do napędu osi PAN i TILT wykorzystano silniki krokowe w standardzie \textbf{NEMA 17}. Charakteryzują się one krokiem podstawowym wynoszącym $1.8^\circ$, co w połączeniu ze sprzętową redukcją przez przekładnie strzałkowe zapewnia wysoką rozdzielczość pozycjonowania. Wysterowanie silników realizowane jest przez zaawansowane sterowniki \textbf{Pololu 36v4 (High-Power Stepper Motor Driver 3730)}. Moduły te tolerują napięcie zasilania do 50 V i prąd ciągły na poziomie 4 A (do 6 A przy zastosowaniu chłodzenia), co daje duży margines bezpieczeństwa termicznego i chroni elektronikę przed uszkodzeniem podczas ciągłego panoramowania z obciążeniem statycznym.
+
+System celowniczy oparto na wymiennych, niskomocowych modułach diod laserowych o mocy $5\text{ mW}$, zasilanych napięciem $5\text{ V}$ i emitujących wiązkę o długości fali $650\text{ nm}$ (pasmo widzialne, kolor czerwony). Zaprojektowany mechanizm mocowania umożliwia szybką wymianę głowic wyposażonych w różne soczewki kolimacyjne (generujące plamkę punktową lub krzyż). Pozwala to na weryfikację precyzji działania algorytmów śledzących punkt padania wiązki.
+
+\subsection{Topologia zasilania i zarządzanie energią}
+
+Kluczowym wyzwaniem w projektowaniu układów mechatronicznych jest odizolowanie elektroniki logicznej od zakłóceń wprowadzanych przez obciążenia indukcyjne. Silniki krokowe podczas pracy generują przepięcia oraz chwilowe spadki napięcia, które mogą powodować niestabilność zasilania i restarty mikrokomputera. Aby temu zapobiec, zaimplementowano gwiaździstą topologię dystrybucji energii z fizyczną separacją obwodów na bazie płytek stykowych.
+
+Źródło zasilania stanowi pakiet czterech ogniw litowo-jonowych (Li-Ion) połączonych szeregowo. Bezpośrednio na dodatnim biegunie wyjściowym koszyka z ogniwami zainstalowano bistabilny główny wyłącznik zasilania. Jego lokalizacja na początku obwodu umożliwia awaryjne odcięcie prądu z całego urządzenia w przypadku niepożądanego zachowania mechaniki. Z głównego węzła zasilającego wyprowadzono trzy niezależne gałęzie:
+
+\begin{enumerate}
+    \item \textbf{Gałąź wysokoprądowa (wykonawcza):} Napięcie z pakietu ogniw poprowadzono bezpośrednio do złącz zasilających (VMOT) obu sterowników silników krokowych Pololu 36v4. Sterowniki te posiadają własne układy regulacji prądu, co pozwala na zasilanie cewek wyższym napięciem i zapewnia silnikom odpowiednią dynamikę przy zachowaniu bezpiecznego natężenia.
+    \item \textbf{Gałąź logiczna (Raspberry Pi):} Pokładowa jednostka obliczeniowa wymaga stabilizowanego napięcia $5\text{ V}$ o dużej wydajności prądowej. W tym celu wykorzystano przetwornicę obniżającą napięcie \textbf{Pololu D24V50F5 (nr kat. 2851)}, gwarantującą wydajność rzędu $5\text{ A}$. Zapobiega to zjawisku spadku napięcia na magistrali zasilającej Raspberry Pi w momentach intensywnego obciążenia procesora.
+    \item \textbf{Gałąź peryferyjna (Laser):} Prowadzona przez odrębną przetwornicę step-down o wydajności $3\text{ A}$ (napięcie wyjściowe $5\text{ V}$). Oddzielenie zasilania lasera od logiki głównej stanowi dodatkowe zabezpieczenie stabilności systemu. Mikrokontroler ESP32 zasilany jest natomiast kaskadowo, bezpośrednio z magistrali USB mikrokomputera Raspberry Pi.
+\end{enumerate}
+
+\subsection{Schemat połączeń i sprzętowe interfejsy komunikacyjne}
+
+Architektura komunikacyjna między systemem nadrzędnym (Raspberry Pi) a układem wykonawczym (ESP32) opiera się na interfejsie szeregowym realizowanym za pomocą przewodu micro-USB. Takie połączenie zapewnia dużą odporność na zakłócenia wewnątrz obudowy oraz pozwala na przesyłanie wyliczonych parametrów sterujących z minimalnym opóźnieniem transportowym, wykorzystując prędkość transmisji na poziomie $115200\text{ bps}$.
+
+Wysterowanie silników krokowych zrealizowano przy pomocy jednokierunkowych sygnałów logicznych \texttt{STEP} (krok) oraz \texttt{DIR} (kierunek). Mikrokontroler ESP32, operujący w standardzie napięciowym $3.3\text{ V}$, łączy się bezpośrednio z wejściami sterującymi układów Pololu. Z uwagi na wymagania dotyczące momentu obrotowego, zoptymalizowano sposób podłączenia cewek silników NEMA 17. Choć zastosowane silniki posiadają 6 wyprowadzeń i są fabrycznie przystosowane do pracy w układzie unipolarnym, połączono je w konfiguracji \textbf{bipolarnej szeregowej}, wykorzystując wyłącznie 4 przewody. Dwa środkowe odczepy cewek (tzw. \textit{center taps}) pozostawiono niepodłączone. Taka topologia zmusza prąd do przepływu przez całą długość uzwojenia, co znacząco zwiększa dostępny moment trzymający oraz moment przy niskich prędkościach obrotowych – parametr istotny dla napędu osi PAN.
+
+Sterowanie emiterem laserowym wymagało zaimplementowania układu dopasowującego, ponieważ cyfrowe piny GPIO w ESP32 nie dysponują odpowiednią wydajnością prądową, a ich napięcie logiczne wynosi $3.3\text{ V}$. Aby rozwiązać ten problem, zaimplementowano układ kluczujący zrealizowany na tranzystorze bipolarnym \textbf{NPN 2N2222A}. Sygnał logiczny z mikrokontrolera doprowadzono do bazy tranzystora poprzez rezystor ograniczający, natomiast obwód zasilania lasera zintegrowano z obwodem kolektora. Rozwiązanie to gwarantuje separację sygnału sterującego od prądu zasilającego emiter i umożliwia sprzętowe uruchamianie wiązki celowniczej.
+
+% \begin{figure}[H]
+%     \centering
+%     % \includegraphics[width=0.9\textwidth]{sciezka_do_schematu_elektrycznego.png}
+%     \caption{Schemat elektryczny układu sterowania, przedstawiający interfejsy komunikacyjne oraz kluczowanie diody laserowej.}
+%     \label{fig:schemat_elektroniki}
+% \end{figure}
+
+\chapter{Architektura oprogramowania i symulacja systemu}
+\section{Środowisko uruchomieniowe}
+
+\section{Implementacja w systemie ROS2}
 \subsection{Architektura oprogramowania}
-\subsection{Implementacja komunikacji}
-\subsection{Implementacja algorytmów detekcji i śledzenia}
-\subsection{Implementacja algorytmów sterowania silnikami}
-\subsection{Symulacja dynamiki i optymalizacja parametrów}
+\section{Model symulacyjny w Gazebo}
+
+\chapter{Algorytmy wizyjne i układy sterowania}
+\section{Implementacja algorytmów detekcji i śledzenia}
+\section{Implementacja komunikacji}
+\section{Implementacja algorytmów sterowania silnikami}
+\section{Synteza regulatora PID}
+\section{Synteza regulatora trójpołożeniowego}
 % W całym dokumencie powinny znajdować się odniesienia do zawartych w nim ilustracji (rys. \ref{fig:2}).
 
 % \begin{figure}
@@ -1026,21 +1170,22 @@ Istotnym wyzwaniem pozostaje strategia przeszukiwania przestrzeni. Ciągły ruch
 %Badania i analizę wyników należy przeprowadzić, tak jak jest przyjęte w środowisku naukowym (na przykład korzystanie z danych benchmarkowych, walidacja krzyżowa, zapewnienie powtarzalności testów itd). 
 %
 \section{Metodyka badań}
-%
+\subsection{stanowisko badawcze}
 %\begin{itemize}
 %\item opis metodyki badań
 %\item opis stanowiska badawczego (opis interfejsu aplikacji badawczych -- w~załączniku)
 %\end{itemize}
 %
 %
-\section{Zbiory danych}
+\section{Analiza działania regulatora trójpołożeniowego}
 %
 %\begin{itemize}
 %\item opis danych
 %\end{itemize}
 %
 %
-\section{Wyniki}
+\section{Strojenie i analiza działania regulatora PID}
+\section{Porównanie skuteczności systemów}
 %
 %\begin{itemize}
 %\item prezentacja wyników, opracowanie i poszerzona dyskusja  wyników, wnioski
