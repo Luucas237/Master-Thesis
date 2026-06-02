@@ -1,15 +1,15 @@
 # Fdb version 3
-["bibtex main"] 1780320246 "main.aux" "main.bbl" "main" 1780320958
+["bibtex main"] 1780320246 "main.aux" "main.bbl" "main" 1780329054
   "/usr/share/texlive/texmf-dist/bibtex/bst/biblatex/biblatex.bst" 1643926307 65483 fc69f364ef63c07bf68a2ab4b323f197 ""
   "biblio.bib" 1774612034 7250 408f5b2bf772398fe9110623e00068f9 ""
-  "main-blx.bib" 1780320958 341 303752e0c631576aaaa33c30c596603a "pdflatex"
-  "main.aux" 1780320958 14390 b21fab327d52f9bbfa8e07c8fd70d840 "pdflatex"
+  "main-blx.bib" 1780329053 341 303752e0c631576aaaa33c30c596603a "pdflatex"
+  "main.aux" 1780329053 14390 b21fab327d52f9bbfa8e07c8fd70d840 "pdflatex"
   (generated)
   "main.bbl"
   "main.blg"
-["pdflatex"] 1780320957 "/home/lukasz/Robotyka/Master-Thesis/polsl-aei-theses-main/single-file/main.tex" "main.pdf" "main" 1780320958
+["pdflatex"] 1780329052 "/home/lukasz/Robotyka/Master-Thesis/polsl-aei-theses-main/single-file/main.tex" "main.pdf" "main" 1780329054
   "/etc/texmf/web2c/texmf.cnf" 1778490255 475 c0e671620eb5563b2130f56340a5fde8 ""
-  "/home/lukasz/Robotyka/Master-Thesis/polsl-aei-theses-main/single-file/main.tex" 1780320957 97880 0e2bee2360b793af285bf44d978599c5 ""
+  "/home/lukasz/Robotyka/Master-Thesis/polsl-aei-theses-main/single-file/main.tex" 1780329052 97517 df27242f06f197618a1d0401ba61ad7f ""
   "/usr/share/texlive/texmf-dist/fonts/map/fontname/texfonts.map" 1577235249 3524 cb3e574dea2d1052e39280babc910dc8 ""
   "/usr/share/texlive/texmf-dist/fonts/tfm/jknappen/ec/ecrm1200.tfm" 1136768653 3584 f80ddd985bd00e29e9a6047ebd9d4781 ""
   "/usr/share/texlive/texmf-dist/fonts/tfm/public/amsfonts/symbols/msam10.tfm" 1246382020 916 f87d7c45f9c908e672703b83b72241a3 ""
@@ -281,14 +281,14 @@
   "/usr/share/texmf/web2c/texmf.cnf" 1644012257 39432 7155514e09a3d69036fac785183a21c2 ""
   "/var/lib/texmf/fonts/map/pdftex/updmap/pdftex.map" 1778490573 134010 f1887e56959c0569e2f0dd6e19ae604f ""
   "/var/lib/texmf/web2c/pdftex/pdflatex.fmt" 1778490576 1418324 2ad3401f09c1505d7da10b4ec0d95496 ""
-  "main.aux" 1780320958 14390 b21fab327d52f9bbfa8e07c8fd70d840 "pdflatex"
+  "main.aux" 1780329053 14390 b21fab327d52f9bbfa8e07c8fd70d840 "pdflatex"
   "main.bbl" 1780320246 17283 c5559a7815aaf975e582450d9de39a40 "bibtex main"
-  "main.lof" 1780320958 524 71d025ed1f8bca2e68e0ab76419d3980 "pdflatex"
-  "main.lot" 1780320958 524 71d025ed1f8bca2e68e0ab76419d3980 "pdflatex"
-  "main.out" 1780320958 12573 0bde902642bf42b36b51d44f4d57d7c6 "pdflatex"
-  "main.run.xml" 1780320958 2613 9b8e402d780fb101e4eb3e0772fc95eb "pdflatex"
-  "main.tex" 1780320957 97880 0e2bee2360b793af285bf44d978599c5 ""
-  "main.toc" 1780320958 6123 88f73d0c34a44e641606697a624b46c0 "pdflatex"
+  "main.lof" 1780329053 524 71d025ed1f8bca2e68e0ab76419d3980 "pdflatex"
+  "main.lot" 1780329053 524 71d025ed1f8bca2e68e0ab76419d3980 "pdflatex"
+  "main.out" 1780329053 12573 0bde902642bf42b36b51d44f4d57d7c6 "pdflatex"
+  "main.run.xml" 1780329053 2613 9b8e402d780fb101e4eb3e0772fc95eb "pdflatex"
+  "main.tex" 1780329052 97517 df27242f06f197618a1d0401ba61ad7f ""
+  "main.toc" 1780329053 6123 88f73d0c34a44e641606697a624b46c0 "pdflatex"
   "politechnika_sl_logo_bw_pion_pl.pdf" 1774612034 22633 c6320640bafa38d406e62eed6fafdfbd ""
   (generated)
   "main-blx.bib"
