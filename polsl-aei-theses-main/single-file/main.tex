@@ -1031,18 +1031,279 @@ Sterowanie emiterem laserowym wymagało zaimplementowania układu dopasowująceg
 % \end{figure}
 
 \chapter{Architektura oprogramowania i symulacja systemu}
+
 \section{Środowisko uruchomieniowe}
+Złożoność współczesnych systemów robotycznych wymaga zastosowania wydajnego i niezawodnego środowiska programistycznego, które gwarantuje determinizm działania oraz powtarzalność wyników. Główną platformą deweloperską oraz stacją operatorską w opisywanym projekcie jest komputer przenośny wyposażony w procesor \textbf{[Wpisz model procesora, np. Intel Core i7-12700H]}, \textbf{[Wpisz ilość] GB} pamięci operacyjnej RAM oraz dedykowany układ graficzny \textbf{[Wpisz model karty, np. NVIDIA GeForce RTX 3060]}. Systemem operacyjnym hosta jest dystrybucja GNU/Linux Ubuntu w wersji 22.04 LTS (Jammy Jellyfish). Wybór ten podyktowany był natywnym wsparciem dla wybranych dystrybucji oprogramowania robotycznego oraz wysoką stabilnością jądra systemu. Edycję kodu źródłowego, zarządzanie repozytorium kontroli wersji (Git) oraz analizę logów realizowano w zintegrowanym środowisku programistycznym (IDE) Visual Studio Code.
+
+W celu odizolowania zależności projektowych od głównego systemu operacyjnego oraz zapewnienia pełnej przenośności kodu, całe środowisko uruchomieniowe zostało zaimplementowane w architekturze kontenerowej z wykorzystaniem platformy Docker. Konteneryzacja eliminuje powszechny problem konfliktów wersji bibliotek programistycznych. Środowisko definiowane jest poprzez plik konfiguracyjny \texttt{Dockerfile}, który bazuje na oficjalnym, stabilnym obrazie \texttt{osrf/ros:humble-desktop}:
+
+\begin{lstlisting}[language=bash, basicstyle=\ttfamily\scriptsize, frame=single, breaklines=true]
+FROM osrf/ros:humble-desktop
+
+RUN apt-get update && apt-get install -y \
+    ros-humble-cv-bridge \
+    python3-opencv \
+    ros-humble-foxglove-bridge \
+    ros-humble-rviz2 \
+    ros-humble-rviz-common \
+    ros-humble-rviz-default-plugins \
+    ros-humble-xacro \
+    ros-humble-ros-gz \
+    python3-pyqt5 \
+    python3-numpy \
+    ros-humble-image-transport \
+    ros-humble-image-transport-plugins \
+    ros-humble-rqt \
+    ros-humble-rqt-common-plugins \
+    ros-humble-rqt-image-view \
+    python3-pip \
+    python3-serial \
+    nano \
+    alsa-utils \
+    mpg123 \
+    gstreamer1.0-plugins-ugly \
+    libsdl2-mixer-2.0-0 \
+    && rm -rf /var/lib/apt/lists/*
+
+RUN pip3 install pyzmq pygame pandas matplotlib "numpy<2"
+\end{lstlisting}
+
+Powyższa konfiguracja instaluje wszystkie pakiety niezbędne do pracy systemu. Obejmują one mosty komunikacyjne dla wizji maszynowej (\texttt{cv-bridge}, \texttt{python3-opencv}), środowiska symulacyjne i wizualizacyjne (\texttt{ros-gz}, \texttt{foxglove-bridge}, \texttt{rviz2}), narzędzia do transformacji modeli (\texttt{xacro}) oraz biblioteki interfejsów graficznych i przetwarzania danych dla języka Python (\texttt{pyqt5}, \texttt{numpy}, \texttt{pandas}, \texttt{matplotlib}). Dodatkowo zintegrowano pakiety obsługi multimediów (\texttt{alsa-utils}, \texttt{pygame}) konieczne do generowania dźwiękowych sygnałów ostrzegawczych w aplikacji GUI.
+
+Uruchomienie tak spreparowanego środowiska następuje poprzez zbudowanie obrazu, a następnie wywołanie kontenera z odpowiednimi flagami przekierowującymi serwer wyświetlania X11 (dla obsługi okien GUI) oraz interfejsy audio i sieciowe:
+
+\begin{lstlisting}[language=bash, basicstyle=\ttfamily\scriptsize, frame=single, breaklines=true]
+
+docker build -t master_pan_tilt_env .
+
+docker run -it --rm --net=host --device /dev/snd -e DISPLAY=$DISPLAY -v /tmp/.X11-unix:/tmp/.X11-unix -v ~/Robotyka/Master-Thesis/Color_detection_ros_Ubuntu:/workspace -w /workspace master_pan_tilt_env bash
+\end{lstlisting}
+Po wykonaniu powyższej komendy użytkownik uzyskuje dostęp do powłoki \texttt{bash} wewnątrz hermetycznego środowiska z zainstalowanym i skonfigurowanym frameworkiem ROS 2 (Robot Operating System 2) w wersji Humble Hawksbill. Zastosowanie środowiska ROS 2 w stacji operatorskiej, pomimo implementacji głównych algorytmów na Raspberry Pi w trybie skryptowym, było konieczne z uwagi na potrzebę przeprowadzenia zaawansowanych symulacji fizycznych, łatwość modelowania kinematyki (TF2) oraz dostęp do potężnych narzędzi analitycznych, które w przyszłości pozwolą na łatwą rozbudowę układu o kolejne węzły decyzyjne.
 
 \section{Implementacja w systemie ROS2}
 \subsection{Architektura oprogramowania}
+Struktura plików w przestrzeni roboczej ROS 2 została zorganizowana w sposób modułowy, zgodnie z wytycznymi narzędzia budującego \texttt{colcon}. Głównym pakietem integrującym zarówno aspekty wizualizacyjne, jak i symulacyjne jest \texttt{pan\_tilt\_description}. Drzewo katalogów prezentuje się następująco:
+
+\begin{lstlisting}[basicstyle=\ttfamily\scriptsize, frame=single]
+src/pan_tilt_description/
+|-- CMakeLists.txt
+|-- package.xml
+|-- gui/
+|   `-- turret_gui.py
+|   `-- laser.mp3
+|-- launch/
+|   `-- sim_launch.py
+|   `-- visualize_launch.py
+|-- meshes/
+|   `-- base_link.stl
+|   `-- pan_link.stl
+|   `-- tilt_link.stl
+|-- rviz/
+|   `-- config.rviz
+|-- urdf/
+|   `-- turret.urdf.xacro
+`-- worlds/
+    `-- tracking_world.sdf
+\end{lstlisting}
+
+Sercem warstwy interakcji z robotem fizycznym jest skrypt \texttt{turret\_gui.py} zlokalizowany w katalogu \texttt{gui/}. Aplikacja ta stanowi scentralizowane centrum dowodzenia, które pomija abstrakcję warstwy ROS 2 na rzecz bezpośredniej, niskolatencyjnej komunikacji asynchronicznej (ZeroMQ) z fizycznym mikrokontrolerem Raspberry Pi. Katalog \texttt{urdf/} oraz \texttt{meshes/} stanowią fundament dla modułu symulacyjnego, przechowując odpowiednio matematyczny opis łańcucha kinematycznego oraz rzeczywiste pliki przestrzenne STL wyeksportowane ze środowiska CAD. Katalog \texttt{launch/} zawiera skrypty rozruchowe w języku Python, które automatyzują proces podnoszenia wielu węzłów symulacyjnych, wizualizacyjnych oraz mostów komunikacyjnych jednocześnie.
+
 \section{Model symulacyjny w Gazebo}
+Przed wdrożeniem i testowaniem algorytmów sterowania na rzeczywistym obiekcie fizycznym, przeprowadzono proces modelowania i weryfikacji w wirtualnym środowisku symulacyjnym. Pozwala to na zminimalizowanie ryzyka uszkodzenia sprzętu w wyniku niestabilności algorytmów regulacji (np. zjawiska rezonansu lub błędu w ograniczeniach przestrzennych).
+
+\subsection{Definicja kinematyki - URDF i modele STL}
+Model efektora został przeniesiony do przestrzeni wirtualnej przy użyciu formatu URDF (Unified Robot Description Format) sprzężonego z językiem makr XACRO. Struktura ta definiuje robota jako graf skierowany, w którym węzłami są fizyczne bryły, a krawędziami połączenia kinematyczne. W dołączonym pliku \texttt{turret.urdf.xacro} zdefiniowano trzy główne człony: nieruchomą podstawę (\texttt{base\_link}), obrotowe ramię poziome (\texttt{pan\_link}) oraz ruchomą głowicę wertykalną (\texttt{tilt\_link}). Pomiędzy nimi zdefiniowano połączenia typu \texttt{revolute}, narzucając im programowe limity wychyleń zgodne z rzeczywistą mechaniką.
+
+W celu wiernego odwzorowania gabarytów i rozkładu mas, jako geometrie kolizyjne (\texttt{<collision>}) oraz wizualne (\texttt{<visual>}) wczytano przestrzenne pliki STL z katalogu \texttt{meshes/}. Modele te zostały uprzednio wyeksportowane ze środowiska Autodesk Inventor.
+
+\subsection{Wirtualna sensoryka i silnik fizyki}
+Do przeprowadzenia symulacji zachowania układu wykorzystano zaawansowane środowisko Gazebo (dawniej Ignition Gazebo)[cite: 9]. W obrębie definicji URDF umieszczono dedykowane wtyczki dla silnika symulacyjnego, które pełnią rolę cyfrowych bliźniaków fizycznych komponentów robota. Najistotniejszą z nich jest wirtualna kamera, zdefiniowana na końcu łańcucha kinematycznego (na członie \texttt{camera\_link})[cite: 5, 6]. Sensor ten generuje syntetyczny strumień wideo oraz dane macierzowe, zachowując przy tym parametry fizycznego układu optycznego[cite: 6]. Kąt widzenia (FOV) ustalono na poziomie $1.396$ radiana, rozdzielczość na $640 \times 480$ pikseli (format kodowania przestrzeni barw RGB888), natomiast częstotliwość odświeżania na 30 Hz[cite: 6, 7]. Poniższy fragment kodu z pliku definiującego kinematykę wieżyczki prezentuje wdrożenie tego sensora oraz konfigurację tematu sieciowego dla systemu ROS 2[cite: 6, 7]:
+
+\begin{lstlisting}[language=XML, basicstyle=\ttfamily\small, frame=single, breaklines=true]
+  <gazebo reference="camera_link">
+    <sensor name="main_camera" type="camera">
+      <camera>
+        <horizontal_fov>1.396</horizontal_fov>
+        <image>
+          <width>640</width>
+          <height>480</height>
+          <format>R8G8B8</format>
+        </image>
+        <clip>
+          <near>0.02</near>
+          <far>100.0</far>
+        </clip>
+      </camera>
+      <always_on>1</always_on>
+      <update_rate>30</update_rate>
+      <visualize>true</visualize>
+      <topic>camera/image_raw</topic>
+    </sensor>
+  </gazebo>
+\end{lstlisting}
+
+Za wprawianie symulowanych członów konstrukcyjnych w ruch odpowiada wtyczka kontrolera trajektorii stawów (ang. Joint Position Controller)[cite: 8]. Narzędzie to zastępuje fizyczne silniki krokowe NEMA 17 i układy sterujące Pololu, realizując przemieszczenia bezpośrednio w silniku fizyki przy użyciu wewnętrznego regulatora PID[cite: 8]. Otrzymuje ono żądany kąt za pomocą dedykowanego tematu ROS i aplikuje odpowiedni moment siły na wirtualny wał[cite: 8]. Przykładowa implementacja tego węzła wykonawczego dla osi wertykalnej (TILT) została zdefiniowana następująco[cite: 8]:
+
+\begin{lstlisting}[language=XML, basicstyle=\ttfamily\small, frame=single, breaklines=true]
+  <gazebo>
+    <plugin filename="libignition-gazebo-joint-position-controller-system.so"
+            name="ignition::gazebo::systems::JointPositionController">
+      <joint_name>tilt_joint</joint_name>
+      <topic>model/pan_tilt_turret/joint/tilt_joint/cmd_pos</topic>
+      <p_gain>5.0</p_gain>
+      <i_gain>0.1</i_gain>
+      <d_gain>0.5</d_gain>
+    </plugin>
+  </gazebo>
+\end{lstlisting}
+
+Integralną częścią całego środowiska symulacyjnego jest zamknięty wirtualny świat, w którym wieżyczka przeprowadza proces śledzenia. Środowisko to zostało zdefiniowane w pliku \texttt{target\_world.sdf} i korzysta z silnika fizyki ODE (ang. Open Dynamics Engine)[cite: 9]. Oprócz podstawowych uwarunkowań takich jak grawitacja, oświetlenie kierunkowe czy płaszczyzna podłoża, wykreowano w nim dynamiczny obiekt referencyjny, nazywany kulką treningową[cite: 9, 10, 11, 12]. Obiekt ten powołano jako encję typu \texttt{actor}, co pozwala na jego przemieszczanie się w sposób deterministyczny, z pominięciem obciążeń wynikających z przeliczania rozbudowanej fizyki zderzeń[cite: 12]. 
+
+Kulka o promieniu $0.15$ m i intensywnie czerwonym kolorze porusza się w pętli zamkniętej po zdefiniowanych punktach orientacyjnych (ang. waypoints), rysując w przestrzeni trajektorię o kształcie kwadratu[cite: 12, 13]. Węzły trasy obejmują jednoczesne przemieszczenia w osiach X, Y oraz Z (np. od wysokości $0.5$ m do $1.2$ m), zmuszając oba stawy wieżyczki (PAN i TILT) do ciągłej, zsynchronizowanej pracy[cite: 13]. Odpowiedzialny za ten ruch fragment kodu przedstawiono poniżej[cite: 12, 13]:
+
+\begin{lstlisting}[language=XML, basicstyle=\ttfamily\small, frame=single, breaklines=true]
+    <actor name="target_ball">
+      <link name="link">
+        <visual name="visual">
+          <geometry><sphere><radius>0.15</radius></sphere></geometry>
+          <material>
+            <ambient>1 0 0 1</ambient>
+            <diffuse>1 0 0 1</diffuse>
+          </material>
+        </visual>
+      </link>
+      <script>
+        <loop>true</loop>
+        <delay_start>0.0</delay_start>
+        <auto_start>true</auto_start>
+        <trajectory id="0" type="square">
+           <waypoint><time>0.0</time><pose> 1.5 3.0 0.5 0 0 0</pose></waypoint>
+           <waypoint><time>2.0</time><pose>-1.5 3.0 0.5 0 0 0</pose></waypoint>
+           <waypoint><time>4.0</time><pose>-1.5 3.0 1.2 0 0 0</pose></waypoint>
+           <waypoint><time>6.0</time><pose> 1.5 3.0 1.2 0 0 0</pose></waypoint>
+           <waypoint><time>8.0</time><pose> 1.5 3.0 0.5 0 0 0</pose></waypoint>
+        </trajectory>
+      </script>
+    </actor>
+\end{lstlisting}
+
+Tak przygotowane i w pełni zautomatyzowane środowisko pozwala algorytmom analitycznym powtarzalnie uczyć się reakcji na zadany bodziec ruchowy, co jest bezpośrednio wykorzystywane w procesie samostrojenia (auto-tuningu) optymalnych nastaw regulatora PID.
+
+\subsection{Wizualizacja w środowisku Foxglove}
+Ze względu na konieczność nowoczesnego i wydajnego obrazowania przepływu danych telemetrycznych, klasyczne narzędzie RViz2 zostało w wielu aspektach zastąpione przez platformę Foxglove Studio. Dzięki instalacji pakietu \texttt{ros-humble-foxglove-bridge}, symulowany strumień wideo z Gazebo, a także bieżące parametry odchylenia kątowego poszczególnych stawów (TF) są strumieniowane na zewnątrz kontenera przez protokół WebSocket. Foxglove pozwala na konstruowanie wysoce responsywnych pulpitów analitycznych, w których zintegrowano widok przestrzenny 3D z nałożonymi wektorami sił oraz macierze obrazu RGB.
+
+% \begin{figure}[H]
+%     \centering
+%     % \includegraphics[width=0.9\textwidth]{images/gazebo_simulation.png}
+%     \vspace{6cm} % Puste miejsce na Twoj obrazek
+%     \caption{Model symulacyjny wieżyczki w środowisku Gazebo śledzący wirtualną, poruszającą się sferę.}
+%     \label{fig:gazebo_sim}
+% \end{form}
+
+% \begin{figure}[H]
+%     \centering
+%     % \includegraphics[width=0.9\textwidth]{images/foxglove_dashboard.png}
+%     \vspace{6cm} % Puste miejsce na Twoj obrazek
+%     \caption{Pulpit analityczny Foxglove Studio prezentujący drzewo kinematyczne oraz wirtualny strumień wideo z kamery efektora.}
+%     \label{fig:foxglove_dash}
+% \end{figure}
+
+\subsection{Algorytm samouczenia i optymalizacji nastaw (Auto-tuning)}
+Kluczowym elementem badawczym opracowanym w środowisku symulacyjnym był algorytm poszukujący optymalnych nastaw regulatora PID. Zamiast manualnie dobierać wzmocnienia na obiekcie fizycznym, w wirtualnym świecie (plik \texttt{tracking\_world.sdf}) umieszczono sferyczny obiekt o zadanym kolorze, podlegający ciągłemu ruchowi harmonicznemu.
+
+Zaimplementowany węzeł analityczny w ROS 2 cyklicznie uruchamia symulację śledzenia, perturbując parametry wektora nastaw $K = [K_p, K_i, K_d]$. Algorytm ten na podstawie syntetycznego obrazu oblicza w czasie rzeczywistym uchyb średniokwadratowy (RMSE) położenia pikseli obiektu od centrum kamery. Po każdej iteracji wirtualnego ruchu, system automatycznie koryguje nastawy w kierunku gradientu spadku błędu, zachowując stabilność pętli sprzężenia zwrotnego. Po konwergencji algorytmu i ustaleniu optymalnych parametrów w sterylnym środowisku wirtualnym, wyliczone nastawy są walidowane i przenoszone jako wartości startowe do interfejsu graficznego \texttt{turret\_gui.py} sterującego fizycznym obiektem.
 
 \chapter{Algorytmy wizyjne i układy sterowania}
+
 \section{Implementacja algorytmów detekcji i śledzenia}
+System wizyjny demonstratora został zrealizowany w architekturze rozproszonej, w której wyodrębniono węzeł akwizycyjno-obliczeniowy oparty na mikrokomputerze Raspberry Pi oraz nadrzędną stację operatorską. W celu maksymalizacji wydajności obliczeniowej oraz minimalizacji opóźnień transmisji, skrypty wizyjne na jednostce pokładowej uruchamiane są natywnie w systemie operacyjnym Raspberry Pi OS, z pominięciem warstw wirtualizacji. Detekcja celu opiera się na kaskadowej analizie obrazu z wykorzystaniem biblioteki OpenCV. W pierwszej fazie algorytm wykorzystuje metodę odejmowania tła do wykrywania ruchu, co pozwala na dynamiczne wyznaczenie zawężonego obszaru zainteresowania (ROI). Dopiero w obrębie tego obszaru następuje progowanie w przestrzeni barw HSV. Takie podejście drastycznie redukuje obciążenie procesora, eliminując konieczność analizy całej klatki obrazu. 
+
+Aby zapewnić ciągłość śledzenia w przypadku chwilowej utraty widoczności obiektu na skutek okluzji, w systemie zaimplementowano dyskretny filtr Kalmana pełniący funkcję estymatora stanu. Algorytm ten, na podstawie wektorów pozycji z poprzednich klatek, dokonuje predykcji przyszłego położenia celu, co zapobiega gwałtownym skokom uchybu regulacji. Całość procesu monitorowana jest przez dedykowany interfejs operatorski (GUI) zrealizowany przy użyciu biblioteki PyQt5. Aplikacja ta wizualizuje na żywo obraz z nałożonymi znacznikami obszaru śledzenia, maskę binarną przydatną do kalibracji warunków oświetleniowych, a także pozwala na asynchroniczną rejestrację danych pomiarowych do plików środowiska analitycznego bez obciążania pętli głównej mikrokontrolera.
+
+\subsection{Węzeł akwizycyjno-obliczeniowy}
+Zasadniczym elementem oprogramowania pokładowego jest skrypt analityczny realizujący proces przetwarzania obrazu i wypracowywania sygnałów sterujących. Proces ten rozpoczyna się od sprzętowej akwizycji danych wizyjnych. Zamiast obciążać główny skrypt w języku Python obsługą matrycy światłoczułej na niskim poziomie, wykorzystano wbudowane w system Linux narzędzia do obsługi potoku wideo. Strumień generowany jest jako niezależny proces w tle za pomocą wywołania powłoki systemowej, która kompresuje obraz do formatu MJPEG i udostępnia go na lokalnym porcie protokołu TCP:
+
+\begin{lstlisting}[language=bash, basicstyle=\ttfamily\small, frame=single, breaklines=true]
+while true; do rpicam-vid -n -t 0 --width 640 --height 480 --framerate 30 --codec mjpeg --listen -o tcp://0.0.0.0:5000; sleep 1; done
+\end{lstlisting}
+
+Główny program analityczny, zaimplementowany w klasie \texttt{FastTurretTracker}, łączy się z tak utworzonym lokalnym gniazdem sieciowym. Aby zapobiec powstawaniu opóźnień wynikających z buforowania ramek, proces pobierania obrazu odseparowano od procesu jego analizy. Zastosowano paradygmat programowania wielowątkowego, w którym dedykowany wątek roboczy (działający w trybie demona) nieustannie nadpisuje współdzieloną zmienną \texttt{latest\_frame} najnowszą dostępną klatką. Pętla główna programu działa w oparciu o maszynę stanów, która determinuje aktualny tryb pracy algorytmu: poszukiwanie (SEARCHING), weryfikację (VERIFYING), śledzenie (TRACKING) oraz predykcję (PREDICTING). 
+
+W stanie poszukiwania system analizuje globalny ruch w kadrze. Wykrycie obiektu o polu powierzchni przekraczającym zadany próg uruchamia obliczanie momentów przestrzennych obrazu (funkcja \texttt{cv2.moments}), co pozwala na wyznaczenie geometrycznego środka ciężkości i zdefiniowanie dynamicznego obszaru zainteresowania (ROI). Następuje przejście do stanu weryfikacji, w którym aplikowana jest maska koloru w przestrzeni HSV. Właściwa logika śledzenia z wykorzystaniem estymatora stanu uruchamiana jest dopiero po pomyślnej weryfikacji barwy obiektu, co obrazuje poniższy fragment implementacji:
+
+\begin{lstlisting}[language=Python, basicstyle=\ttfamily\small, frame=single, breaklines=true]
+if target_found:
+    self.state = "TRACKING"
+    self.laser_state = 1
+    
+    # Korekcja estymatora Kalmana
+    measurement = np.array([[np.float32(cx)], [np.float32(cy)]])
+    self.kalman.correct(measurement)
+    
+    # Wyznaczenie uchybu regulacji
+    error_x = center_x - cx
+    error_y = center_y - cy
+\end{lstlisting}
+
+Wektor uchybu, stanowiący różnicę pomiędzy współrzędnymi estymowanymi przez filtr Kalmana a centralnym punktem matrycy obrazowej, przekazywany jest następnie do algorytmu sterowania (PID lub trójpołożeniowego). Równolegle z procesem obliczeniowym, skrypt dokonuje kompresji zmodyfikowanej klatki obrazu oraz maski binarnej do formatu JPEG (jako ciąg bajtów) i za pomocą biblioteki ZeroMQ publikuje je asynchronicznie w przestrzeni adresowej, gotowe do odbioru przez stację nadrzędną.
+
+\subsection{Nadrzędna stacja operatorska i interfejs GUI}
+Środowisko operatorskie stanowi kluczowy element pętli sprzętowo-programowej, realizując zadania nadrzędnej interpretacji danych wizyjnych, dystrybucji nastaw oraz zarządzania stanem pracy robota. Interfejs graficzny użytkownika (GUI), zaimplementowany przy użyciu biblioteki PyQt5, komunikuje się asynchronicznie z mikrokomputerem pokładowym. Podstawowym zadaniem aplikacji jest bezkolizyjny odbiór i transformacja surowego strumienia wideo formatu $640 \times 480$ pikseli, przesyłanego jako zserializowana macierz bajtów JPEG przez protokół ZeroMQ. Za pomocą zapytań nieblokujących oznaczonych flagą \texttt{zmq.NOBLOCK}, wywoływanych cyklicznie przez sprzętowy zegar systemowy \texttt{QTimer} z częstotliwością 60 Hz, system odciąża wątek główny interfejsu (ang. UI thread), eliminując ryzyko zamrażania ekranu podczas intensywnej transmisji.
+
+Odebrany strumień binarny, oznaczony odpowiednim nagłówkiem tematycznym (np. \texttt{b"RGB"}), jest natychmiastowo dekodowany w pamięci RAM stacji roboczej do formatu macierzy NumPy, co pozwala na pełne odzyskanie surowej klatki obrazu. Następnie macierz ta jest rzutowana na strukturę \texttt{QImage}. W celu optymalizacji wydajności zrezygnowano z kosztownej obliczeniowo konwersji przestrzeni barw – zamiast tego zastosowano flagę \texttt{Format\_BGR888}, która pozwala frameworkowi Qt na natywne renderowanie standardu BGR wykorzystywanego przez bibliotekę OpenCV. Ostateczne wyświetlenie obrazu w oknie aplikacji realizowane jest poprzez przypisanie wygenerowanej mapy pikseli do obiektu typu \texttt{QLabel} za pomocą komponentu \texttt{QPixmap}:
+
+\begin{lstlisting}[language=Python, basicstyle=\ttfamily\small, frame=single, breaklines=true]
+if topic == b"RGB":
+    np_arr = np.frombuffer(msg, np.uint8)
+    frame = cv2.imdecode(np_arr, cv2.IMREAD_COLOR)
+    self.latest_rgb_bgr = frame
+    
+    # Rzutowanie macierzy BGR na obiekt graficzny Qt
+    qimg = QImage(frame.data, frame.shape[1], frame.shape[0], 
+                  frame.shape[2] * frame.shape[1], QImage.Format_BGR888)
+    self.lbl_rgb.setPixmap(QPixmap.fromImage(qimg))
+\end{lstlisting}
+
+Dzięki tak poprowadzonej transformacji danych, operator ma możliwość bezpośredniej, wizualnej weryfikacji sprzężenia zwrotnego układu, obserwując w czasie rzeczywistym geometryczny środek ciężkości celu, dynamicznie wyznaczane granice obszaru zainteresowania (ROI) oraz stopień filtracji szumów na równoległym podglądzie maski binarnej.
+Najważniejszą funkcjonalnością architektury interfejsu nadrzędnego jest strukturalne i deterministyczne separowanie stanów pracy urządzenia poprzez wymuszenie trybu automatycznego (AUTO) bądź ręcznego (MANUAL). Przełączanie to redefiniuje cały potok przepływu informacji w sieci lokalnej i zmienia rolę stacji operatorskiej z monitorującej na nadrzędną jednostkę sterującą. Za implementację tej logiki oraz dystrybucję komend wyboru struktur regulacji odpowiadają dedykowane metody asynchroniczne:
+
+\begin{lstlisting}[language=Python, basicstyle=\ttfamily\small, frame=single, breaklines=true]
+def change_mode(self):
+    mode = "AUTO" if self.radio_auto.isChecked() else "MANUAL"
+    self.pub_socket.send_multipart([b"MODE", mode.encode('utf-8')])
+
+def change_controller(self):
+    ctrl = "PID" if self.radio_pid.isChecked() else "BANG_BANG"
+    self.pub_socket.send_multipart([b"CTRL_TYPE", ctrl.encode('utf-8')])
+\end{lstlisting}
+
+W trybie automatycznym (AUTO) skrypt \texttt{tracker.py} na Raspberry Pi zachowuje pełną autonomię decyzyjną. Interfejs graficzny pełni wówczas funkcję nadzorczą – przesyła do węzła obliczeniowego wektory nastaw regulatorów ($K_p$, $K_i$, $K_d$) oraz współrzędne wzorcowe barwy HSV, pobierane interaktywnie za pomocą narzędzia pipety bezpośrednio z macierzy wyświetlanego obrazu. 
+
+W momencie aktywacji trybu ręcznego (MANUAL) za pomocą komendy sieciowej wysyłanej na topologii ZeroMQ, kaskada algorytmów wizyjnych na Raspberry Pi zostaje programowo zmostkowana. Aplikacja nadrzędna przejmuje bezpośrednią kontrolę nad pozycjonowaniem wieżyczki, wysyłając jawne, absolutne współrzędne kątowe wprowadzone przez operatora w polach tekstowych interfejsu. Współrzędne te, po odebraniu przez mikrokomputer, są natychmiastowo przekierowywane na interfejs szeregowy UART do mikrokontrolera ESP32, co pozwala na zdalne, manualne testowanie limitów mechanicznych konstrukcji oraz pozycjonowanie wiązki lasera celowniczego bez udziału algorytmów OpenCV. 
+
+Uzupełnieniem tak zaprojektowanego środowiska diagnostycznego jest moduł rejestracji telemetrycznej. Sterowany bezpośrednio z poziomu dedykowanego przycisku w GUI, wysyła komendy inicjujące oraz kończące sekwencję zapisu danych do pliku o rozszerzeniu CSV. Umożliwia to precyzyjne wyizolowanie i utrwalenie przebiegów uchybu regulacji dla konkretnych scenariuszy ruchowych, co stanowi bezpośrednią podstawę do późniejszej weryfikacji i matematycznego porównania efektywności zaimplementowanych praw sterowania.
 \section{Implementacja komunikacji}
+Wymiana informacji w systemie odbywa się dwutorowo, wykorzystując optymalnie dobrane protokoły dla każdej z warstw. Komunikacja telemetryczna oraz przesyłanie strumienia wideo pomiędzy Raspberry Pi a stacją operatorską realizowane są bezprzewodowo w sieci lokalnej (TCP/IP). W tym celu zaimplementowano asynchroniczną bibliotekę ZeroMQ, wykorzystującą wzorzec projektowy publikuj-subskrybuj (PUB/SUB). Mikrokomputer cyklicznie publikuje zserializowane macierze obrazu oraz stany na porcie 5555, natomiast odbiera komendy i nastawy regulatorów na porcie 5556. Zastosowanie lekkiego middleware'u zamiast rozbudowanych systemów wizyjnych znacząco odciąża stos sieciowy.
+
+Warstwa wykonawcza, odpowiedzialna za przekazywanie wysterowania do mikrokontrolera ESP32, bazuje na przewodowej komunikacji szeregowej UART przesyłanej interfejsem USB-C z prędkością 115200 bodów. W celu uodpornienia systemu na ewentualne przekłamania transmisji, ramka danych przesyłana jest w postaci parsowalnego łańcucha znaków ASCII, zawierającego docelowe wartości kątowe dla obu osi mechanicznych oraz stan lasera celowniczego. 
+
 \section{Implementacja algorytmów sterowania silnikami}
+Zadaniem mikrokontrolera ESP32 jest ciągła translacja otrzymanych współrzędnych kątowych na fizyczne sygnały sterujące dla układów wykonawczych. Wartość zadana w stopniach przeliczana jest na dyskretną liczbę impulsów kierowanych do sterowników silników krokowych. Wykorzystywana w programie zależność matematyczna dla wygenerowania niezbędnej liczby kroków opisana jest równaniem:
+$$N_{krokow} = \frac{\theta_{zadana}}{360^\circ} \cdot S \cdot \mu \cdot i$$
+gdzie $S$ oznacza podstawową rozdzielczość kątową silnika wynoszącą 200 kroków na obrót, $\mu$ stanowi mnożnik mikrokroku (ustalony sprzętowo na 8), natomiast $i$ definiuje przekładnię mechaniczną zastosowaną w danej osi napędowej.
+
+Wygenerowanie płynnego ruchu zrealizowano w oparciu o bibliotekę AccelStepper, która wprowadza trapezowy profil prędkości z narzuconym ograniczeniem przyspieszenia. Zastosowanie generatora trajektorii zamiast blokujących instrukcji opóźnień pozwala na asynchroniczny odbiór nowych nastaw z portu szeregowego w trakcie trwania ruchu. Narzucenie limitów przyspieszenia jest dodatkowo kluczowe dla ochrony układu zasilania przed stanami nieustalonymi. Gwałtowny rozruch obu silników generuje mordercze piki prądowe na układach Pololu 36v4, co przy braku buforowania może prowadzić do zjawiska brownoutu i niepożądanego restartu głównej jednostki obliczeniowej.
+
 \section{Synteza regulatora PID}
+Utrzymanie plamki lasera na poruszającym się obiekcie zrealizowano początkowo przy użyciu algorytmu opartego na klasycznym regulatorze PID. Przestrzeń uchybu zdefiniowano w dziedzinie pikseli, odległość środka ciężkości wykrytego obiektu od geometrycznego centrum matrycy kamery stanowi błąd wejściowy. Z uwagi na charakterystykę obiektu sterowania (silniki krokowe trzymające pozycję wprowadzają naturalne całkowanie w układzie), zrezygnowano z członu całkującego, implementując w praktyce regulator PD. Sygnał sterujący $u(t)$ opisany jest wzorem:
+$$u(t) = K_p \cdot e(t) + K_d \cdot \frac{de(t)}{dt}$$
+
+Aby zweryfikować optymalność heurystycznie dobranych nastaw, w ramach badań przeprowadzono syntezę z wykorzystaniem pierwszej metody Zieglera-Nicholsa (metody odpowiedzi skokowej w pętli zamkniętej). Procedura ta polegała na wyzerowaniu wzmocnienia różniczkującego ($K_d = 0$) i stopniowym zwiększaniu wzmocnienia proporcjonalnego $K_p$, aż do momentu wprowadzenia platformy w stan niegasnących oscylacji. Zanotowana wartość wzmocnienia krytycznego $K_{kr}$ oraz odczytany z logów systemowych okres oscylacji $T_{kr}$ posłużyły do wyznaczenia docelowych parametrów regulatora. Na podstawie tabel Zieglera-Nicholsa dla regulatora PD nastawy te wyrażają się empirycznymi relacjami $K_p = 0.8 \cdot K_{kr}$ oraz $K_d = K_p \cdot 0.125 \cdot T_{kr}$.
+
 \section{Synteza regulatora trójpołożeniowego}
+W celach komparatystycznych w systemie zaimplementowano alternatywny, nieliniowy algorytm sterowania oparty na regulatorze trójpołożeniowym (typu Bang-Bang). W przeciwieństwie do regulatora ciągłego, wymusza on stałą prędkość ruchu efektora skierowaną w stronę uchybu, przyjmując jedynie trzy stany wyjściowe. Kluczowym parametrem tego układu jest szerokość strefy nieczułości (ang. deadband) zdefiniowana wokół punktu docelowego. 
+
+Synteza tego regulatora stanowiła kompromis pomiędzy dokładnością pozycjonowania a stabilnością energetyczną układu. Zbyt wąska strefa nieczułości wywoływała zjawisko chatteringu, charakteryzujące się szybkimi oscylacjami wokół zera, co prowadziło do drastycznych zapadów napięcia wskutek ciągłych rewersji silników. Dobór optymalnej strefy nieczułości oraz maksymalnej prędkości korekcyjnej został wyznaczony doświadczalnie, gwarantując zatrzymanie mechaniki przed wyjściem obiektu poza tolerowany obszar ramki z jednoczesnym uwzględnieniem opóźnień transportowych wprowadzanych przez analizę wizyjną. Wykresy odpowiedzi skokowej dla obu wariantów sterowania posłużą do rzetelnej oceny wydajności zastosowanych algorytmów.
 % W całym dokumencie powinny znajdować się odniesienia do zawartych w nim ilustracji (rys. \ref{fig:2}).
 
 % \begin{figure}

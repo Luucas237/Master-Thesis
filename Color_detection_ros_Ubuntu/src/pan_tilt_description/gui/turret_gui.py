@@ -12,8 +12,8 @@ from PyQt5.QtWidgets import (QApplication, QMainWindow, QWidget, QVBoxLayout,
 from PyQt5.QtGui import QImage, QPixmap
 from PyQt5.QtCore import QTimer, Qt
 
-# RASPBERRY_IP = "192.168.0.43"
-RASPBERRY_IP = "172.20.10.9" 
+RASPBERRY_IP = "192.168.0.43"
+# RASPBERRY_IP = "172.20.10.9" 
 
 class CommandCenterGUI(QMainWindow):
     def __init__(self):
