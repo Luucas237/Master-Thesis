@@ -23,6 +23,7 @@ while true; do rpicam-vid -n -t 0 --width 640 --height 480 --framerate 30 --code
 **Rasbian ssh ubuntu**
 ```bash
 cd /home/lukasgrab/Turret
+libcamerify python3 tracker_guiless.py
 python3 esp_test.py
 python3 tracker.py
 ```
