@@ -1294,16 +1294,122 @@ gdzie $S$ oznacza podstawową rozdzielczość kątową silnika wynoszącą 200 k
 
 Wygenerowanie płynnego ruchu zrealizowano w oparciu o bibliotekę AccelStepper, która wprowadza trapezowy profil prędkości z narzuconym ograniczeniem przyspieszenia. Zastosowanie generatora trajektorii zamiast blokujących instrukcji opóźnień pozwala na asynchroniczny odbiór nowych nastaw z portu szeregowego w trakcie trwania ruchu. Narzucenie limitów przyspieszenia jest dodatkowo kluczowe dla ochrony układu zasilania przed stanami nieustalonymi. Gwałtowny rozruch obu silników generuje mordercze piki prądowe na układach Pololu 36v4, co przy braku buforowania może prowadzić do zjawiska brownoutu i niepożądanego restartu głównej jednostki obliczeniowej.
 
-\section{Synteza regulatora PID}
-Utrzymanie plamki lasera na poruszającym się obiekcie zrealizowano początkowo przy użyciu algorytmu opartego na klasycznym regulatorze PID. Przestrzeń uchybu zdefiniowano w dziedzinie pikseli, odległość środka ciężkości wykrytego obiektu od geometrycznego centrum matrycy kamery stanowi błąd wejściowy. Z uwagi na charakterystykę obiektu sterowania (silniki krokowe trzymające pozycję wprowadzają naturalne całkowanie w układzie), zrezygnowano z członu całkującego, implementując w praktyce regulator PD. Sygnał sterujący $u(t)$ opisany jest wzorem:
-$$u(t) = K_p \cdot e(t) + K_d \cdot \frac{de(t)}{dt}$$
+\subsection{Synteza regulatora PID}
+\label{sec:synteza_pid}
 
-Aby zweryfikować optymalność heurystycznie dobranych nastaw, w ramach badań przeprowadzono syntezę z wykorzystaniem pierwszej metody Zieglera-Nicholsa (metody odpowiedzi skokowej w pętli zamkniętej). Procedura ta polegała na wyzerowaniu wzmocnienia różniczkującego ($K_d = 0$) i stopniowym zwiększaniu wzmocnienia proporcjonalnego $K_p$, aż do momentu wprowadzenia platformy w stan niegasnących oscylacji. Zanotowana wartość wzmocnienia krytycznego $K_{kr}$ oraz odczytany z logów systemowych okres oscylacji $T_{kr}$ posłużyły do wyznaczenia docelowych parametrów regulatora. Na podstawie tabel Zieglera-Nicholsa dla regulatora PD nastawy te wyrażają się empirycznymi relacjami $K_p = 0.8 \cdot K_{kr}$ oraz $K_d = K_p \cdot 0.125 \cdot T_{kr}$.
+Zaprojektowanie skutecznego algorytmu śledzenia dla systemu ATP (ang. \textit{Acquisition, Tracking, and Pointing}) wymaga uwzględnienia specyficznych ograniczeń sprzętowych, w szczególności opóźnień wprowadzanych przez podsystem obrazowania. W analizowanym układzie kamera rejestruje obraz z częstotliwością $f_{s} = 30$~Hz, co oznacza aktualizację uchybu co $T_{s} \approx 33$~ms. Dodatkowo, czas akwizycji, przesyłu danych oraz przetwarzania obrazu (detekcja konturów, filtracja Kalmana) generuje opóźnienie transportowe. 
 
-\section{Synteza regulatora trójpołożeniowego}
-W celach komparatystycznych w systemie zaimplementowano alternatywny, nieliniowy algorytm sterowania oparty na regulatorze trójpołożeniowym (typu Bang-Bang). W przeciwieństwie do regulatora ciągłego, wymusza on stałą prędkość ruchu efektora skierowaną w stronę uchybu, przyjmując jedynie trzy stany wyjściowe. Kluczowym parametrem tego układu jest szerokość strefy nieczułości (ang. deadband) zdefiniowana wokół punktu docelowego. 
+Jak wskazuje literatura przedmiotu, sprzężenie zwrotne w systemach wizyjnych można modelować z uwzględnieniem opóźnienia toru obrazu $T_{d}$. W dziedzinie transmitancji operatorowej Laplace’a opóźnienie to wprowadza czynnik $e^{-sT_{d}}$, który można aproksymować z wykorzystaniem szeregu Padé rzędu pierwszego:
+\begin{equation}
+e^{-sT_{d}} \approx \frac{1 - \frac{sT_{d}}{2}}{1 + \frac{sT_{d}}{2}}.
+\label{eq:pade}
+\end{equation}
+Zależność ta (\ref{eq:pade}) bezpośrednio dowodzi, że obecność opóźnienia skutkuje pojawieniem się dodatkowych zer i biegunów w prawej półpłaszczyźnie zmiennej zespolonej. Zjawisko to drastycznie obniża margines fazy układu zamkniętego, co przy zastosowaniu zbyt agresywnych nastaw regulatora prowadzi do oscylacji i utraty stabilności przy próbach śledzenia szybko poruszających się celów.
 
-Synteza tego regulatora stanowiła kompromis pomiędzy dokładnością pozycjonowania a stabilnością energetyczną układu. Zbyt wąska strefa nieczułości wywoływała zjawisko chatteringu, charakteryzujące się szybkimi oscylacjami wokół zera, co prowadziło do drastycznych zapadów napięcia wskutek ciągłych rewersji silników. Dobór optymalnej strefy nieczułości oraz maksymalnej prędkości korekcyjnej został wyznaczony doświadczalnie, gwarantując zatrzymanie mechaniki przed wyjściem obiektu poza tolerowany obszar ramki z jednoczesnym uwzględnieniem opóźnień transportowych wprowadzanych przez analizę wizyjną. Wykresy odpowiedzi skokowej dla obu wariantów sterowania posłużą do rzetelnej oceny wydajności zastosowanych algorytmów.
+\subsubsection{Identyfikacja dynamiki obiektu metodą odpowiedzi skokowej}
+Aby zneutralizować wpływ opóźnień obrazu na stabilność i wyznaczyć optymalne nastawy, konieczna była identyfikacja dynamiki fizycznej konstrukcji dwuosiowej. Mechanikę wieżyczki wraz z opóźnieniami wizyjnymi zamodelowano jako obiekt inercyjny pierwszego rzędu z opóźnieniem transportowym (FOPDT – \textit{First Order Plus Dead Time}):
+\begin{equation}
+G(s) = \frac{k}{Ts + 1} e^{-sL},
+\end{equation}
+gdzie $k$ to wzmocnienie statyczne, $T$ to stała czasowa mechaniki, a $L$ to całkowite opóźnienie transportowe układu (równoważne literaturowemu $T_{d}$).
+
+Eksperyment identyfikacyjny przeprowadzono w otwartej pętli sterowania. Po ustabilizowaniu kamery na celu (uchyb początkowy $y_{start} = -75$~px), zadano skokowe wymuszenie sygnału sterującego dla osi PAN o wartości $\Delta u = 10$. Kamera zarejestrowała zmianę położenia obiektu, która o ostatecznie ustabilizowała się na poziomie $y_{koniec} = 148$~px. Całkowity przyrost uchybu wyniósł $\Delta y = 223$~px. 
+Wzmocnienie statyczne obiektu obliczono z definicji:
+\begin{equation}
+k = \frac{\Delta y}{\Delta u} = \frac{223}{10} = 22.3.
+\end{equation}
+
+Z uwagi na zaszumienie sygnału wizyjnego wynikające z kwantyzacji obrazu, do precyzyjnego wyznaczenia parametrów $T$ i $L$ odstąpiono od klasycznej metody stycznej na rzecz numerycznej \textbf{metody dwóch punktów (metody Smitha)}. Polega ona na wyznaczeniu czasów $t_{1}$ i $t_{2}$, w których odpowiedź układu osiąga odpowiednio 28,3\% oraz 63,2\% wartości ustalonej.
+Wyliczone progi uchybu to:
+\begin{itemize}
+    \item $y_{1} = y_{start} + 0.283 \cdot \Delta y = -11.9$~px,
+    \item $y_{2} = y_{start} + 0.632 \cdot \Delta y = 65.9$~px.
+\end{itemize}
+Na podstawie zarejestrowanych logów (uwzględniając czas zadania skoku $t_{0} = 4.233$~s), za pomocą interpolacji liniowej odczytano czasy osiągnięcia progów: $t_{1} = 4.346$~s oraz $t_{2} = 4.441$~s. Parametry czasowe modelu FOPDT wyniosły zatem:
+\begin{equation}
+T = 1.5 \cdot (t_{2} - t_{1}) = 1.5 \cdot (4.441 - 4.346) = 0.142~\text{s},
+\end{equation}
+\begin{equation}
+L = (t_{2} - t_{0}) - T = (4.441 - 4.233) - 0.142 = 0.0656~\text{s}.
+\end{equation}
+
+Zidentyfikowane całkowite opóźnienie wizyjne $L \approx 65.6$~ms stanowi potwierdzenie teoretycznych rozważań literaturowych, wskazujących na degradację wydajności w systemach o tak dużym lagu toru wideo (nałożenie czasu całkowania matrycy, transmisji szeregowej oraz algorytmicznej analizy konturów). Wskaźnik trudności sterowania dla badanego systemu wynosi $L/T \approx 0.46$. Wartość ta klasyfikuje obiekt jako trudny do regulacji, niezwykle podatny na wejście w limitowe cykle oscylacyjne przy zastosowaniu klasycznych metod strojenia (np. metody Zieglera-Nicholsa).
+
+\subsubsection{Analityczny dobór nastaw metodą CHR}
+W literaturze problem wolnego próbkowania wizji i wprowadzanych przez nie opóźnień faworyzuje systemy kompensacyjne oparte na sterowaniu wieloczęstotliwościowym (np. szybki tor prądowy silnika BLDC i wolna korekta wideo) lub regulatorach predykcyjnych. W celu zachowania niskiej złożoności obliczeniowej bez utraty stabilności, w niniejszej pracy zdecydowano się na zastosowanie uproszczonego algorytmu PD ze zoptymalizowanymi nastawami uwzględniającymi zredukowany margines fazy.
+
+Odrzucenie akcji całkującej ($K_{i} = 0$) podyktowane było prewencją zjawiska tzw. \textit{wind-upu} oraz koniecznością zachowania rezerwy stabilności układu w obliczu przestarzałych danych wizyjnych. Do obliczenia parametrów wykorzystano analityczną metodę **Chien-Hrones-Reswick (CHR)** opartą na kryterium aperiodyczności (0\% przeregulowania), dedykowaną dla układów z istotnym opóźnieniem transportowym.
+
+Współczynnik charakterystyczny obiektu wyznaczono jako:
+\begin{equation}
+a = \frac{k \cdot L}{T} = \frac{22.3 \cdot 0.0656}{0.142} = 10.3.
+\end{equation}
+Zgodnie z tabelami optymalizacyjnymi CHR, nastawy dla zachowania bezprzeregulowaniowej charakterystyki śledzenia wynoszą:
+\begin{equation}
+K_{p} = \frac{0.6}{a} = \frac{0.6}{10.3} = 0.058,
+\end{equation}
+\begin{equation}
+T_{d} = 0.5 \cdot L = 0.5 \cdot 0.0656 = 0.0328~\text{s}.
+\end{equation}
+Dokonując konwersji na postać równoległą algorytmu PID obsługiwaną przez moduł obliczeniowy, wzmocnienie członu różniczkującego przyjęło wartość:
+\begin{equation}
+K_{d} = K_{p} \cdot T_{d} = 0.058 \cdot 0.0328 = 0.0019.
+\end{equation}
+
+Zastosowanie łagodnych nastaw CHR ($K_{p} = 0.058$, $K_{d} = 0.0019$) stanowi implementacyjną odpowiedź na problemy zidentyfikowane w literaturze. Pozwala to na zrekompensowanie spadku stabilności wynikającego z wpływu bieguna wniesionego przez człon $e^{-sT_{d}}$ oraz dyskretnej aktualizacji uchybu, zabezpieczając system przed gwałtownym gubieniem celu (oscylacjami) przy dynamicznych manewrach śledzonego obiektu.
+
+\subsection{Synteza regulatora trójpołożeniowego}
+\label{sec:synteza_bang_bang}
+
+Algorytm trójpołożeniowy (ang. \textit{Bang-Bang controller}), mimo swojej niskiej złożoności obliczeniowej, charakteryzuje się dużą wrażliwością na opóźnienia i bezwładność w układach mechatronicznych. Niewłaściwy dobór parametrów tego regulatora prowadzi wprost do powstania drgań relaksacyjnych (limitowych cykli oscylacyjnych) wokół punktu pracy. W celu wyznaczenia optymalnych nastaw, zastosowano podejście analityczne bazujące na zidentyfikowanym wcześniej modelu kinematycznym obiektu FOPDT.
+
+Algorytm ten zdefiniowany jest dwoma kluczowymi parametrami, które wymagają ścisłego wyliczenia: amplitudą sygnału sterującego ($U_{max}$) oraz szerokością strefy nieczułości ($d$).
+
+\subsubsection{Identyfikacja maksymalnej prędkości śledzenia i dobór amplitudy $U_{max}$}
+W pierwszym etapie syntezy należało określić rzeczywiste możliwości kinematyczne wieżyczki w płaszczyźnie obrazu. W tym celu poddano ponownej analizie logi pomiarowe uzyskane podczas eksperymentu odpowiedzi skokowej w otwartej pętli (odmierzane z częstotliwością $f_{s} = 30$~Hz). 
+
+Wyizolowano fragment o największej stromości narastania uchybu, uzyskując następujące punkty pomiarowe:
+\begin{itemize}
+    \item $t_{1} = 4.293~\text{s}, \quad y_{1} = -50~\text{px}$,
+    \item $t_{2} = 4.480~\text{s}, \quad y_{2} = 116~\text{px}$.
+\end{itemize}
+Fizyczna, maksymalna prędkość przemieszczania się środka układu współrzędnych wieżyczki po matrycy kamery $v_{max}$ wyniosła:
+\begin{equation}
+v_{max} = \frac{\Delta y}{\Delta t} = \frac{116 - (-50)}{4.480 - 4.293} = \frac{166}{0.187} \approx 887.7~\text{px/s}.
+\end{equation}
+
+Aby układ nadążny był w stanie śledzić najszybsze manewry obiektu (zbliżone do $888$~px/s), niezbędna amplituda sygnału sterującego $U_{max}$ musiałaby zostać obliczona z uwzględnieniem współczynnika zapasu $\gamma$ (np. $\gamma = 1.2$) i wzmocnienia statycznego $k = 22.3$:
+\begin{equation}
+U_{max}^{opt} = \frac{\gamma \cdot v_{max}}{f_{s} \cdot k} = \frac{1.2 \cdot 887.7}{30 \cdot 22.3} \approx 1.59.
+\end{equation}
+Wartość ta przekracza jednak bezpieczny próg nasycenia sygnału sterującego zdefiniowany w oprogramowaniu na poziomie absolutnym $1.0$. Mając na uwadze ochronę przekładni serwomechanizmów przed nadmiernymi udarami mechanicznymi, ograniczono maksymalną wartość sterowania do bezpiecznego pułapu 50\% mocy znamionowej, tj. $U_{max} = 0.5$. 
+
+Wyliczona na tej podstawie nominalna prędkość śledzenia systemu $v_{sys}$ wynosi:
+\begin{equation}
+v_{sys} = U_{max} \cdot f_{s} \cdot k = 0.5 \cdot 30 \cdot 22.3 = 334.5~\text{px/s}.
+\end{equation}
+Taka rezerwa kinematyczna uznawana jest za wystarczającą do realizacji płynnego śledzenia obiektów w przewidywanych scenariuszach testowych, stanowiąc optymalny kompromis między szybkością a kulturą pracy napędów.
+
+\subsubsection{Analityczne wyznaczenie strefy nieczułości (Deadband)}
+\label{sec:bang_bang_deadband}
+Kluczowym problemem w układach z nieliniowym regulatorem przekaźnikowym jest zjawisko nadbiegu (drogi hamowania). Po wejściu śledzonego obiektu w strefę dopuszczalnego błędu, algorytm natychmiastowo sprowadza sygnał sterujący do zera ($u = 0$). Jednakże, ze względu na zidentyfikowane wcześniej parametry fizyczne — opóźnienie wizyjne ($L = 0.0656$~s) oraz bezwładność wirnika silnika (stała czasowa $T = 0.142$~s) — ruch nie ustaje natychmiast.
+
+Zgodnie z teorią sterowania układami FOPDT dla wymuszenia o stałej prędkości, droga hamowania $\Delta y_{stop}$ przebyta przez układ od momentu wyzerowania uchybu wynosi:
+\begin{equation}
+\Delta y_{stop} = v_{sys} \cdot (L + T).
+\end{equation}
+
+Aby zagwarantować stabilność statyczną układu i zapobiec przesterowaniom oscylacyjnym (wynikającym z opuszczenia strefy nieczułości przeciwległą granicą siłą rozpędu), szerokość strefy $d$ musi ściśle spełniać warunek:
+\begin{equation}
+d \ge \Delta y_{stop}.
+\end{equation}
+
+Podstawiając wyznaczone empirycznie parametry dynamiki wieżyczki oraz prędkość nominalną $v_{sys}$, wyznaczono minimalny, bezpieczny rozmiar strefy nieczułości (kagańca programowego):
+\begin{equation}
+d \ge 334.5 \cdot (0.0656 + 0.142) = 334.5 \cdot 0.2076 \approx 69.4~\text{px}.
+\end{equation}
+
+Na podstawie przeprowadzonych wyliczeń udowodniono, że dotychczas stosowane, wąskie strefy (np. $\pm 25$~px) siłą rzeczy musiały prowadzić do niestabilności algorytmu. W wyniku syntezy ostateczne parametry regulatora trójpołożeniowego ustalono na poziomie $U_{max} = 0.5$ oraz $d = 70$~px, co gwarantuje płynne sprowadzanie obiektu do centrum kadru bez wzbudzania niepożądanych wibracji mechanicznych.
 % W całym dokumencie powinny znajdować się odniesienia do zawartych w nim ilustracji (rys. \ref{fig:2}).
 
 % \begin{figure}
@@ -1422,32 +1528,350 @@ Synteza tego regulatora stanowiła kompromis pomiędzy dokładnością pozycjono
 %\end{itemize}
 
 
-% TODO
 \chapter{Badania}
-%
-% 
-%
-%Rozdział przedstawia przeprowadzone badania. Jest to zasadnicza część i~musi wyraźnie dominować w~pracy.
-%Badania i analizę wyników należy przeprowadzić, tak jak jest przyjęte w środowisku naukowym (na przykład korzystanie z danych benchmarkowych, walidacja krzyżowa, zapewnienie powtarzalności testów itd). 
-%
-\section{Metodyka badań}
-\subsection{stanowisko badawcze}
-%\begin{itemize}
-%\item opis metodyki badań
-%\item opis stanowiska badawczego (opis interfejsu aplikacji badawczych -- w~załączniku)
-%\end{itemize}
-%
-%
+\label{ch:badania}
+
+Rozdział przedstawia metodykę oraz wyniki badań eksperymentalnych zaprojektowanego wizyjnego systemu nadążnego. Celem testów była weryfikacja poprawności działania zaimplementowanych algorytmów sterowania w warunkach zmiennej dynamiki i odległości celu.
+
+% =========================================================
+\section{Metodyka badań i scenariusze testowe}
+\label{sec:metodyka_badan}
+
+Badania empiryczne przeprowadzono na fizycznym stanowisku laboratoryjnym, w skład którego wchodził zaprojektowany dwuosiowy układ wykonawczy (wieżyczka obrotowa realizująca ruch w płaszczyznach PAN i TILT), kamera wizyjna rejestrująca obraz w rozdzielczości VGA ($640 \times 480$ pikseli) oraz nadrzędny węzeł obliczeniowy analizujący strumień wideo. W celu zminimalizowania wpływu zakłóceń zewnętrznych na system detekcji przestrzeni barw HSV, testy realizowano w warunkach stałego, rozproszonego oświetlenia sztucznego.
+
+Jako obiekt referencyjny (cel) wykorzystano sferyczny przedmiot o wyrazistej, żółtej barwie (piłkę). Wybór obiektu sferycznego był podyktowany wymogami algorytmu detekcji konturów -- w przypadku kuli rzut środka ciężkości pola powierzchni (wyznaczany za pomocą momentów przestrzennych) pokrywa się z jej środkiem geometrycznym, niezależnie od kąta rotacji obiektu względem obiektywu kamery. Zapobiega to powstawaniu pozornego uchybu śledzenia wynikającego z obrotu samego celu.
+
+Aby w sposób kompleksowy ocenić zachowanie układu automatycznej regulacji, zdefiniowano trzy główne scenariusze testowe:
+\begin{enumerate}
+    \item \textbf{Skokowa zmiana położenia celu (Ruch boczny):} Obiekt testowy był gwałtownie przemieszczany w polu widzenia kamery, wymuszając skokową zmianę uchybu. Scenariusz ten pozwolił na ocenę podstawowych parametrów dynamicznych układu: czasu regulacji, wielkości przeregulowania oraz stabilności w punkcie pracy. Test przeprowadzono oddzielnie dla trzech ustalonych dystansów w osi optycznej: 30~cm, 80~cm oraz 150~cm.
+    \item \textbf{Ruch po trajektorii okrężnej:} Obiekt poruszał się płynnym ruchem krzywoliniowym, wymuszając jednoczesną, sprzężoną pracę napędów w obu osiach kinematycznych. Scenariusz posłużył do oceny płynności nadążania oraz występowania zjawiska rwania trajektorii (\textit{chattering}). Podobnie jak w poprzednim przypadku, test powtórzono dla odległości 30~cm, 80~cm i 150~cm.
+    \item \textbf{Liniowa zmiana dystansu (Oddalanie):} Obiekt testowy był płynnie oddalany od stanowiska wzdłuż osi optycznej obiektywu (od 30~cm do 150~cm), z jednoczesnym wymuszeniem powolnego ruchu w płaszczyźnie XY. Badanie to miało na celu weryfikację odporności systemu na drastyczny spadek pola powierzchni detekowanego obiektu oraz ocenę skuteczności zaimplementowanego algorytmu adaptacji nastaw (\textit{Gain Scheduling}).
+\end{enumerate}
+
+Akwizycja danych pomiarowych odbywała się w sposób zautomatyzowany. Autorskie oprogramowanie węzła nadrzędnego rejestrowało m.in. aktualny uchyb regulacji w osiach X i Y (wyrażony w pikselach), wypracowany sygnał sterujący, bieżące pole powierzchni obiektu oraz dynamiczną szerokość strefy nieczułości. Logowanie danych do plików tekstowych (\texttt{.csv}) realizowano asynchronicznie z częstotliwością pętli głównej algorytmu wizyjnego, wynoszącą około $30$~Hz, co pozwoliło na dokładne odtworzenie i analizę przebiegów czasowych.
+
+% =========================================================
+\section{Analiza działania regulatora PID}
+\label{sec:badania_pid}
+
+W ramach oceny ciągłego algorytmu sterowania PID przeprowadzono serię testów weryfikujących zachowanie wieżyczki dla dwóch skrajnych zestawów parametrów:
+\begin{itemize}
+    \item \textbf{Nastaw heurystycznych:} dobranych empirycznie metodą prób i błędów, charakteryzujących się wysoką agresywnością i brakiem uwzględnienia inercji mechanicznej oraz opóźnień wprowadzanych przez przetwarzanie obrazu.
+    \item \textbf{Nastaw analitycznych:} wyznaczonych z wykorzystaniem metody odpowiedzi skokowej Chien-Hrones-Reswick (CHR), opisanych szczegółowo w rozdz. \ref{sec:synteza_pid}.
+\end{itemize}
+Badania powtórzono dla trzech referencyjnych odległości celu od obiektywu (30~cm, 80~cm oraz 150~cm), co pozwoliło na ocenę wpływu pozornej zmiany rozmiaru i prędkości kątowej obiektu na jakość regulacji.
+\subsection{Odpowiedź układu na skokową zmianę położenia celu (Ruch boczny)}
+\label{subsec:pid_skok}
+
+Dla optymalnego dystansu $80$~cm (rys. \ref{fig:pid_skok_80}) zauważono, że nastawy dobrane heurystycznie ($K_p = 0.005$, $K_d = 0.0001$) skutkowały dość łagodną, lecz powolną odpowiedzią układu z zauważalnym przeregulowaniem, zwłaszcza w osi PAN. Czas regulacji był wydłużony, co wskazuje na niedoszacowanie wzmocnienia proporcjonalnego w stosunku do inercji wieżyczki. Z kolei zastosowanie nastaw wyznaczonych analitycznie metodą CHR ($K_p = 0.058$, $K_d = 0.0019$) pozwoliło na niezwykle dynamiczną reakcję. Układ błyskawicznie zniwelował uchyb i precyzyjnie wyhamował wewnątrz wyznaczonej strefy nieczułości, charakteryzując się niemal natychmiastowym czasem ustalenia.
+
+\begin{figure}[!ht]
+\centering
+\begin{subfigure}{0.48\textwidth}
+    \includegraphics[width=\textwidth]{./Obrazy/Wyniki PID/wykres_GOOD_PID_move_80_cm.png}
+    \caption{Nastawy heurystyczne.}
+\end{subfigure}
+\hfill
+\begin{subfigure}{0.48\textwidth}
+    \includegraphics[width=\textwidth]{./Obrazy/Wyniki PID/wykres_UP_PID_move_80_cm.png}
+    \caption{Nastawy analityczne.}
+\end{subfigure}
+\caption{Porównanie odpowiedzi skokowej regulatora PID dla dystansu 80~cm.}
+\label{fig:pid_skok_80}
+\end{figure}
+
+Zmniejszenie dystansu do $30$~cm (rys. \ref{fig:pid_skok_30}) drastycznie uwypukliło słabości metody heurystycznej. Ze względu na fakt, że z bliska ta sama zmiana fizycznego położenia celu generuje znacznie większą pozorną prędkość kątową na matrycy kamery, układ z nieodpowiednio dobranym tłumieniem wpadł w permanentne, niegasnące oscylacje o dużej amplitudzie. System pracujący na tych nastawach całkowicie utracił stabilność. W tych samych, wysoce wymagających warunkach kinematycznych, regulator z nastawami analitycznymi zachował pełną krzepkość (\textit{robustness}). Mimo niezwykle agresywnego wejścia, wyliczony człon różniczkujący skutecznie wytracił energię kinetyczną układu, sprowadzając obiekt do centrum kadru i zapobiegając oscylacjom.
+
+\begin{figure}[!ht]
+\centering
+\begin{subfigure}{0.48\textwidth}
+    \includegraphics[width=\textwidth]{./Obrazy/Wyniki PID/wykres_GOOD_PID_move_30_cm.png}
+    \caption{Nastawy heurystyczne -- utrata stabilności.}
+\end{subfigure}
+\hfill
+\begin{subfigure}{0.48\textwidth}
+    \includegraphics[width=\textwidth]{./Obrazy/Wyniki PID/wykres_UP_PID_move_30_cm.png}
+    \caption{Nastawy analityczne -- asymtotyczne tłumienie drgań.}
+\end{subfigure}
+\caption{Porównanie odpowiedzi skokowej regulatora PID dla dystansu 30~cm.}
+\label{fig:pid_skok_30}
+\end{figure}
+
+W przypadku dużej odległości równej $150$~cm (rys. \ref{fig:pid_skok_150}), obiekt testowy zajmował ułamek pierwotnej powierzchni obrazu. Nastawy heurystyczne wykazały tu odpowiedź o charakterze mocno aperiodicznym i zachowawczym -- serwomechanizmy zbyt zachowawczo dążyły do celu, co przy szybko poruszających się obiektach skutkowałoby ich zgubieniem z kadru. Wprowadzenie nastaw analitycznych zagwarantowało utrzymanie wysokiej dynamiki i powtarzalności śledzenia. Wykres \ref{fig:pid_skok_150}b potwierdza, że układ szybko dokonał korekty położenia, a adaptacyjnie zawężona strefa nieczułości odpowiednio wcześnie wyzerowała sygnał sterujący, blokując pozycję docelową.
+
+\begin{figure}[!ht]
+\centering
+\begin{subfigure}{0.48\textwidth}
+    \includegraphics[width=\textwidth]{./Obrazy/Wyniki PID/wykres_GOOD_PID_move_150_cm.png}
+    \caption{Nastawy heurystyczne.}
+\end{subfigure}
+\hfill
+\begin{subfigure}{0.48\textwidth}
+    \includegraphics[width=\textwidth]{./Obrazy/Wyniki PID/wykres_UP_PID_move_150_cm.png}
+    \caption{Nastawy analityczne.}
+\end{subfigure}
+\caption{Porównanie odpowiedzi skokowej regulatora PID dla dystansu 150~cm.}
+\label{fig:pid_skok_150}
+\end{figure}
+
+\subsection{Śledzenie obiektu poruszającego się po trajektorii okrężnej}
+\label{subsec:pid_okrag}
+
+Ruch okrężny ujawnił, że agresywne nastawy heurystyczne powodują szarpanie trajektorii.
+
+\begin{figure}[!ht]
+\centering
+\begin{subfigure}{0.48\textwidth}
+    \includegraphics[width=\textwidth]{./Obrazy/Wyniki PID/wykres_GOOD_PID_circural_80_cm.png}
+    \caption{Nastawy heurystyczne.}
+\end{subfigure}
+\hfill
+\begin{subfigure}{0.48\textwidth}
+    \includegraphics[width=\textwidth]{./Obrazy/Wyniki PID/wykres_UP_PID_circural_80_cm.png}
+    \caption{Nastawy analityczne.}
+\end{subfigure}
+\caption{Śledzenie ruchu okrężnego dla dystansu 80~cm (PID).}
+\label{fig:pid_okrag_80}
+\end{figure}
+
+\begin{figure}[!ht]
+\centering
+\begin{subfigure}{0.48\textwidth}
+    \includegraphics[width=\textwidth]{./Obrazy/Wyniki PID/wykres_GOOD_PID_circural_30_cm.png}
+    \caption{Nastawy heurystyczne.}
+\end{subfigure}
+\hfill
+\begin{subfigure}{0.48\textwidth}
+    \includegraphics[width=\textwidth]{./Obrazy/Wyniki PID/wykres_UP_PID_circural_30_cm.png}
+    \caption{Nastawy analityczne.}
+\end{subfigure}
+\caption{Śledzenie ruchu okrężnego dla dystansu 30~cm (PID).}
+\label{fig:pid_okrag_30}
+\end{figure}
+
+\begin{figure}[!ht]
+\centering
+\begin{subfigure}{0.48\textwidth}
+    \includegraphics[width=\textwidth]{./Obrazy/Wyniki PID/wykres_GOOD_PID_circural_150_cm.png}
+    \caption{Nastawy heurystyczne.}
+\end{subfigure}
+\hfill
+\begin{subfigure}{0.48\textwidth}
+    \includegraphics[width=\textwidth]{./Obrazy/Wyniki PID/wykres_UP_PID_circural_150_cm.png}
+    \caption{Nastawy analityczne.}
+\end{subfigure}
+\caption{Śledzenie ruchu okrężnego dla dystansu 150~cm (PID).}
+\label{fig:pid_okrag_150}
+\end{figure}
+
+\subsection{Test płynnej zmiany dystansu i weryfikacja algorytmu Gain Scheduling}
+\label{subsec:pid_oddalanie}
+
+Przy oddalaniu bez adaptacji parametrów układ tracił stabilność. Zastosowanie algorytmu Gain Scheduling zapewniło płynność śledzenia.
+
+\begin{figure}[!ht]
+\centering
+\begin{subfigure}{0.48\textwidth}
+    \includegraphics[width=\textwidth]{./Obrazy/Wyniki PID/wykres_GOOD_PID_move_30_150.png}
+    \caption{Bez adaptacji parametrów.}
+\end{subfigure}
+\hfill
+\begin{subfigure}{0.48\textwidth}
+    \includegraphics[width=\textwidth]{./Obrazy/Wyniki PID/wykres_UP_PID_move_30_150.png}
+    \caption{Aktywny Gain Scheduling.}
+\end{subfigure}
+\caption{Płynne oddalanie obiektu od 30~cm do 150~cm (PID).}
+\label{fig:pid_oddalanie}
+\end{figure}
+
+% =========================================================
+% =========================================================
 \section{Analiza działania regulatora trójpołożeniowego}
-%
-%\begin{itemize}
-%\item opis danych
-%\end{itemize}
-%
-%
-\section{Strojenie i analiza działania regulatora PID}
-\section{Porównanie skuteczności systemów}
-%
+\label{sec:badania_bangbang}
+
+Analogicznie do badań układu o działaniu ciągłym, algorytm przekaźnikowy poddano ewaluacji w identycznych scenariuszach. Porównano zachowanie przy zastosowaniu strefy nieczułości dobranej heurystycznie oraz zoptymalizowanej analitycznie na podstawie wyliczonego nadbiegu obiektu.
+
+\subsection{Odpowiedź układu na skokową zmianę położenia celu (Ruch boczny)}
+\label{subsec:bb_skok}
+
+Zestawienie wyników na dystansie 80 cm (rys. \ref{fig:bb_skok_80}) jednoznacznie ukazuje mechanikę powstawania drgań przekaźnikowych w układach inercyjnych. Zastosowanie wąskiej, dobranej heurystycznie strefy nieczułości skutkuje tym, że wyłączony układ siłą bezwładności opuszcza obszar tolerancji z przeciwnej strony. Algorytm w odpowiedzi gwałtownie zmienia kierunek wysterowania, wprowadzając wieżyczkę w permanentny cykl limitowy. Wdrożenie strefy wyznaczonej analitycznie, poszerzonej o wyliczoną wcześniej drogę hamowania, pozwoliło na pewne wejście uchybu w obszar tolerancji i trwałe wyłączenie napędów, potwierdzając słuszność wyliczeń z rozdziału 5.
+
+\begin{figure}[!ht]
+\centering
+\begin{subfigure}{0.48\textwidth}
+    \includegraphics[width=\textwidth]{./Obrazy/WYniki troj/wykres_GOOD_BB_move_80_cm.png}
+    \caption{Strefa heurystyczna.}
+\end{subfigure}
+\hfill
+\begin{subfigure}{0.48\textwidth}
+    \includegraphics[width=\textwidth]{./Obrazy/WYniki troj/wykres_UP_BB_move_80_cm.png}
+    \caption{Strefa analityczna.}
+\end{subfigure}
+\caption{Porównanie odpowiedzi skokowej regulatora trójpołożeniowego na dystansie 80~cm.}
+\label{fig:bb_skok_80}
+\end{figure}
+
+Skrócenie dystansu do 30 cm (rys. \ref{fig:bb_skok_30}) drastycznie uwypukliło problemy niestrojonego algorytmu Bang-Bang. Z powodu ogromnej prędkości pozornej celu, amplituda drgań dla nastaw heurystycznych wzrosła do wartości niemal 300 pikseli, co w praktyce oznaczało całkowitą utratę zdolności śledzenia i gwałtowne "rzucanie" całą konstrukcją wieżyczki. Zastosowanie nastaw analitycznych, wspartych systemem adaptacyjnym poszerzającym strefę nieczułości dla obiektów bliskich, pozwoliło opanować układ. Zwiększona prędkość osi PAN błyskawicznie zniwelowała początkowy błąd, a szeroki bufor bezpieczeństwa "wchłonął" energię kinetyczną hamowania.
+
+\begin{figure}[!ht]
+\centering
+\begin{subfigure}{0.48\textwidth}
+    \includegraphics[width=\textwidth]{./Obrazy/WYniki troj/wykres_GOOD_BB_move_30_cm.png}
+    \caption{Strefa heurystyczna.}
+\end{subfigure}
+\hfill
+\begin{subfigure}{0.48\textwidth}
+    \includegraphics[width=\textwidth]{./Obrazy/WYniki troj/wykres_UP_BB_move_30_cm.png}
+    \caption{Strefa analityczna.}
+\end{subfigure}
+\caption{Porównanie odpowiedzi skokowej regulatora trójpołożeniowego na dystansie 30~cm.}
+\label{fig:bb_skok_30}
+\end{figure}
+
+Na dystansie 150 cm (rys. \ref{fig:bb_skok_150}), gdzie obiekt jest relatywnie mały, nastawy heurystyczne wciąż wykazywały tendencję do wzbudzania oscylacji (szczególnie widocznych w osi PAN). Podejście analityczne udowodniło swoją wyższość również w tym scenariuszu. Dzięki algorytmowi Gain Scheduling, który automatycznie zawęził strefę nieczułości po wykryciu małego pola powierzchni obiektu, układ nie tylko zachował absolutną stabilność po pierwszym hamowaniu, ale również zagwarantował zadowalającą precyzję centrowania, nie pozwalając celowi na nadmierne "pływanie" po szerokim kadrze.
+
+\begin{figure}[!ht]
+\centering
+\begin{subfigure}{0.48\textwidth}
+    \includegraphics[width=\textwidth]{./Obrazy/WYniki troj/wykres_GOOD_BB_move_150_cm.png}
+    \caption{Strefa heurystyczna.}
+\end{subfigure}
+\hfill
+\begin{subfigure}{0.48\textwidth}
+    \includegraphics[width=\textwidth]{./Obrazy/WYniki troj/wykres_UP_BB_move_150_cm.png}
+    \caption{Strefa analityczna.}
+\end{subfigure}
+\caption{Porównanie odpowiedzi skokowej regulatora trójpołożeniowego na dystansie 150~cm.}
+\label{fig:bb_skok_150}
+\end{figure}
+
+
+\subsection{Śledzenie obiektu poruszającego się po trajektorii okrężnej}
+\label{subsec:bb_okrag}
+
+Śledzenie obiektu poruszającego się po trajektorii krzywoliniowej jest niezwykle wymagającym zadaniem dla algorytmu trójpołożeniowego. W przeciwieństwie do regulatorów ciągłych, układ przekaźnikowy nie potrafi płynnie dopasować prędkości obrotowej do płynnego wymuszenia (zmieniającej się prędkości rzutowanej na matrycę). Napędy pracują wyłącznie w trybie pełnej mocy lub całkowitego zatrzymania, co z natury prowadzi do rwanej trajektorii nadążania.
+
+Podczas jednoczesnej pracy osi PAN i TILT na optymalnym dystansie $80$~cm (rys. \ref{fig:bb_okrag_80}), wąska strefa heurystyczna powodowała bardzo wysoką częstotliwość przełączeń. Ze względu na ciągły ruch celu, uchyb błyskawicznie opuszczał strefę tolerancji, wymuszając nieustanne, nerwowe korekty. Zjawisko to (tzw. \textit{chattering}) jest skrajnie niekorzystne z punktu widzenia trwałości przekładni mechanicznych. Zastosowanie szerokiej, wyliczonej analitycznie strefy nieczułości drastycznie obniżyło częstotliwość przełączeń silników. Cel zyskał margines na swobodne przemieszczanie się wewnątrz powiększonego obszaru tolerancji, co na wykresie \ref{fig:bb_okrag_80}b objawia się charakterystycznymi wypłaszczeniami wewnątrz zielonej strefy. Choć chwilowy błąd bezwzględny jest większy, kultura pracy napędów uległa radykalnej poprawie.
+
+\begin{figure}[!ht]
+\centering
+\begin{subfigure}{0.48\textwidth}
+    \includegraphics[width=\textwidth]{./Obrazy/WYniki troj/wykres_GOOD_BB_circural_80_cm.png}
+    \caption{Strefa heurystyczna.}
+\end{subfigure}
+\hfill
+\begin{subfigure}{0.48\textwidth}
+    \includegraphics[width=\textwidth]{./Obrazy/WYniki troj/wykres_UP_BB_circural_80_cm.png}
+    \caption{Strefa analityczna.}
+\end{subfigure}
+\caption{Śledzenie ruchu okrężnego dla dystansu 80~cm (Regulator trójpołożeniowy).}
+\label{fig:bb_okrag_80}
+\end{figure}
+
+Zmniejszenie odległości do $30$~cm (rys. \ref{fig:bb_okrag_30}) obnażyło kinematyczne ograniczenia wieżyczki sterowanej przekaźnikowo. Ze względu na olbrzymią pozorną prędkość kątową celu, uchyb w wariancie heurystycznym przyjął postać regularnej fali o amplitudzie przekraczającej $200$ pikseli. Układ nie nadążał za obiektem, przeskakując z opóźnieniem między skrajnymi wychyleniami. Zastosowanie nastaw analitycznych z odpowiednio poszerzoną strefą zniwelowało zjawisko wysokoczęstotliwościowych uderzeń. Napędy załączały się rzadziej, asymilując energię błędów w szerokim buforze, co pozwoliło utrzymać obiekt w kadrze pomimo widocznego opóźnienia fazowego.
+
+\begin{figure}[!ht]
+\centering
+\begin{subfigure}{0.48\textwidth}
+    \includegraphics[width=\textwidth]{./Obrazy/WYniki troj/wykres_GOOD_BB_circural_30_cm.png}
+    \caption{Strefa heurystyczna.}
+\end{subfigure}
+\hfill
+\begin{subfigure}{0.48\textwidth}
+    \includegraphics[width=\textwidth]{./Obrazy/WYniki troj/wykres_UP_BB_circural_30_cm.png}
+    \caption{Strefa analityczna.}
+\end{subfigure}
+\caption{Śledzenie ruchu okrężnego dla dystansu 30~cm (Regulator trójpołożeniowy).}
+\label{fig:bb_okrag_30}
+\end{figure}
+
+Testy na dystansie $150$~cm (rys. \ref{fig:bb_okrag_150}) udowodniły skuteczność adaptacyjnej zmiany strefy nieczułości. W wariancie heurystycznym (stała, wąska strefa w całym zakresie) widoczne są ciągłe, nerwowe oscylacje o małej amplitudzie, powstające podczas prób wycentrowania oddalonego obiektu. Wdrożenie algorytmu modyfikującego korytarz tolerancji na podstawie wielkości obiektu na matrycy uspokoiło odpowiedź układu (rys. \ref{fig:bb_okrag_150}b). Błąd jest bezpiecznie zamykany wewnątrz zwężonej, dynamicznej strefy, eliminując niepotrzebne mikro-ruchy serwomechanizmów i stabilizując trajektorię obserwacji.
+
+\begin{figure}[!ht]
+\centering
+\begin{subfigure}{0.48\textwidth}
+    \includegraphics[width=\textwidth]{./Obrazy/WYniki troj/wykres_GOOD_BB_circural_150_cm.png}
+    \caption{Strefa heurystyczna.}
+\end{subfigure}
+\hfill
+\begin{subfigure}{0.48\textwidth}
+    \includegraphics[width=\textwidth]{./Obrazy/WYniki troj/wykres_UP_BB_circural_150_cm.png}
+    \caption{Strefa analityczna.}
+\end{subfigure}
+\caption{Śledzenie ruchu okrężnego dla dystansu 150~cm (Regulator trójpołożeniowy).}
+\label{fig:bb_okrag_150}
+\end{figure}
+
+\subsection{Test płynnej zmiany dystansu i weryfikacja algorytmu adaptacyjnego}
+\label{subsec:bb_oddalanie}
+
+Ostatnim etapem weryfikacji algorytmu trójpołożeniowego był test odporności na nieliniową zmianę parametrów kinematycznych, zrealizowany poprzez liniowe oddalanie celu od odległości 30~cm do 150~cm wzdłuż osi optycznej obiektywu. Zmiana dystansu powoduje drastyczny spadek pozornej prędkości kątowej obiektu na matrycy oraz zmniejszenie jego pola powierzchni.
+
+Na rys. \ref{fig:bb_oddalanie}a zaprezentowano odpowiedź układu bazowego, pracującego ze stałą, heurystyczną strefą nieczułości. W początkowej fazie eksperymentu (obiekt w bliskiej odległości), układ wygenerował permanentny cykl limitowy o potężnej amplitudzie, dochodzącej do 200 pikseli. Stan ten wynikał z faktu, że droga hamowania rozpędzonej wieżyczki wielokrotnie przekraczała założony "kaganiec". W miarę fizycznego oddalania obiektu (wraz z upływem czasu na osi odciętych), pozorna prędkość uchybu malała, co proporcjonalnie skracało drogę hamowania (nadbieg). Zjawisko to doprowadziło do naturalnego, stopniowego wygasania oscylacji, aż do momentu, gdy droga hamowania ostatecznie zmieściła się wewnątrz stałej strefy nieczułości (po 12. sekundzie).
+
+Wdrożenie skalowanej strefy nieczułości (algorytm \textit{Gain Scheduling}) wraz z nastawami analitycznymi przyniosło radykalną poprawę jakości nadążania (rys. \ref{fig:bb_oddalanie}b). W krytycznej, początkowej fazie ruchu, system zaaplikował bezpieczną, szeroką strefę nieczułości, co skutecznie zamortyzowało dużą energię układu i całkowicie zapobiegło powstaniu początkowego cyklu limitowego. W okolicach 5. i 6. sekundy eksperymentu, gdy system wizyjny odnotował spadek pola powierzchni śledzonego konturu poniżej zaprogramowanych progów referencyjnych, algorytm skokowo redukował strefę nieczułości (widoczne zwężenie zielonego obszaru na wykresie).
+
+\begin{figure}[!ht]
+\centering
+\begin{subfigure}{0.48\textwidth}
+    \includegraphics[width=\textwidth]{./Obrazy/WYniki troj/wykres_GOOD_BB_move_30_150.png}
+    \caption{Bez adaptacji parametrów -- naturalne tłumienie drgań wraz ze wzrostem dystansu.}
+\end{subfigure}
+\hfill
+\begin{subfigure}{0.48\textwidth}
+    \includegraphics[width=\textwidth]{./Obrazy/WYniki troj/wykres_UP_BB_move_30_150.png}
+    \caption{Aktywna adaptacja strefy -- dynamiczne zawężanie tolerancji dla oddalającego się obiektu.}
+\end{subfigure}
+\caption{Płynne oddalanie obiektu od 30~cm do 150~cm (Regulator trójpołożeniowy).}
+\label{fig:bb_oddalanie}
+\end{figure}
+
+Dzięki takiemu rozwiązaniu regulator trójpołożeniowy zachował absolutną stabilność w bliskim kontakcie (gdzie wymagany jest szeroki margines na wyhamowanie), a jednocześnie znacząco zwiększył precyzję centrowania dla obiektów oddalonych, nie pozwalając małemu celowi na swobodne "pływanie" po matrycy.
+
+% =========================================================
+\section{Porównanie skuteczności badanych algorytmów}
+\label{sec:porownanie}
+
+\subsection{Zestawienie wskaźników jakości sterowania}
+\label{subsec:wskazniki_jakosci}
+
+W celu ostatecznej ewaluacji zaimplementowanych algorytmów, zestawiono ich zoptymalizowane odpowiedzi skokowe dla dystansu referencyjnego 80~cm. Tabela \ref{tab:porownanie_finalne} agreguje wyznaczone wskaźniki jakości regulacji.
+
+\begin{table}[!ht]
+\centering
+\caption{Zestawienie wskaźników jakości regulacji dla przebadanych systemów (dystans 80~cm).}
+\label{tab:porownanie_finalne}
+\begin{tabular}{lccc}
+\toprule
+\textbf{Typ regulatora} & \textbf{Czas regulacji [s]} & \textbf{Maks. przeregulowanie [px]} & \textbf{Uchyb ustalony [px]} \\
+\midrule
+Bang-Bang (heurystyczne) & Niestabilny & Cykl limitowy & N/A \\
+Bang-Bang (analityczne) & 0.8 & Brak & $\pm 75$ (w strefie) \\
+PID (heurystyczne) & 1.5 & 120 & $\pm 10$ \\
+PD (CHR + Kaganiec) & 1.1 & Brak & $\pm 25$ (w strefie) \\
+\bottomrule
+\end{tabular}
+\end{table}
+
+\subsection{Porównanie dynamiki w dziedzinie czasu}
+\label{subsec:wykres_zbiorczy}
+
+% Aby uwydatnić różnice w dynamice obu układów, na rys. \ref{fig:wykres_zbiorczy} nałożono na siebie przebiegi czasowe uchybu dla zoptymalizowanego algorytmu PID (metoda CHR) oraz zoptymalizowanego regulatora trójpołożeniowego.
+
+% \begin{figure}[!ht]
+% \centering
+% \includegraphics[width=0.8\textwidth]{./Obrazy/Nastawy/wykres_zbiorczy_pid_vs_bb.png}
+% \caption{Zbiorcze zestawienie odpowiedzi skokowych zoptymalizowanego algorytmu PID oraz regulatora trójpołożeniowego na dystansie 80~cm.}
+% \label{fig:wykres_zbiorczy}
+% \end{figure}
+
+% TUTAJ OPISZEMY:
+% - Szybki wjazd Bang-Bang vs powolne, miękkie lądowanie PID.
+
+\subsection{Krzepkość układów i odporność na rozstrojenie}
+\label{subsec:odpornosc_krzepkosc}
+% TUTAJ OPISZEMY:
+% - Wyjaśnienie, dlaczego przesterowany PID ostatecznie wygaszał drgania (dzięki Kd), a przesterowany Bang-Bang wpadał w permanentne wibracje (brak sprzężenia od pochodnej uchybu).
 %\begin{itemize}
 %\item prezentacja wyników, opracowanie i poszerzona dyskusja  wyników, wnioski
 %\end{itemize}

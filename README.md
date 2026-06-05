@@ -19,6 +19,8 @@ ros2 run pan_tilt_description turret_gui.py
 **Rasbian **
 ```bash
 while true; do rpicam-vid -n -t 0 --width 640 --height 480 --framerate 30 --codec mjpeg --listen -o tcp://0.0.0.0:5000; sleep 1; done
+
+rpicam-vid -t 0 --width 640 --height 480 --framerate 30 --codec mjpeg --inline -o udp://192.168.0.255:5000
 ```
 **Rasbian ssh ubuntu**
 ```bash

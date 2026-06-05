@@ -56,26 +56,38 @@
 \contentsline {subsection}{\numberline {5.1.2}Nadrzędna stacja operatorska i interfejs GUI}{37}{subsection.5.1.2}%
 \contentsline {section}{\numberline {5.2}Implementacja komunikacji}{39}{section.5.2}%
 \contentsline {section}{\numberline {5.3}Implementacja algorytmów sterowania silnikami}{39}{section.5.3}%
-\contentsline {section}{\numberline {5.4}Synteza regulatora PID}{40}{section.5.4}%
-\contentsline {section}{\numberline {5.5}Synteza regulatora trójpołożeniowego}{40}{section.5.5}%
-\contentsline {chapter}{\numberline {6}Badania}{41}{chapter.6}%
-\contentsline {section}{\numberline {6.1}Metodyka badań}{41}{section.6.1}%
-\contentsline {subsection}{\numberline {6.1.1}stanowisko badawcze}{41}{subsection.6.1.1}%
-\contentsline {section}{\numberline {6.2}Analiza działania regulatora trójpołożeniowego}{41}{section.6.2}%
-\contentsline {section}{\numberline {6.3}Strojenie i analiza działania regulatora PID}{41}{section.6.3}%
-\contentsline {section}{\numberline {6.4}Porównanie skuteczności systemów}{41}{section.6.4}%
-\contentsline {chapter}{\numberline {7}Podsumowanie}{43}{chapter.7}%
-\contentsline {section}{\numberline {7.1}Rozwiązanie problemu badawczego}{43}{section.7.1}%
-\contentsline {section}{\numberline {7.2}Ocena osiągniętych wyników}{43}{section.7.2}%
-\contentsline {section}{\numberline {7.3}Wnioski i rekomendacje}{43}{section.7.3}%
-\contentsline {section}{\numberline {7.4}Perspektywy rozwoju i dalszych badań}{43}{section.7.4}%
-\contentsline {chapter}{Bibliografia}{45}{section*.26}%
-\contentsline {chapter}{Dokumentacja techniczna}{49}{appendix*.28}%
-\contentsline {chapter}{Spis skrótów i symboli}{51}{appendix*.29}%
+\contentsline {subsection}{\numberline {5.3.1}Synteza regulatora PID}{40}{subsection.5.3.1}%
+\contentsline {subsubsection}{Identyfikacja dynamiki obiektu metodą odpowiedzi skokowej}{40}{section*.26}%
+\contentsline {subsubsection}{Analityczny dobór nastaw metodą CHR}{41}{section*.27}%
+\contentsline {subsection}{\numberline {5.3.2}Synteza regulatora trójpołożeniowego}{42}{subsection.5.3.2}%
+\contentsline {subsubsection}{Identyfikacja maksymalnej prędkości śledzenia i dobór amplitudy $U_{max}$}{42}{section*.28}%
+\contentsline {subsubsection}{Analityczne wyznaczenie strefy nieczułości (Deadband)}{43}{section*.29}%
+\contentsline {chapter}{\numberline {6}Badania}{45}{chapter.6}%
+\contentsline {section}{\numberline {6.1}Metodyka badań i scenariusze testowe}{45}{section.6.1}%
+\contentsline {section}{\numberline {6.2}Analiza działania regulatora PID}{46}{section.6.2}%
+\contentsline {subsection}{\numberline {6.2.1}Odpowiedź układu na skokową zmianę położenia celu (Ruch boczny)}{47}{subsection.6.2.1}%
+\contentsline {subsection}{\numberline {6.2.2}Śledzenie obiektu poruszającego się po trajektorii okrężnej}{48}{subsection.6.2.2}%
+\contentsline {subsection}{\numberline {6.2.3}Test płynnej zmiany dystansu i weryfikacja algorytmu Gain Scheduling}{48}{subsection.6.2.3}%
+\contentsline {section}{\numberline {6.3}Analiza działania regulatora trójpołożeniowego}{50}{section.6.3}%
+\contentsline {subsection}{\numberline {6.3.1}Odpowiedź układu na skokową zmianę położenia celu (Ruch boczny)}{50}{subsection.6.3.1}%
+\contentsline {subsection}{\numberline {6.3.2}Śledzenie obiektu poruszającego się po trajektorii okrężnej}{51}{subsection.6.3.2}%
+\contentsline {subsection}{\numberline {6.3.3}Test płynnej zmiany dystansu i weryfikacja algorytmu adaptacyjnego}{53}{subsection.6.3.3}%
+\contentsline {section}{\numberline {6.4}Porównanie skuteczności badanych algorytmów}{54}{section.6.4}%
+\contentsline {subsection}{\numberline {6.4.1}Zestawienie wskaźników jakości sterowania}{54}{subsection.6.4.1}%
+\contentsline {subsection}{\numberline {6.4.2}Porównanie dynamiki w dziedzinie czasu}{55}{subsection.6.4.2}%
+\contentsline {subsection}{\numberline {6.4.3}Krzepkość układów i odporność na rozstrojenie}{55}{subsection.6.4.3}%
+\contentsline {chapter}{\numberline {7}Podsumowanie}{57}{chapter.7}%
+\contentsline {section}{\numberline {7.1}Rozwiązanie problemu badawczego}{57}{section.7.1}%
+\contentsline {section}{\numberline {7.2}Ocena osiągniętych wyników}{57}{section.7.2}%
+\contentsline {section}{\numberline {7.3}Wnioski i rekomendacje}{57}{section.7.3}%
+\contentsline {section}{\numberline {7.4}Perspektywy rozwoju i dalszych badań}{57}{section.7.4}%
+\contentsline {chapter}{Bibliografia}{59}{section*.45}%
+\contentsline {chapter}{Dokumentacja techniczna}{63}{appendix*.47}%
+\contentsline {chapter}{Spis skrótów i symboli}{65}{appendix*.48}%
 \babel@toc {british}{}\relax 
 \babel@toc {polish}{}\relax 
 \babel@toc {british}{}\relax 
 \babel@toc {polish}{}\relax 
-\contentsline {chapter}{Lista dodatkowych plików, uzupełniających tekst pracy (jeżeli dotyczy)}{53}{appendix*.30}%
-\contentsline {chapter}{Spis rysunków}{55}{appendix*.31}%
-\contentsline {chapter}{Spis tabel}{57}{appendix*.32}%
+\contentsline {chapter}{Lista dodatkowych plików, uzupełniających tekst pracy (jeżeli dotyczy)}{67}{appendix*.49}%
+\contentsline {chapter}{Spis rysunków}{69}{appendix*.50}%
+\contentsline {chapter}{Spis tabel}{71}{appendix*.51}%

@@ -10,6 +10,7 @@ install(PROGRAMS
   scripts/roi_detection_simulation.py
   gui/plot.py
   gui/turret_gui.py
+  gui/digital_twingui.py
   DESTINATION lib/${PROJECT_NAME}
 )
 

@@ -11,6 +11,20 @@
 \addvspace {10\p@ }
 \addvspace {10\p@ }
 \addvspace {10\p@ }
+\contentsline {figure}{\numberline {6.1}{\ignorespaces Porównanie odpowiedzi skokowej regulatora PID dla dystansu 80~cm.\relax }}{47}{figure.caption.30}%
+\contentsline {figure}{\numberline {6.2}{\ignorespaces Porównanie odpowiedzi skokowej regulatora PID dla dystansu 30~cm.\relax }}{48}{figure.caption.31}%
+\contentsline {figure}{\numberline {6.3}{\ignorespaces Porównanie odpowiedzi skokowej regulatora PID dla dystansu 150~cm.\relax }}{48}{figure.caption.32}%
+\contentsline {figure}{\numberline {6.4}{\ignorespaces Śledzenie ruchu okrężnego dla dystansu 80~cm (PID).\relax }}{49}{figure.caption.33}%
+\contentsline {figure}{\numberline {6.5}{\ignorespaces Śledzenie ruchu okrężnego dla dystansu 30~cm (PID).\relax }}{49}{figure.caption.34}%
+\contentsline {figure}{\numberline {6.6}{\ignorespaces Śledzenie ruchu okrężnego dla dystansu 150~cm (PID).\relax }}{49}{figure.caption.35}%
+\contentsline {figure}{\numberline {6.7}{\ignorespaces Płynne oddalanie obiektu od 30~cm do 150~cm (PID).\relax }}{50}{figure.caption.36}%
+\contentsline {figure}{\numberline {6.8}{\ignorespaces Porównanie odpowiedzi skokowej regulatora trójpołożeniowego na dystansie 80~cm.\relax }}{51}{figure.caption.37}%
+\contentsline {figure}{\numberline {6.9}{\ignorespaces Porównanie odpowiedzi skokowej regulatora trójpołożeniowego na dystansie 30~cm.\relax }}{51}{figure.caption.38}%
+\contentsline {figure}{\numberline {6.10}{\ignorespaces Porównanie odpowiedzi skokowej regulatora trójpołożeniowego na dystansie 150~cm.\relax }}{52}{figure.caption.39}%
+\contentsline {figure}{\numberline {6.11}{\ignorespaces Śledzenie ruchu okrężnego dla dystansu 80~cm (Regulator trójpołożeniowy).\relax }}{52}{figure.caption.40}%
+\contentsline {figure}{\numberline {6.12}{\ignorespaces Śledzenie ruchu okrężnego dla dystansu 30~cm (Regulator trójpołożeniowy).\relax }}{53}{figure.caption.41}%
+\contentsline {figure}{\numberline {6.13}{\ignorespaces Śledzenie ruchu okrężnego dla dystansu 150~cm (Regulator trójpołożeniowy).\relax }}{54}{figure.caption.42}%
+\contentsline {figure}{\numberline {6.14}{\ignorespaces Płynne oddalanie obiektu od 30~cm do 150~cm (Regulator trójpołożeniowy).\relax }}{55}{figure.caption.43}%
 \addvspace {10\p@ }
 \addvspace {10\p@ }
 \addvspace {10\p@ }
