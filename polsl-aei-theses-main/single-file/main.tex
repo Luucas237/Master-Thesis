@@ -745,6 +745,20 @@ Jeszcze bardziej zaawansowane podejście do integracji filtru z systemem wizyjny
 W kontekście projektowanego systemu implementacja filtru Kalmana pozwala zatem na realizację dwóch kluczowych funkcji. Po pierwsze umożliwia kompensację opóźnień poprzez estymację pozycji celu w przyszłej chwili czasu, co pozwala na wycelowanie wiązki w punkt wyprzedzenia zamiast w historyczną pozycję obiektu. Po drugie zapewnia odporność układu na chwilowe błędy detekcji wynikające ze specyfiki sensora wizyjnego, utrzymując płynność ruchu głowicy w sytuacjach krytycznych.
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
+\subsection{Ograniczenia sterowania skokowego w układach o wysokiej dynamice}
+
+W literaturze badającej układy o nieliniowej charakterystyce i dużej manewrowości często rozważa się implementację regulatorów skokowych (np. \textit{bang-bang} lub \textit{bang-off-bang}) z uwagi na ich teoretyczną optymalność czasową przy minimalizacji czasu dojścia do zadanej pozycji. Należy jednak krytycznie ocenić ich przydatność w wewnętrznych pętlach sterowania, które wymagają najwyższej precyzji działania. Przykładem dogłębnej analizy tego problemu są badania nad zwinnością samolotów myśliwskich, w których modelowano nieliniową dynamikę w stanach gwałtownych manewrów \cite{bib:caferov2019building}. Autorzy wykazali, że bezpośrednie zastosowanie klasycznego, dwupołożeniowego regulatora \textit{bang-bang} do kontroli wewnętrznej tak dynamicznego obiektu jest nieodpowiednie i ustępuje miejsca wielowymiarowym, ciągłym algorytmom sterowania \cite{bib:caferov2019building}.
+
+W systemach mechatronicznych naturalnym rozwinięciem tego podejścia jest wprowadzenie strefy nieczułości (ang. \textit{deadband}), tworzące układ trójpołożeniowy (tzw. \textit{bang-off-bang}). Rozwiązanie to łagodzi problem ciągłych oscylacji wokół punktu pracy, jednak mechanika obiektu wciąż jest poddawana skokowemu wymuszaniu pełną mocą w momencie opuszczenia strefy nieczułości. Z punktu widzenia precyzyjnych systemów nadążnych typu PAN/TILT, powstawanie gwałtownych skoków sygnału sterującego wywołuje w mechanice zjawisko szarpania i wibracji o wysokiej częstotliwości (tzw. \textit{chattering}). 
+
+Nawet w inżynierii kosmicznej, gdzie napędy korekcyjne (pędniki) mają natywną charakterystykę skokową (ON/OFF), odchodzi się od prostych algorytmów przełączających. Współczesne trendy polegają na zastępowaniu ich zaawansowanym sterowaniem predykcyjnym (MPC), co pozwala optymalizować momenty załączeń i minimalizować zużycie energii podczas precyzyjnych manewrów, takich jak dokowanie \cite{bib:Jones2024, bib:VirgiliLlop2017}. W układach zintegrowanych z modułami wizyjnymi, skokowa praca napędów prowadzi do wibracji samej osi optycznej, co drastycznie degraduje jakość pozyskiwanego strumienia wideo i uniemożliwia stabilne śledzenie. Z tego powodu, w budowie układów celowniczych poszukuje się alternatyw na rzecz ciągłych algorytmów regulacji (np. PID), zdolnych do płynnej modulacji prędkości.
+
+\subsection{Wykorzystanie środowisk symulacyjnych w projektowaniu systemów wizyjnych}
+
+Ze względu na złożoność strojenia algorytmów regulacji, które są bezpośrednio sprzężone z analizą obrazu cyfrowego, nowoczesna metodyka inżynierska zakłada przeniesienie początkowej fazy testów do sfery wirtualnej. Jak udowadniają Virgili-Llop i in. (2017) na przykładzie algorytmów dokowania statków kosmicznych, eksperymentalna weryfikacja krytycznych systemów sterowania bezwzględnie wymaga stworzenia dedykowanych stanowisk testowych (ang. \textit{hardware-in-the-loop}) lub zaawansowanych symulacji przed wdrożeniem na docelowym obiekcie \cite{bib:VirgiliLlop2017}. 
+
+W robotyce naziemnej funkcję tę doskonale spełniają silniki fizyki. Clark (2005) z powodzeniem wykorzystał środowisko Gazebo do walidacji hybrydowych algorytmów sterowania mobilnymi robotami śledzącymi przed ich fizyczną implementacją \cite{bib:Clark2005}. Zastosowanie zaawansowanego środowiska wirtualnego pozwala na bezpieczne modelowanie charakterystyk sensorów wizyjnych oraz obserwację zachowania mechaniki układu w odpowiedzi na wyliczany uchyb. Co szczególnie istotne, praca w symulatorze umożliwia testowanie obiektu w skrajnych warunkach operacyjnych bez ryzyka sprzętowego uszkodzenia kosztownych podzespołów elektroniki oraz przekładni mechanicznych w wyniku oscylacji. To bezpieczne środowisko testowe tworzy idealny fundament do zaimplementowania zautomatyzowanego strojenia nastaw regulatora PID (\textit{auto-tuning}), co stanowi kluczowe założenie badawcze zrealizowane w niniejszej pracy.
+
 \subsection{Właściwości kamer o matrycy z jednoczesną ekspozycją w systemach percepcji robotów}
 
 Współczesne systemy wizyjne dedykowane do analizy zjawisk dynamicznych, takich jak śledzenie obiektów balistycznych czy nawigacja bezzałogowych statków powietrznych, wymagają sensorów o specyficznej architekturze, zdolnych do eliminacji zniekształceń geometrycznych powstających podczas rejestracji ruchu. Podstawową cechą odróżniającą kamery z migawką globalną (ang. \textit{global shutter}) od rozwiązań standardowych jest sposób naświetlania matrycy. W technologii tej proces akumulacji ładunku elektrycznego rozpoczyna się i kończy w tym samym momencie dla wszystkich pikseli sensora, co pozwala na wierne zamrożenie ruchu bez artefaktów czasowych charakterystycznych dla migawki postępującej (ang. \textit{rolling shutter}).
@@ -824,23 +838,28 @@ Uzasadnienie doboru geometrii uzębienia znajduje również potwierdzenie w anal
 W projektowanym systemie wieżyczki ograniczenie to wyeliminowano poprzez zastosowanie technologii przyrostowych. Metoda ta uwalnia projektanta od restrykcji wynikających z kinematyki narzędzia skrawającego, umożliwiając wytworzenie kół o zwartej budowie, bez rowka technologicznego, w których obie części uzębienia stykają się bezpośrednio. Takie podejście pozwala na pełną integrację zalet mechanicznych opisanych przez Dixa – tj. płynności pracy i redukcji drgań – z minimalizacją masy i gabarytów, co jest krytyczne dla dynamiki układu śledzącego ATP.
 
 
-
 \section{Synteza analizy i koncepcja autorska}
 
-Na podstawie przeprowadzonej analizy literatury oraz zidentyfikowanych ograniczeń technologicznych, sformułowano koncepcję dwuetapowego rozwoju systemu śledzenia ATP. Analiza prac Seidaliyeva \cite{bib:Seidaliyeva2020} oraz Kemeshi \cite{bib:Kemeshi2024} wskazuje, że skuteczny system neutralizacji musi dynamicznie przełączać się między trybem detekcji na statycznym tle a trybem aktywnego śledzenia w ruchu, co determinuje dobór sprzętu i algorytmów. Poniżej przedstawiono założenia dla etapu eksperymentalnego czyli śledzenie obiektu balistycznego oraz koncepcję docelową skupiającą się na zwalczaniu bezzałogowców.
+Na podstawie przeprowadzonej analizy literatury oraz zidentyfikowanych ograniczeń technologicznych, sformułowano koncepcję dwuetapowego rozwoju systemu śledzenia ATP (ang. \textit{Acquisition, Tracking, and Pointing}). Analiza prac Seidaliyeva \cite{bib:Seidaliyeva2020} oraz Kemeshi \cite{bib:Kemeshi2024} wskazuje, że skuteczny system neutralizacji musi dynamicznie przełączać się między trybem detekcji na statycznym tle a trybem aktywnego śledzenia w ruchu. Oprócz wydajnej analizy obrazu, krytycznym elementem decydującym o precyzji celowania jest odpowiedni algorytm sterowania napędami, zdolny do kompensacji bezwładności całej platformy. Poniżej przedstawiono założenia dla etapu eksperymentalnego, będącego głównym przedmiotem badań niniejszej pracy, oraz koncepcję docelową skupiającą się na zwalczaniu bezzałogowych statków powietrznych.
 
-\subsection*{Etap 1: Śledzenie obiektu balistycznego}
+\subsection*{Etap 1: Demonstrator technologii i badanie algorytmów sterowania}
 
-W pierwszej fazie badań, system wieżyczki stacjonarnej ma za zadanie wykryć, a następnie precyzyjnie śledzić obiekt poruszający się po torze parabolicznym (podrzucona piłka) utrzymując na nim wiązkę laserową o znikomej mocy 5mW. Scenariusz ten pozwala na weryfikację krytycznych parametrów systemu w kontrolowanych warunkach.
-W fazie oczekiwania, konstrukcja pozostaje nieruchoma, co zapewnia spełnienie warunku statycznego tła. Pozwala to na zastosowanie wydajnego algorytmu detekcji ruchu opartego na mieszaninie rozkładów Gaussa (MOG2), zgodnie z metodologią opisaną przez Seidaliyeva i in. \cite{bib:Seidaliyeva2020}. Eliminuje to konieczność ciągłego przetwarzania obrazu przez obciążające sieci neuronowe, co minimalizuje opóźnienia początkowe.
+W pierwszej fazie badań, stacjonarny system wieżyczki ma za zadanie wykryć, a następnie precyzyjnie śledzić obiekt poruszający się ruchem jednostajnym lub wahadłowym w kontrolowanych warunkach, utrzymując na nim wiązkę laserową o znikomej mocy 5~mW. W fazie oczekiwania konstrukcja pozostaje nieruchoma, co zapewnia spełnienie warunku statycznego tła. Pozwala to na zastosowanie wydajnego algorytmu detekcji ruchu opartego na mieszaninie rozkładów Gaussa (MOG2) \cite{bib:Seidaliyeva2020}. Eliminuje to konieczność ciągłego przetwarzania obrazu przez obciążające sieci neuronowe, co znacząco minimalizuje opóźnienia początkowe.
 
-Moment wykrycia ruchu stanowi sygnał wyzwalający przejście do fazy aktywnej. W tym momencie system uruchamia serwomechanizmy w celu utrzymania obiektu w centrum kadru. Krytycznym wyzwaniem staje się tu ruch samej kamery, który uniemożliwia dalsze stosowanie metod odejmowania tła. Z tego względu, w fazie śledzenia system przełącza się na algorytm śledzenia obiektowego, wspierany predykcją filtra Kalmana. Ponieważ ruch piłki podlega znanym prawom fizyki czyli grawitacji i oporowi powietrza, filtr Kalmana może z wysoką skutecznością estymować przyszłą pozycję celu, kompensując opóźnienia pętli sprzężenia zwrotnego zidentyfikowane przez Li i in. \cite{bib:Li2025}. Kluczowym elementem sprzętowym na tym etapie jest zastosowanie kamery typu \textit{Global Shutter}. Zgodnie z badaniami Kemeshi \cite{bib:Kemeshi2024}, eliminuje ona zniekształcenia geometryczne obiektu podczas szybkiego ruchu głowicy, co jest niezbędne, aby algorytmy wizyjne nie gubiły śledzonego celu w trakcie wykonywania dynamicznego ruchu parabolicznego.
+Moment wykrycia ruchu stanowi sygnał wyzwalający przejście do fazy aktywnej. W tym momencie system uruchamia serwomechanizmy w celu utrzymania obiektu w centrum kadru i przełącza się na algorytm śledzenia obiektowego, wspierany predykcją filtra Kalmana, estymującego przyszłą pozycję celu \cite{bib:Li2025}. Zastosowanie kamery typu \textit{Global Shutter} pełni w tym procesie rolę pomocniczego zabiegu sprzętowego – eliminuje zniekształcenia geometryczne obiektu podczas szybkiego ruchu głowicy \cite{bib:Kemeshi2024}, co zapewnia stabilność danych wejściowych dla układu sterowania.
 
-\subsection*{Etap 2: Koncepcja systemu antydronowego}
-Docelowa aplikacja systemu zakłada adaptację opracowanych rozwiązań do zwalczania bezzałogowych statków powietrznych. W tym scenariuszu obiekt nie porusza się po przewidywalnej paraboli, lecz może wykonywać gwałtowne manewry, co wymaga modyfikacji modelu predykcji. Konstrukcja mechaniczna w układzie "T" (kamera i laser rozdzielone osiowo) wprowadza zagadnienie błędu paralaksy, który musi być kompensowany programowo w zależności od dystansu do celu.
+Głównym problemem badawczym na tym etapie staje się mechaniczna odpowiedź systemu celowniczego na wyliczony z obrazu wektor uchybu. W ramach pracy sformułowano cel eksperymentalnego porównania dwóch odmiennych paradygmatów sterowania pozycją wieżyczki:
+\begin{enumerate}
+    \item \textbf{Płynnego regulatora proporcjonalno-różniczkującego (PD/PID)}, którego nastawy poddawane są początkowej optymalizacji w dedykowanym środowisku symulacyjnym Gazebo (\textit{auto-tuning}).
+    \item \textbf{Skokowego regulatora trójstawnego (ang. \textit{Bang-Off-Bang})}, zdefiniowanego strefą nieczułości (\textit{deadband}) dla minimalnego akceptowalnego uchybu.
+\end{enumerate}
+Zbadanie i zestawienie ze sobą tych dwóch struktur ma na celu wykazanie uwarunkowań związanych ze stosowaniem sterowania nieciągłego w systemach nadążnych. Hipoteza badawcza zakłada, że w algorytmie \textit{Bang-Off-Bang} zbyt szeroka strefa nieczułości skutkuje wyraźnym uchybem ustalonym (brakiem pokrycia wiązki lasera z centrum obiektu), natomiast jej zawężenie prowadzi do agresywnych wibracji mechaniki (zjawisko \textit{chattering}), co w sposób ciągły degraduje proces śledzenia. Płynna regulacja sygnału sterującego ma docelowo ten problem wyeliminować.
 
-Istotnym wyzwaniem pozostaje strategia przeszukiwania przestrzeni. Ciągły ruch skanujący wieżyczki wyklucza stosowanie prostych metod detekcji ruchu ze względu na zmienność tła. Jako rozwiązanie rozwojowe proponuje się implementację strategii "skok i patrz" lub integrację z zewnętrznym systemem wskazania celu (np. radar, detektor akustyczny). W takiej konfiguracji sensor nadrzędny wstępnie kieruje wieżyczkę w odpowiedni sektor, a system wizyjny przejmuje cel dopiero po jego ustabilizowaniu, wykorzystując sprawdzoną w etapie 1 kaskadę: detekcja na statycznym tle, a następnie płynne przejście do śledzenia z wykorzystaniem sensora \textit{Global Shutter} \cite{bib:Seidaliyeva2020, bib:Kemeshi2024}.
+\subsection*{Etap 2: Koncepcja docelowa systemu antydronowego}
 
+Docelowa aplikacja systemu zakłada adaptację opracowanych rozwiązań do zwalczania bezzałogowych statków powietrznych. W tym scenariuszu obiekt wykonuje gwałtowne, nieprzewidywalne manewry, co wymaga adaptacji zaimplementowanych modeli predykcyjnych. Dodatkowo, docelowa konstrukcja mechaniczna w układzie "T" (kamera i laser rozdzielone osiowo) wprowadza zagadnienie błędu paralaksy, który musi być kompensowany programowo w zależności od dystansu do celu.
+
+Istotnym wyzwaniem pozostaje strategia przeszukiwania przestrzeni powietrznej. Ciągły ruch skanujący wieżyczki wyklucza stosowanie prostych metod detekcji wizyjnej ze względu na wysoką dynamikę i zmienność tła. Jako rozwiązanie rozwojowe proponuje się implementację strategii "skok i patrz" (ang. \textit{step-and-stare}) lub integrację platformy z zewnętrznym systemem wczesnego wykrywania (np. radar, kierunkowy detektor akustyczny). W takiej konfiguracji sensor nadrzędny wstępnie obraca wieżyczkę w odpowiedni sektor, a system wizyjny przejmuje cel dopiero po mechanicznym ustabilizowaniu napędów, wykorzystując sprawdzoną w Etapie 1 kaskadę: szybką detekcję na zamrożonym tle, a następnie przejście w tryb ciągłego śledzenia \cite{bib:Seidaliyeva2020, bib:Kemeshi2024}.
 
 
 
@@ -1178,7 +1197,7 @@ Model efektora został przeniesiony do przestrzeni wirtualnej przy użyciu forma
 W celu wiernego odwzorowania gabarytów i rozkładu mas, jako geometrie kolizyjne (\texttt{<collision>}) oraz wizualne (\texttt{<visual>}) wczytano przestrzenne pliki STL z katalogu \texttt{meshes/}. Modele te zostały uprzednio wyeksportowane ze środowiska Autodesk Inventor.
 
 \subsection{Wirtualna sensoryka i silnik fizyki}
-Do przeprowadzenia symulacji zachowania układu wykorzystano zaawansowane środowisko Gazebo (dawniej Ignition Gazebo)[cite: 9]. W obrębie definicji URDF umieszczono dedykowane wtyczki dla silnika symulacyjnego, które pełnią rolę cyfrowych bliźniaków fizycznych komponentów robota. Najistotniejszą z nich jest wirtualna kamera, zdefiniowana na końcu łańcucha kinematycznego (na członie \texttt{camera\_link})[cite: 5, 6]. Sensor ten generuje syntetyczny strumień wideo oraz dane macierzowe, zachowując przy tym parametry fizycznego układu optycznego[cite: 6]. Kąt widzenia (FOV) ustalono na poziomie $1.396$ radiana, rozdzielczość na $640 \times 480$ pikseli (format kodowania przestrzeni barw RGB888), natomiast częstotliwość odświeżania na 30 Hz[cite: 6, 7]. Poniższy fragment kodu z pliku definiującego kinematykę wieżyczki prezentuje wdrożenie tego sensora oraz konfigurację tematu sieciowego dla systemu ROS 2[cite: 6, 7]:
+Do przeprowadzenia symulacji zachowania układu wykorzystano zaawansowane środowisko Gazebo (dawniej Ignition Gazebo). W obrębie definicji URDF umieszczono dedykowane wtyczki dla silnika symulacyjnego, które pełnią rolę cyfrowych bliźniaków fizycznych komponentów robota. Najistotniejszą z nich jest wirtualna kamera, zdefiniowana na końcu łańcucha kinematycznego (na członie \texttt{camera\_link}). Sensor ten generuje syntetyczny strumień wideo oraz dane macierzowe, zachowując przy tym parametry fizycznego układu optycznego. Kąt widzenia (FOV) ustalono na poziomie $1.396$ radiana, rozdzielczość na $640 \times 480$ pikseli (format kodowania przestrzeni barw RGB888), natomiast częstotliwość odświeżania na 30 Hz. Poniższy fragment kodu z pliku definiującego kinematykę wieżyczki prezentuje wdrożenie tego sensora oraz konfigurację tematu sieciowego dla systemu ROS 2:
 
 \begin{lstlisting}[language=XML, basicstyle=\ttfamily\small, frame=single, breaklines=true]
   <gazebo reference="camera_link">
@@ -1203,7 +1222,7 @@ Do przeprowadzenia symulacji zachowania układu wykorzystano zaawansowane środo
   </gazebo>
 \end{lstlisting}
 
-Za wprawianie symulowanych członów konstrukcyjnych w ruch odpowiada wtyczka kontrolera trajektorii stawów (ang. Joint Position Controller)[cite: 8]. Narzędzie to zastępuje fizyczne silniki krokowe NEMA 17 i układy sterujące Pololu, realizując przemieszczenia bezpośrednio w silniku fizyki przy użyciu wewnętrznego regulatora PID[cite: 8]. Otrzymuje ono żądany kąt za pomocą dedykowanego tematu ROS i aplikuje odpowiedni moment siły na wirtualny wał[cite: 8]. Przykładowa implementacja tego węzła wykonawczego dla osi wertykalnej (TILT) została zdefiniowana następująco[cite: 8]:
+Za wprawianie symulowanych członów konstrukcyjnych w ruch odpowiada wtyczka kontrolera trajektorii stawów (ang. Joint Position Controller). Narzędzie to zastępuje fizyczne silniki krokowe NEMA 17 i układy sterujące Pololu, realizując przemieszczenia bezpośrednio w silniku fizyki przy użyciu wewnętrznego regulatora PID. Otrzymuje ono żądany kąt za pomocą dedykowanego tematu ROS i aplikuje odpowiedni moment siły na wirtualny wał. Przykładowa implementacja tego węzła wykonawczego dla osi wertykalnej (TILT) została zdefiniowana następująco:
 
 \begin{lstlisting}[language=XML, basicstyle=\ttfamily\small, frame=single, breaklines=true]
   <gazebo>
@@ -1218,9 +1237,16 @@ Za wprawianie symulowanych członów konstrukcyjnych w ruch odpowiada wtyczka ko
   </gazebo>
 \end{lstlisting}
 
-Integralną częścią całego środowiska symulacyjnego jest zamknięty wirtualny świat, w którym wieżyczka przeprowadza proces śledzenia. Środowisko to zostało zdefiniowane w pliku \texttt{target\_world.sdf} i korzysta z silnika fizyki ODE (ang. Open Dynamics Engine)[cite: 9]. Oprócz podstawowych uwarunkowań takich jak grawitacja, oświetlenie kierunkowe czy płaszczyzna podłoża, wykreowano w nim dynamiczny obiekt referencyjny, nazywany kulką treningową[cite: 9, 10, 11, 12]. Obiekt ten powołano jako encję typu \texttt{actor}, co pozwala na jego przemieszczanie się w sposób deterministyczny, z pominięciem obciążeń wynikających z przeliczania rozbudowanej fizyki zderzeń[cite: 12]. 
+Integralną częścią całego środowiska symulacyjnego jest zamknięty wirtualny świat, w którym wieżyczka przeprowadza proces śledzenia (Rys. \ref{fig:gazebo_sim}). Środowisko to zostało zdefiniowane w pliku \texttt{target\_world.sdf} i korzysta z silnika fizyki ODE (ang. Open Dynamics Engine). Oprócz podstawowych uwarunkowań takich jak grawitacja, oświetlenie kierunkowe czy płaszczyzna podłoża, wykreowano w nim dynamiczny obiekt referencyjny, nazywany kulką treningową. Obiekt ten powołano jako encję typu \texttt{actor}, co pozwala na jego przemieszczanie się w sposób deterministyczny, z pominięciem obciążeń wynikających z przeliczania rozbudowanej fizyki zderzeń. 
 
-Kulka o promieniu $0.15$ m i intensywnie czerwonym kolorze porusza się w pętli zamkniętej po zdefiniowanych punktach orientacyjnych (ang. waypoints), rysując w przestrzeni trajektorię o kształcie kwadratu[cite: 12, 13]. Węzły trasy obejmują jednoczesne przemieszczenia w osiach X, Y oraz Z (np. od wysokości $0.5$ m do $1.2$ m), zmuszając oba stawy wieżyczki (PAN i TILT) do ciągłej, zsynchronizowanej pracy[cite: 13]. Odpowiedzialny za ten ruch fragment kodu przedstawiono poniżej[cite: 12, 13]:
+\begin{figure}[H]
+    \centering
+    \includegraphics[width=0.8\textwidth]{./Obrazy/Gazebo/gazebo.png}
+    \caption{Model symulacyjny wieżyczki umieszczony w środowisku Gazebo. W tle widoczny jest wirtualny obiekt referencyjny (sfera) poruszający się po zadanej trajektorii kwadratu.}
+    \label{fig:gazebo_sim}
+\end{figure}
+
+Kulka o promieniu $0.15$ m i intensywnie czerwonym kolorze porusza się w pętli zamkniętej po zdefiniowanych punktach orientacyjnych (ang. waypoints), rysując w przestrzeni trajektorię o kształcie kwadratu. Węzły trasy obejmują jednoczesne przemieszczenia w osiach X, Y oraz Z (np. od wysokości $0.5$ m do $1.2$ m), zmuszając oba stawy wieżyczki (PAN i TILT) do ciągłej, zsynchronizowanej pracy. Odpowiedzialny za ten ruch fragment kodu przedstawiono poniżej:
 
 \begin{lstlisting}[language=XML, basicstyle=\ttfamily\small, frame=single, breaklines=true]
     <actor name="target_ball">
@@ -1253,26 +1279,19 @@ Tak przygotowane i w pełni zautomatyzowane środowisko pozwala algorytmom anali
 \subsection{Wizualizacja w środowisku Foxglove}
 Ze względu na konieczność nowoczesnego i wydajnego obrazowania przepływu danych telemetrycznych, klasyczne narzędzie RViz2 zostało w wielu aspektach zastąpione przez platformę Foxglove Studio. Dzięki instalacji pakietu \texttt{ros-humble-foxglove-bridge}, symulowany strumień wideo z Gazebo, a także bieżące parametry odchylenia kątowego poszczególnych stawów (TF) są strumieniowane na zewnątrz kontenera przez protokół WebSocket. Foxglove pozwala na konstruowanie wysoce responsywnych pulpitów analitycznych, w których zintegrowano widok przestrzenny 3D z nałożonymi wektorami sił oraz macierze obrazu RGB.
 
-% \begin{figure}[H]
-%     \centering
-%     % \includegraphics[width=0.9\textwidth]{images/gazebo_simulation.png}
-%     \vspace{6cm} % Puste miejsce na Twoj obrazek
-%     \caption{Model symulacyjny wieżyczki w środowisku Gazebo śledzący wirtualną, poruszającą się sferę.}
-%     \label{fig:gazebo_sim}
-% \end{form}
-
-% \begin{figure}[H]
-%     \centering
-%     % \includegraphics[width=0.9\textwidth]{images/foxglove_dashboard.png}
-%     \vspace{6cm} % Puste miejsce na Twoj obrazek
-%     \caption{Pulpit analityczny Foxglove Studio prezentujący drzewo kinematyczne oraz wirtualny strumień wideo z kamery efektora.}
-%     \label{fig:foxglove_dash}
-% \end{figure}
-
 \subsection{Algorytm samouczenia i optymalizacji nastaw (Auto-tuning)}
 Kluczowym elementem badawczym opracowanym w środowisku symulacyjnym był algorytm poszukujący optymalnych nastaw regulatora PID. Zamiast manualnie dobierać wzmocnienia na obiekcie fizycznym, w wirtualnym świecie (plik \texttt{tracking\_world.sdf}) umieszczono sferyczny obiekt o zadanym kolorze, podlegający ciągłemu ruchowi harmonicznemu.
 
-Zaimplementowany węzeł analityczny w ROS 2 cyklicznie uruchamia symulację śledzenia, perturbując parametry wektora nastaw $K = [K_p, K_i, K_d]$. Algorytm ten na podstawie syntetycznego obrazu oblicza w czasie rzeczywistym uchyb średniokwadratowy (RMSE) położenia pikseli obiektu od centrum kamery. Po każdej iteracji wirtualnego ruchu, system automatycznie koryguje nastawy w kierunku gradientu spadku błędu, zachowując stabilność pętli sprzężenia zwrotnego. Po konwergencji algorytmu i ustaleniu optymalnych parametrów w sterylnym środowisku wirtualnym, wyliczone nastawy są walidowane i przenoszone jako wartości startowe do interfejsu graficznego \texttt{turret\_gui.py} sterującego fizycznym obiektem.
+Zaimplementowany węzeł analityczny w ROS 2 cyklicznie uruchamia symulację śledzenia, perturbując parametry wektora nastaw $K = [K_p, K_i, K_d]$. Algorytm ten na podstawie syntetycznego obrazu oblicza w czasie rzeczywistym uchyb średniokwadratowy (RMSE) położenia pikseli obiektu od centrum kamery. Stan procesu optymalizacji uwidoczniony jest w podglądzie wizyjnym algorytmu (Rys. \ref{fig:auto_tuning}), gdzie nałożono dane telemetryczne (m.in. aktualne testowane wartości P, I, D oraz numer iteracji zwanej epoką). 
+
+Po każdej iteracji wirtualnego ruchu, system automatycznie koryguje nastawy w kierunku gradientu spadku błędu, zachowując stabilność pętli sprzężenia zwrotnego. Po konwergencji algorytmu i ustaleniu optymalnych parametrów w sterylnym środowisku wirtualnym, wyliczone nastawy są walidowane i przenoszone jako wartości startowe do interfejsu graficznego \texttt{turret\_gui.py} sterującego fizycznym obiektem.
+
+\begin{figure}[H]
+    \centering
+    \includegraphics[width=0.8\textwidth]{./Obrazy/Gazebo/Foxglove.png}
+    \caption{Interfejs nakładki diagnostycznej (OSD) w trybie auto-tuningu w środowisku symulacyjnym. Zrzut ekranu prezentuje 3 epokę uczenia, wyliczone na żywo kąty PAN/TILT oraz aktualne wartości nastaw regulatora PID weryfikowane na wykrytym i ograniczonym ramką obiekcie referencyjnym (Predictive ROI).}
+    \label{fig:auto_tuning}
+\end{figure}
 
 \chapter{Algorytmy wizyjne i układy sterowania}
 

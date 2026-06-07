@@ -1343,6 +1343,7 @@ INPUT /usr/share/texmf/tex/latex/lm/ts1lmr.fd
 INPUT /usr/share/texmf/tex/latex/lm/ts1lmr.fd
 INPUT /usr/share/texmf/tex/latex/lm/ts1lmr.fd
 INPUT /usr/share/texmf/fonts/tfm/public/lm/ts1-lmr12.tfm
+INPUT /usr/share/texmf/fonts/tfm/public/lm/ec-lmbxi10.tfm
 INPUT ./Obrazy/Inventor/Komponenty.png
 INPUT ./Obrazy/Inventor/Komponenty.png
 INPUT ./Obrazy/Inventor/Komponenty.png
@@ -1427,6 +1428,16 @@ INPUT /usr/share/texlive/texmf-dist/tex/latex/listings/lstmisc.sty
 INPUT /usr/share/texmf/fonts/tfm/public/lm/ec-lmtt10.tfm
 INPUT /usr/share/texmf/fonts/tfm/public/lm/ec-lmr10.tfm
 INPUT /usr/share/texmf/fonts/tfm/public/lm/ec-lmss10.tfm
+INPUT ./Obrazy/Gazebo/gazebo.png
+INPUT ./Obrazy/Gazebo/gazebo.png
+INPUT ./Obrazy/Gazebo/gazebo.png
+INPUT ./Obrazy/Gazebo/gazebo.png
+INPUT ./Obrazy/Gazebo/gazebo.png
+INPUT ./Obrazy/Gazebo/Foxglove.png
+INPUT ./Obrazy/Gazebo/Foxglove.png
+INPUT ./Obrazy/Gazebo/Foxglove.png
+INPUT ./Obrazy/Gazebo/Foxglove.png
+INPUT ./Obrazy/Gazebo/Foxglove.png
 INPUT /usr/share/texmf/fonts/tfm/public/lm/ec-lmssbx10.tfm
 INPUT /usr/share/texlive/texmf-dist/tex/latex/listings/lstlang1.sty
 INPUT /usr/share/texlive/texmf-dist/tex/latex/listings/lstlang1.sty
@@ -1592,6 +1603,7 @@ INPUT /usr/share/texmf/fonts/enc/dvips/lm/lm-mathsy.enc
 INPUT /usr/share/texmf/fonts/enc/dvips/lm/lm-mathit.enc
 INPUT /usr/share/texmf/fonts/enc/dvips/lm/lm-ts1.enc
 INPUT /usr/share/texmf/fonts/type1/public/lm/lmbx12.pfb
+INPUT /usr/share/texmf/fonts/type1/public/lm/lmbxi10.pfb
 INPUT /usr/share/texmf/fonts/type1/public/lm/lmmi12.pfb
 INPUT /usr/share/texmf/fonts/type1/public/lm/lmmi6.pfb
 INPUT /usr/share/texmf/fonts/type1/public/lm/lmmi8.pfb

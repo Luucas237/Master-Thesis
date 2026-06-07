@@ -68,6 +68,53 @@
     \field{year}{2025}
   \endentry
 
+  \entry{bib:caferov2019building}{article}{}
+    \name{author}{1}{}{%
+      {{hash=CE}{%
+         family={Caferov},
+         familyi={C\bibinitperiod},
+         given={Elbrus},
+         giveni={E\bibinitperiod},
+      }}%
+    }
+    \strng{namehash}{CE1}
+    \strng{fullhash}{CE1}
+    \field{labelnamesource}{author}
+    \field{labeltitlesource}{title}
+    \field{sortinit}{C}
+    \field{sortinithash}{C}
+    \field{title}{Building of Mathematical Model and Bang Bang Based PID
+  Control for Fighter Aircraft with Real Flight Data: Modelling and Simulation}
+    \field{year}{2019}
+  \endentry
+
+  \entry{bib:Clark2005}{thesis}{}
+    \name{author}{1}{}{%
+      {{hash=CJD}{%
+         family={Clark},
+         familyi={C\bibinitperiod},
+         given={Justin\bibnamedelima Delaney},
+         giveni={J\bibinitperiod\bibinitdelim D\bibinitperiod},
+      }}%
+    }
+    \strng{namehash}{CJD1}
+    \strng{fullhash}{CJD1}
+    \field{labelnamesource}{author}
+    \field{labeltitlesource}{title}
+    \field{sortinit}{C}
+    \field{sortinithash}{C}
+    \field{title}{Cooperative hybrid control of robotic sensors for perimeter
+  detection and tracking}
+    \list{location}{1}{%
+      {Stillwater, Oklahoma}%
+    }
+    \list{institution}{1}{%
+      {Oklahoma State University}%
+    }
+    \field{type}{mathesis}
+    \field{year}{2005}
+  \endentry
+
   \entry{bib:Dix2023}{article}{}
     \name{author}{11}{}{%
       {{hash=DM}{%
@@ -634,6 +681,56 @@
     \field{volume}{2925}
     \field{journaltitle}{Journal of Physics: Conference Series}
     \field{year}{2024}
+  \endentry
+
+  \entry{bib:VirgiliLlop2017}{article}{}
+    \name{author}{5}{}{%
+      {{hash=VLJ}{%
+         family={Virgili-Llop},
+         familyi={V\bibinithyphendelim L\bibinitperiod},
+         given={Josep},
+         giveni={J\bibinitperiod},
+      }}%
+      {{hash=ZC}{%
+         family={Zagaris},
+         familyi={Z\bibinitperiod},
+         given={Costantinos},
+         giveni={C\bibinitperiod},
+      }}%
+      {{hash=PH}{%
+         family={Park},
+         familyi={P\bibinitperiod},
+         given={Hyeongjun},
+         giveni={H\bibinitperiod},
+      }}%
+      {{hash=ZIR}{%
+         family={Zappulla\bibnamedelima II},
+         familyi={Z\bibinitperiod\bibinitdelim I\bibinitperiod},
+         given={Richard},
+         giveni={R\bibinitperiod},
+      }}%
+      {{hash=RM}{%
+         family={Romano},
+         familyi={R\bibinitperiod},
+         given={Marcello},
+         giveni={M\bibinitperiod},
+      }}%
+    }
+    \list{publisher}{1}{%
+      {Springer}%
+    }
+    \strng{namehash}{VLJ+1}
+    \strng{fullhash}{VLJZCPHZIRRM1}
+    \field{labelnamesource}{author}
+    \field{labeltitlesource}{title}
+    \field{sortinit}{V}
+    \field{sortinithash}{V}
+    \field{pages}{525\bibrangedash 539}
+    \field{title}{Experimental evaluation of model predictive control and
+  inverse dynamics control for spacecraft proximity and docking maneuvers}
+    \field{volume}{9}
+    \field{journaltitle}{CEAS Space Journal}
+    \field{year}{2017}
   \endentry
 \enddatalist
 \endinput
