@@ -8,23 +8,34 @@
 \addvspace {10\p@ }
 \addvspace {10\p@ }
 \addvspace {10\p@ }
+\contentsline {figure}{\numberline {3.1}{\ignorespaces Przekrój głowicy optyczno-elektronicznej prezentujący odwróconą architekturę systemową oraz rozmieszczenie kluczowych komponentów obliczeniowych i zasilania.\relax }}{21}{figure.caption.26}%
+\contentsline {figure}{\numberline {3.2}{\ignorespaces Model jarzma wsporczego (Moduł II) zapewniającego sztywność skrętną osi poziomej.\relax }}{22}{figure.caption.27}%
+\contentsline {figure}{\numberline {3.3}{\ignorespaces Zewnętrzny model ruchomej czaszy (Moduł III) ze zintegrowanym wieńcem napędowym osi TILT.\relax }}{22}{figure.caption.27}%
+\contentsline {figure}{\numberline {3.4}{\ignorespaces Widok boczny kompletnego modelu przestrzennego demonstratora układu nadążnego.\relax }}{23}{figure.caption.28}%
+\contentsline {figure}{\numberline {3.5}{\ignorespaces Widok tylny zespołu głowicy, obrazujący umiejscowienie napędów krokowych.\relax }}{23}{figure.caption.28}%
+\contentsline {figure}{\numberline {3.6}{\ignorespaces Przekrój czaszy głowicy uwidaczniający wewnętrzne półki montażowe, zaprojektowane w celu optymalnego rozkładu mas i wyważenia układu.\relax }}{24}{figure.caption.29}%
+\contentsline {figure}{\numberline {3.7}{\ignorespaces Model przekładni o zębach daszkowych osi PAN współpracującej ze stacjonarnym wieńcem bazowym.\relax }}{25}{figure.caption.30}%
+\contentsline {figure}{\numberline {3.8}{\ignorespaces Schemat ideowy układu zasilania uwzględniający pakiet ogniw 4S oraz przetwornice napięcia.\relax }}{28}{figure.caption.31}%
+\contentsline {figure}{\numberline {3.9}{\ignorespaces Architektura połączeń jednostki nadrzędnej (Raspberry Pi) z układem wykonawczym (ESP32).\relax }}{29}{figure.caption.32}%
+\contentsline {figure}{\numberline {3.10}{\ignorespaces Układ wykonawczy napędów PAN/TILT z wykorzystaniem sterowników Pololu 36v4 i komunikacji SPI.\relax }}{30}{figure.caption.33}%
+\contentsline {figure}{\numberline {3.11}{\ignorespaces Schemat elektryczny układu kluczującego moduł lasera za pomocą tranzystora NPN.\relax }}{31}{figure.caption.34}%
 \addvspace {10\p@ }
 \addvspace {10\p@ }
 \addvspace {10\p@ }
-\contentsline {figure}{\numberline {6.1}{\ignorespaces Porównanie odpowiedzi skokowej regulatora PID dla dystansu 80~cm.\relax }}{47}{figure.caption.30}%
-\contentsline {figure}{\numberline {6.2}{\ignorespaces Porównanie odpowiedzi skokowej regulatora PID dla dystansu 30~cm.\relax }}{48}{figure.caption.31}%
-\contentsline {figure}{\numberline {6.3}{\ignorespaces Porównanie odpowiedzi skokowej regulatora PID dla dystansu 150~cm.\relax }}{48}{figure.caption.32}%
-\contentsline {figure}{\numberline {6.4}{\ignorespaces Śledzenie ruchu okrężnego dla dystansu 80~cm (PID).\relax }}{49}{figure.caption.33}%
-\contentsline {figure}{\numberline {6.5}{\ignorespaces Śledzenie ruchu okrężnego dla dystansu 30~cm (PID).\relax }}{49}{figure.caption.34}%
-\contentsline {figure}{\numberline {6.6}{\ignorespaces Śledzenie ruchu okrężnego dla dystansu 150~cm (PID).\relax }}{49}{figure.caption.35}%
-\contentsline {figure}{\numberline {6.7}{\ignorespaces Płynne oddalanie obiektu od 30~cm do 150~cm (PID).\relax }}{50}{figure.caption.36}%
-\contentsline {figure}{\numberline {6.8}{\ignorespaces Porównanie odpowiedzi skokowej regulatora trójpołożeniowego na dystansie 80~cm.\relax }}{51}{figure.caption.37}%
-\contentsline {figure}{\numberline {6.9}{\ignorespaces Porównanie odpowiedzi skokowej regulatora trójpołożeniowego na dystansie 30~cm.\relax }}{51}{figure.caption.38}%
-\contentsline {figure}{\numberline {6.10}{\ignorespaces Porównanie odpowiedzi skokowej regulatora trójpołożeniowego na dystansie 150~cm.\relax }}{52}{figure.caption.39}%
-\contentsline {figure}{\numberline {6.11}{\ignorespaces Śledzenie ruchu okrężnego dla dystansu 80~cm (Regulator trójpołożeniowy).\relax }}{52}{figure.caption.40}%
-\contentsline {figure}{\numberline {6.12}{\ignorespaces Śledzenie ruchu okrężnego dla dystansu 30~cm (Regulator trójpołożeniowy).\relax }}{53}{figure.caption.41}%
-\contentsline {figure}{\numberline {6.13}{\ignorespaces Śledzenie ruchu okrężnego dla dystansu 150~cm (Regulator trójpołożeniowy).\relax }}{54}{figure.caption.42}%
-\contentsline {figure}{\numberline {6.14}{\ignorespaces Płynne oddalanie obiektu od 30~cm do 150~cm (Regulator trójpołożeniowy).\relax }}{55}{figure.caption.43}%
+\contentsline {figure}{\numberline {6.1}{\ignorespaces Porównanie odpowiedzi skokowej regulatora PID dla dystansu 80~cm.\relax }}{53}{figure.caption.39}%
+\contentsline {figure}{\numberline {6.2}{\ignorespaces Porównanie odpowiedzi skokowej regulatora PID dla dystansu 30~cm.\relax }}{54}{figure.caption.40}%
+\contentsline {figure}{\numberline {6.3}{\ignorespaces Porównanie odpowiedzi skokowej regulatora PID dla dystansu 150~cm.\relax }}{54}{figure.caption.41}%
+\contentsline {figure}{\numberline {6.4}{\ignorespaces Śledzenie ruchu okrężnego dla dystansu 80~cm (PID).\relax }}{55}{figure.caption.42}%
+\contentsline {figure}{\numberline {6.5}{\ignorespaces Śledzenie ruchu okrężnego dla dystansu 30~cm (PID).\relax }}{55}{figure.caption.43}%
+\contentsline {figure}{\numberline {6.6}{\ignorespaces Śledzenie ruchu okrężnego dla dystansu 150~cm (PID).\relax }}{55}{figure.caption.44}%
+\contentsline {figure}{\numberline {6.7}{\ignorespaces Płynne oddalanie obiektu od 30~cm do 150~cm (PID).\relax }}{56}{figure.caption.45}%
+\contentsline {figure}{\numberline {6.8}{\ignorespaces Porównanie odpowiedzi skokowej regulatora trójpołożeniowego na dystansie 80~cm.\relax }}{57}{figure.caption.46}%
+\contentsline {figure}{\numberline {6.9}{\ignorespaces Porównanie odpowiedzi skokowej regulatora trójpołożeniowego na dystansie 30~cm.\relax }}{57}{figure.caption.47}%
+\contentsline {figure}{\numberline {6.10}{\ignorespaces Porównanie odpowiedzi skokowej regulatora trójpołożeniowego na dystansie 150~cm.\relax }}{58}{figure.caption.48}%
+\contentsline {figure}{\numberline {6.11}{\ignorespaces Śledzenie ruchu okrężnego dla dystansu 80~cm (Regulator trójpołożeniowy).\relax }}{58}{figure.caption.49}%
+\contentsline {figure}{\numberline {6.12}{\ignorespaces Śledzenie ruchu okrężnego dla dystansu 30~cm (Regulator trójpołożeniowy).\relax }}{59}{figure.caption.50}%
+\contentsline {figure}{\numberline {6.13}{\ignorespaces Śledzenie ruchu okrężnego dla dystansu 150~cm (Regulator trójpołożeniowy).\relax }}{60}{figure.caption.51}%
+\contentsline {figure}{\numberline {6.14}{\ignorespaces Płynne oddalanie obiektu od 30~cm do 150~cm (Regulator trójpołożeniowy).\relax }}{61}{figure.caption.52}%
 \addvspace {10\p@ }
 \addvspace {10\p@ }
 \addvspace {10\p@ }

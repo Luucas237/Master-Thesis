@@ -215,6 +215,17 @@ INPUT /usr/share/texlive/texmf-dist/tex/latex/base/ifthen.sty
 INPUT /usr/share/texlive/texmf-dist/tex/latex/base/ifthen.sty
 INPUT /usr/share/texlive/texmf-dist/tex/latex/base/ifthen.sty
 INPUT /usr/share/texlive/texmf-dist/tex/latex/base/ifthen.sty
+INPUT /usr/share/texlive/texmf-dist/tex/latex/float/float.sty
+INPUT /usr/share/texlive/texmf-dist/tex/latex/float/float.sty
+INPUT /usr/share/texlive/texmf-dist/tex/latex/float/float.sty
+INPUT /usr/share/texlive/texmf-dist/tex/latex/float/float.sty
+INPUT /usr/share/texlive/texmf-dist/tex/latex/float/float.sty
+INPUT /usr/share/texlive/texmf-dist/tex/latex/float/float.sty
+INPUT /usr/share/texlive/texmf-dist/tex/latex/float/float.sty
+INPUT /usr/share/texlive/texmf-dist/tex/latex/float/float.sty
+INPUT /usr/share/texlive/texmf-dist/tex/latex/float/float.sty
+INPUT /usr/share/texlive/texmf-dist/tex/latex/float/float.sty
+INPUT /usr/share/texlive/texmf-dist/tex/latex/float/float.sty
 INPUT /usr/share/texlive/texmf-dist/tex/generic/iftex/ifxetex.sty
 INPUT /usr/share/texlive/texmf-dist/tex/generic/iftex/ifxetex.sty
 INPUT /usr/share/texlive/texmf-dist/tex/generic/iftex/ifxetex.sty
@@ -1332,13 +1343,69 @@ INPUT /usr/share/texmf/tex/latex/lm/ts1lmr.fd
 INPUT /usr/share/texmf/tex/latex/lm/ts1lmr.fd
 INPUT /usr/share/texmf/tex/latex/lm/ts1lmr.fd
 INPUT /usr/share/texmf/fonts/tfm/public/lm/ts1-lmr12.tfm
+INPUT ./Obrazy/Inventor/Komponenty.png
+INPUT ./Obrazy/Inventor/Komponenty.png
+INPUT ./Obrazy/Inventor/Komponenty.png
+INPUT ./Obrazy/Inventor/Komponenty.png
+INPUT ./Obrazy/Inventor/Komponenty.png
 INPUT /usr/share/texmf/fonts/tfm/public/lm/ec-lmr8.tfm
 INPUT /usr/share/texmf/fonts/tfm/public/lm/ec-lmr6.tfm
+INPUT ./Obrazy/Inventor/podstawa gora.png
+INPUT ./Obrazy/Inventor/podstawa gora.png
+INPUT ./Obrazy/Inventor/podstawa gora.png
+INPUT ./Obrazy/Inventor/podstawa gora.png
+INPUT ./Obrazy/Inventor/podstawa gora.png
+INPUT ./Obrazy/Inventor/kopula calosc.png
+INPUT ./Obrazy/Inventor/kopula calosc.png
+INPUT ./Obrazy/Inventor/kopula calosc.png
+INPUT ./Obrazy/Inventor/kopula calosc.png
+INPUT ./Obrazy/Inventor/kopula calosc.png
+INPUT ./Obrazy/Inventor/boczny.png
+INPUT ./Obrazy/Inventor/boczny.png
+INPUT ./Obrazy/Inventor/boczny.png
+INPUT ./Obrazy/Inventor/boczny.png
+INPUT ./Obrazy/Inventor/boczny.png
+INPUT ./Obrazy/Inventor/tył.png
+INPUT ./Obrazy/Inventor/tył.png
+INPUT ./Obrazy/Inventor/tył.png
+INPUT ./Obrazy/Inventor/tył.png
+INPUT ./Obrazy/Inventor/tył.png
+INPUT ./Obrazy/Inventor/kopula bok.png
+INPUT ./Obrazy/Inventor/kopula bok.png
+INPUT ./Obrazy/Inventor/kopula bok.png
+INPUT ./Obrazy/Inventor/kopula bok.png
+INPUT ./Obrazy/Inventor/kopula bok.png
+INPUT ./Obrazy/Inventor/przekladnia lozysko.png
+INPUT ./Obrazy/Inventor/przekladnia lozysko.png
+INPUT ./Obrazy/Inventor/przekladnia lozysko.png
+INPUT ./Obrazy/Inventor/przekladnia lozysko.png
+INPUT ./Obrazy/Inventor/przekladnia lozysko.png
 INPUT /usr/share/texmf/tex/latex/lm/t1lmtt.fd
 INPUT /usr/share/texmf/tex/latex/lm/t1lmtt.fd
 INPUT /usr/share/texmf/tex/latex/lm/t1lmtt.fd
 INPUT /usr/share/texmf/tex/latex/lm/t1lmtt.fd
 INPUT /usr/share/texmf/fonts/tfm/public/lm/ec-lmtt12.tfm
+INPUT /usr/share/texmf/fonts/tfm/public/lm/ec-lmtk10.tfm
+INPUT ./Obrazy/Schemat elektryczny/Zasilanie.png
+INPUT ./Obrazy/Schemat elektryczny/Zasilanie.png
+INPUT ./Obrazy/Schemat elektryczny/Zasilanie.png
+INPUT ./Obrazy/Schemat elektryczny/Zasilanie.png
+INPUT ./Obrazy/Schemat elektryczny/Zasilanie.png
+INPUT ./Obrazy/Schemat elektryczny/Rpi_ESP.png
+INPUT ./Obrazy/Schemat elektryczny/Rpi_ESP.png
+INPUT ./Obrazy/Schemat elektryczny/Rpi_ESP.png
+INPUT ./Obrazy/Schemat elektryczny/Rpi_ESP.png
+INPUT ./Obrazy/Schemat elektryczny/Rpi_ESP.png
+INPUT ./Obrazy/Schemat elektryczny/Silniki.png
+INPUT ./Obrazy/Schemat elektryczny/Silniki.png
+INPUT ./Obrazy/Schemat elektryczny/Silniki.png
+INPUT ./Obrazy/Schemat elektryczny/Silniki.png
+INPUT ./Obrazy/Schemat elektryczny/Silniki.png
+INPUT ./Obrazy/Schemat elektryczny/Laser.png
+INPUT ./Obrazy/Schemat elektryczny/Laser.png
+INPUT ./Obrazy/Schemat elektryczny/Laser.png
+INPUT ./Obrazy/Schemat elektryczny/Laser.png
+INPUT ./Obrazy/Schemat elektryczny/Laser.png
 INPUT /usr/share/texlive/texmf-dist/tex/latex/listings/lstlang1.sty
 INPUT /usr/share/texlive/texmf-dist/tex/latex/listings/lstlang1.sty
 INPUT /usr/share/texlive/texmf-dist/tex/latex/listings/lstlang1.sty
@@ -1539,6 +1606,7 @@ INPUT /usr/share/texmf/fonts/type1/public/lm/lmss8.pfb
 INPUT /usr/share/texmf/fonts/type1/public/lm/lmssbx10.pfb
 INPUT /usr/share/texmf/fonts/type1/public/lm/lmsy10.pfb
 INPUT /usr/share/texmf/fonts/type1/public/lm/lmsy8.pfb
+INPUT /usr/share/texmf/fonts/type1/public/lm/lmtk10.pfb
 INPUT /usr/share/texmf/fonts/type1/public/lm/lmtt10.pfb
 INPUT /usr/share/texmf/fonts/type1/public/lm/lmtt12.pfb
 INPUT /usr/share/texmf/fonts/type1/public/lm/lmtt8.pfb

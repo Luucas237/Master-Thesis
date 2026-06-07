@@ -35,59 +35,61 @@
 \contentsline {chapter}{\numberline {3}Koncepcja i projekt demonstratora systemu nadążnego}{19}{chapter.3}%
 \contentsline {section}{\numberline {3.1}Projekt mechaniczny platformy nadążnej}{19}{section.3.1}%
 \contentsline {subsection}{\numberline {3.1.1}Założenia projektowe i koncepcja kinematyczna}{19}{subsection.3.1.1}%
-\contentsline {subsection}{\numberline {3.1.2}Modelowanie przestrzenne i rozkład mas}{21}{subsection.3.1.2}%
-\contentsline {subsection}{\numberline {3.1.3}Analiza układu napędowego i przekładni zębatej}{21}{subsection.3.1.3}%
-\contentsline {section}{\numberline {3.2}Architektura sprzętowa i integracja elektroniczna}{22}{section.3.2}%
-\contentsline {subsection}{\numberline {3.2.1}Dobór głównych komponentów systemu}{22}{subsection.3.2.1}%
-\contentsline {subsection}{\numberline {3.2.2}Topologia zasilania i zarządzanie energią}{23}{subsection.3.2.2}%
-\contentsline {subsection}{\numberline {3.2.3}Schemat połączeń i sprzętowe interfejsy komunikacyjne}{24}{subsection.3.2.3}%
-\contentsline {chapter}{\numberline {4}Architektura oprogramowania i symulacja systemu}{27}{chapter.4}%
-\contentsline {section}{\numberline {4.1}Środowisko uruchomieniowe}{27}{section.4.1}%
-\contentsline {section}{\numberline {4.2}Implementacja w systemie ROS2}{29}{section.4.2}%
-\contentsline {subsection}{\numberline {4.2.1}Architektura oprogramowania}{29}{subsection.4.2.1}%
-\contentsline {section}{\numberline {4.3}Model symulacyjny w Gazebo}{29}{section.4.3}%
-\contentsline {subsection}{\numberline {4.3.1}Definicja kinematyki - URDF i modele STL}{30}{subsection.4.3.1}%
-\contentsline {subsection}{\numberline {4.3.2}Wirtualna sensoryka i silnik fizyki}{30}{subsection.4.3.2}%
-\contentsline {subsection}{\numberline {4.3.3}Wizualizacja w środowisku Foxglove}{32}{subsection.4.3.3}%
-\contentsline {subsection}{\numberline {4.3.4}Algorytm samouczenia i optymalizacji nastaw (Auto-tuning)}{33}{subsection.4.3.4}%
-\contentsline {chapter}{\numberline {5}Algorytmy wizyjne i układy sterowania}{35}{chapter.5}%
-\contentsline {section}{\numberline {5.1}Implementacja algorytmów detekcji i śledzenia}{35}{section.5.1}%
-\contentsline {subsection}{\numberline {5.1.1}Węzeł akwizycyjno-obliczeniowy}{36}{subsection.5.1.1}%
-\contentsline {subsection}{\numberline {5.1.2}Nadrzędna stacja operatorska i interfejs GUI}{37}{subsection.5.1.2}%
-\contentsline {section}{\numberline {5.2}Implementacja komunikacji}{39}{section.5.2}%
-\contentsline {section}{\numberline {5.3}Implementacja algorytmów sterowania silnikami}{39}{section.5.3}%
-\contentsline {subsection}{\numberline {5.3.1}Synteza regulatora PID}{40}{subsection.5.3.1}%
-\contentsline {subsubsection}{Identyfikacja dynamiki obiektu metodą odpowiedzi skokowej}{40}{section*.26}%
-\contentsline {subsubsection}{Analityczny dobór nastaw metodą CHR}{41}{section*.27}%
-\contentsline {subsection}{\numberline {5.3.2}Synteza regulatora trójpołożeniowego}{42}{subsection.5.3.2}%
-\contentsline {subsubsection}{Identyfikacja maksymalnej prędkości śledzenia i dobór amplitudy $U_{max}$}{42}{section*.28}%
-\contentsline {subsubsection}{Analityczne wyznaczenie strefy nieczułości (Deadband)}{43}{section*.29}%
-\contentsline {chapter}{\numberline {6}Badania}{45}{chapter.6}%
-\contentsline {section}{\numberline {6.1}Metodyka badań i scenariusze testowe}{45}{section.6.1}%
-\contentsline {section}{\numberline {6.2}Analiza działania regulatora PID}{46}{section.6.2}%
-\contentsline {subsection}{\numberline {6.2.1}Odpowiedź układu na skokową zmianę położenia celu (Ruch boczny)}{47}{subsection.6.2.1}%
-\contentsline {subsection}{\numberline {6.2.2}Śledzenie obiektu poruszającego się po trajektorii okrężnej}{48}{subsection.6.2.2}%
-\contentsline {subsection}{\numberline {6.2.3}Test płynnej zmiany dystansu i weryfikacja algorytmu Gain Scheduling}{48}{subsection.6.2.3}%
-\contentsline {section}{\numberline {6.3}Analiza działania regulatora trójpołożeniowego}{50}{section.6.3}%
-\contentsline {subsection}{\numberline {6.3.1}Odpowiedź układu na skokową zmianę położenia celu (Ruch boczny)}{50}{subsection.6.3.1}%
-\contentsline {subsection}{\numberline {6.3.2}Śledzenie obiektu poruszającego się po trajektorii okrężnej}{51}{subsection.6.3.2}%
-\contentsline {subsection}{\numberline {6.3.3}Test płynnej zmiany dystansu i weryfikacja algorytmu adaptacyjnego}{53}{subsection.6.3.3}%
-\contentsline {section}{\numberline {6.4}Porównanie skuteczności badanych algorytmów}{54}{section.6.4}%
-\contentsline {subsection}{\numberline {6.4.1}Zestawienie wskaźników jakości sterowania}{54}{subsection.6.4.1}%
-\contentsline {subsection}{\numberline {6.4.2}Porównanie dynamiki w dziedzinie czasu}{55}{subsection.6.4.2}%
-\contentsline {subsection}{\numberline {6.4.3}Krzepkość układów i odporność na rozstrojenie}{55}{subsection.6.4.3}%
-\contentsline {chapter}{\numberline {7}Podsumowanie}{57}{chapter.7}%
-\contentsline {section}{\numberline {7.1}Rozwiązanie problemu badawczego}{57}{section.7.1}%
-\contentsline {section}{\numberline {7.2}Ocena osiągniętych wyników}{57}{section.7.2}%
-\contentsline {section}{\numberline {7.3}Wnioski i rekomendacje}{57}{section.7.3}%
-\contentsline {section}{\numberline {7.4}Perspektywy rozwoju i dalszych badań}{57}{section.7.4}%
-\contentsline {chapter}{Bibliografia}{59}{section*.45}%
-\contentsline {chapter}{Dokumentacja techniczna}{63}{appendix*.47}%
-\contentsline {chapter}{Spis skrótów i symboli}{65}{appendix*.48}%
+\contentsline {subsection}{\numberline {3.1.2}Modelowanie przestrzenne i rozkład mas}{22}{subsection.3.1.2}%
+\contentsline {subsection}{\numberline {3.1.3}Analiza układu napędowego i przekładni zębatej}{24}{subsection.3.1.3}%
+\contentsline {section}{\numberline {3.2}Architektura sprzętowa i integracja elektroniczna}{26}{section.3.2}%
+\contentsline {subsection}{\numberline {3.2.1}Dobór głównych komponentów systemu}{26}{subsection.3.2.1}%
+\contentsline {subsection}{\numberline {3.2.2}Topologia zasilania i separacja obwodów}{27}{subsection.3.2.2}%
+\contentsline {subsection}{\numberline {3.2.3}Jednostka nadrzędna, interfejsy i komunikacja}{28}{subsection.3.2.3}%
+\contentsline {subsection}{\numberline {3.2.4}Układ wykonawczy napędów i magistrala SPI}{29}{subsection.3.2.4}%
+\contentsline {subsection}{\numberline {3.2.5}Układ kluczujący efektora (Laser)}{30}{subsection.3.2.5}%
+\contentsline {chapter}{\numberline {4}Architektura oprogramowania i symulacja systemu}{33}{chapter.4}%
+\contentsline {section}{\numberline {4.1}Środowisko uruchomieniowe}{33}{section.4.1}%
+\contentsline {section}{\numberline {4.2}Implementacja w systemie ROS2}{35}{section.4.2}%
+\contentsline {subsection}{\numberline {4.2.1}Architektura oprogramowania}{35}{subsection.4.2.1}%
+\contentsline {section}{\numberline {4.3}Model symulacyjny w Gazebo}{35}{section.4.3}%
+\contentsline {subsection}{\numberline {4.3.1}Definicja kinematyki - URDF i modele STL}{36}{subsection.4.3.1}%
+\contentsline {subsection}{\numberline {4.3.2}Wirtualna sensoryka i silnik fizyki}{36}{subsection.4.3.2}%
+\contentsline {subsection}{\numberline {4.3.3}Wizualizacja w środowisku Foxglove}{38}{subsection.4.3.3}%
+\contentsline {subsection}{\numberline {4.3.4}Algorytm samouczenia i optymalizacji nastaw (Auto-tuning)}{39}{subsection.4.3.4}%
+\contentsline {chapter}{\numberline {5}Algorytmy wizyjne i układy sterowania}{41}{chapter.5}%
+\contentsline {section}{\numberline {5.1}Implementacja algorytmów detekcji i śledzenia}{41}{section.5.1}%
+\contentsline {subsection}{\numberline {5.1.1}Węzeł akwizycyjno-obliczeniowy}{42}{subsection.5.1.1}%
+\contentsline {subsection}{\numberline {5.1.2}Nadrzędna stacja operatorska i interfejs GUI}{43}{subsection.5.1.2}%
+\contentsline {section}{\numberline {5.2}Implementacja komunikacji}{45}{section.5.2}%
+\contentsline {section}{\numberline {5.3}Implementacja algorytmów sterowania silnikami}{45}{section.5.3}%
+\contentsline {subsection}{\numberline {5.3.1}Synteza regulatora PID}{46}{subsection.5.3.1}%
+\contentsline {subsubsection}{Identyfikacja dynamiki obiektu metodą odpowiedzi skokowej}{46}{section*.35}%
+\contentsline {subsubsection}{Analityczny dobór nastaw metodą CHR}{47}{section*.36}%
+\contentsline {subsection}{\numberline {5.3.2}Synteza regulatora trójpołożeniowego}{48}{subsection.5.3.2}%
+\contentsline {subsubsection}{Identyfikacja maksymalnej prędkości śledzenia i dobór amplitudy $U_{max}$}{48}{section*.37}%
+\contentsline {subsubsection}{Analityczne wyznaczenie strefy nieczułości (Deadband)}{49}{section*.38}%
+\contentsline {chapter}{\numberline {6}Badania}{51}{chapter.6}%
+\contentsline {section}{\numberline {6.1}Metodyka badań i scenariusze testowe}{51}{section.6.1}%
+\contentsline {section}{\numberline {6.2}Analiza działania regulatora PID}{52}{section.6.2}%
+\contentsline {subsection}{\numberline {6.2.1}Odpowiedź układu na skokową zmianę położenia celu (Ruch boczny)}{53}{subsection.6.2.1}%
+\contentsline {subsection}{\numberline {6.2.2}Śledzenie obiektu poruszającego się po trajektorii okrężnej}{54}{subsection.6.2.2}%
+\contentsline {subsection}{\numberline {6.2.3}Test płynnej zmiany dystansu i weryfikacja algorytmu Gain Scheduling}{54}{subsection.6.2.3}%
+\contentsline {section}{\numberline {6.3}Analiza działania regulatora trójpołożeniowego}{56}{section.6.3}%
+\contentsline {subsection}{\numberline {6.3.1}Odpowiedź układu na skokową zmianę położenia celu (Ruch boczny)}{56}{subsection.6.3.1}%
+\contentsline {subsection}{\numberline {6.3.2}Śledzenie obiektu poruszającego się po trajektorii okrężnej}{57}{subsection.6.3.2}%
+\contentsline {subsection}{\numberline {6.3.3}Test płynnej zmiany dystansu i weryfikacja algorytmu adaptacyjnego}{59}{subsection.6.3.3}%
+\contentsline {section}{\numberline {6.4}Porównanie skuteczności badanych algorytmów}{60}{section.6.4}%
+\contentsline {subsection}{\numberline {6.4.1}Zestawienie wskaźników jakości sterowania}{60}{subsection.6.4.1}%
+\contentsline {subsection}{\numberline {6.4.2}Porównanie dynamiki w dziedzinie czasu}{61}{subsection.6.4.2}%
+\contentsline {subsection}{\numberline {6.4.3}Krzepkość układów i odporność na rozstrojenie}{61}{subsection.6.4.3}%
+\contentsline {chapter}{\numberline {7}Podsumowanie}{63}{chapter.7}%
+\contentsline {section}{\numberline {7.1}Rozwiązanie problemu badawczego}{63}{section.7.1}%
+\contentsline {section}{\numberline {7.2}Ocena osiągniętych wyników}{63}{section.7.2}%
+\contentsline {section}{\numberline {7.3}Wnioski i rekomendacje}{63}{section.7.3}%
+\contentsline {section}{\numberline {7.4}Perspektywy rozwoju i dalszych badań}{63}{section.7.4}%
+\contentsline {chapter}{Bibliografia}{65}{section*.54}%
+\contentsline {chapter}{Dokumentacja techniczna}{69}{appendix*.56}%
+\contentsline {chapter}{Spis skrótów i symboli}{71}{appendix*.57}%
 \babel@toc {british}{}\relax 
 \babel@toc {polish}{}\relax 
 \babel@toc {british}{}\relax 
 \babel@toc {polish}{}\relax 
-\contentsline {chapter}{Lista dodatkowych plików, uzupełniających tekst pracy (jeżeli dotyczy)}{67}{appendix*.49}%
-\contentsline {chapter}{Spis rysunków}{69}{appendix*.50}%
-\contentsline {chapter}{Spis tabel}{71}{appendix*.51}%
+\contentsline {chapter}{Lista dodatkowych plików, uzupełniających tekst pracy (jeżeli dotyczy)}{73}{appendix*.58}%
+\contentsline {chapter}{Spis rysunków}{76}{appendix*.59}%
+\contentsline {chapter}{Spis tabel}{77}{appendix*.60}%

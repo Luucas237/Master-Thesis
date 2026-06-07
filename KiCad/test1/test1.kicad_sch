@@ -3583,7 +3583,7 @@
 	)
 	(wire
 		(pts
-			(xy 111.76 104.14) (xy 99.06 104.14)
+			(xy 120.65 66.04) (xy 107.95 66.04)
 		)
 		(stroke
 			(width 0)
@@ -3693,7 +3693,7 @@
 	)
 	(wire
 		(pts
-			(xy 128.27 109.22) (xy 128.27 116.84)
+			(xy 137.16 71.12) (xy 137.16 78.74)
 		)
 		(stroke
 			(width 0)
@@ -4133,7 +4133,7 @@
 	)
 	(wire
 		(pts
-			(xy 130.81 99.06) (xy 128.27 99.06)
+			(xy 139.7 60.96) (xy 137.16 60.96)
 		)
 		(stroke
 			(width 0)
@@ -4563,7 +4563,7 @@
 	)
 	(wire
 		(pts
-			(xy 133.35 95.25) (xy 133.35 91.44)
+			(xy 142.24 57.15) (xy 142.24 53.34)
 		)
 		(stroke
 			(width 0)
@@ -4633,7 +4633,7 @@
 	)
 	(wire
 		(pts
-			(xy 130.81 91.44) (xy 130.81 99.06)
+			(xy 139.7 53.34) (xy 139.7 60.96)
 		)
 		(stroke
 			(width 0)
@@ -4683,7 +4683,7 @@
 	)
 	(wire
 		(pts
-			(xy 119.38 104.14) (xy 120.65 104.14)
+			(xy 128.27 66.04) (xy 129.54 66.04)
 		)
 		(stroke
 			(width 0)
@@ -4883,7 +4883,7 @@
 	)
 	(text "Laser diodowy 5mW"
 		(exclude_from_sim no)
-		(at 132.842 83.312 0)
+		(at 141.732 45.212 0)
 		(effects
 			(font
 				(size 1.27 1.27)
@@ -5992,7 +5992,7 @@
 		(uuid "c587ccc4-d00f-4481-83fd-4a1397a60a4a")
 	)
 	(label "+5V_LASER"
-		(at 133.35 95.25 0)
+		(at 142.24 57.15 0)
 		(effects
 			(font
 				(size 1.27 1.27)
@@ -6012,7 +6012,7 @@
 		(uuid "cd82cdc5-952d-40e0-b56a-b6fe3266bbfb")
 	)
 	(label "LASER_CTRL"
-		(at 99.06 104.14 0)
+		(at 107.95 66.04 0)
 		(effects
 			(font
 				(size 1.27 1.27)
@@ -7223,7 +7223,7 @@
 	)
 	(symbol
 		(lib_id "Connector_Generic:Conn_01x02")
-		(at 130.81 86.36 90)
+		(at 139.7 48.26 90)
 		(unit 1)
 		(exclude_from_sim no)
 		(in_bom yes)
@@ -7232,7 +7232,7 @@
 		(fields_autoplaced yes)
 		(uuid "aa1a0340-436a-4798-8c65-98a4c4131a93")
 		(property "Reference" "J10"
-			(at 135.89 85.0899 90)
+			(at 144.78 46.9899 90)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -7242,7 +7242,7 @@
 			)
 		)
 		(property "Value" "Conn_01x02"
-			(at 135.89 87.6299 90)
+			(at 144.78 49.5299 90)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -7252,7 +7252,7 @@
 			)
 		)
 		(property "Footprint" ""
-			(at 130.81 86.36 0)
+			(at 139.7 48.26 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -7261,7 +7261,7 @@
 			)
 		)
 		(property "Datasheet" "~"
-			(at 130.81 86.36 0)
+			(at 139.7 48.26 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -7270,7 +7270,7 @@
 			)
 		)
 		(property "Description" "Generic connector, single row, 01x02, script generated (kicad-library-utils/schlib/autogen/connector/)"
-			(at 130.81 86.36 0)
+			(at 139.7 48.26 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -7295,7 +7295,7 @@
 	)
 	(symbol
 		(lib_id "Device:R")
-		(at 115.57 104.14 90)
+		(at 124.46 66.04 90)
 		(unit 1)
 		(exclude_from_sim no)
 		(in_bom yes)
@@ -7304,7 +7304,7 @@
 		(fields_autoplaced yes)
 		(uuid "ad9cb7b2-e359-4cd6-ba9b-ce931361b4f9")
 		(property "Reference" "R1"
-			(at 115.57 97.79 90)
+			(at 124.46 59.69 90)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -7312,7 +7312,7 @@
 			)
 		)
 		(property "Value" "1kΩ"
-			(at 115.57 100.33 90)
+			(at 124.46 62.23 90)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -7320,7 +7320,7 @@
 			)
 		)
 		(property "Footprint" ""
-			(at 115.57 105.918 90)
+			(at 124.46 67.818 90)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -7329,7 +7329,7 @@
 			)
 		)
 		(property "Datasheet" "~"
-			(at 115.57 104.14 0)
+			(at 124.46 66.04 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -7338,7 +7338,7 @@
 			)
 		)
 		(property "Description" "Resistor"
-			(at 115.57 104.14 0)
+			(at 124.46 66.04 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -7363,7 +7363,7 @@
 	)
 	(symbol
 		(lib_id "power:GND")
-		(at 128.27 116.84 0)
+		(at 137.16 78.74 0)
 		(unit 1)
 		(exclude_from_sim no)
 		(in_bom yes)
@@ -7372,7 +7372,7 @@
 		(fields_autoplaced yes)
 		(uuid "d3b88773-76a4-4d95-9476-9441beb0de04")
 		(property "Reference" "#PWR1"
-			(at 128.27 123.19 0)
+			(at 137.16 85.09 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -7381,7 +7381,7 @@
 			)
 		)
 		(property "Value" "GND"
-			(at 128.27 121.92 0)
+			(at 137.16 83.82 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -7389,7 +7389,7 @@
 			)
 		)
 		(property "Footprint" ""
-			(at 128.27 116.84 0)
+			(at 137.16 78.74 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -7398,7 +7398,7 @@
 			)
 		)
 		(property "Datasheet" ""
-			(at 128.27 116.84 0)
+			(at 137.16 78.74 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -7407,7 +7407,7 @@
 			)
 		)
 		(property "Description" "Power symbol creates a global label with name \"GND\" , ground"
-			(at 128.27 116.84 0)
+			(at 137.16 78.74 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -7697,7 +7697,7 @@
 	)
 	(symbol
 		(lib_id "Device:Q_NPN_BCE")
-		(at 125.73 104.14 0)
+		(at 134.62 66.04 0)
 		(unit 1)
 		(exclude_from_sim no)
 		(in_bom yes)
@@ -7706,7 +7706,7 @@
 		(fields_autoplaced yes)
 		(uuid "e9105082-2607-4563-b6f9-d8ab163a3572")
 		(property "Reference" "Q2"
-			(at 130.81 102.8699 0)
+			(at 139.7 64.7699 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -7715,7 +7715,7 @@
 			)
 		)
 		(property "Value" "Tranzystor NPN"
-			(at 130.81 105.4099 0)
+			(at 139.7 67.3099 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -7724,7 +7724,7 @@
 			)
 		)
 		(property "Footprint" ""
-			(at 130.81 101.6 0)
+			(at 139.7 63.5 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -7733,7 +7733,7 @@
 			)
 		)
 		(property "Datasheet" "~"
-			(at 125.73 104.14 0)
+			(at 134.62 66.04 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -7742,7 +7742,7 @@
 			)
 		)
 		(property "Description" "NPN transistor, base/collector/emitter"
-			(at 125.73 104.14 0)
+			(at 134.62 66.04 0)
 			(effects
 				(font
 					(size 1.27 1.27)
