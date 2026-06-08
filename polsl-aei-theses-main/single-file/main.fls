@@ -1381,6 +1381,11 @@ INPUT ./Obrazy/Inventor/przekladnia lozysko.png
 INPUT ./Obrazy/Inventor/przekladnia lozysko.png
 INPUT ./Obrazy/Inventor/przekladnia lozysko.png
 INPUT ./Obrazy/Inventor/przekladnia lozysko.png
+INPUT ./Obrazy/Real/turret.jpeg
+INPUT ./Obrazy/Real/turret.jpeg
+INPUT ./Obrazy/Real/turret.jpeg
+INPUT ./Obrazy/Real/turret.jpeg
+INPUT ./Obrazy/Real/turret.jpeg
 INPUT /usr/share/texmf/tex/latex/lm/t1lmtt.fd
 INPUT /usr/share/texmf/tex/latex/lm/t1lmtt.fd
 INPUT /usr/share/texmf/tex/latex/lm/t1lmtt.fd
@@ -1444,6 +1449,11 @@ INPUT /usr/share/texlive/texmf-dist/tex/latex/listings/lstlang1.sty
 INPUT /usr/share/texlive/texmf-dist/tex/latex/listings/lstlang1.sty
 INPUT /usr/share/texlive/texmf-dist/tex/latex/listings/lstlang1.sty
 INPUT /usr/share/texmf/fonts/tfm/public/lm/ec-lmtti10.tfm
+INPUT ./Obrazy/Real/pomiary_1.jpeg
+INPUT ./Obrazy/Real/pomiary_1.jpeg
+INPUT ./Obrazy/Real/pomiary_1.jpeg
+INPUT ./Obrazy/Real/pomiary_1.jpeg
+INPUT ./Obrazy/Real/pomiary_1.jpeg
 INPUT ./Obrazy/Wyniki PID/wykres_GOOD_PID_move_80_cm.png
 INPUT ./Obrazy/Wyniki PID/wykres_GOOD_PID_move_80_cm.png
 INPUT ./Obrazy/Wyniki PID/wykres_GOOD_PID_move_80_cm.png
@@ -1514,6 +1524,7 @@ INPUT ./Obrazy/Wyniki PID/wykres_UP_PID_move_30_150.png
 INPUT ./Obrazy/Wyniki PID/wykres_UP_PID_move_30_150.png
 INPUT ./Obrazy/Wyniki PID/wykres_UP_PID_move_30_150.png
 INPUT ./Obrazy/Wyniki PID/wykres_UP_PID_move_30_150.png
+INPUT /usr/share/texmf/fonts/tfm/public/lm/ec-lmri10.tfm
 INPUT ./Obrazy/WYniki troj/wykres_GOOD_BB_move_80_cm.png
 INPUT ./Obrazy/WYniki troj/wykres_GOOD_BB_move_80_cm.png
 INPUT ./Obrazy/WYniki troj/wykres_GOOD_BB_move_80_cm.png
@@ -1584,6 +1595,16 @@ INPUT ./Obrazy/WYniki troj/wykres_UP_BB_move_30_150.png
 INPUT ./Obrazy/WYniki troj/wykres_UP_BB_move_30_150.png
 INPUT ./Obrazy/WYniki troj/wykres_UP_BB_move_30_150.png
 INPUT ./Obrazy/WYniki troj/wykres_UP_BB_move_30_150.png
+INPUT ./Obrazy/Real/terrain_2.PNG
+INPUT ./Obrazy/Real/terrain_2.PNG
+INPUT ./Obrazy/Real/terrain_2.PNG
+INPUT ./Obrazy/Real/terrain_2.PNG
+INPUT ./Obrazy/Real/terrain_2.PNG
+INPUT ./Obrazy/Wyniki PID/wykres_A_Terrain_PID_lp.png
+INPUT ./Obrazy/Wyniki PID/wykres_A_Terrain_PID_lp.png
+INPUT ./Obrazy/Wyniki PID/wykres_A_Terrain_PID_lp.png
+INPUT ./Obrazy/Wyniki PID/wykres_A_Terrain_PID_lp.png
+INPUT ./Obrazy/Wyniki PID/wykres_A_Terrain_PID_lp.png
 INPUT ./main.lof
 INPUT main.lof
 INPUT main.lof
@@ -1611,6 +1632,7 @@ INPUT /usr/share/texmf/fonts/type1/public/lm/lmr10.pfb
 INPUT /usr/share/texmf/fonts/type1/public/lm/lmr12.pfb
 INPUT /usr/share/texmf/fonts/type1/public/lm/lmr6.pfb
 INPUT /usr/share/texmf/fonts/type1/public/lm/lmr8.pfb
+INPUT /usr/share/texmf/fonts/type1/public/lm/lmri10.pfb
 INPUT /usr/share/texmf/fonts/type1/public/lm/lmri12.pfb
 INPUT /usr/share/texmf/fonts/type1/public/lm/lmss10.pfb
 INPUT /usr/share/texmf/fonts/type1/public/lm/lmss12.pfb

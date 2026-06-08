@@ -6,26 +6,39 @@ import time
 import threading
 import csv
 import datetime
-
+# (self, kp=0.005, ki=0.0, kd=0.0001):
+    # (self, kp=0.084, ki=0.0, kd=0.0063):
+    # (self, kp=0.067, ki=0.0, kd=0.011):
+    # (self, kp=0.021, ki=0.0, kd=0.0136):
 class SimplePID:
-    def __init__(self, kp=0.005, ki=0.0, kd=0.0001):
+    def __init__(self, kp=0.058, ki=0.0, kd=0.0019):
         self.kp = kp
         self.ki = ki
         self.kd = kd
         self.integral = 0.0
         self.prev_error = 0.0
+        self.prev_derivative = 0.0  # Pamięć poprzedniej różniczki dla filtra
 
     def compute(self, error, dt):
         if dt <= 0: return 0.0
+        
         self.integral += error * dt
-        derivative = (error - self.prev_error) / dt
+        
+        # Surowa różniczka
+        raw_derivative = (error - self.prev_error) / dt
         self.prev_error = error
         
-        # Obliczenie surowego wyniku z PID
-        output = (self.kp * error) + (self.ki * self.integral) + (self.kd * derivative)
+        # FILTR DOLNOPRZEPUSTOWY CZŁONU D (Uspokaja drgawki od szumu kamery)
+        # alpha określa siłę filtra. 1.0 = brak filtra, 0.1 = bardzo silny filtr
+        alpha = 0.3 
+        filtered_derivative = (alpha * raw_derivative) + ((1.0 - alpha) * self.prev_derivative)
+        self.prev_derivative = filtered_derivative
         
-        # KAGANIEC (Saturacja wyjścia - zapobiega uciekaniu silnika)
-        limit = 1.0 
+        # Obliczenie wyniku z przefiltrowaną różniczką
+        output = (self.kp * error) + (self.ki * self.integral) + (self.kd * filtered_derivative)
+        
+        # KAGANIEC / Saturacja wyjścia
+        limit = 1.5 
         if output > limit: output = limit
         elif output < -limit: output = -limit
         
@@ -64,8 +77,8 @@ class HeadlessTurretTracker:
         self.ctrl_type = "PID"
         self.state = "SEARCHING"
         self.target_hsv = np.array([0, 220, 180], dtype=np.uint8)
-        self.pid_pan = SimplePID(kp=0.005, ki=0.0, kd=0.0001)
-        self.pid_tilt = SimplePID(kp=0.005, ki=0.0, kd=0.0001)
+        self.pid_pan = SimplePID(kp=0.058, ki=0.0, kd=0.0019)
+        self.pid_tilt = SimplePID(kp=0.058, ki=0.0, kd=0.0019)
         self.pan_enabled = True
         self.tilt_enabled = True
         self.current_pan = 0.0
@@ -167,9 +180,9 @@ class HeadlessTurretTracker:
                         print("Użycie: ctrl pid | ctrl bang")
                         
                 elif cmd == "move":
-                    if self.mode != "MANUAL":
-                        print("[BŁĄD] Najpierw przełącz na tryb ręczny! (komenda: mode manual)")
-                        continue
+                    # if self.mode != "MANUAL":
+                    #     print("[BŁĄD] Najpierw przełącz na tryb ręczny! (komenda: mode manual)")
+                    #     continue
                     if len(cmd_line) == 4:
                         self.current_pan = float(cmd_line[1])
                         self.current_tilt = float(cmd_line[2])
@@ -196,7 +209,7 @@ class HeadlessTurretTracker:
                         if not self.logging_started:
                             self.logging_started = True
                             timestamp = datetime.datetime.now().strftime("%Y%m%d_%H%M%S")
-                            self.filename = f"pid_log_{timestamp}.csv"
+                            self.filename = f"A_PID_move_log_{timestamp}.csv"
                             self.log_file = open(self.filename, mode='w', newline='')
                             self.csv_writer = csv.writer(self.log_file)
                             self.csv_writer.writerow(['Czas_s', 'Uchyb_X_px', 'Uchyb_Y_px', 'Regulator', 'Param1_Pan', 'Param2_Pan', 'Param1_Tilt', 'Param2_Tilt', 'Deadband', 'Pole_Obiektu'])
@@ -226,12 +239,12 @@ class HeadlessTurretTracker:
                 print(f"[BŁĄD KONSOLI] {e}")
 
     def run(self):
-        BANG_SPEED_PAN = 0.5
-        BANG_SPEED_TILT = 0.5
+        BANG_SPEED_PAN = 1.0
+        BANG_SPEED_TILT = 1.0
         morph_kernel = np.ones((9, 9), np.uint8)
         
         # Pamięć dla adaptacyjnego systemu śledzenia
-        current_deadband = 25
+        current_deadband = 80
         current_scale = 1.0
         
         while self.running:
@@ -240,6 +253,7 @@ class HeadlessTurretTracker:
                 continue
 
             frame = self.latest_frame.copy()
+            self.latest_frame = None
             h, w = frame.shape[:2]
             center_x, center_y = w // 2, h // 2
             roi_w, roi_h = int(w * 0.4), int(h * 0.4)
@@ -315,6 +329,7 @@ class HeadlessTurretTracker:
                     if target_found:
                         self.state = "TRACKING"
                         self.laser_state = 1
+                        self.kalman.predict()
                         measurement = np.array([[np.float32(cx)], [np.float32(cy)]])
                         self.kalman.correct(measurement)
                         error_x = center_x - cx
@@ -322,20 +337,22 @@ class HeadlessTurretTracker:
                         
                         # --- ADAPTACYJNY SYSTEM (GAIN SCHEDULING) ---
                         area = cv2.contourArea(c)
-                        if area > 15000:  
-                            # OBIEKT BLISKO: Cel ma ogromną prędkość kątową i szybko ucieka z kadru.
-                            current_deadband = 35 # Zwiększamy nieco martwą strefę (bo środek dużej plamy lubi pływać)
-                            current_scale = 1.3   # DOPALACZ: +30% mocy, żeby wieżyczka nadążyła za szybkim ruchem!
+                        # if area > 15000:  
+                        #     # OBIEKT BLISKO: Cel ma ogromną prędkość kątową i szybko ucieka z kadru.
+                        #     current_deadband = 100 # Zwiększamy nieco martwą strefę (bo środek dużej plamy lubi pływać)
+                        #     current_scale = 1.0   # DOPALACZ: +30% mocy, żeby wieżyczka nadążyła za szybkim ruchem!
                             
-                        elif area < 3000: 
-                            # OBIEKT DALEKO: Cel to kropka, minimalne prędkości kątowe.
-                            current_deadband = 20 # Nie reagujemy na każdy szum z 10 pikseli
-                            current_scale = 0.3   # REDUKCJA: -70% mocy silnika! Delikatne ruchy, żeby nie przestrzelić i nie oscylować.
+                        # elif area < 3000: 
+                        #     # OBIEKT DALEKO: Cel to kropka, minimalne prędkości kątowe.
+                        #     current_deadband = 50 # Nie reagujemy na każdy szum z 10 pikseli
+                        #     current_scale = 0.3   # REDUKCJA: -70% mocy silnika! Delikatne ruchy, żeby nie przestrzelić i nie oscylować.
                             
-                        else:             
-                            # ŚREDNI DYSTANS (Optymalny)
-                            current_deadband = 25 
-                            current_scale = 1.0
+                        # else:             
+                        #     # ŚREDNI DYSTANS (Optymalny)
+                        #     current_deadband = 80 
+                        #     current_scale = 0.7
+                        urrent_deadband = 75  # (Zmień na 75 dla testu analitycznego)
+                        current_scale = 1.0
                         # --------------------------------------------
                         
                         if self.ctrl_type == "PID":
@@ -400,8 +417,8 @@ class HeadlessTurretTracker:
                                 self.roi_rect = [max(0, px - roi_w//2), max(0, py - roi_h//2),
                                                  min(w, px + roi_w//2), min(h, py + roi_h//2)]
                             else:
-                                self.current_pan = 0.0
-                                self.current_tilt = 0.0
+                                # self.current_pan = 0.0
+                                # self.current_tilt = 0.0
                                 self.laser_state = 0
                                 self.state = "SEARCHING"
                                 self.prev_gray = None
@@ -436,6 +453,7 @@ class HeadlessTurretTracker:
 
             # Ograniczenia mechaniczne i wysyłka do ESP32
             self.current_tilt = max(-25.0, min(25.0, self.current_tilt))
+            self.current_pan = max(-90.0, min(90.0, self.current_pan))
             if self.ser:
                 if abs(self.current_pan - self.last_sent_pan) >= 0.3 or \
                    abs(self.current_tilt - self.last_sent_tilt) >= 0.3 or \

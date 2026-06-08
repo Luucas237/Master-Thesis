@@ -15,29 +15,33 @@
 \contentsline {figure}{\numberline {3.5}{\ignorespaces Widok tylny zespołu głowicy, obrazujący umiejscowienie napędów krokowych.\relax }}{25}{figure.caption.28}%
 \contentsline {figure}{\numberline {3.6}{\ignorespaces Przekrój czaszy głowicy uwidaczniający wewnętrzne półki montażowe, zaprojektowane w celu optymalnego rozkładu mas i wyważenia układu.\relax }}{26}{figure.caption.29}%
 \contentsline {figure}{\numberline {3.7}{\ignorespaces Model przekładni o zębach daszkowych osi PAN współpracującej ze stacjonarnym wieńcem bazowym.\relax }}{27}{figure.caption.30}%
-\contentsline {figure}{\numberline {3.8}{\ignorespaces Schemat ideowy układu zasilania uwzględniający pakiet ogniw 4S oraz przetwornice napięcia.\relax }}{30}{figure.caption.31}%
-\contentsline {figure}{\numberline {3.9}{\ignorespaces Architektura połączeń jednostki nadrzędnej (Raspberry Pi) z układem wykonawczym (ESP32).\relax }}{31}{figure.caption.32}%
-\contentsline {figure}{\numberline {3.10}{\ignorespaces Układ wykonawczy napędów PAN/TILT z wykorzystaniem sterowników Pololu 36v4 i komunikacji SPI.\relax }}{32}{figure.caption.33}%
-\contentsline {figure}{\numberline {3.11}{\ignorespaces Schemat elektryczny układu kluczującego moduł lasera za pomocą tranzystora NPN.\relax }}{33}{figure.caption.34}%
+\contentsline {figure}{\numberline {3.8}{\ignorespaces Gotowy model demonstratora\relax }}{28}{figure.caption.31}%
+\contentsline {figure}{\numberline {3.9}{\ignorespaces Schemat ideowy układu zasilania uwzględniający pakiet ogniw 4S oraz przetwornice napięcia.\relax }}{31}{figure.caption.32}%
+\contentsline {figure}{\numberline {3.10}{\ignorespaces Architektura połączeń jednostki nadrzędnej (Raspberry Pi) z układem wykonawczym (ESP32).\relax }}{32}{figure.caption.33}%
+\contentsline {figure}{\numberline {3.11}{\ignorespaces Układ wykonawczy napędów PAN/TILT z wykorzystaniem sterowników Pololu 36v4 i komunikacji SPI.\relax }}{33}{figure.caption.34}%
+\contentsline {figure}{\numberline {3.12}{\ignorespaces Schemat elektryczny układu kluczującego moduł lasera za pomocą tranzystora NPN.\relax }}{34}{figure.caption.35}%
 \addvspace {10\p@ }
-\contentsline {figure}{\numberline {4.1}{\ignorespaces Model symulacyjny wieżyczki umieszczony w środowisku Gazebo. W tle widoczny jest wirtualny obiekt referencyjny (sfera) poruszający się po zadanej trajektorii kwadratu.\relax }}{40}{figure.caption.35}%
-\contentsline {figure}{\numberline {4.2}{\ignorespaces Interfejs nakładki diagnostycznej (OSD) w trybie auto-tuningu w środowisku symulacyjnym. Zrzut ekranu prezentuje 3 epokę uczenia, wyliczone na żywo kąty PAN/TILT oraz aktualne wartości nastaw regulatora PID weryfikowane na wykrytym i ograniczonym ramką obiekcie referencyjnym (Predictive ROI).\relax }}{42}{figure.caption.36}%
+\contentsline {figure}{\numberline {4.1}{\ignorespaces Model symulacyjny wieżyczki umieszczony w środowisku Gazebo. W tle widoczny jest wirtualny obiekt referencyjny (sfera) poruszający się po zadanej trajektorii kwadratu.\relax }}{40}{figure.caption.36}%
+\contentsline {figure}{\numberline {4.2}{\ignorespaces Interfejs nakładki diagnostycznej (OSD) w trybie auto-tuningu w środowisku symulacyjnym. Zrzut ekranu prezentuje 3 epokę uczenia, wyliczone na żywo kąty PAN/TILT oraz aktualne wartości nastaw regulatora PID weryfikowane na wykrytym i ograniczonym ramką obiekcie referencyjnym (Predictive ROI).\relax }}{42}{figure.caption.37}%
 \addvspace {10\p@ }
 \addvspace {10\p@ }
-\contentsline {figure}{\numberline {6.1}{\ignorespaces Porównanie odpowiedzi skokowej regulatora PID dla dystansu 80~cm.\relax }}{55}{figure.caption.41}%
-\contentsline {figure}{\numberline {6.2}{\ignorespaces Porównanie odpowiedzi skokowej regulatora PID dla dystansu 30~cm.\relax }}{56}{figure.caption.42}%
-\contentsline {figure}{\numberline {6.3}{\ignorespaces Porównanie odpowiedzi skokowej regulatora PID dla dystansu 150~cm.\relax }}{56}{figure.caption.43}%
-\contentsline {figure}{\numberline {6.4}{\ignorespaces Śledzenie ruchu okrężnego dla dystansu 80~cm (PID).\relax }}{57}{figure.caption.44}%
-\contentsline {figure}{\numberline {6.5}{\ignorespaces Śledzenie ruchu okrężnego dla dystansu 30~cm (PID).\relax }}{57}{figure.caption.45}%
-\contentsline {figure}{\numberline {6.6}{\ignorespaces Śledzenie ruchu okrężnego dla dystansu 150~cm (PID).\relax }}{57}{figure.caption.46}%
-\contentsline {figure}{\numberline {6.7}{\ignorespaces Płynne oddalanie obiektu od 30~cm do 150~cm (PID).\relax }}{58}{figure.caption.47}%
-\contentsline {figure}{\numberline {6.8}{\ignorespaces Porównanie odpowiedzi skokowej regulatora trójpołożeniowego na dystansie 80~cm.\relax }}{59}{figure.caption.48}%
-\contentsline {figure}{\numberline {6.9}{\ignorespaces Porównanie odpowiedzi skokowej regulatora trójpołożeniowego na dystansie 30~cm.\relax }}{59}{figure.caption.49}%
-\contentsline {figure}{\numberline {6.10}{\ignorespaces Porównanie odpowiedzi skokowej regulatora trójpołożeniowego na dystansie 150~cm.\relax }}{60}{figure.caption.50}%
-\contentsline {figure}{\numberline {6.11}{\ignorespaces Śledzenie ruchu okrężnego dla dystansu 80~cm (Regulator trójpołożeniowy).\relax }}{60}{figure.caption.51}%
-\contentsline {figure}{\numberline {6.12}{\ignorespaces Śledzenie ruchu okrężnego dla dystansu 30~cm (Regulator trójpołożeniowy).\relax }}{61}{figure.caption.52}%
-\contentsline {figure}{\numberline {6.13}{\ignorespaces Śledzenie ruchu okrężnego dla dystansu 150~cm (Regulator trójpołożeniowy).\relax }}{62}{figure.caption.53}%
-\contentsline {figure}{\numberline {6.14}{\ignorespaces Płynne oddalanie obiektu od 30~cm do 150~cm (Regulator trójpołożeniowy).\relax }}{63}{figure.caption.54}%
+\contentsline {figure}{\numberline {6.1}{\ignorespaces Fizyczne stanowisko laboratoryjne z wyznaczoną strefą pomiarową oraz obiektem referencyjnym (żółta piłka o średnicy 23 cm) używanym podczas testów.\relax }}{54}{figure.caption.42}%
+\contentsline {figure}{\numberline {6.2}{\ignorespaces Porównanie odpowiedzi skokowej regulatora PID dla dystansu 80~cm.\relax }}{56}{figure.caption.43}%
+\contentsline {figure}{\numberline {6.3}{\ignorespaces Porównanie odpowiedzi skokowej regulatora PID dla dystansu 30~cm.\relax }}{56}{figure.caption.44}%
+\contentsline {figure}{\numberline {6.4}{\ignorespaces Porównanie odpowiedzi skokowej regulatora PID dla dystansu 150~cm.\relax }}{57}{figure.caption.45}%
+\contentsline {figure}{\numberline {6.5}{\ignorespaces Śledzenie ruchu eliptycznego dla dystansu 80~cm (PID).\relax }}{58}{figure.caption.46}%
+\contentsline {figure}{\numberline {6.6}{\ignorespaces Śledzenie ruchu eliptycznego dla dystansu 30~cm (PID).\relax }}{58}{figure.caption.47}%
+\contentsline {figure}{\numberline {6.7}{\ignorespaces Śledzenie ruchu eliptycznego dla dystansu 150~cm (PID).\relax }}{59}{figure.caption.48}%
+\contentsline {figure}{\numberline {6.8}{\ignorespaces Płynne oddalanie obiektu w zakresie 30 -- 150~cm (PID).\relax }}{60}{figure.caption.49}%
+\contentsline {figure}{\numberline {6.9}{\ignorespaces Porównanie odpowiedzi skokowej regulatora trójstawnego na dystansie 80~cm.\relax }}{61}{figure.caption.50}%
+\contentsline {figure}{\numberline {6.10}{\ignorespaces Porównanie odpowiedzi skokowej regulatora trójstawnego na dystansie 30~cm.\relax }}{61}{figure.caption.51}%
+\contentsline {figure}{\numberline {6.11}{\ignorespaces Porównanie odpowiedzi skokowej regulatora trójstawnego na dystansie 150~cm.\relax }}{62}{figure.caption.52}%
+\contentsline {figure}{\numberline {6.12}{\ignorespaces Śledzenie ruchu eliptycznego dla dystansu 80~cm (Regulator trójstawny).\relax }}{63}{figure.caption.53}%
+\contentsline {figure}{\numberline {6.13}{\ignorespaces Śledzenie ruchu eliptycznego dla dystansu 30~cm (Regulator trójstawny).\relax }}{63}{figure.caption.54}%
+\contentsline {figure}{\numberline {6.14}{\ignorespaces Śledzenie ruchu eliptycznego dla dystansu 150~cm (Regulator trójstawny).\relax }}{64}{figure.caption.55}%
+\contentsline {figure}{\numberline {6.15}{\ignorespaces Płynne oddalanie obiektu w zakresie 30 -- 150~cm (Regulator trójstawny).\relax }}{65}{figure.caption.56}%
+\contentsline {figure}{\numberline {6.16}{\ignorespaces Kadr ze strumienia wideo podczas testów polowych. Widoczny dron przenoszący obiekt testowy na tle infrastruktury i roślinności, oddalony o około 15 metrów od obiektywu.\relax }}{67}{figure.caption.58}%
+\contentsline {figure}{\numberline {6.17}{\ignorespaces Zapis uchybu śledzenia w środowisku polowym (Regulator PID, nastawy analityczne). Widoczne szybkie nadążanie za dronem oraz incydent zgubienia celu z udaną re-akwizycją.\relax }}{67}{figure.caption.59}%
 \addvspace {10\p@ }
 \addvspace {10\p@ }
 \addvspace {10\p@ }

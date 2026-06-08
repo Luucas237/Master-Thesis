@@ -39,12 +39,12 @@
 \contentsline {subsection}{\numberline {3.1.1}Założenia projektowe i koncepcja kinematyczna}{21}{subsection.3.1.1}%
 \contentsline {subsection}{\numberline {3.1.2}Modelowanie przestrzenne i rozkład mas}{24}{subsection.3.1.2}%
 \contentsline {subsection}{\numberline {3.1.3}Analiza układu napędowego i przekładni zębatej}{26}{subsection.3.1.3}%
-\contentsline {section}{\numberline {3.2}Architektura sprzętowa i integracja elektroniczna}{28}{section.3.2}%
-\contentsline {subsection}{\numberline {3.2.1}Dobór głównych komponentów systemu}{28}{subsection.3.2.1}%
-\contentsline {subsection}{\numberline {3.2.2}Topologia zasilania i separacja obwodów}{29}{subsection.3.2.2}%
-\contentsline {subsection}{\numberline {3.2.3}Jednostka nadrzędna, interfejsy i komunikacja}{30}{subsection.3.2.3}%
+\contentsline {section}{\numberline {3.2}Architektura sprzętowa i integracja elektroniczna}{29}{section.3.2}%
+\contentsline {subsection}{\numberline {3.2.1}Dobór głównych komponentów systemu}{29}{subsection.3.2.1}%
+\contentsline {subsection}{\numberline {3.2.2}Topologia zasilania i separacja obwodów}{30}{subsection.3.2.2}%
+\contentsline {subsection}{\numberline {3.2.3}Jednostka nadrzędna, interfejsy i komunikacja}{31}{subsection.3.2.3}%
 \contentsline {subsection}{\numberline {3.2.4}Układ wykonawczy napędów i magistrala SPI}{31}{subsection.3.2.4}%
-\contentsline {subsection}{\numberline {3.2.5}Układ kluczujący efektora (Laser)}{32}{subsection.3.2.5}%
+\contentsline {subsection}{\numberline {3.2.5}Układ kluczujący efektora (Laser)}{33}{subsection.3.2.5}%
 \contentsline {chapter}{\numberline {4}Architektura oprogramowania i symulacja systemu}{35}{chapter.4}%
 \contentsline {section}{\numberline {4.1}Środowisko uruchomieniowe}{35}{section.4.1}%
 \contentsline {section}{\numberline {4.2}Implementacja w systemie ROS2}{37}{section.4.2}%
@@ -61,37 +61,36 @@
 \contentsline {section}{\numberline {5.2}Implementacja komunikacji}{47}{section.5.2}%
 \contentsline {section}{\numberline {5.3}Implementacja algorytmów sterowania silnikami}{47}{section.5.3}%
 \contentsline {subsection}{\numberline {5.3.1}Synteza regulatora PID}{48}{subsection.5.3.1}%
-\contentsline {subsubsection}{Identyfikacja dynamiki obiektu metodą odpowiedzi skokowej}{48}{section*.37}%
-\contentsline {subsubsection}{Analityczny dobór nastaw metodą CHR}{49}{section*.38}%
-\contentsline {subsection}{\numberline {5.3.2}Synteza regulatora trójpołożeniowego}{50}{subsection.5.3.2}%
-\contentsline {subsubsection}{Identyfikacja maksymalnej prędkości śledzenia i dobór amplitudy $U_{max}$}{50}{section*.39}%
-\contentsline {subsubsection}{Analityczne wyznaczenie strefy nieczułości (Deadband)}{51}{section*.40}%
+\contentsline {subsubsection}{Identyfikacja dynamiki obiektu metodą odpowiedzi skokowej}{48}{section*.38}%
+\contentsline {subsubsection}{Analityczny dobór nastaw metodą CHR}{49}{section*.39}%
+\contentsline {subsection}{\numberline {5.3.2}Synteza regulatora trójstawnego (Bang-Off-Bang)}{50}{subsection.5.3.2}%
+\contentsline {subsubsection}{Identyfikacja maksymalnej prędkości śledzenia}{50}{section*.40}%
+\contentsline {subsubsection}{Analityczne wyznaczenie strefy nieczułości (Deadband)}{51}{section*.41}%
 \contentsline {chapter}{\numberline {6}Badania}{53}{chapter.6}%
 \contentsline {section}{\numberline {6.1}Metodyka badań i scenariusze testowe}{53}{section.6.1}%
-\contentsline {section}{\numberline {6.2}Analiza działania regulatora PID}{54}{section.6.2}%
-\contentsline {subsection}{\numberline {6.2.1}Odpowiedź układu na skokową zmianę położenia celu (Ruch boczny)}{55}{subsection.6.2.1}%
-\contentsline {subsection}{\numberline {6.2.2}Śledzenie obiektu poruszającego się po trajektorii okrężnej}{56}{subsection.6.2.2}%
-\contentsline {subsection}{\numberline {6.2.3}Test płynnej zmiany dystansu i weryfikacja algorytmu Gain Scheduling}{56}{subsection.6.2.3}%
-\contentsline {section}{\numberline {6.3}Analiza działania regulatora trójpołożeniowego}{58}{section.6.3}%
-\contentsline {subsection}{\numberline {6.3.1}Odpowiedź układu na skokową zmianę położenia celu (Ruch boczny)}{58}{subsection.6.3.1}%
-\contentsline {subsection}{\numberline {6.3.2}Śledzenie obiektu poruszającego się po trajektorii okrężnej}{59}{subsection.6.3.2}%
-\contentsline {subsection}{\numberline {6.3.3}Test płynnej zmiany dystansu i weryfikacja algorytmu adaptacyjnego}{61}{subsection.6.3.3}%
-\contentsline {section}{\numberline {6.4}Porównanie skuteczności badanych algorytmów}{62}{section.6.4}%
-\contentsline {subsection}{\numberline {6.4.1}Zestawienie wskaźników jakości sterowania}{62}{subsection.6.4.1}%
-\contentsline {subsection}{\numberline {6.4.2}Porównanie dynamiki w dziedzinie czasu}{63}{subsection.6.4.2}%
-\contentsline {subsection}{\numberline {6.4.3}Krzepkość układów i odporność na rozstrojenie}{63}{subsection.6.4.3}%
-\contentsline {chapter}{\numberline {7}Podsumowanie}{65}{chapter.7}%
-\contentsline {section}{\numberline {7.1}Rozwiązanie problemu badawczego}{65}{section.7.1}%
-\contentsline {section}{\numberline {7.2}Ocena osiągniętych wyników}{65}{section.7.2}%
-\contentsline {section}{\numberline {7.3}Wnioski i rekomendacje}{65}{section.7.3}%
-\contentsline {section}{\numberline {7.4}Perspektywy rozwoju i dalszych badań}{65}{section.7.4}%
-\contentsline {chapter}{Bibliografia}{67}{section*.56}%
-\contentsline {chapter}{Dokumentacja techniczna}{71}{appendix*.58}%
-\contentsline {chapter}{Spis skrótów i symboli}{73}{appendix*.59}%
+\contentsline {section}{\numberline {6.2}Analiza działania regulatora PID}{55}{section.6.2}%
+\contentsline {subsection}{\numberline {6.2.1}Odpowiedź układu na skokową zmianę położenia celu (Ruch nagły przyspieszony)}{55}{subsection.6.2.1}%
+\contentsline {subsection}{\numberline {6.2.2}Śledzenie obiektu poruszającego się po trajektorii krzywoliniowej (eliptycznej)}{57}{subsection.6.2.2}%
+\contentsline {subsection}{\numberline {6.2.3}Test płynnej zmiany dystansu i weryfikacja algorytmu Gain Scheduling}{58}{subsection.6.2.3}%
+\contentsline {section}{\numberline {6.3}Analiza działania regulatora trójstawnego (Bang-Off-Bang)}{59}{section.6.3}%
+\contentsline {subsection}{\numberline {6.3.1}Odpowiedź układu na skokową zmianę położenia celu (Ruch nagły przyspieszony)}{60}{subsection.6.3.1}%
+\contentsline {subsection}{\numberline {6.3.2}Śledzenie obiektu poruszającego się po trajektorii krzywoliniowej (eliptycznej)}{62}{subsection.6.3.2}%
+\contentsline {subsection}{\numberline {6.3.3}Test płynnej zmiany dystansu i weryfikacja algorytmu adaptacyjnego}{64}{subsection.6.3.3}%
+\contentsline {section}{\numberline {6.4}Porównanie skuteczności badanych algorytmów}{65}{section.6.4}%
+\contentsline {subsection}{\numberline {6.4.1}Zestawienie wskaźników jakości sterowania}{65}{subsection.6.4.1}%
+\contentsline {subsection}{\numberline {6.4.2}Test działania algorytmu w warunkach środowiskowych (Outdoor)}{66}{subsection.6.4.2}%
+\contentsline {chapter}{\numberline {7}Podsumowanie}{69}{chapter.7}%
+\contentsline {section}{\numberline {7.1}Rozwiązanie problemu badawczego}{69}{section.7.1}%
+\contentsline {section}{\numberline {7.2}Ocena osiągniętych wyników}{69}{section.7.2}%
+\contentsline {section}{\numberline {7.3}Wnioski i rekomendacje}{70}{section.7.3}%
+\contentsline {section}{\numberline {7.4}Perspektywy rozwoju i dalszych badań}{71}{section.7.4}%
+\contentsline {chapter}{Bibliografia}{73}{section*.60}%
+\contentsline {chapter}{Dokumentacja techniczna}{77}{appendix*.62}%
+\contentsline {chapter}{Spis skrótów i symboli}{79}{appendix*.63}%
 \babel@toc {british}{}\relax 
 \babel@toc {polish}{}\relax 
 \babel@toc {british}{}\relax 
 \babel@toc {polish}{}\relax 
-\contentsline {chapter}{Lista dodatkowych plików, uzupełniających tekst pracy (jeżeli dotyczy)}{75}{appendix*.60}%
-\contentsline {chapter}{Spis rysunków}{78}{appendix*.61}%
-\contentsline {chapter}{Spis tabel}{79}{appendix*.62}%
+\contentsline {chapter}{Lista dodatkowych plików, uzupełniających tekst pracy (jeżeli dotyczy)}{81}{appendix*.64}%
+\contentsline {chapter}{Spis rysunków}{84}{appendix*.65}%
+\contentsline {chapter}{Spis tabel}{85}{appendix*.66}%
