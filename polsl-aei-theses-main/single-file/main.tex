@@ -539,11 +539,11 @@ Low-power laser, UAV, tracking system, optical correction, target neutralisation
 
 \section{Wprowadzenie do problematyki systemów antydronowych}
 
-Współczesne środowisko bezpieczeństwa cywilnego oraz militarnego narażone jest na rosnące zagrożenia związane z rozwojem technologii bezzałogowych statków powietrznych (BSP). Zwiększająca się dostępność niewielkich i tanich dronów wpłynęła na wzrost przestępczości w kontekście naruszania prywatności oraz zakłócania funkcjonowania infrastruktury krytycznej. Dodatkowo, ostatnie lata pokazały, że mogą być one wykorzystywane jako precyzyjny środek rażenia celów wrażliwych w konfliktach zbrojnych. Niskobudżetowe modyfikacje komercyjnych dronów sprawiają, że są one realnym zagrożeniem dla obiektów o znacznie wyższej wartości.
+Współczesne środowisko bezpieczeństwa cywilnego oraz militarnego narażone jest na rosnące zagrożenia związane z rozwojem technologii bezzałogowych statków powietrznych. Zwiększająca się dostępność niewielkich i tanich dronów wpłynęła na wzrost przestępczości w kontekście naruszania prywatności oraz zakłócania funkcjonowania infrastruktury krytycznej. Dodatkowo, ostatnie lata pokazały, że mogą być one wykorzystywane jako precyzyjny środek rażenia celów wrażliwych w konfliktach zbrojnych. Niskobudżetowe modyfikacje komercyjnych dronów sprawiają, że są one realnym zagrożeniem dla obiektów o znacznie wyższej wartości.
 
-W odpowiedzi na to wyzwanie testowane są systemy wykorzystujące wysokoenergetyczne wiązki laserowe, które postrzegane są jako optymalne rozwiązanie problemu asymetrii kosztów. W przeciwieństwie do konwencjonalnych systemów rakietowych czy artyleryjskich, gdzie koszt pojedynczego efektora może wynosić dziesiątki tysięcy dolarów, system laserowy oferuje możliwość oddania strzału za kwotę wynikającą jedynie z zużycia energii elektrycznej. Warto zaznaczyć, że wiązka lasera poruszająca się z prędkością światła eliminuje konieczność obliczania wyprzedzenia balistycznego, co teoretycznie upraszcza proces celowania. Jednakże implementacja napotyka na szereg barier inżynierskich m.in. odpowiednia regulacja mocy źródła promieniowania, optymalizacja detekecji w czasie rzeczywistym oraz mechaniczna precyzja systemu kierowania wiązką.
+W odpowiedzi na to wyzwanie testowane są systemy wykorzystujące wysokoenergetyczne wiązki laserowe, które postrzegane są jako optymalne rozwiązanie problemu asymetrii kosztów. W przeciwieństwie do konwencjonalnych systemów rakietowych czy artyleryjskich, gdzie koszt pojedynczego efektora może wynosić dziesiątki tysięcy dolarów, system laserowy oferuje możliwość oddania strzału za kwotę wynikającą jedynie z zużycia energii elektrycznej. Warto zaznaczyć, że wiązka lasera poruszająca się z prędkością światła eliminuje konieczność obliczania wyprzedzenia balistycznego, co teoretycznie upraszcza proces celowania. Jednakże implementacja napotyka na szereg barier inżynierskich m.in. odpowiednia regulacja mocy źródła promieniowania, optymalizacja detekcji w czasie rzeczywistym oraz mechaniczna precyzja układu kierowania wiązką. Ponadto należy mieć na uwadze, że ze względu na znacznie wyższą moc rażenia i wydłużony zasięg operacyjny współczesnych emiterów, jakakolwiek usterka sprzętowa lub błąd algorytmu niesie ze sobą krytyczne zagrożenie. Ewentualna utrata kontroli nad zrobotyzowaną głowicą nadążną może skutkować przypadkowym skierowaniem niszczącej wiązki na osoby postronne, co bezwzględnie wymusza implementację rygorystycznych, wielopoziomowych protokołów bezpieczeństwa.
 
-Systemy klasy ATP, odpowiedzialne za akwizycję, śledzenie i wskazywanie celu, stanowią serce każdego urządzenia neutralizującego. Ich zadaniem jest utrzymanie skupionej plamki lasera na wrażliwym elemencie szybko poruszającego się obiektu przez czas niezbędny do jego termicznego uszkodzenia. O ile w systemach stacjonarnych dalekiego zasięgu problem ten rozwiązuje się poprzez masywne, stabilizowane żyroskopowo podstawy i kosztowne napędy bezpośrednie, o tyle w segmencie rozwiązań mobilnych i niskokosztowych wciąż brakuje skutecznych architektur. Niniejsza praca podejmuje próbę wypełnienia tej luki poprzez opracowanie zminiaturyzowanego systemu śledzącego, który integruje algorytmy przetwarzania obrazu w czasie rzeczywistym na niskobudżetowej platformie obliczeniowej wraz z możliwością działania na zewnętrznym źródle zasilania. Projekt ten ma na celu nie tylko demonstrację technologii, ale również zbadanie kluczowych problemów, takich jak opóźnienia w pętli sprzężenia zwrotnego, wpływ typu migawki kamery na jakość danych wejściowych oraz mechaniczne aspekty przeniesienia napędu. Ostatecznym celem jest stworzenie prototypu, który może służyć jako baza do dalszych badań i rozwoju w dziedzinie systemów antydronowych.
+Systemy klasy ATP, odpowiedzialne za akwizycję, śledzenie i wskazywanie celu, stanowią serce każdego urządzenia neutralizującego. Ich zadaniem jest utrzymanie skupionej plamki lasera na wrażliwym elemencie szybko poruszającego się obiektu przez czas niezbędny do jego termicznego uszkodzenia. O ile w systemach stacjonarnych dalekiego zasięgu problem ten rozwiązuje się poprzez masywne, stabilizowane żyroskopowo podstawy i kosztowne napędy bezpośrednie, o tyle w segmencie rozwiązań mobilnych i niskokosztowych wciąż brakuje skutecznych architektur. Niniejsza praca podejmuje próbę wypełnienia tej luki poprzez opracowanie zminiaturyzowanego systemu śledzącego, który integruje algorytmy przetwarzania obrazu w czasie rzeczywistym na niskobudżetowej platformie obliczeniowej wraz z możliwością działania na zewnętrznym źródle zasilania. Projekt ten ma na celu nie tylko demonstrację technologii, ale również zbadanie istotnych zagadnień inżynierskich m.in. opóźnienia w pętli sprzężenia zwrotnego, wpływ wybranych metod regulacji na stabilność układu czy mechaniczne aspekty przeniesienia napędu. Zwieńczeniem prac jest stworzenie funkcjonalnego prototypu, który posłuży jako baza do dalszych badań i rozwoju w dziedzinie systemów antydronowych.
 
 
 
@@ -563,24 +563,26 @@ Trzecim aspektem jest interakcja promieniowania laserowego z materiałem celu. W
 
 \section{Cel i zakres pracy}
 
-Głównym celem niniejszej pracy jest zaprojektowanie, wykonanie oraz weryfikacja eksperymentalna autonomicznego systemu mechatronicznego dwuosiowego, przeznaczonego do wykrywania, śledzenia i symulowanej neutralizacji dynamicznych celów powietrznych. Realizacja przyjętego celu wymagała skonstruowania dwóch wersji prototypu, w celu przeprowadzenia badań nad założeniami konstrukcyjnymi oraz algorytmicznymi.
+Głównym celem niniejszej pracy jest zaprojektowanie, wykonanie oraz weryfikacja eksperymentalna autonomicznego systemu mechatronicznego dwuosiowego, przeznaczonego do wykrywania, śledzenia i symulowanej neutralizacji dynamicznych celów powietrznych.
 
-Zakres pracy obejmuje pełny proces inżynierski, począwszy od analizy teoretycznej, poprzez projektowanie CAD i dobór komponentów elektronicznych, aż po implementację oprogramowania i testy poligonowe. W warstwie mechanicznej praca koncentruje się na opracowaniu przekładni o uzębieniu strzałkowym mających na celu eliminację luzów zwrotnych. W warstwie informatycznej kluczowym elementem jest implementacja hybrydowego systemu wizyjnego, który łączy wydajność klasycznych metod analizy obrazu z precyzją głębokich sieci neuronowych oraz estymacją stanu obiektu za pomocą filtru Kalmana. Warstwa wykonawcza obejmuje integrację modułu lasera półprzewodnikowego dużej mocy oraz systemu bezpiecznego sterowania wiązką.
+Zakres pracy obejmuje pełny proces inżynierski, począwszy od analizy teoretycznej, poprzez projektowanie CAD i dobór komponentów elektronicznych, aż po implementację oprogramowania i testy poligonowe. W warstwie mechanicznej praca koncentruje się na opracowaniu przekładni o uzębieniu strzałkowym mających na celu eliminację luzów zwrotnych. W warstwie informatycznej kluczowym elementem jest implementacja systemu wizyjnego bazującego na algorytmach segmentacji barw, wspieranych predykcyjną estymacją kinematyki obiektu za pomocą filtru Kalmana. Warstwa wykonawcza obejmuje integrację modułu lasera półprzewodnikowego dużej mocy oraz systemu bezpiecznego sterowania wiązką.
 
 \section{Układ pracy}
 
-Struktura niniejszej pracy przedstawia etapy procesu badawczego oraz ewolucję zaprojektowanego systemu w kierunku realizacji postawionych celów.
+Struktura niniejszej pracy przedstawia ewolucję zaprojektowanego systemu w kierunku realizacji postawionych celów orazetapy procesu badawczego.
 Treść została podzielona na sześć zasadniczych rozdziałów.
 
-Rozdział drugi koncentruje się na teoretycznych podstawach zagadnienia. Przedstawiono w nim przegląd literatury dotyczącej współczesnych metod śledzenia obiektów. Zawiera również analizę dostępnych technologii laserowych oraz uzasadnienie doboru geometrii uzębienia na podstawie doniesień naukowych.
+Rozdział drugi stanowi przegląd literatury dotyczącej współczesnych metod śledzenia obiektów oraz teorii sterowania układami inercyjnymi. Zawiera również analizę dostępnych technologii laserowych w kontekście systemów celowniczych oraz ocenę ich skuteczności na podstawie doniesień naukowych.
 
-Rozdział trzeci poświęcony jest szczegółowemu opisowi algorytmów detekcji i przetwarzania obrazu. Omówiono w nim architekturę hybrydowego systemu wizyjnego, który adaptuje się do dynamiki sceny, przełączając się między metodami detekcji ruchu na statycznym tle a zaawansowaną klasyfikacją obiektów przy użyciu sieci neuronowych. W tej części pracy przedstawiono również matematyczny model filtru Kalmana, zaimplementowanego w celu predykcji trajektorii celu.
+Rozdział trzeci opisuje proces projektowania i budowy sprzętowej części demonstratora. Skoncentrowano się w nim na mechanice dwuosiowej platformy obrotowej. Przedstawiono tu również schemat architektury elektronicznej, bazującej na integracji platformy komputerowej Raspberry Pi z mikrokontrolerem ESP32 wraz z modułem laserowym i dystrybucją zasilania.
 
-Rozdział czwarty opisuje proces budowy i działania pierwszej wersji urządzenia. Skoncentrowano się na weryfikacji założeń mechanicznych oraz testach algorytmów śledzenia na obiektach o przewidywalnej trajektorii balistycznej, takich jak podrzucona piłka na jednolitym oraz różnorodnym tle. Przedstawiono tu szczegóły konstrukcyjne pierwszego prototypu, schemat połączeń elektrycznych oraz wyniki wstępnych testów wydajnościowych, które pozwoliły zidentyfikować słabe punkty rozwiązania i zdefiniować kierunki dalszego rozwoju.
+Rozdział czwarty poświęcony jest szczegółowemu opisowi zaimplementowanych algorytmów detekcji i przetwarzania obrazu. Omówiono w nim architekturę systemu wizyjnego i symulacyjnego opartego na ROS2. Opisano adaptację do dynamiki sceny, wykorzystując algorytmy detekcji ruchu na statycznym tle oraz progowanie w przestrzeni barw (HSV). W tej części pracy przedstawiono również matematyczny model filtru Kalmana, wdrożony w celu predykcji trajektorii celu i kompensacji chwilowej utraty widoczności.
 
-Rozdział piąty prezentuje drugą, udoskonaloną wersję systemu, dedykowaną do śledzenia obiektów o nieprzewidywalnej trajektorii, czyli dronów. W tej części opisano wprowadzone modyfikacje mechaniczne, a także integrację docelowego modułu lasera.
+Rozdział piąty koncentruje się na analizie dynamiki obiektu i syntezie praw sterowania. Przeprowadzono w nim identyfikację modelu kinematycznego na podstawie odpowiedzi skokowej w otwartej pętli, uwzględniając opóźnienia transportowe oraz inercję mechaniki. Główną część rozdziału stanowi analityczne strojenie dwóch układów sterowania: zoptymalizowanego regulatora trójstawnego (\textit{Bang-Off-Bang}) z wyliczoną strefą nieczułości oraz ciągłego regulatora proporcjonalno-różniczkującego, opartego na metodzie Chien-Hrones-Reswick.
 
-Rozdział szósty, zawiera porównanie obu opracowanych metod i konstrukcji oraz podsumowanie uzyskanych wyników. Przedstawiono w nim ocenę stopnia realizacji założonych celów, podkreślenie napotkanych problemów realizacyjnych oraz propozycje dalszych kierunków rozwoju systemu.
+Rozdział szósty prezentuje metodykę oraz wyniki badań eksperymentalnych zaprojektowanej głowicy nadążnej. Zawiera on kompleksowe porównanie obu zaimplementowanych algorytmów sterowania w odpowiedzi na wymuszenia skokowe, krzywoliniowe oraz podczas dynamicznej zmiany odległości. Przedstawiono w nim również ocenę skuteczności demonstratora w trudnych warunkach polowych podczas śledzenia poruszającego się bezzałogowego statku powietrznego.
+
+Pracę zamyka podsumowanie, w którym zawarto krytyczną ocenę stopnia realizacji postawionych celów, omówiono napotkane trudności sprzętowo-środowiskowe oraz sformułowano szczegółowe rekomendacje i perspektywy dalszego rozwoju zrobotyzowanych systemów obronnych.
 
 
 
@@ -599,9 +601,11 @@ Rozdział szósty, zawiera porównanie obu opracowanych metod i konstrukcji oraz
 
 \section{Specyfika procesu neutralizacji kinetycznej i energetycznej}
 
-Zadanie polegające na wykryciu, śledzeniu i neutralizacji niewielkiego, szybko poruszającego się obiektu w przestrzeni powietrznej stanowi złożone wyzwanie. Cel, taki jak dron wyścigowy FPV czy amunicja krążąca, charakteryzuje się wysoką dynamiką zmian wektora prędkości, co w połączeniu z nieprzewidywalnymi zakłóceniami zewnętrznymi, takimi jak podmuchy wiatru, wymaga od układu sterowania reakcji w czasie zbliżonym do rzeczywistego.
+Zadanie polegające na wykryciu, śledzeniu i neutralizacji niewielkiego, szybko poruszającego się obiektu w przestrzeni powietrznej stanowi złożone wyzwanie. Cel, taki jak dron wyścigowy FPV czy amunicja krążąca, charakteryzuje się wysoką dynamiką zmian wektora prędkości, co w połączeniu z nieprzewidywalnymi zakłóceniami zewnętrznymi, wymaga od układu sterowania reakcji w czasie zbliżonym do rzeczywistego.
 
-Istotą problemu jest zamknięcie pętli sprzężenia zwrotnego w układzie wizyjnym. Proces ten składa się z sekwencji zdarzeń obejmującej akwizycję fotonów przez matrycę światłoczułą, cyfrowy odczyt i transmisję danych, algorytmiczną detekcję obiektu, estymację błędu położenia oraz mechaniczną reakcję serwonapędów. Sumaryczny czas trwania tych operacji definiuje opóźnienie systemowe. W systemach śledzących, opóźnienie to wprowadza przesunięcie fazowe w sygnale sterującym. W praktyce oznacza to, że jeśli system reaguje zbyt wolno w stosunku do prędkości kątowej celu, wiązka lasera nie tylko nie trafi w obiekt, ale cały układ mechaniczny może wpaść w oscylacje o narastającej amplitudzie. Wyzwanie to jest potęgowane przez konieczność utrzymania skupionej plamki lasera na powierzchni celu przez czas niezbędny do przekazania niszczącej dawki energii termicznej.
+Istotą problemu jest zamknięcie pętli sprzężenia zwrotnego w układzie wizyjnym. Proces ten składa się z sekwencji zdarzeń obejmującej akwizycję fotonów przez matrycę światłoczułą, cyfrowy odczyt i transmisję danych, algorytmiczną detekcję obiektu, estymację błędu położenia oraz mechaniczną reakcję napędu. Sumaryczny czas trwania tych operacji definiuje opóźnienie systemowe. W systemach śledzących, opóźnienie to wprowadza przesunięcie fazowe w sygnale sterującym. W praktyce oznacza to, że jeśli system reaguje zbyt wolno w stosunku do prędkości kątowej celu, wiązka lasera nie tylko nie trafi w obiekt, ale cały układ mechaniczny może wpaść w oscylacje o narastającej amplitudzie. Wyzwanie to jest potęgowane przez konieczność utrzymania skupionej plamki lasera na powierzchni celu przez czas niezbędny do przekazania niszczącej dawki energii termicznej.
+
+\newpage
 
 \section{Przegląd dostępnych rozwiązań i ich ograniczenia}
 
@@ -609,11 +613,11 @@ Analiza rynku systemów antydronowych pozwala na wyodrębnienie dwóch skrajnych
 
 Pierwszą grupę stanowią profesjonalne systemy militarne klasy CIWS (ang. \textit{Close-In Weapon Systems}). Rozwiązania te wykorzystują aktywne radary śledzące oraz głowice optoelektroniczne. Napęd realizowany jest zazwyczaj poprzez silniki momentowe w układzie bezpośrednim, co eliminuje luzy mechaniczne i zapewnia dynamikę niezbędną do śledzenia obiektów naddźwiękowych. Mimo wysokiej skuteczności, bariera kosztowa oraz masa własna tych urządzeń wykluczają ich powszechne zastosowanie do ochrony infrastruktury cywilnej czy wykorzystanie w systemach przenośnych.
 
-Na przeciwległym biegunie znajdują się rozwiązania amatorskie i półprofesjonalne, bazujące na podzespołach modelarskich. Konstrukcje te wykorzystują zazwyczaj serwomechanizmy sterowane sygnałem PWM oraz tanie kamery internetowe lub przemysłowe standardu USB. Głównym ograniczeniem tych systemów jest niska sztywność mechaniczna oraz obecność znaczących luzów w przekładniach zębatych serwomechanizmów. Luz zwrotny powoduje powstanie strefy nieczułości przy zmianie kierunku obrotu wieżyczki, co uniemożliwia precyzyjne mikrokorekty położenia wiązki lasera. Ponadto, budżetowe systemy wizyjne w przeważającej większości korzystają z sensorów CMOS wyposażonych w migawkę postępującą (ang. \textit{rolling shutter}). Przy dużej prędkości obrotowej wieżyczki, liniowy sposób odczytu matrycy powoduje geometryczne zniekształcenia obrazu, co wprowadza błędne dane do algorytmów predykcji ruchu i często prowadzi do całkowitej rozbieżności modelu śledzenia.
+Na przeciwległym biegunie znajdują się rozwiązania amatorskie i półprofesjonalne, bazujące na podzespołach modelarskich. Konstrukcje te wykorzystują zazwyczaj serwomechanizmy sterowane sygnałem PWM oraz tanie kamery internetowe lub przemysłowe standardu USB. Głównym ograniczeniem tych systemów jest niska sztywność mechaniczna oraz obecność znaczących luzów w przekładniach zębatych serwomechanizmów. Luz zwrotny powoduje powstanie strefy nieczułości przy zmianie kierunku obrotu wieżyczki, co uniemożliwia precyzyjne mikrokorekty położenia wiązki lasera. Ponadto, budżetowe systemy wizyjne w przeważającej większości korzystają z sensorów CMOS wyposażonych w migawkę postępującą. Przy dużej prędkości obrotowej wieżyczki, liniowy sposób odczytu matrycy powoduje geometryczne zniekształcenia obrazu, co wprowadza błędne dane do algorytmów predykcji ruchu i często prowadzi do całkowitej rozbieżności modelu śledzenia.
 
 \section{Zidentyfikowane bariery technologiczne}
 
-Pierwszą barierą jest problem mechaniczny związany z precyzją przekładni. Wymóg niskiego kosztu i małej masy sugeruje wykorzystanie technologii druku 3D, jednak standardowe tworzywa termoplastyczne charakteryzują się mniejszą sztywnością niż metal. Konieczne jest zatem zaprojektowanie takiej geometrii uzębienia, która zapewni samocentrowanie układu, minimalizację luzów oraz równomierny rozkład naprężeń, co jest trudne do osiągnięcia przy użyciu klasycznych zębów prostych.
+Pierwszą barierą jest problem mechaniczny związany z precyzją przekładni. Wymóg niskiego kosztu i małej masy sugeruje wykorzystanie technologii druku 3D, jednak standardowe tworzywa termoplastyczne charakteryzują się mniejszą sztywnością niż metal. Konieczne jest zatem zaprojektowanie takiej geometrii uzębienia, która zapewni samocentrowanie układu, minimalizację luzów oraz równomierny rozkład naprężeń, co jest trudne do osiągnięcia przy użyciu typowych zębów prostych.
 
 Drugą barierą jest wydajność obliczeniowa w kontekście opóźnień. Zastosowanie zaawansowanych sieci neuronowych do detekcji dronów na platformach wbudowanych wiąże się ze znacznym obciążeniem procesora i spadkiem liczby klatek na sekundę. Wymaga to implementacji hybrydowych algorytmów sterowania, które potrafią estymować pozycję celu w chwilach braku nowych danych wizyjnych.
 
@@ -626,110 +630,25 @@ Poniższa analiza literatury szczegółowo omawia stan wiedzy w zakresie metod k
 
 \subsection{Metody śledzenia obiektów}
 
-\subsection*{Wpływ sprzężenia zwrotnego obrazu na system ATP}
+W pracy Li i in. \cite{bib:Li2025} przeprowadzono szczegółową analizę wpływu sprzężenia zwrotnego z obrazu na dynamikę systemu \textbf{ATP (Acquisition, Tracking, Pointing)}. System tego typu można traktować jako układ serwomechanizmu, w którym sterowanie odbywa się na podstawie sygnału z kamery. W literaturze wyróżnia się dwa główne problemy ograniczające możliwości precyzyjnego śledzenia. Pierwszym z nich jest \textbf{opóźnienie obrazu} (np. rzędu 30~ms), które powoduje przesunięcie fazowe i zmniejszenie marginesu stabilności układu, co w praktyce ogranicza maksymalną prędkość kątową celu możliwą do śledzenia. Drugim ograniczeniem jest \textbf{niska częstotliwość próbkowania obrazu} (np. 50~Hz). Z uwagi na długi czas pomiędzy kolejnymi klatkami układ okresowo nie posiada aktualnej informacji o położeniu obiektu, co sprzyja powstawaniu oscylacji i drgań.
 
-W pracy Li i in. \cite{bib:Li2025} przeprowadzono szczegółową analizę wpływu 
-sprzężenia zwrotnego z obrazu na dynamikę systemu \textbf{ATP (Acquisition, Tracking, Pointing)}. 
-System tego typu można traktować jako układ serwomechanizmu, w którym sterowanie odbywa się na podstawie sygnału z kamery. 
-Ponieważ kamera charakteryzuje się \textbf{niską częstotliwością próbkowania} oraz \textbf{opóźnieniem przetwarzania}, 
-wpływa to negatywnie na stabilność i dokładność śledzenia.
+Aby rozwiązać te problemy, autorzy zastosowali \textbf{wieloczęstotliwościowy regulator feedforward}, który pozwala zsynchronizować wolne sprzężenie zwrotne z kamery z szybkim torem sterowania napędami. W praktyce oznacza to, że pętla napędów operuje z częstotliwością 5000~Hz, podczas gdy obraz uaktualnia pozycję celu co 20~ms. Rozwiązanie to uzupełniono o predykcję trajektorii celu, estymującą położenie obiektu pomiędzy klatkami na podstawie jego aktualnej prędkości i przyspieszenia. Co więcej, wdrożono sterowanie typu model-free, dzięki któremu regulator nie opiera się na dokładnym modelu matematycznym platformy, co ułatwia przenoszenie algorytmu pomiędzy różnymi konfiguracjami sprzętowymi bez żmudnej identyfikacji parametrów.
 
-\paragraph{Kluczowe problemy}
-W literaturze wyróżnia się dwa główne problemy ograniczające możliwości śledzenia:
-\begin{enumerate}
-    \item \textbf{Opóźnienie obrazu} – np. 30~ms. Powoduje ono przesunięcie fazowe i zmniejszenie marginesu stabilności układu, co w praktyce ogranicza maksymalną prędkość kątową celu możliwą do śledzenia.
-    \item \textbf{Niska częstotliwość próbkowania obrazu} – np. 50~Hz. Pomiędzy kolejnymi próbkami system „nie wie”, gdzie znajduje się cel, co powoduje oscylacje i drgania.
-\end{enumerate}
-
-\paragraph{Proponowane rozwiązanie}
-Aby rozwiązać te problemy, autorzy zastosowali:
-\begin{itemize}
-    \item \textbf{Wieloczęstotliwościowy regulator feedforward} – pozwala zsynchronizować wolne sprzężenie zwrotne z kamery z szybkim torem sterowania napędami. 
-    W praktyce oznacza to, że napędy mogą być sterowane z częstotliwością 5000~Hz, a obraz uaktualnia pozycję celu tylko co 20~ms.
-    \item \textbf{Predykcję trajektorii celu} – algorytm przewiduje kolejne położenia celu na podstawie jego aktualnej prędkości i przyspieszenia. 
-    Dzięki temu w chwilach pomiędzy klatkami układ ma estymację położenia obiektu i nie musi czekać na kolejną próbkę.
-    \item \textbf{Sterowanie typu model-free} – regulator nie opiera się na dokładnym modelu matematycznym wieżyczki, ale działa poprawnie przy różnych konfiguracjach sprzętowych. 
-    W praktyce oznacza to, że algorytm można przenieść między różnymi platformami bez konieczności żmudnej identyfikacji parametrów.
-\end{itemize}
-
-\paragraph{Architektura systemu ATP}
-Typowy system ATP zbudowany jest z następujących elementów:
-\begin{itemize}
-    \item \textbf{Podsystem obrazowania (kamera CCD/CMOS)} – dostarcza położenie celu w polu widzenia, lecz z ograniczoną częstotliwością i opóźnieniem.
-    \item \textbf{Dwuosiowa konstrukcja} – realizuje ruch w azymucie i elewacji. Napędzana jest silnikami BLDC lub serwomechanizmami z enkoderami wysokiej rozdzielczości.
-    \item \textbf{Sterownik serwonapędów} – wykonuje sterowanie niskopoziomowe.
-    \item \textbf{Moduł obliczeniowy} – implementuje algorytmy predykcji i kontroli wieloczęstotliwościowej.
-    \item \textbf{Laser niskomocowy} – służy do testów śledzenia i naprowadzania, docelowo jako źródło wiązki w systemach antydronowych.
-\end{itemize}
-
-
-% Sprzężenie zwrotne pozycji dostarczane jest z kamery CCD, co można zapisać jako:
-% \begin{equation}
-% y(t) = \theta(t - T_{d}),
-% \end{equation}
-% gdzie $T_{d}$ jest opóźnieniem toru obrazu.
-
-\paragraph{Wpływ opóźnienia obrazu}
-W dziedzinie Laplace’a opóźnienie wprowadza czynnik:
+Z matematycznego punktu widzenia, opóźnienie toru obrazu $T_{d}$ wprowadza w dziedzinie Laplace’a czynnik $e^{-sT_{d}}$, który wykorzystując aproksymację Padé rzędu pierwszego, można zapisać jako:
 \begin{equation}
-e^{-sT_{d}} \approx \frac{1 - \frac{sT_{d}}{2}}{1 + \frac{sT_{d}}{2}},
+e^{-sT_{d}} \approx \frac{1 - \frac{sT_{d}}{2}}{1 + \frac{sT_{d}}{2}}.
 \end{equation}
-czyli aproksymację Padé rzędu pierwszego. 
-Pokazuje to, że obecność opóźnienia skutkuje dodatkowymi zerami i biegunami, 
-co obniża margines fazy i może prowadzić do oscylacji przy wyższych prędkościach celu.
+Obecność opóźnienia generuje dodatkowe zera i bieguny w transmitancji układu, co znacząco obniża margines fazy. Ponadto, ze względu na częstotliwość próbkowania $f_{s}$ i czas pomiędzy próbkami $T_{s}$, aktualizacja położenia odbywa się skokowo ($y[k] = \theta(kT_{s} - T_{d})$). Przeprowadzona przez badaczy analiza częstotliwościowa wykazała, że wzrost opóźnienia oraz spadek częstotliwości próbkowania pogarszają zdolność śledzenia manewrującego celu. W skrajnych przypadkach (np. $T_{d} = 30$~ms, $f_{s} = 50$~Hz) system całkowicie traci stabilność już przy prędkościach kątowych rzędu 90$^\circ$/s. Do kompensacji tych zjawisk obok sterowania wieloczęstotliwościowego stosuje się również filtry predykcji zredukowanego rzędu.
 
-\paragraph{Wpływ niskiej częstotliwości próbkowania}
-Jeśli częstotliwość próbkowania obrazu wynosi $f_{s}$ (np. 50~Hz), 
-to czas pomiędzy kolejnymi próbkami wynosi $T_{s} = 1/f_{s} = 20$~ms. 
-Oznacza to, że aktualizacja położenia odbywa się skokowo, 
-a regulator musi działać na podstawie przestarzałej informacji. 
-Matematycznie można to przedstawić jako system z próbkowaniem:
-\begin{equation}
-y[k] = \theta(kT_{s} - T_{d}),
-\end{equation}
-co dodatkowo komplikuje analizę stabilności.
-
-\paragraph{Analiza częstotliwościowa}
-Autorzy pokazali, że im większe opóźnienie $T_{d}$ i im mniejsza częstotliwość próbkowania $f_{s}$, 
-tym szybciej pogarsza się zdolność śledzenia. 
-Szczególnie krytyczny jest wzrost amplitudy błędu przy wysokich częstotliwościach wymuszenia manewrującego celu. 
-Dla przykładu, przy $T_{d} = 30$~ms i $f_{s} = 50$~Hz system traci stabilność już przy prędkości kątowej rzędu 90$^\circ$/s.
-
-\paragraph{Metody kompensacji}
-Aby przeciwdziałać degradacji wydajności systemu, 
-autorzy zaproponowali kilka metod:
-\begin{itemize}
-    \item zastosowanie regulatora predykcyjnego, 
-    który przewiduje przyszłe wartości $\theta(t)$ na podstawie modelu ruchu celu,
-    \item filtry predykcji zredukowanego rzędu, 
-    które estymują pozycję celu między próbkami,
-    \item wykorzystanie sterowania wieloczęstotliwościowego, 
-    w którym tor napędów pracuje z dużą częstotliwością (np. 5~kHz), 
-    a wolne sprzężenie zwrotne z kamery służy jedynie do okresowej korekty położenia.
-\end{itemize}
-
-\paragraph{Implementacja praktyczna}
-System został zbudowany eksperymentalnie i przetestowany w warunkach laboratoryjnych. 
-Konstrukcja dwuosiowa była napędzana silnikami BLDC, wyposażona w enkodery oraz kamerę CCD o rozdzielczości 1024x1024. 
-Tor sterowania działał z częstotliwością 5000~Hz, a obraz był próbkowany z częstotliwością 50~Hz i opóźnieniem 30~ms. 
-Cel symulowano za pomocą tarczy obrotowej napędzanej silnikiem krokowym, której prędkość można było regulować napięciem wejściowym.
-
-\paragraph{Rezultaty}
-W testach śledzono cele o różnych prędkościach i przyspieszeniach:
-\begin{itemize}
-    \item Prędkość kątowa do 90$^\circ$/s,
-    \item Przyspieszenie kątowe do 470$^\circ$/s$^2$.
-\end{itemize}
-Zastosowany algorytm zwiększył dokładność śledzenia o 70--89,9\% względem systemu niekompensowanego. 
-Ponadto zmniejszył ryzyko utraty celu, które w systemach klasycznych występuje przy gwałtownych zmianach kierunku lub wysokich prędkościach.
+Pod względem sprzętowym typowy system ATP składa się z podsystemu obrazowania (kamera CCD/CMOS), dwuosiowej konstrukcji napędzanej silnikami BLDC z enkoderami wysokiej rozdzielczości, sterownika niskopoziomowego oraz modułu obliczeniowego. W testach laboratoryjnych wykorzystano tło eksperymentalne z obrotową tarczą, a jako wskaźnik śledzący posłużył laser niskomocowy. Weryfikacja praktyczna objęła cele poruszające się z prędkością kątową do 90$^\circ$/s oraz przyspieszeniem do 470$^\circ$/s$^2$. Zastosowany algorytm predykcyjny i wieloczęstotliwościowy pozwolił na zwiększenie dokładności śledzenia o 70--89,9\% w stosunku do systemu bez kompensacji, znacznie redukując ryzyko utraty celu przy gwałtownych manewrach.
 
 \subsection{Hybrydowa detekcja obiektów w systemach o statycznym tle}
 
-W nawiązaniu do problematyki opóźnień w pętli sprzężenia zwrotnego, zidentyfikowanej w poprzednich rozdziałach, kluczowym wyzwaniem staje się minimalizacja czasu przetwarzania pojedynczej klatki obrazu. W klasycznym podejściu, wykorzystującym głębokie sieci neuronowe na pełnej rozdzielczości sensora, narzut obliczeniowy jest znaczny, co bezpośrednio przekłada się na degradację marginesu stabilności systemu śledzenia. Alternatywą dla tego rozwiązania, szczególnie efektywną w systemach stacjonarnych ochrony obiektów, jest zastosowanie dwuetapowej kaskady detekcyjnej, którą szczegółowo przeanalizowali Seidaliyeva i współpracownicy \cite{bib:Seidaliyeva2020}.
+W nawiązaniu do problematyki opóźnień w pętli sprzężenia zwrotnego wymagającym wyzwaniem staje się minimalizacja czasu przetwarzania pojedynczej klatki obrazu. W klasycznym podejściu, wykorzystującym głębokie sieci neuronowe na pełnej rozdzielczości sensora, narzut obliczeniowy jest znaczny, co bezpośrednio przekłada się na degradację marginesu stabilności systemu śledzenia. Alternatywą dla tego rozwiązania, szczególnie efektywną w systemach stacjonarnych ochrony obiektów, jest zastosowanie \textbf{dwuetapowej kaskady detekcyjnej}, którą szczegółowo przeanalizowali Seidaliyeva i współpracownicy \cite{bib:Seidaliyeva2020}.
 
-Autorzy ci zaproponowali architekturę systemu detekcji, która integruje klasyczne metody przetwarzania obrazu z lekkimi sieciami neuronowymi w celu osiągnięcia działania w czasie rzeczywistym. Fundamentalnym założeniem tej metody jest statyczność obserwowanej sceny, co pozwala na wykorzystanie algorytmów odejmowania tła do wstępnej selekcji obszarów zainteresowania. Proces ten rozpoczyna się od konwersji obrazu do skali szarości oraz filtracji szumów przetwornika, po czym następuje detekcja ruchu przy użyciu algorytmu mieszaniny rozkładów Gaussa (MOG2). Pozwala to na skuteczne odseparowanie obiektów pierwszoplanowych od statycznego otoczenia, nawet przy zmiennych warunkach oświetleniowych.
+Autorzy ci zaproponowali architekturę systemu detekcji, która integruje metody przetwarzania obrazu z lekkimi sieciami neuronowymi w celu osiągnięcia działania w czasie rzeczywistym. Fundamentalnym założeniem tej metody jest statyczność obserwowanej sceny, co pozwala na wykorzystanie algorytmów odejmowania tła do wstępnej selekcji obszarów zainteresowania. Proces ten rozpoczyna się od konwersji obrazu do skali szarości oraz filtracji szumów przetwornika, po czym następuje detekcja ruchu przy użyciu algorytmu mieszaniny rozkładów Gaussa (MOG2). Pozwala to na skuteczne odseparowanie obiektów pierwszoplanowych od statycznego otoczenia, nawet przy zmiennych warunkach oświetleniowych.
 
-W kolejnym etapie, na wygenerowanej masce binarnej przeprowadzane są operacje morfologiczne dylatacji i erozji, mające na celu zamknięcie luk w wykrytych sylwetkach oraz eliminację drobnych artefaktów. Dopiero tak wyodrębnione fragmenty obrazu (ang. \textit{Regions of Interest}, ROI), zawierające potencjalny cel, są przekazywane do klasyfikatora opartego na sieci neuronowej. Główną zaletą tego podejścia jest drastyczna redukcja przestrzeni poszukiwań dla sieci głębokiej. Zamiast analizować miliony pikseli pełnej klatki, algorytm klasyfikuje jedynie niewielkie wycinki, co pozwala na utrzymanie wysokiej częstotliwości odświeżania pętli sterowania i precyzyjne odróżnienie dronów od innych obiektów ruchomych, takich jak ptaki, przy minimalnym obciążeniu jednostki obliczeniowej.
+W kolejnym etapie, na wygenerowanej masce binarnej przeprowadzane są operacje morfologiczne dylatacji i erozji, mające na celu zamknięcie luk w wykrytych sylwetkach oraz eliminację drobnych artefaktów. Dopiero tak wyodrębnione fragmenty obrazu (ang. \textit{Regions of Interest}, ROI), zawierające potencjalny cel, są przekazywane do klasyfikatora opartego na sieci neuronowej. Główną zaletą tego podejścia jest drastyczna redukcja przestrzeni poszukiwań dla sieci głębokiej. Zamiast analizować piksele pełnej klatki, algorytm klasyfikuje jedynie niewielkie wycinki, co pozwala na utrzymanie wysokiej częstotliwości odświeżania pętli sterowania i precyzyjne odróżnienie dronów od innych obiektów ruchomych, takich jak ptaki, przy minimalnym obciążeniu jednostki obliczeniowej.
 
 Należy jednak podkreślić, że omawiana metoda bazująca na statycznym tle posiada istotne ograniczenie w kontekście systemów wyposażonych w głowice obrotowe. Ruch kamery podczas skanowania przestrzeni powoduje globalną zmianę wartości pikseli, co przez algorytmy klasy MOG2 interpretowane jest jako ruch całego otoczenia, generując lawinowo fałszywe detekcje. Z tego względu, w praktycznych aplikacjach obronnych, podsystem wizyjny powinien współpracować z zewnętrznym sensorem nadrzędnym, takim jak radar lub detektor akustyczny. W takiej konfiguracji sensor nadrzędny wstępnie wyznacza azymut celu, wymuszając obrót wieżyczki do zadanego sektora, a algorytm wizyjny aktywowany jest dopiero po zatrzymaniu i ustabilizowaniu głowicy, przejmując zadanie precyzyjnego celowania i identyfikacji.
 
@@ -749,25 +668,27 @@ W kontekście projektowanego systemu implementacja filtru Kalmana pozwala zatem 
 
 W literaturze badającej układy o nieliniowej charakterystyce i dużej manewrowości często rozważa się implementację regulatorów skokowych (np. \textit{bang-bang} lub \textit{bang-off-bang}) z uwagi na ich teoretyczną optymalność czasową przy minimalizacji czasu dojścia do zadanej pozycji. Należy jednak krytycznie ocenić ich przydatność w wewnętrznych pętlach sterowania, które wymagają najwyższej precyzji działania. Przykładem dogłębnej analizy tego problemu są badania nad zwinnością samolotów myśliwskich, w których modelowano nieliniową dynamikę w stanach gwałtownych manewrów \cite{bib:caferov2019building}. Autorzy wykazali, że bezpośrednie zastosowanie klasycznego, dwupołożeniowego regulatora \textit{bang-bang} do kontroli wewnętrznej tak dynamicznego obiektu jest nieodpowiednie i ustępuje miejsca wielowymiarowym, ciągłym algorytmom sterowania \cite{bib:caferov2019building}.
 
-W systemach mechatronicznych naturalnym rozwinięciem tego podejścia jest wprowadzenie strefy nieczułości (ang. \textit{deadband}), tworzące układ trójpołożeniowy (tzw. \textit{bang-off-bang}). Rozwiązanie to łagodzi problem ciągłych oscylacji wokół punktu pracy, jednak mechanika obiektu wciąż jest poddawana skokowemu wymuszaniu pełną mocą w momencie opuszczenia strefy nieczułości. Z punktu widzenia precyzyjnych systemów nadążnych typu PAN/TILT, powstawanie gwałtownych skoków sygnału sterującego wywołuje w mechanice zjawisko szarpania i wibracji o wysokiej częstotliwości (tzw. \textit{chattering}). 
+W systemach mechatronicznych naturalnym rozwinięciem tego podejścia jest wprowadzenie strefy nieczułości (ang. \textit{deadband}), tworzące układ trójpołożeniowy (tzw. \textit{bang-off-bang}). Rozwiązanie to łagodzi problem ciągłych oscylacji wokół punktu pracy, jednak mechanika obiektu wciąż jest poddawana skokowemu wymuszaniu pełną mocą w momencie opuszczenia strefy nieczułości. Z punktu widzenia precyzyjnych systemów nadążnych typu PAN/TILT, powstawanie gwałtownych skoków sygnału sterującego wywołuje w mechanice zjawisko szarpania i wibracji o wysokiej częstotliwości. 
 
-Nawet w inżynierii kosmicznej, gdzie napędy korekcyjne (pędniki) mają natywną charakterystykę skokową (ON/OFF), odchodzi się od prostych algorytmów przełączających. Współczesne trendy polegają na zastępowaniu ich zaawansowanym sterowaniem predykcyjnym (MPC), co pozwala optymalizować momenty załączeń i minimalizować zużycie energii podczas precyzyjnych manewrów, takich jak dokowanie \cite{bib:Jones2024, bib:VirgiliLlop2017}. W układach zintegrowanych z modułami wizyjnymi, skokowa praca napędów prowadzi do wibracji samej osi optycznej, co drastycznie degraduje jakość pozyskiwanego strumienia wideo i uniemożliwia stabilne śledzenie. Z tego powodu, w budowie układów celowniczych poszukuje się alternatyw na rzecz ciągłych algorytmów regulacji (np. PID), zdolnych do płynnej modulacji prędkości.
+Nawet w inżynierii kosmicznej, gdzie napędy korekcyjne tzw. pędniki, mają natywną charakterystykę skokową, odchodzi się od prostych algorytmów przełączających. Współczesne trendy polegają na zastępowaniu ich zaawansowanym sterowaniem predykcyjnym, co pozwala optymalizować momenty załączeń i minimalizować zużycie energii podczas precyzyjnych manewrów, takich jak dokowanie \cite{bib:VirgiliLlop2017}. W układach zintegrowanych z modułami wizyjnymi, skokowa praca napędów prowadzi do wibracji samej osi optycznej, co drastycznie degraduje jakość pozyskiwanego strumienia wideo i uniemożliwia stabilne śledzenie. Z tego powodu, w budowie układów celowniczych poszukuje się alternatyw na rzecz ciągłych algorytmów regulacji np. PID.
 
 \subsection{Wykorzystanie środowisk symulacyjnych w projektowaniu systemów wizyjnych}
 
-Ze względu na złożoność strojenia algorytmów regulacji, które są bezpośrednio sprzężone z analizą obrazu cyfrowego, nowoczesna metodyka inżynierska zakłada przeniesienie początkowej fazy testów do sfery wirtualnej. Jak udowadniają Virgili-Llop i in. (2017) na przykładzie algorytmów dokowania statków kosmicznych, eksperymentalna weryfikacja krytycznych systemów sterowania bezwzględnie wymaga stworzenia dedykowanych stanowisk testowych (ang. \textit{hardware-in-the-loop}) lub zaawansowanych symulacji przed wdrożeniem na docelowym obiekcie \cite{bib:VirgiliLlop2017}. 
+Ze względu na złożoność strojenia algorytmów regulacji, które są bezpośrednio sprzężone z analizą obrazu cyfrowego, nowoczesna metodyka inżynierska zakłada przeniesienie początkowej fazy testów do sfery wirtualnej. Jak udowadniają Virgili-Llop i in. (2017) na przykładzie algorytmów dokowania statków kosmicznych, eksperymentalna weryfikacja krytycznych systemów sterowania bezwzględnie wymaga stworzenia dedykowanych stanowisk testowych lub zaawansowanych symulacji przed wdrożeniem na docelowym obiekcie \cite{bib:VirgiliLlop2017}. 
 
-W robotyce naziemnej funkcję tę doskonale spełniają silniki fizyki. Clark (2005) z powodzeniem wykorzystał środowisko Gazebo do walidacji hybrydowych algorytmów sterowania mobilnymi robotami śledzącymi przed ich fizyczną implementacją \cite{bib:Clark2005}. Zastosowanie zaawansowanego środowiska wirtualnego pozwala na bezpieczne modelowanie charakterystyk sensorów wizyjnych oraz obserwację zachowania mechaniki układu w odpowiedzi na wyliczany uchyb. Co szczególnie istotne, praca w symulatorze umożliwia testowanie obiektu w skrajnych warunkach operacyjnych bez ryzyka sprzętowego uszkodzenia kosztownych podzespołów elektroniki oraz przekładni mechanicznych w wyniku oscylacji. To bezpieczne środowisko testowe tworzy idealny fundament do zaimplementowania zautomatyzowanego strojenia nastaw regulatora PID (\textit{auto-tuning}), co stanowi kluczowe założenie badawcze zrealizowane w niniejszej pracy.
+W robotyce naziemnej funkcję tę doskonale spełniają silniki fizyki. Clark (2005) z powodzeniem wykorzystał środowisko Gazebo do walidacji hybrydowych algorytmów sterowania mobilnymi robotami śledzącymi przed ich fizyczną implementacją \cite{bib:Clark2005}. Zastosowanie zaawansowanego środowiska wirtualnego pozwala na bezpieczne modelowanie charakterystyk sensorów wizyjnych oraz obserwację zachowania mechaniki układu w odpowiedzi na wyliczany uchyb. Co szczególnie istotne, praca w symulatorze umożliwia testowanie obiektu w skrajnych warunkach operacyjnych bez ryzyka sprzętowego uszkodzenia kosztownych podzespołów elektroniki oraz przekładni mechanicznych w wyniku oscylacji. To bezpieczne środowisko testowe tworzy idealny fundament do zaimplementowania zautomatyzowanego strojenia nastaw regulatora PID.
 
 \subsection{Właściwości kamer o matrycy z jednoczesną ekspozycją w systemach percepcji robotów}
 
-Współczesne systemy wizyjne dedykowane do analizy zjawisk dynamicznych, takich jak śledzenie obiektów balistycznych czy nawigacja bezzałogowych statków powietrznych, wymagają sensorów o specyficznej architekturze, zdolnych do eliminacji zniekształceń geometrycznych powstających podczas rejestracji ruchu. Podstawową cechą odróżniającą kamery z migawką globalną (ang. \textit{global shutter}) od rozwiązań standardowych jest sposób naświetlania matrycy. W technologii tej proces akumulacji ładunku elektrycznego rozpoczyna się i kończy w tym samym momencie dla wszystkich pikseli sensora, co pozwala na wierne zamrożenie ruchu bez artefaktów czasowych charakterystycznych dla migawki postępującej (ang. \textit{rolling shutter}).
+Aktualnie wykorzystywane systemy wizyjne dedykowane do analizy zjawisk dynamicznych wymagają sensorów o specyficznej architekturze, zdolnych do eliminacji zniekształceń geometrycznych powstających podczas rejestracji ruchu. Podstawową cechą odróżniającą kamery z migawką globalną (ang. \textit{global shutter}) od rozwiązań standardowych jest sposób naświetlania matrycy. W technologii tej proces akumulacji ładunku elektrycznego rozpoczyna się i kończy w tym samym momencie dla wszystkich pikseli sensora, co pozwala na wierne zamrożenie ruchu bez artefaktów czasowych charakterystycznych dla migawki postępującej (ang. \textit{rolling shutter}).
 
 Implementacja tego mechanizmu wiąże się jednak ze znacznym skomplikowaniem struktury półprzewodnikowej pojedynczego piksela. Jak wykazują badania przeprowadzone przez Lauxtermanna i współpracowników, standardowa architektura czterotranzystorowa, powszechnie stosowana w sensorach konsumenckich ze względu na wysoką czułość i niski poziom szumów, okazuje się niewystarczająca dla trybu migawki globalnej. Fizycznym ograniczeniem jest w tym przypadku konieczność jednoczesnego przechowywania ładunku ze wszystkich pikseli przed ich sekwencyjnym odczytem. Wymaga to rozbudowy układu o dodatkowe elementy pamięciowe wewnątrz każdego piksela, co prowadzi do zmniejszenia współczynnika wypełnienia i potencjalnego spadku czułości \cite{bib:LauxtermannGlobalShutter}.
 
 \subsection*{Analiza porównawcza i wpływ typu migawki na algorytmy sterowania}
 
 Analiza literatury przedmiotu wskazuje na istotny kompromis pomiędzy jakością odwzorowania ruchu a parametrami szumowymi i kosztem implementacji sensorów z migawką globalną. Lauxtermann, Lee, Stevens i Joshi dowodzą, że osiągnięcie wysokiej jakości obrazu w technologii \textit{Global Shutter} wymaga zastosowania zaawansowanych architektur, np. układów siedmiotranzystorowych z przypiętą fotodiodą, które pozwalają zredukować szum odczytu, lecz są podatne na zjawisko przecieku migawki. Z kolei Tandi i in. podkreślają, że mimo wyższych kosztów, sensory te stanowią niezbędne źródło referencyjne w systemach wymagających precyzji geometrycznej, której nie są w stanie zapewnić tańsze sensory z migawką postępującą bez skomplikowanego przetwarzania obliczeniowego \cite{bib:Tandi2025, bib:LauxtermannGlobalShutter}.
+
+\newpage
 
 Dobór sensora ma krytyczne znaczenie dla stabilności pętli sterowania opartej na wizji maszynowej, szczególnie w systemach wykorzystujących estymację stanu, takich jak filtr Kalmana. W początkowej fazie przetwarzania, opartej na segmentacji barwnej i wyznaczaniu centroidu obiektu (np. piłki), zniekształcenia geometryczne wprowadzane przez migawkę postępującą, powodują systematyczny błąd pomiaru pozycji, zależny od prędkości obiektu. Błąd ten, interpretowany przez predyktor Kalmana jako rzeczywista zmiana dynamiki ruchu, może prowadzić do oscylacji układu celującego i utraty śledzonego celu. Zastosowanie kamery \textit{Global Shutter} eliminuje ten problem u źródła, dostarczając pomiary zgodne z rzeczywistą geometrią sceny w danej chwili czasowej.
 
@@ -807,7 +728,7 @@ Wyniki badań jednoznacznie pokazały, że zastosowanie warstw absorbujących, t
 
 %%%%%%%%%%%%%%
 
-\subsection*{Charakterystyka zastosowanego lasera i efektywność obróbki CFRP}
+\subsection*{Charakterystyka lasera i efektywność obróbki CFRP}
 
 W badaniach zastosowano laser włóknowy domieszkowany iterbem (Yb-fiber laser) firmy Furukawa Electric o długości fali $\lambda = 1084$~nm \cite{bib:niino2016laser}. Źródło pracowało w trybie ciągłym oraz quasi-ciągłym, przy średniej mocy w zakresie $2{-}3$~kW oraz średnicy rdzenia światłowodu wynoszącej 50~$\mu$m. Wiązka była skupiana przy pomocy soczewki typu f-theta (ogniskowa $f=306$~mm) i prowadzona po powierzchni materiału przy użyciu skanera galwanometrycznego. W procesie cięcia zastosowano metodę wielokrotnych przejść, realizowanych w powietrzu bez gazu osłonowego, z prędkością skanowania $3.6$~m/s. Oznacza to, że pojedyncze przejście wiązki nad obszarem roboczym o długości kilkudziesięciu milimetrów trwało rząd dziesiątych części sekundy (np. dla ścieżki $L=36$~mm czas wynosi $t \approx 0.01$~s). Kluczowym parametrem procesu była zatem nie tyle długość pojedynczej ekspozycji, ile liczba powtórzeń, determinująca skumulowaną dawkę energii dostarczoną do materiału.
 
@@ -835,31 +756,31 @@ Wybór ten stanowi również fundament pod implementację docelowego układu kin
 
 Uzasadnienie doboru geometrii uzębienia znajduje również potwierdzenie w analizie dostępnych technologii wytwarzania. Dix i in. wskazują, że choć koła strzałkowe pozwalają na znaczną redukcję objętości przekładni przy zachowaniu zdolności do przenoszenia wysokich momentów obrotowych, ich konwencjonalna produkcja wiąże się z istotnymi ograniczeniami \cite{bib:Dix2023}. Tradycyjne metody ubytkowe, takie jak dłutowanie czy, wymuszają zazwyczaj zaprojektowanie technologicznego rowka pomiędzy lewą a prawą helisą uzębienia, niezbędnego dla wybiegu narzędzia skrawającego. Obecność tego rowka zwiększa całkowitą szerokość koła – często o 20--40\% względem szerokości czynnej – oraz może negatywnie wpływać na sztywność układu.
 
-W projektowanym systemie wieżyczki ograniczenie to wyeliminowano poprzez zastosowanie technologii przyrostowych. Metoda ta uwalnia projektanta od restrykcji wynikających z kinematyki narzędzia skrawającego, umożliwiając wytworzenie kół o zwartej budowie, bez rowka technologicznego, w których obie części uzębienia stykają się bezpośrednio. Takie podejście pozwala na pełną integrację zalet mechanicznych opisanych przez Dixa – tj. płynności pracy i redukcji drgań – z minimalizacją masy i gabarytów, co jest krytyczne dla dynamiki układu śledzącego ATP.
+W projektowanym systemie platformy obrotowej ograniczenie to wyeliminowano poprzez zastosowanie technologii przyrostowych. Metoda ta uwalnia projektanta od restrykcji wynikających z kinematyki narzędzia skrawającego, umożliwiając wytworzenie kół o zwartej budowie, bez rowka technologicznego, w których obie części uzębienia stykają się bezpośrednio. Takie podejście pozwala na pełną integrację zalet mechanicznych opisanych przez Dixa – tj. płynności pracy i redukcji drgań – z minimalizacją masy i gabarytów, co jest krytyczne dla dynamiki układu śledzącego ATP.
 
 
 \section{Synteza analizy i koncepcja autorska}
 
-Na podstawie przeprowadzonej analizy literatury oraz zidentyfikowanych ograniczeń technologicznych, sformułowano koncepcję dwuetapowego rozwoju systemu śledzenia ATP (ang. \textit{Acquisition, Tracking, and Pointing}). Analiza prac Seidaliyeva \cite{bib:Seidaliyeva2020} oraz Kemeshi \cite{bib:Kemeshi2024} wskazuje, że skuteczny system neutralizacji musi dynamicznie przełączać się między trybem detekcji na statycznym tle a trybem aktywnego śledzenia w ruchu. Oprócz wydajnej analizy obrazu, krytycznym elementem decydującym o precyzji celowania jest odpowiedni algorytm sterowania napędami, zdolny do kompensacji bezwładności całej platformy. Poniżej przedstawiono założenia dla etapu eksperymentalnego, będącego głównym przedmiotem badań niniejszej pracy, oraz koncepcję docelową skupiającą się na zwalczaniu bezzałogowych statków powietrznych.
+Na podstawie przeprowadzonej analizy literatury oraz zidentyfikowanych ograniczeń technologicznych, sformułowano koncepcję dwuetapowego rozwoju systemu śledzenia ATP. Analiza prac Seidaliyeva \cite{bib:Seidaliyeva2020} oraz Kemeshi \cite{bib:Kemeshi2024} wskazuje, że skuteczny system neutralizacji musi dynamicznie przełączać się między trybem detekcji na statycznym tle a trybem aktywnego śledzenia w ruchu. Oprócz wydajnej analizy obrazu, krytycznym elementem decydującym o precyzji celowania jest odpowiedni algorytm sterowania napędami, zdolny do kompensacji bezwładności całej platformy. Poniżej przedstawiono założenia dla etapu eksperymentalnego, będącego głównym przedmiotem badań niniejszej pracy, oraz koncepcję docelową skupiającą się na zwalczaniu bezzałogowych statków powietrznych.
 
 \subsection*{Etap 1: Demonstrator technologii i badanie algorytmów sterowania}
 
-W pierwszej fazie badań, stacjonarny system wieżyczki ma za zadanie wykryć, a następnie precyzyjnie śledzić obiekt poruszający się ruchem jednostajnym lub wahadłowym w kontrolowanych warunkach, utrzymując na nim wiązkę laserową o znikomej mocy 5~mW. W fazie oczekiwania konstrukcja pozostaje nieruchoma, co zapewnia spełnienie warunku statycznego tła. Pozwala to na zastosowanie wydajnego algorytmu detekcji ruchu opartego na mieszaninie rozkładów Gaussa (MOG2) \cite{bib:Seidaliyeva2020}. Eliminuje to konieczność ciągłego przetwarzania obrazu przez obciążające sieci neuronowe, co znacząco minimalizuje opóźnienia początkowe.
+W pierwszej fazie badań, stacjonarny system wieżyczki ma za zadanie wykryć, a następnie precyzyjnie śledzić obiekt poruszający się ruchem jednostajnym lub wahadłowym w kontrolowanych warunkach, utrzymując na nim wiązkę laserową o znikomej mocy 5~mW. W fazie oczekiwania konstrukcja pozostaje nieruchoma, co zapewnia spełnienie warunku statycznego tła. Pozwala to na zastosowanie wydajnego algorytmu detekcji ruchu opartego na mieszaninie rozkładów Gaussa \cite{bib:Seidaliyeva2020}. Eliminuje to konieczność ciągłego przetwarzania obrazu przez obciążające sieci neuronowe, co znacząco minimalizuje opóźnienia początkowe.
 
-Moment wykrycia ruchu stanowi sygnał wyzwalający przejście do fazy aktywnej. W tym momencie system uruchamia serwomechanizmy w celu utrzymania obiektu w centrum kadru i przełącza się na algorytm śledzenia obiektowego, wspierany predykcją filtra Kalmana, estymującego przyszłą pozycję celu \cite{bib:Li2025}. Zastosowanie kamery typu \textit{Global Shutter} pełni w tym procesie rolę pomocniczego zabiegu sprzętowego – eliminuje zniekształcenia geometryczne obiektu podczas szybkiego ruchu głowicy \cite{bib:Kemeshi2024}, co zapewnia stabilność danych wejściowych dla układu sterowania.
+Moment wykrycia ruchu stanowi sygnał wyzwalający przejście do fazy aktywnej. W tym momencie system uruchamia napęd w celu utrzymania obiektu w centrum kadru i przełącza się na algorytm śledzenia obiektowego, wspierany predykcją filtra Kalmana, estymującego przyszłą pozycję celu \cite{bib:Li2025}. Zastosowanie kamery typu \textit{Global Shutter} pełniłoby w tym procesie rolę pomocniczego zabiegu sprzętowego – eliminuje zniekształcenia geometryczne obiektu podczas szybkiego ruchu głowicy \cite{bib:Kemeshi2024}, co zapewnia stabilność danych wejściowych dla układu sterowania.
 
 Głównym problemem badawczym na tym etapie staje się mechaniczna odpowiedź systemu celowniczego na wyliczony z obrazu wektor uchybu. W ramach pracy sformułowano cel eksperymentalnego porównania dwóch odmiennych paradygmatów sterowania pozycją wieżyczki:
 \begin{enumerate}
-    \item \textbf{Płynnego regulatora proporcjonalno-różniczkującego (PD/PID)}, którego nastawy poddawane są początkowej optymalizacji w dedykowanym środowisku symulacyjnym Gazebo (\textit{auto-tuning}).
+    \item \textbf{Płynnego regulatora proporcjonalno-różniczkującego (PD)}, którego nastawy poddawane są początkowej optymalizacji w dedykowanym środowisku symulacyjnym Gazebo.
     \item \textbf{Skokowego regulatora trójstawnego (ang. \textit{Bang-Off-Bang})}, zdefiniowanego strefą nieczułości (\textit{deadband}) dla minimalnego akceptowalnego uchybu.
 \end{enumerate}
-Zbadanie i zestawienie ze sobą tych dwóch struktur ma na celu wykazanie uwarunkowań związanych ze stosowaniem sterowania nieciągłego w systemach nadążnych. Hipoteza badawcza zakłada, że w algorytmie \textit{Bang-Off-Bang} zbyt szeroka strefa nieczułości skutkuje wyraźnym uchybem ustalonym (brakiem pokrycia wiązki lasera z centrum obiektu), natomiast jej zawężenie prowadzi do agresywnych wibracji mechaniki (zjawisko \textit{chattering}), co w sposób ciągły degraduje proces śledzenia. Płynna regulacja sygnału sterującego ma docelowo ten problem wyeliminować.
+Zbadanie i zestawienie ze sobą tych dwóch struktur ma na celu wykazanie uwarunkowań związanych ze stosowaniem sterowania nieciągłego w systemach nadążnych. Hipoteza badawcza zakłada, że w algorytmie \textit{Bang-Off-Bang} zbyt szeroka strefa nieczułości skutkuje wyraźnym uchybem ustalonym (brakiem pokrycia wiązki lasera z centrum obiektu), natomiast jej zawężenie prowadzi do agresywnych wibracji mechaniki, co w sposób ciągły degraduje proces śledzenia. Płynna regulacja sygnału sterującego ma docelowo ten problem wyeliminować.
 
 \subsection*{Etap 2: Koncepcja docelowa systemu antydronowego}
 
 Docelowa aplikacja systemu zakłada adaptację opracowanych rozwiązań do zwalczania bezzałogowych statków powietrznych. W tym scenariuszu obiekt wykonuje gwałtowne, nieprzewidywalne manewry, co wymaga adaptacji zaimplementowanych modeli predykcyjnych. Dodatkowo, docelowa konstrukcja mechaniczna w układzie "T" (kamera i laser rozdzielone osiowo) wprowadza zagadnienie błędu paralaksy, który musi być kompensowany programowo w zależności od dystansu do celu.
 
-Istotnym wyzwaniem pozostaje strategia przeszukiwania przestrzeni powietrznej. Ciągły ruch skanujący wieżyczki wyklucza stosowanie prostych metod detekcji wizyjnej ze względu na wysoką dynamikę i zmienność tła. Jako rozwiązanie rozwojowe proponuje się implementację strategii "skok i patrz" (ang. \textit{step-and-stare}) lub integrację platformy z zewnętrznym systemem wczesnego wykrywania (np. radar, kierunkowy detektor akustyczny). W takiej konfiguracji sensor nadrzędny wstępnie obraca wieżyczkę w odpowiedni sektor, a system wizyjny przejmuje cel dopiero po mechanicznym ustabilizowaniu napędów, wykorzystując sprawdzoną w Etapie 1 kaskadę: szybką detekcję na zamrożonym tle, a następnie przejście w tryb ciągłego śledzenia \cite{bib:Seidaliyeva2020, bib:Kemeshi2024}.
+Istotnym wyzwaniem pozostaje strategia przeszukiwania przestrzeni powietrznej. Ciągły ruch skanujący wieżyczki wyklucza stosowanie prostych metod detekcji wizyjnej ze względu na wysoką dynamikę i zmienność tła. Jako rozwiązanie rozwojowe proponuje się implementację strategii "skok i patrz" lub integrację platformy z zewnętrznym systemem wczesnego wykrywania (np. radar, kierunkowy detektor akustyczny). W takiej konfiguracji sensor nadrzędny wstępnie obraca wieżyczkę w odpowiedni sektor, a system wizyjny przejmuje cel dopiero po mechanicznym ustabilizowaniu napędów, wykorzystując sprawdzoną w Etapie 1 kaskadę: szybką detekcję na zamrożonym tle, a następnie przejście w tryb ciągłego śledzenia \cite{bib:Seidaliyeva2020, bib:Kemeshi2024}.
 
 
 
@@ -908,21 +829,18 @@ Istotnym wyzwaniem pozostaje strategia przeszukiwania przestrzeni powietrznej. C
 
 \section{Projekt mechaniczny platformy nadążnej}
 
-Faza projektowania mechanicznego stanowiła krytyczny etap w budowie demonstratora, determinujący późniejsze możliwości algorytmów sterowania i wizji komputerowej. Zasadniczym celem tego procesu była translacja założeń funkcjonalnych – takich jak zdolność do ciągłego śledzenia obiektu oraz integracja bogatego zaplecza elektronicznego – na stabilną i precyzyjną fizyczną konstrukcję. 
+Celem procesu projektowania mechanicznego było założenie polegające na integracji cech systemu nadążnego czyli zdolności do śledzenia obiektu z wytrzymałą konstrukcją.
 
-Z uwagi na powszechnie przyjętą nomenklaturę w dziedzinie robotyki mobilnej oraz systemów wizyjnych, w niniejszej pracy wprowadzono ujednolicone nazewnictwo osi kinematycznych głowicy. Oś napędowa odpowiadająca za ruch w płaszczyźnie horyzontalnej (obrót wzdłuż osi pionowej, z ang. \textit{panning}) określona została mianem osi \textbf{PAN}. Z kolei oś realizująca ruch w płaszczyźnie wertykalnej (podnoszenie i opuszczanie głowicy optycznej, z ang. \textit{tilting}) zdefiniowana została jako oś \textbf{TILT}. W celu zachowania zwięzłości tekstu oraz spójności z anglojęzyczną literaturą branżową, autor w dalszej części dysertacji będzie posługiwał się wyłącznie tymi skrótowymi terminami.
-
-W poniższej sekcji przedstawiono tok rozumowania inżynierskiego, począwszy od wyboru koncepcji kinematycznej i optymalizacji architektury modułowej, przez modelowanie przestrzenne detali, aż po analityczny dobór układu napędowego opartego na bezluzowych przekładniach zębatych.
+Z uwagi na powszechnie przyjętą nomenklaturę w dziedzinie robotyki, w niniejszej pracy wprowadzono ujednolicone nazewnictwo osi kinematycznych głowicy. Oś napędowa odpowiadająca za ruch w płaszczyźnie horyzontalnej (z ang. \textit{panning}) określona została mianem osi \textbf{PAN}. Z kolei oś realizująca ruch w płaszczyźnie wertykalnej (z ang. \textit{tilting}) zdefiniowana została jako oś \textbf{TILT}. W celu zachowania zwięzłości tekstu oraz spójności z anglojęzyczną literaturą branżową, autor w dalszej części pracy będzie posługiwał się wyłącznie tymi skrótowymi terminami.
 
 \subsection{Założenia projektowe i koncepcja kinematyczna}
 
-Proces syntezy układu mechanicznego demonstratora poprzedzono szczegółową analizą dostępnych rozwiązań komercyjnych oraz otwartych projektów inżynierskich (ang. \textit{open-source}), udokumentowanych w literaturze oraz materiałach audiowizualnych. Szczególną uwagę zwrócono na zrobotyzowane głowice kinematograficzne, stosowane na planach zdjęciowych do płynnego i wysoce precyzyjnego pozycjonowania sprzętu optycznego \cite{Miejsce_na_cytowanie_np_z_Google_Scholar}. Główne wymagania stawiane projektowanej konstrukcji obejmowały minimalizację drgań przenoszonych na układ optyczny kamery, eliminację luzów mechanicznych oraz zdolność do szybkiej reorientacji układu w przestrzeni.
+Proces syntezy układu mechanicznego demonstratora poprzedzono szczegółową analizą dostępnych rozwiązań komercyjnych oraz otwartych projektów inżynierskich, udokumentowanych w literaturze oraz materiałach audiowizualnych. Szczególną uwagę zwrócono na zrobotyzowane głowice kinematograficzne, stosowane na planach zdjęciowych do płynnego i wysoce precyzyjnego pozycjonowania sprzętu optycznego, a także na otwarte projekty zmotoryzowanych platform typu \textit{pan-tilt} wykonywanych m.in. w technologii druku 3D \cite{bib:isaac879_pantilt}. Główne wymagania stawiane projektowanej konstrukcji obejmowały minimalizację drgań przenoszonych na układ optyczny kamery, eliminację luzów mechanicznych oraz zdolność do szybkiej reorientacji układu w przestrzeni.
 
-Większość konwencjonalnych konstrukcji amatorskich zakłada umieszczenie całej logiki sterującej oraz zasilania w stałej, płaskiej podstawie urządzenia. W klasycznych aplikacjach jest to uzasadnione, ponieważ ruchoma głowica przenosi na ogół jedynie prosty układ optyczny, niewymagający skomplikowanego okablowania. W przypadku projektowanego demonstratora uwarunkowania sprzętowe były jednak odmienne. Ze względu na minimalizm gabarytowy zastosowanej kamery, przy jednoczesnej dużej złożoności i liczbie wymaganych komponentów (mikrokomputer Raspberry Pi, mikrokontroler ESP32, emiter lasera, moduły zasilania oraz sterowniki silników), klasyczne podejście skutkowałoby koniecznością poprowadzenia grubej i podatnej na uszkodzenia mechaniczne wiązki sygnałowej przez obrotowy przegub osi PAN.
+\newpage
 
-Dlatego w niniejszej pracy zdecydowano się na zoptymalizowaną, odwróconą architekturę systemową. Cała elektronika obliczeniowa i wykonawcza została zintegrowana bezpośrednio wewnątrz ruchomej, hemisferycznej głowicy (Rys. \ref{fig:rozmieszczenie_komponentow}). Taki zabieg zredukował do absolutnego minimum liczbę przewodów pracujących na zginanie i skręcanie – do wnętrza kopuły wprowadzono jedynie niezbędne okablowanie od zewnętrznie zamontowanych silników krokowych. Taka topologia, w odróżnieniu od napędów współosiowych wbudowanych w jarzmo, pozwala na ułatwione odprowadzanie ciepła z korpusów silników, zapewnia łatwy dostęp serwisowy oraz umożliwia bezinwazyjną wymianę przełożeń zębatych w fazie prototypowania.
-
-
+Większość konwencjonalnych konstrukcji amatorskich zakłada umieszczenie całej logiki sterującej oraz zasilania w stałej, płaskiej podstawie urządzenia. W podstawowyh aplikacjach jest to uzasadnione, ponieważ ruchoma głowica przenosi na ogół jedynie prosty układ optyczny, niewymagający skomplikowanego okablowania. W przypadku projektowanego demonstratora uwarunkowania sprzętowe były jednak odmienne. Ze względu na minimalizm gabarytowy zastosowanej kamery, przy jednoczesnej dużej złożoności i liczbie wymaganych komponentów (takich jak platforma komputerowa Raspberry Pi, mikrokontroler ESP32, emiter lasera, moduły zasilania oraz sterowniki silników), klasyczne podejście skutkowałoby koniecznością poprowadzenia grubej i podatnej na uszkodzenia mechaniczne wiązki sygnałowej przez obrotowy przegub osi PAN.
+Dlatego w niniejszej pracy zdecydowano się na zoptymalizowaną, odwróconą architekturę systemową. Cała elektronika obliczeniowa i wykonawcza została zintegrowana bezpośrednio wewnątrz ruchomej, hemisferycznej głowicy (Rys. \ref{fig:rozmieszczenie_komponentow}). Taki zabieg zredukował do absolutnego minimum liczbę przewodów ppodatnych na zginanie i skręcanie. Do wnętrza kopuły wprowadzono jedynie niezbędne okablowanie od zewnętrznie zamontowanych silników krokowych. Taka topologia, w odróżnieniu od napędów współosiowych, pozwala na ułatwione odprowadzanie ciepła z korpusów silników, zapewnia łatwy dostęp serwisowy.
 
 \begin{figure}[H]
     \centering
@@ -935,12 +853,12 @@ Aby zapewnić stabilność tak obciążonej konstrukcji głowicy i zapobiec jej 
 
 Z punktu widzenia kinematyki i procesu montażowego, cały demonstrator został podzielony na trzy współpracujące ze sobą główne moduły mechaniczne:
 \begin{itemize}
-    \item \textbf{Moduł I: Stacjonarna podstawa bazowa} -- element gwarantujący stabilne osadzenie na podłożu. Ma postać płyty nośnej, w której zintegrowano centralny otwór montażowy pozycjonujący zewnętrzną bieżnię głównego łożyska (Rys. \ref{fig:przekladnia_pan}). Podstawa została wyposażona w nieruchomy wieniec zębaty o zębach daszkowych, z którym współpracuje zębnik układu napędowego osi PAN.
+    \item \textbf{Moduł I: Stacjonarna podstawa} -- element gwarantujący stabilne osadzenie na podłożu. Ma postać płyty nośnej, w której zintegrowano centralny otwór montażowy pozycjonujący zewnętrzną bieżnię głównego łożyska (Rys. \ref{fig:przekladnia_pan}). Podstawa została wyposażona w nieruchomy wieniec zębaty o zębach daszkowych, z którym współpracuje zębnik układu napędowego osi PAN.
     \item \textbf{Moduł II: Ruchoma platforma nośna} -- element precyzyjnie spasowany z wewnętrzną średnicą łożyska, co zapewnia płynny obrót względem stacjonarnej podstawy (Rys. \ref{fig:jarzmo}). Z jego rdzenia wyprowadzono ramiona pionowe, na których zamontowano silniki krokowe. Silnik osi PAN współpracuje z wieńcem bazy, natomiast silnik osi TILT odpowiada za podnoszenie głowicy optycznej.
-    \item \textbf{Moduł III: Głowica optyczno-elektroniczna} -- ruchoma czasza wyposażona we własną zębatkę napędową w płaszczyźnie TILT (Rys. \ref{fig:kopula_calosc}). Stanowi centrum sterowania układem. We wnętrzu zaprojektowano dedykowane punkty montażowe pod obwody drukowane, a w samej obudowie przewidziano precyzyjne otwory przepustowe na okablowanie silników. Moduł uzupełniono o zintegrowany przełącznik bistabilny do natychmiastowego odcinania zasilania aparatury w warunkach testowych.
+    \item \textbf{Moduł III: Głowica optyczno-elektroniczna} -- ruchoma czasza wyposażona we własną zębatkę napędową w płaszczyźnie TILT (Rys. \ref{fig:kopula_calosc}). Stanowi centrum sterowania układem. We wnętrzu zaprojektowano punkty montażowe pod obwody drukowane i moduły kamery oraz lasera, a w samej obudowie przewidziano otwory przepustowe na okablowanie silników. Moduł uzupełniono o zintegrowany przełącznik bistabilny do natychmiastowego odcinania zasilania aparatury w warunkach testowych.
 \end{itemize}
 
-\begin{figure}
+\begin{figure}[h]
     \centering
     \begin{minipage}{0.48\textwidth}
         \centering
@@ -956,9 +874,10 @@ Z punktu widzenia kinematyki i procesu montażowego, cały demonstrator został 
     \end{minipage}
 \end{figure}
 
-\subsection{Modelowanie przestrzenne i rozkład mas}
+\newpage
+\subsection{Modelowanie przestrzenne}
 
-Wszystkie elementy mechaniczne demonstratora zostały zamodelowane z wykorzystaniem środowiska projektowego CAD 3D (Rys. \ref{fig:zlozenie_boczne} oraz \ref{fig:zlozenie_tyl}). Cyfrowe odwzorowanie konstrukcji pozwoliło na wczesną detekcję kolizji, odpowiednie tolerowanie otworów pod wały napędowe oraz weryfikację całkowitej przestrzeni roboczej robota.
+Wszystkie elementy mechaniczne demonstratora zostały zamodelowane z wykorzystaniem środowiska projektowego CAD 3D (Rys. \ref{fig:zlozenie_boczne} oraz \ref{fig:zlozenie_tyl}). Cyfrowe odwzorowanie konstrukcji pozwoliło na weryfikację całkowitej przestrzeni roboczej demonstratora.
 
 \begin{figure}[H]
     \centering
@@ -976,40 +895,44 @@ Wszystkie elementy mechaniczne demonstratora zostały zamodelowane z wykorzystan
     \end{minipage}
 \end{figure}
 
+\newpage
+
 Szczególny nacisk podczas projektowania położono na optymalizację rozkładu mas. Zastosowanie dwuramiennego jarzma wsporczego (Moduł II) znacząco zwiększyło sztywność skrętną osi poziomej, zapobiegając ugięciom sprężystym, które dyskwalifikowałyby pomiary dokonywane przez algorytm wizyjny. Ponadto, półki i punkty mocowania wewnętrznej elektroniki oraz kamery z laserem w Module III (Rys. \ref{fig:kopula_przekroj}) dobrano tak, aby środek masy całej kopuły pokrywał się z fizyczną osią obrotu wału TILT. Zbalansowanie układu drastycznie zminimalizowało statyczny moment gnący, co pozwoliło ograniczyć prąd trzymania silników krokowych i zredukować generowanie ciepła.
 
-\begin{figure}[H]
+\begin{figure}[h]
     \centering
     \includegraphics[width=0.6\textwidth]{./Obrazy/Inventor/kopula bok.png}
-    \caption{Przekrój czaszy głowicy uwidaczniający wewnętrzne półki montażowe, zaprojektowane w celu optymalnego rozkładu mas i wyważenia układu.}
+    \caption{Przekrój czaszy głowicy uwidaczniający wewnętrzne półki montażowe, zaprojektowane w celu  wyważenia układu.}
     \label{fig:kopula_przekroj}
 \end{figure}
 
+\newpage
 \subsection{Analiza układu napędowego i przekładni zębatej}
 
-Osiągnięcie odpowiedniej rozdzielczości ruchowej i płynności śledzenia w układach nadążnych wymaga starannego doboru przełożeń redukcyjnych. Zastosowanie tradycyjnych kół zębatych o zębach prostych zostało na wczesnym etapie odrzucone ze względu na nieodłączne zjawisko luzu międzyzębnego. Aby spełnić rygorystyczne wymagania układu celowania, w projekcie wdrożono przekładnie o zębach daszkowych (Rys. \ref{fig:przekladnia_pan}).
+Zastosowanie tradycyjnych kół zębatych o zębach prostych zostało na wczesnym etapie odrzucone ze względu na nieodłączne zjawisko luzu międzyzębnego. Aby spełnić rygorystyczne wymagania układu celowania, w projekcie wdrożono przekładnie o zębach daszkowych (Rys. \ref{fig:przekladnia_pan}).
 
 \begin{figure}[H]
     \centering
     \includegraphics[width=0.6\textwidth]{./Obrazy/Inventor/przekladnia lozysko.png}
-    \caption{Model przekładni o zębach daszkowych osi PAN współpracującej ze stacjonarnym wieńcem bazowym.}
+    \caption{Model przekładni o zębach daszkowych osi PAN oraz TILT.}
     \label{fig:przekladnia_pan}
 \end{figure}
 
-Pochylenie linii zęba w dwóch przeciwnych kierunkach powoduje wzajemne znoszenie się sił osiowych, co chroni łożyska silników NEMA przed przedwczesnym zużyciem. Co ważniejsze dla zastosowań robotycznych, zarys daszkowy charakteryzuje się samoosiowaniem współpracujących kół oraz dopuszcza ciaśniejsze spasowanie profilu. Pozwala to na mechaniczną eliminację luzu zwrotnego, zapobiegając szarpaniu i klatkowaniu obrazu przy szybkich zmianach kierunku śledzenia przez mikrokontroler sterujący.
+Pochylenie linii zęba w dwóch przeciwnych kierunkach powoduje wzajemne znoszenie się sił osiowych, co chroni łożyska silników krokowych przed przedwczesnym zużyciem. Co ważniejsze dla zastosowań robotycznych, zarys daszkowy charakteryzuje się samoosiowaniem współpracujących kół oraz dopuszcza ciaśniejsze spasowanie profilu. Pozwala to na mechaniczną eliminację luzu zwrotnego, zapobiegając szarpaniu i klatkowaniu obrazu przy szybkich zmianach kierunku śledzenia przez mikrokontroler sterujący.
 
 Układ kinematyczny celowo zróżnicowano pod względem redukcji kątowej. Całkowite przełożenie mechaniczne $i$ określa się stosunkiem liczby zębów koła napędzanego $z_2$ do koła napędzającego $z_1$:
 \begin{equation}
     i = \frac{z_2}{z_1}
 \end{equation}
 
-Dla głównej osi obrotu (PAN), obciążonej znaczną bezwładnością obrotową Modułu II i III, zaprojektowano przekładnię o przełożeniu $i_{PAN} = 5.25$ ($z_1 = \text{20}$, $z_2 = \text{105}$). Wysoka redukcja gwarantuje wymagany moment obrotowy do dynamicznego przyspieszania i hamowania struktury. Z kolei dla osi podnoszenia (TILT), która operuje zbalansowaną masowo głowicą, zastosowano łagodniejsze przełożenie $i_{TILT} = 1.60$ ($z_3 = \text{24}$, $z_4 = \text{38}$), co kompensuje fizyczną prędkość nadążania w pionie.
+Dla głównej osi obrotu (PAN), obciążonej znaczną bezwładnością obrotową Modułu II i III, zaprojektowano przekładnię o przełożeniu $i_{PAN} = 5.25$ ($z_1 = \text{20}$, $z_2 = \text{105}$). Z kolei dla osi podnoszenia (TILT), która operuje zbalansowaną masowo głowicą, zastosowano łagodniejsze przełożenie $i_{TILT} = 1.60$ ($z_3 = \text{24}$, $z_4 = \text{38}$).
 
+\newpage
 Zaimplementowane przełożenia bezpośrednio determinują fizyczną rozdzielczość kątową systemu $\Delta\theta$. Dla użytych napędów krokowych o podstawowym skoku wynoszącym $1.8^\circ$, rozdzielczość na wale wyjściowym wyraża się zależnością:
 \begin{equation}
     \Delta\theta = \frac{1.8^\circ}{i \cdot \mu}
 \end{equation}
-gdzie $\mu$ oznacza zaimplementowany mnożnik podziału mikrokroku. Odpowiednie zwiększenie przełożenia redukcyjnego było niezbędne do utworzenia sprzętowego filtru dolnoprzepustowego, zdolnego do wygładzenia mikroskoków silnika i redukcji hałasu mechanicznego wywoływanego przez drobne oscylacje algorytmu śledzącego punkt docelowy. Zintegrowanie opisanego układu przeniesienia napędu z pozostałymi elementami konstrukcyjnymi pozwoliło na finalny montaż platformy. Gotowy, fizyczny model demonstratora zaprezentowano na Rysunku \ref{fig:gotowy_model}.
+gdzie $\mu$ oznacza zaimplementowany mnożnik podziału mikrokroku. Odpowiednie zwiększenie przełożenia redukcyjnego było niezbędne do utworzenia sprzętowego filtru dolnoprzepustowego, zdolnego do wygładzenia mikroskoków silnika i redukcji hałasu mechanicznego wywoływanego przez drobne oscylacje algorytmu śledzącego punkt docelowy. Gotowy, fizyczny model demonstratora zaprezentowano na Rysunku \ref{fig:gotowy_model}.
 
 \begin{figure}[H]
     \centering
@@ -1020,27 +943,27 @@ gdzie $\mu$ oznacza zaimplementowany mnożnik podziału mikrokroku. Odpowiednie 
 
 \section{Architektura sprzętowa i integracja elektroniczna}
 
-Działanie zaprojektowanego układu mechanicznego wymagało implementacji odpowiednio dobranej warstwy elektronicznej. Ze względu na architekturę systemu, obejmującą ciągłą akwizycję strumienia wideo, przetwarzanie obrazu oraz precyzyjne sterowanie napędami, przyjęto rozproszoną architekturę sprzętową. W poniższej sekcji omówiono dobór kluczowych komponentów, strukturę zasilania zapobiegającą propagacji zakłóceń elektromagnetycznych oraz fizyczne interfejsy wymiany danych.
+Działanie zaprojektowanego układu mechanicznego wymagało implementacji odpowiednio dobranej warstwy elektronicznej. Ze względu na architekturę systemu, obejmującą ciągłą akwizycję strumienia wideo, przetwarzanie obrazu oraz precyzyjne sterowanie napędami, przyjęto rozproszoną architekturę sprzętową. W poniższej sekcji omówiono dobór komponentów, strukturę zasilania oraz fizyczne interfejsy wymiany danych.
 
 \subsection{Dobór głównych komponentów systemu}
 
 W architekturze systemu wyodrębniono dwa główne poziomy sterowania zlokalizowane bezpośrednio w głowicy: nadrzędny oraz wykonawczy. 
 
-Funkcję pokładowej jednostki nadrzędnej powierzono mikrokomputerowi \textbf{Raspberry Pi 4B} wyposażonemu w 8 GB pamięci RAM. Wybór tej platformy podyktowany był koniecznością uruchomienia bazowego systemu operacyjnego Raspberry Pi OS (opartego na dystrybucji Debian) oraz bezpośredniego wykonywania skryptów sterujących i komunikacyjnych. Duża pojemność pamięci operacyjnej jest istotna dla bezstratnej obsługi strumieni wideo oraz płynnego działania algorytmów detekcji wizyjnej zaimplementowanych z wykorzystaniem biblioteki OpenCV. 
+Jako jednostkę nadrzędną wykorzystano mikrokomputer \textbf{Raspberry Pi 4B} wyposażonemu w 8 GB pamięci RAM. Wybór tej platformy podyktowany był koniecznością budżetowego rozwiązania systemu wizyjnego oraz bezpośredniego wykonywania skryptów sterujących i komunikacyjnych. Duża pojemność pamięci operacyjnej jest istotna dla bezstratnej obsługi strumieni wideo oraz płynnego działania algorytmów detekcji wizyjnej zaimplementowanych z wykorzystaniem biblioteki OpenCV. 
 
-Do akwizycji obrazu wykorzystano dedykowany moduł wizyjny \textbf{[Wpisz model kamery, np. Raspberry Pi Camera Module 2/3]}, który został podłączony do mikrokomputera z wykorzystaniem sprzętowego interfejsu szeregowego MIPI CSI (ang. \textit{Camera Serial Interface}) za pomocą elastycznej taśmy sygnałowej FFC. Zastosowanie tego interfejsu, w przeciwieństwie do kamer podłączanych przez port USB, znacząco zmniejsza obciążenie procesora oraz redukuje opóźnienia w przesyłaniu klatek obrazu do pamięci operacyjnej.
+Do akwizycji obrazu wykorzystano dedykowany moduł wizyjny \textbf{Raspberry Pi Camera Module 3}, który został podłączony do mikrokomputera z wykorzystaniem sprzętowego interfejsu szeregowego MIPI CSI (ang. \textit{Camera Serial Interface}) za pomocą elastycznej taśmy sygnałowej FFC. Zastosowanie tego interfejsu, w przeciwieństwie do kamer podłączanych przez port USB, znacząco zmniejsza obciążenie procesora oraz redukuje opóźnienia w przesyłaniu klatek obrazu do pamięci operacyjnej.
 
-System operacyjny Raspberry Pi OS, jako system z podziałem czasu, nie gwarantuje determinizmu czasowego, co dyskwalifikuje go z bezpośredniego generowania precyzyjnych sygnałów \textit{krok/kierunek} dla sterowników silników. Z tego powodu w warstwie wykonawczej zaimplementowano platformę deweloperską \textbf{ESP32 DevKitC-32E V4} (bazującą na module ESP-WROOM-32E z łącznością Wi-Fi oraz Bluetooth 4.2). Zadaniem mikrokontrolera jest odbiór wyliczonych wartości uchybu oraz sprzętowe, rygorystyczne czasowo taktowanie impulsów sterujących mechaniką.
+System operacyjny Raspberry Pi OS, jako system z podziałem czasu, nie gwarantuje determinizmu czasowego, co dyskwalifikuje go z bezpośredniego generowania precyzyjnych sygnałów dla sterowników silników. Z tego powodu w warstwie wykonawczej zaimplementowano platformę deweloperską \textbf{ESP32 DevKitC-32E V4} (bazującą na module ESP-WROOM-32E z łącznością Wi-Fi oraz Bluetooth 4.2). Zadaniem mikrokontrolera jest odbiór wyliczonych wartości uchybu oraz sprzętowe, rygorystyczne czasowo taktowanie impulsów sterujących mechaniką.
 
-Do napędu osi PAN i TILT wykorzystano silniki krokowe w standardzie \textbf{NEMA 17}. Charakteryzują się one krokiem podstawowym wynoszącym $1.8^\circ$, co w połączeniu ze sprzętową redukcją przez przekładnie strzałkowe zapewnia wysoką rozdzielczość pozycjonowania. Wysterowanie silników realizowane jest przez zaawansowane sterowniki \textbf{Pololu 36v4 (High-Power Stepper Motor Driver 3730)}. Moduły te tolerują napięcie zasilania do 50 V i prąd ciągły na poziomie 4 A (do 6 A przy zastosowaniu chłodzenia), co daje duży margines bezpieczeństwa termicznego i chroni elektronikę przed uszkodzeniem podczas ciągłego panoramowania z obciążeniem statycznym.
+Do napędu osi PAN i TILT wykorzystano silniki krokowe w standardzie \textbf{NEMA 17}. Charakteryzują się one krokiem podstawowym wynoszącym $1.8^\circ$, co w połączeniu ze sprzętową redukcją przez przekładnie strzałkowe zapewnia wysoką rozdzielczość pozycjonowania. Wysterowanie silników realizowane jest przez zaawansowane sterowniki \textbf{Pololu 36v4 (High-Power Stepper Motor Driver 3730)}. Moduły te tolerują napięcie zasilania do 50 V i prąd ciągły na poziomie 4 A.
 
-System celowniczy oparto na wymiennych, niskomocowych modułach diod laserowych o mocy $5\text{ mW}$, zasilanych napięciem $5\text{ V}$ i emitujących wiązkę o długości fali $650\text{ nm}$ (pasmo widzialne, kolor czerwony). Zaprojektowany mechanizm mocowania umożliwia szybką wymianę głowic wyposażonych w różne soczewki kolimacyjne (generujące plamkę punktową lub krzyż). Pozwala to na weryfikację precyzji działania algorytmów śledzących punkt padania wiązki.
+System celowniczy oparto na wymiennych, niskomocowych modułach diod laserowych o mocy $5\text{ mW}$, zasilanych napięciem $5\text{ V}$ i emitujących wiązkę o długości fali $650\text{ nm}$. Zaprojektowany mechanizm mocowania umożliwia szybką wymianę głowic wyposażonych w różne soczewki kolimacyjne (generujące plamkę punktową lub krzyż). Pozwala to na weryfikację precyzji działania algorytmów śledzących punkt padania wiązki.
 
 \subsection{Topologia zasilania i separacja obwodów}
 
-Kluczowym wyzwaniem przy projektowaniu mechatronicznych systemów śledzących jest odizolowanie wrażliwej elektroniki logicznej od zakłóceń elektromagnetycznych (EMI) wprowadzanych przez obciążenia indukcyjne, jakimi są silniki krokowe. Chwilowe spadki napięcia lub przepięcia wsteczne mogłyby prowadzić do niestabilności jednostki nadrzędnej. Aby temu zapobiec, zaimplementowano gwiaździstą topologię dystrybucji energii z jednego, głównego źródła.
+Kluczowym wyzwaniem przy projektowaniu mechatronicznych systemów śledzących jest odizolowanie wrażliwej elektroniki logicznej od zakłóceń elektromagnetycznych wprowadzanych przez obciążenia indukcyjne, jakimi są silniki krokowe. Chwilowe spadki napięcia lub przepięcia wsteczne mogłyby prowadzić do niestabilności jednostki nadrzędnej. Aby temu zapobiec, zaimplementowano gwiaździstą topologię dystrybucji energii z jednego, głównego źródła.
 
-Schemat sekcji zasilania (Rys. \ref{fig:schemat_zasilania}) opiera się na pakiecie czterech ogniw litowo-jonowych w układzie 4S (Li-Po 4S), dostarczającym nominalne napięcie na poziomie około 14.8~V (oznaczone jako główna szyna \texttt{+16V\_BATT}). Z głównego węzła zasilającego wyprowadzono trzy niezależne gałęzie zasilania:
+Schemat sekcji zasilania (Rys. \ref{fig:schemat_zasilania}) opiera się na pakiecie czterech ogniw litowo-jonowych w układzie 4S (Li-Po 4S), dostarczającym nominlne napięcie na poziomie około 14.8~V (oznaczone jako główna szyna \texttt{+16V\_BATT}). Z głównego węzła zasilającego wyprowadzono trzy niezależne gałęzie zasilania:
 
 \begin{enumerate}
     \item \textbf{Szyna wysokoprądowa napędów (\texttt{+16V\_BATT}):} Napięcie z pakietu ogniw poprowadzono bezpośrednio do złączy zasilających (VIN) sterowniki silników. Zastosowanie relatywnie wysokiego napięcia wejściowego znacząco poprawia dynamikę narastania prądu w cewkach, co pozwala na osiąganie większych prędkości obrotowych osi PAN i TILT bez utraty momentu trzymającego.
@@ -1245,7 +1168,7 @@ Za wprawianie symulowanych członów konstrukcyjnych w ruch odpowiada wtyczka ko
   </gazebo>
 \end{lstlisting}
 
-Integralną częścią całego środowiska symulacyjnego jest zamknięty wirtualny świat, w którym wieżyczka przeprowadza proces śledzenia (Rys. \ref{fig:gazebo_sim}). Środowisko to zostało zdefiniowane w pliku \texttt{target\_world.sdf} i korzysta z silnika fizyki ODE (ang. Open Dynamics Engine). Oprócz podstawowych uwarunkowań takich jak grawitacja, oświetlenie kierunkowe czy płaszczyzna podłoża, wykreowano w nim dynamiczny obiekt referencyjny, nazywany kulką treningową. Obiekt ten powołano jako encję typu \texttt{actor}, co pozwala na jego przemieszczanie się w sposób deterministyczny, z pominięciem obciążeń wynikających z przeliczania rozbudowanej fizyki zderzeń. 
+Integralną częścią całego środowiska symulacyjnego jest zamknięty wirtualny świat, w którym głowica nadążna przeprowadza proces śledzenia (Rys. \ref{fig:gazebo_sim}). Środowisko to zostało zdefiniowane w pliku \texttt{target\_world.sdf} i korzysta z silnika fizyki ODE (ang. Open Dynamics Engine). Oprócz podstawowych uwarunkowań takich jak grawitacja, oświetlenie kierunkowe czy płaszczyzna podłoża, wykreowano w nim dynamiczny obiekt referencyjny, nazywany kulką treningową. Obiekt ten powołano jako encję typu \texttt{actor}, co pozwala na jego przemieszczanie się w sposób deterministyczny, z pominięciem obciążeń wynikających z przeliczania rozbudowanej fizyki zderzeń. 
 
 \begin{figure}[H]
     \centering
@@ -1369,7 +1292,18 @@ W trybie automatycznym (AUTO) skrypt \texttt{tracker.py} na Raspberry Pi zachowu
 
 W momencie aktywacji trybu ręcznego (MANUAL) za pomocą komendy sieciowej wysyłanej na topologii ZeroMQ, kaskada algorytmów wizyjnych na Raspberry Pi zostaje programowo zmostkowana. Aplikacja nadrzędna przejmuje bezpośrednią kontrolę nad pozycjonowaniem wieżyczki, wysyłając jawne, absolutne współrzędne kątowe wprowadzone przez operatora w polach tekstowych interfejsu. Współrzędne te, po odebraniu przez mikrokomputer, są natychmiastowo przekierowywane na interfejs szeregowy UART do mikrokontrolera ESP32, co pozwala na zdalne, manualne testowanie limitów mechanicznych konstrukcji oraz pozycjonowanie wiązki lasera celowniczego bez udziału algorytmów OpenCV. 
 
+\begin{figure}[H]
+    \centering
+    \includegraphics[width=0.8\textwidth]{./Obrazy/Gazebo/Good_2.png}
+    \caption{Wizualizacja interfejsu GUI. Od góry odebrana klatka obrazu z nałożonymi znacznikami obszaru śledzenia (zielona ramka) oraz środka ciężkości (czerwony krzyżyk). Po prawej stronie widoczna jest maska binarna, która służy do kalibracji warunków oświetleniowych.}
+    \label{fig:GUI_1}
+\end{figure}
+
 Uzupełnieniem tak zaprojektowanego środowiska diagnostycznego jest moduł rejestracji telemetrycznej. Sterowany bezpośrednio z poziomu dedykowanego przycisku w GUI, wysyła komendy inicjujące oraz kończące sekwencję zapisu danych do pliku o rozszerzeniu CSV. Umożliwia to precyzyjne wyizolowanie i utrwalenie przebiegów uchybu regulacji dla konkretnych scenariuszy ruchowych, co stanowi bezpośrednią podstawę do późniejszej weryfikacji i matematycznego porównania efektywności zaimplementowanych praw sterowania.
+
+Wymagania obliczeniowe oraz energetyczne związane ze strumieniowaniem wideo do aplikacji GUI okazały się jednak niezwykle problematyczne dla wykorzystanej platformy sprzętowej. Ze względu na losowe wyłączenia Raspberry Pi wywołane spadkami napięć przy próbie transmisji obrazu przez sieć bezprzewodową, opracowano alternatywną, konsolową wersję oprogramowania – skrypt \texttt{tracker\_guiless.py}. Rozwiązanie to pozbawione jest obciążającego narzutu interfejsu graficznego, a komunikacja z użytkownikiem odbywa się wyłącznie z poziomu terminala (CLI). Skrypt ten zachowuje pełną funkcjonalność algorytmiczną systemu nadążnego. Umożliwia m.in. pobieranie wzorcowej barwy za pomocą wirtualnej "pipety" (odczyt ze środka kadru), zmianę trybów pracy (AUTO/MANUAL), przełączanie typu regulatora w locie oraz zarządzanie rejestracją logów CSV, gwarantując przy tym nieporównywalnie wyższą stabilność działania węzła obliczeniowego podczas krytycznych testów polowych.
+
+
 \section{Implementacja komunikacji}
 Wymiana informacji w systemie odbywa się dwutorowo, wykorzystując optymalnie dobrane protokoły dla każdej z warstw. Komunikacja telemetryczna oraz przesyłanie strumienia wideo pomiędzy Raspberry Pi a stacją operatorską realizowane są bezprzewodowo w sieci lokalnej (TCP/IP). W tym celu zaimplementowano asynchroniczną bibliotekę ZeroMQ, wykorzystującą wzorzec projektowy publikuj-subskrybuj (PUB/SUB). Mikrokomputer cyklicznie publikuje zserializowane macierze obrazu oraz stany na porcie 5555, natomiast odbiera komendy i nastawy regulatorów na porcie 5556. Zastosowanie lekkiego middleware'u zamiast rozbudowanych systemów wizyjnych znacząco odciąża stos sieciowy.
 
@@ -1461,9 +1395,9 @@ v_{sys} = U_{max} \cdot f_{s} \cdot k = 0.5 \cdot 30 \cdot 22.3 = 334.5~\text{px
 
 Z kolei dla testów o wysokiej dynamice (odpowiadających możliwościom regulatora PID), zdefiniowano wariant z pełnym wysterowaniem $U_{max} = 1.0$, dla którego prędkość śledzenia wynosi $669.0~\text{px/s}$.
 
-\subsubsection{Analityczne wyznaczenie strefy nieczułości (Deadband)}
+\subsubsection{Analityczne wyznaczenie strefy nieczułości}
 \label{sec:bang_bang_deadband}
-Kluczowym problemem w układach z nieliniowym regulatorem przekaźnikowym jest zjawisko nadbiegu. Po wejściu obiektu w strefę dopuszczalnego błędu napędy są wyłączane ($u = 0$), jednakże z powodu opóźnienia wizyjnego ($L = 0.0656$~s) oraz bezwładności (stała czasowa $T = 0.142$~s), wieżyczka porusza się dalej siłą inercji. Droga hamowania $\Delta y_{stop}$ wynosi:
+Kluczowym problemem w układach z nieliniowym regulatorem przekaźnikowym jest zjawisko nadbiegu. Po wejściu obiektu w strefę dopuszczalnego błędu napędy są wyłączane ($u = 0$), jednakże z powodu opóźnienia wizyjnego ($L = 0.0656$~s) oraz bezwładności (stała czasowa $T = 0.142$~s), dwuosiowy układ wykonawczy porusza się dalej siłą inercji. Droga hamowania $\Delta y_{stop}$ wynosi:
 \begin{equation}
 \Delta y_{stop} = v_{sys} \cdot (L + T).
 \end{equation}
@@ -1605,7 +1539,7 @@ Rozdział przedstawia metodykę oraz wyniki badań eksperymentalnych zaprojektow
 \section{Metodyka badań i scenariusze testowe}
 \label{sec:metodyka_badan}
 
-Badania empiryczne przeprowadzono na fizycznym stanowisku laboratoryjnym, w skład którego wchodził zaprojektowany dwuosiowy układ wykonawczy (wieżyczka obrotowa realizująca ruch w płaszczyznach PAN i TILT), kamera wizyjna rejestrująca obraz w rozdzielczości VGA ($640 \times 480$ pikseli) oraz nadrzędny węzeł obliczeniowy analizujący strumień wideo. W celu zminimalizowania wpływu zakłóceń zewnętrznych na system detekcji przestrzeni barw HSV, testy realizowano w warunkach stałego, rozproszonego oświetlenia sztucznego. 
+Badania empiryczne przeprowadzono na fizycznym stanowisku laboratoryjnym, w skład którego wchodził zaprojektowany dwuosiowy układ wykonawczy, kamera wizyjna rejestrująca obraz w rozdzielczości VGA ($640 \times 480$ pikseli) oraz nadrzędny węzeł obliczeniowy analizujący strumień wideo. W celu zminimalizowania wpływu zakłóceń zewnętrznych na system detekcji przestrzeni barw HSV, testy realizowano w warunkach stałego, rozproszonego oświetlenia sztucznego. 
 
 Przed przystąpieniem do testów, wokół fizycznego modelu demonstratora wyznaczono precyzyjną strefę pomiarową. Za pomocą miary wstęgowej naniesiono na podłoże znaczniki odległości ustalone dokładnie na 30~cm, 80~cm oraz 150~cm od osi obrotu układu kinematycznego. Jako obiekt referencyjny (cel) wykorzystano sferyczny przedmiot o wyrazistej, żółtej barwie (piłkę) o średnicy 23~cm (Rys. \ref{fig:stanowisko_badawcze}). Wybór obiektu sferycznego o takiej objętości był podyktowany wymogami algorytmu detekcji konturów -- w przypadku kuli rzut środka ciężkości pola powierzchni pokrywa się z jej środkiem geometrycznym niezależnie od kąta rotacji, co zapobiega powstawaniu pozornego uchybu śledzenia.
 
@@ -1714,7 +1648,7 @@ W przypadku optymalnej odległości 80~cm (rys. \ref{fig:pid_okrag_80}), nastawy
 \label{fig:pid_okrag_80}
 \end{figure}
 
-Przeprowadzenie tego samego testu z niewielkiej odległości 30~cm (rys. \ref{fig:pid_okrag_30}) wygenerowało skrajne warunki pracy. Rozpiętość elipsy wynosząca 60~cm sprawiała, że obiekt pokonywał niemal całe fizyczne pole widzenia kamery w bardzo krótkim czasie. Nastawy heurystyczne uległy tu całkowitej destabilizacji – uchyb w osi PAN oscylował w granicach $\pm 150$ pikseli, a wieżyczka miotała się, tracąc zdolność do utrzymania celu w kadrze. Układ wyposażony w nastawy analityczne (CHR) bezbłędnie poradził sobie z tym ekstremalnym wymuszeniem. Pomimo ogromnych pozornych prędkości kątowych, algorytm utrzymał uchyb w wąskim, kontrolowanym paśmie, potwierdzając wysoką skuteczność analitycznie dobranego członu różniczkującego w tłumieniu rozpędu.
+Przeprowadzenie tego samego testu z niewielkiej odległości 30~cm (rys. \ref{fig:pid_okrag_30}) wygenerowało skrajne warunki pracy. Rozpiętość elipsy wynosząca 60~cm sprawiała, że obiekt pokonywał niemal całe fizyczne pole widzenia kamery w bardzo krótkim czasie. Nastawy heurystyczne uległy tu całkowitej destabilizacji – uchyb w osi PAN oscylował w granicach $\pm 150$ pikseli, a głowica nadążna miotała się, tracąc zdolność do utrzymania celu w kadrze. Układ wyposażony w nastawy analityczne (CHR) bezbłędnie poradził sobie z tym ekstremalnym wymuszeniem. Pomimo ogromnych pozornych prędkości kątowych, algorytm utrzymał uchyb w wąskim, kontrolowanym paśmie, potwierdzając wysoką skuteczność analitycznie dobranego członu różniczkującego w tłumieniu rozpędu.
 
 \begin{figure}[!ht]
 \centering
@@ -1753,7 +1687,7 @@ Przy dystansie 150~cm (rys. \ref{fig:pid_okrag_150}), gdzie amplituda uchybu gen
 
 Ostatnim etapem weryfikacji dla regulatora PID było zbadanie zachowania systemu w obliczu drastycznej zmiany pozornej wielkości celu w czasie rzeczywistym. W ramach tego scenariusza, wprawiony w powolny ruch boczny obiekt referencyjny był płynnie oddalany od obiektywu kamery, rozpoczynając od odległości 30~cm, a kończąc na 150~cm. 
 
-Bez implementacji mechanizmów adaptacyjnych (rys. \ref{fig:pid_oddalanie}a), układ operujący na stałych nastawach tracił stabilność w pierwszej fazie testu. Ponieważ z odległości 30~cm obiekt zajmował niemal ćwierć kadru i generował ogromne przyrosty uchybu przy najmniejszym ruchu, wieżyczka wpadała w gwałtowne oscylacje, które wygasły dopiero w połowie testu, gdy obiekt oddalił się na wystarczający dystans. Taka charakterystyka dyskwalifikuje klasyczny układ regulacji w zastosowaniach obronnych, gdzie cel może gwałtownie zbliżyć się do stanowiska.
+Bez implementacji mechanizmów adaptacyjnych (rys. \ref{fig:pid_oddalanie}a), układ operujący na stałych nastawach tracił stabilność w pierwszej fazie testu. Ponieważ z odległości 30~cm obiekt zajmował niemal ćwierć kadru i generował ogromne przyrosty uchybu przy najmniejszym ruchu, układ wykonawczy wpadał w gwałtowne oscylacje, które wygasły dopiero w połowie testu, gdy obiekt oddalił się na wystarczający dystans. Taka charakterystyka dyskwalifikuje klasyczny układ regulacji w zastosowaniach obronnych, gdzie cel może gwałtownie zbliżyć się do stanowiska.
 
 Zastosowanie zaimplementowanego algorytmu \textit{Gain Scheduling} (rys. \ref{fig:pid_oddalanie}b) rozwiązało ten problem. Algorytm w czasie rzeczywistym szacował odległość na podstawie pola powierzchni konturu obiektu (skalowanie mocy wyjściowej oraz dynamiczna zmiana strefy nieczułości). Pozwoliło to na drastyczne obniżenie agresywności regulatora gdy obiekt znajdował się blisko, oraz przywrócenie pełnej mocy, gdy obiekt stał się niewielkim punktem na dystansie 150~cm. W efekcie, jak obrazuje wykres, uchyb pozostał w stabilnych, znormalizowanych ryzach przez cały czas trwania eksperymentu, gwarantując niezachwianą płynność śledzenia niezależnie od odległości celu.
 
@@ -1958,7 +1892,7 @@ Kultura pracy mechaniki       & Opóźniona, płynna & Płynna, ścisła & Skraj
 
 Powyższe zestawienie stanowi ostateczne potwierdzenie sformułowanej tezy badawczej. Regulator trójstawny (\textit{Bang-Off-Bang}), z uwagi na skrajnie wysokie wartości błędu średniokwadratowego (RMSE) oraz generowanie uchybu ustalonego na krawędzi ogromnej strefy nieczułości, nie nadaje się do precyzyjnych zastosowań celowniczych. Algorytm PID z nastawami wyliczonymi analitycznie ($K_p=0.058, K_d=0.0019$) okazał się bezapelacyjnie najskuteczniejszy, gwarantując najniższy błąd dynamiczny, gładką krzywą śledzenia oraz centrowanie wiązki z dokładnością do kilku pikseli.
 
-\subsection{Test działania algorytmu w warunkach środowiskowych (Outdoor)}
+\subsection{Test działania algorytmu w warunkach środowiskowych}
 \label{subsec:warunki_rzeczywiste}
 
 Aby zweryfikować zachowanie w warunkach polowych, przeprowadzono eksperyment na otwartej przestrzeni. Obiekt referencyjny (żółtą sferę) podwieszono pod bezzałogowym statkiem powietrznym (dronem DJI Mini 3 Pro). Z uwagi na wyzwania logistyczne i problemy z zewnętrznym zasilaniem stanowiska w terenie, zarejestrowano wyłącznie przebieg dla najbardziej optymalnej konfiguracji, tj. analitycznie strojonego regulatora PID z włączoną adaptacją strefy. 
@@ -1968,11 +1902,11 @@ Dron pilotowany był w trybie ręcznym, wykonując agresywne, nagłe zwroty w p�
 \begin{figure}[H]
     \centering
     \includegraphics[width=0.8\textwidth]{./Obrazy/Real/terrain_2.PNG}
-    \caption{Kadr ze strumienia wideo podczas testów polowych. Widoczny dron przenoszący obiekt testowy na tle infrastruktury i roślinności, oddalony o około 15 metrów od obiektywu.}
+    \caption{Kadr podczas testów polowych. Widoczny dron przenoszący obiekt testowy na tle infrastruktury i roślinności, oddalony o około 15 metrów od obiektywu.}
     \label{fig:terrain_kadr}
 \end{figure}
 
-Wykres odpowiedzi układu w tych rygorystycznych warunkach (Rys. \ref{fig:terrain_wykres}) jest bezpośrednim dowodem na wysoką krzepkość (\textit{robustness}) zaprojektowanego systemu sterowania. W początkowej i końcowej fazie wykresu widać, że wieżyczka niezwykle skutecznie sprowadzała uchyb do bezpiecznej strefy tolerancji, płynnie podążając za szybko manewrującym statkiem powietrznym.
+Wykres odpowiedzi układu w tych rygorystycznych warunkach (Rys. \ref{fig:terrain_wykres}) jest bezpośrednim dowodem na wysoką krzepkość (\textit{robustness}) zaprojektowanego systemu sterowania. W początkowej i końcowej fazie wykresu widać, że układ niezwykle skutecznie sprowadzał uchyb do bezpiecznej strefy tolerancji, płynnie podążając za szybko manewrującym statkiem powietrznym.
 
 \begin{figure}[H]
     \centering
@@ -1981,7 +1915,7 @@ Wykres odpowiedzi układu w tych rygorystycznych warunkach (Rys. \ref{fig:terrai
     \label{fig:terrain_wykres}
 \end{figure}
 
-Szczególnej uwagi wymaga środkowy fragment przebiegu, na którym widoczne są gwałtowne, prostokątne piki odchylenia. Stanowią one zapis momentu, w którym dron oddalił się poza roboczy zasięg efektywnej detekcji. Prosty algorytm klasyfikacji przestrzeni barw HSV zawiódł, a system wizyjny "złapał" fałszywy cel w postaci jaskrawozielonych liści drzew w tle, których reprezentacja wektorowa w modelu HSV bywa zbliżona do wyblakłego odcienia żółci w ostrym słońcu. Wieżyczka natychmiastowo zareagowała na ten bodziec, co ilustruje nagły skok uchybu na wykresie. Najważniejszym osiągnięciem systemu jest jednak fakt re-akwizycji celu. Gdy tylko dron powrócił w kadr i algorytm wizyjny ponownie wyłuskał prawidłowy kontur, wieżyczka bez wahania porzuciła szum z tła i gładko zniwelowała potężny uchyb, powracając do bezbłędnego śledzenia wewnątrz strefy nieczułości (widoczne w prawej części wykresu). 
+Szczególnej uwagi wymaga środkowy fragment przebiegu, na którym widoczne są gwałtowne, prostokątne piki odchylenia. Stanowią one zapis momentu, w którym dron oddalił się poza roboczy zasięg efektywnej detekcji. Prosty algorytm klasyfikacji przestrzeni barw HSV zawiódł, a system wizyjny "złapał" fałszywy cel w postaci jaskrawozielonych liści drzew w tle, których reprezentacja wektorowa w modelu HSV bywa zbliżona do wyblakłego odcienia żółci w ostrym słońcu. Układ niezwykle skutecznie sprowadzał uchyb do bezpiecznej strefy tolerancji, płynnie podążając za szybko manewrującym statkiem powietrznym.
 
 Dowodzi to, że o ile sama metoda wstępnej detekcji obrazu (HSV) posiada zauważalne ograniczenia w świetle dziennym, o tyle zaprojektowana pętla sterowania mechaniką (PID) działa bez zarzutu i radzi sobie nawet z nagłymi, fałszywymi przesterowaniami odzyskanymi z szumu wizyjnego.
 
@@ -2076,17 +2010,34 @@ Regulator PD, dzięki ciągłej modulacji prędkości oraz silnemu tłumieniu z 
 Znamiennym wynikiem badawczym było zaobserwowanie potężnego wpływu opóźnień (czasu przetwarzania klatek przez układ wizyjny, narzutu komunikacji RPi--ESP oraz inercji silników) na stabilność systemu. Co niezwykle ciekawe, wykazano, że uruchomienie programu w bezfejsowym trybie konsolowym (wyłączony podgląd wideo, brak opóźnień z transmisji Wi-Fi) znacząco przyspieszało wykonywanie pętli głównej algorytmu. Zmiana czasu próbkowania ($dt$) całkowicie zmieniała charakterystykę opóźnień w modelu, przez co system pracujący szybciej wymagał zupełnie innych, przeliczonych na nowo nastaw regulatora PD, w przeciwnym razie wpadał w przesterowania.
 
 \section{Wnioski i rekomendacje}
-Budowa fizycznego demonstratora obnażyła szereg trudności mechanicznych i sprzętowych, które muszą zostać uwzględnione przy projektowaniu systemów docelowych pracujących w warunkach polowych (\textit{outdoor}).
+Budowa fizycznego demonstratora obnażyła szereg trudności mechanicznych, środowiskowych oraz sprzętowych, które muszą zostać bezwzględnie uwzględnione przy projektowaniu systemów docelowych pracujących w warunkach polowych (\textit{outdoor}).
 
-Głównym problemem okazał się dobór układu nadrzędnego. Zastosowanie Raspberry Pi, choć budżetowe i wygodne w fazie prototypowania, w ogólnym rozrachunku okazało się słabym wyborem dla mobilnego systemu obronnego. Komputer ten cechuje się ogromną "wybrednością" zasilania -- przy próbie jednoczesnego przetwarzania wizji, sterowania napędami i uruchomienia strumieniowania wideo przez sieć, spadki napięcia na zasilaniu bateryjnym powodowały nieoczekiwane restarty jednostki. Pełną stabilność i wysoką częstotliwość analizy obrazu udawało się utrzymać jedynie przy wykorzystaniu wydajnych zasilaczy sieciowych, co drastycznie ogranicza mobilność platformy. 
+Głównym problemem natury sprzętowej okazał się dobór układu nadrzędnego. Zastosowanie Raspberry Pi, choć budżetowe i niezwykle wygodne w fazie prototypowania, w ogólnym rozrachunku okazało się słabym wyborem dla mobilnego systemu obronnego. Komputer ten cechuje się ogromną "wybrednością" zasilania i dużą wrażliwością na najmniejsze spadki napięcia. Podczas standardowej pracy terenowej z aktywną analizą klatek jednostka potrafiła się losowo wyłączać, a próba uruchomienia strumieniowania wideo (przesył obrazu do GUI) prowadziła do natychmiastowego załamania systemu. Skutkowało to koniecznością pracy w trybie wyłącznie konsolowym (\texttt{tracker\_guiless.py}) oraz wymusiło rezygnację z mobilnego zasilania bateryjnego. Pełną stabilność układu udało się osiągnąć jedynie przy wykorzystaniu stacjonarnych zasilaczy sieciowych, co drastycznie ogranicza mobilność platformy.
 
-Dodatkowo, obecna konstrukcja wieżyczki ma charakter wyłącznie demonstracyjny (otwarty). Praca w warunkach terenowych kategorycznie wymaga szczelnej zabudowy elektroniki i zabezpieczenia elementów ruchomych przed pyłem i wilgocią.
+Kolejnym potężnym wyzwaniem okazała się zależność skuteczności systemu wizyjnego od pory dnia i zmieniających się warunków oświetleniowych. Badania wykazały, że głowica nadążna doskonale i bezbłędnie radziła sobie ze śledzeniem celu w godzinach południowych, kiedy przy silnym nasłonecznieniu obiekt referencyjny cechował się jaskrawą, mocno kontrastującą barwą. Skuteczność ta gwałtownie spadała w okolicach godziny 18:00, gdy słońce chowało się za linią drzew. W zacienionym środowisku żółty obiekt tracił swoją poświatę, przybierając w matrycy kamery odcienie zbliżone do czerni i zlewając się z tłem (Rys. \ref{fig:problemy_detekcji}). Uniemożliwiało to algorytmom bazującym na przestrzeni HSV poprawną segmentację, dowodząc, że sam kolor jest niewystarczającym deskryptorem do niezawodnego namierzania obiektów w warunkach polowych.
 
-Na podstawie przeprowadzonych prac sformułowano następujące rekomendacje konstrukcyjne:
+Dodatkowo, obecna konstrukcja wieżyczki ma charakter wyłącznie demonstracyjny (otwarty). Praca w warunkach terenowych kategorycznie wymaga szczelnej zabudowy elektroniki i zabezpieczenia wrażliwych przekładni oraz łożysk przed drobnym pyłem, a także wilgocią.
+
+\begin{figure}[!ht]
+\centering
+\begin{subfigure}{0.48\textwidth}
+    \includegraphics[width=\textwidth]{./Obrazy/Gazebo/Bad_1.png}
+    \caption{Brak wykrycia obiektu spowodowany zlewaniem się przyciemnionego celu z tłem.}
+\end{subfigure}
+\hfill
+\begin{subfigure}{0.48\textwidth}
+    \includegraphics[width=\textwidth]{./Obrazy/Gazebo/Bad_3.png}
+    \caption{Błędna detekcja fałszywego celu (jaskrawe liście drzew w tle).}
+\end{subfigure}
+\caption{Przykłady problemów detekcyjnych w warunkach polowych przy zmiennym oświetleniu i niskim kontraście.}
+\label{fig:problemy_detekcji}
+\end{figure}
+
+Na podstawie przeprowadzonych prac sformułowano następujące rekomendacje konstrukcyjne dla kolejnych generacji systemu:
 \begin{itemize}
-    \item Systemy wizyjne operujące w zmiennym oświetleniu nie mogą w pełni polegać na algorytmach bazujących wyłącznie na kontraście, odejmowaniu tła i przestrzeni barw (HSV), gdyż prowadzi to do fałszywych detekcji (np. jaskrawe liście w słońcu).
-    \item Konieczna jest stabilizacja zasilania obwodów wizyjnych na wysoce wydajnych przetwornicach typu \textit{Buck-Boost}, niezależnych od zasilania serwomechanizmów.
-    \item Przy niewielkim budżecie rzędu 1500 PLN udało się udowodnić koncepcję (\textit{Proof of Concept}). Zwiększenie budżetu do poziomu zaledwie 3000 -- 4000 PLN pozwoliłoby na wdrożenie układów o gigantycznie wyższej efektywności, całkowicie eliminując zaobserwowane wąskie gardła.
+    \item Systemy wizyjne operujące w zmiennym oświetleniu nie mogą w pełni polegać na algorytmach bazujących wyłącznie na kontraście, statycznym odejmowaniu tła i progowaniu w przestrzeni barw (HSV), gdyż prowadzi to do fałszywych detekcji (np. jaskrawe liście w słońcu) oraz ślepoty w cieniu.
+    \item Konieczna jest rygorystyczna stabilizacja zasilania obwodów wizyjnych i obliczeniowych przy użyciu wysoce wydajnych przetwornic typu \textit{Buck-Boost}, posiadających oddzielone zasilanie od prądożernych serwomechanizmów i silników krokowych.
+    \item Przy niewielkim, studenckim budżecie rzędu 1500 PLN udało się w pełni udowodnić koncepcję działania (\textit{Proof of Concept}). Zwiększenie budżetu do poziomu zaledwie 3000 -- 4000 PLN pozwoliłoby na wdrożenie przemysłowych jednostek obliczeniowych i kamer sprzętowych, całkowicie eliminując zaobserwowane wąskie gardła i gigantycznie podnosząc niezawodność demonstratora.
 \end{itemize}
 
 \section{Perspektywy rozwoju i dalszych badań}
@@ -2124,15 +2075,103 @@ Podsumowując, realizacja pracy udowodniła słuszność założeń dotyczących
 
 
 % TODO
-\chapter{Spis skrótów i symboli}
+\chapter*{Spis skrótów i symboli}
+\addcontentsline{toc}{chapter}{Spis skrótów i symboli}
 
+\section*{Skróty}
 \begin{itemize}
-\item[DNA] kwas deoksyrybonukleinowy (ang. \english{deoxyribonucleic acid})
-\item[MVC] model -- widok -- kontroler (ang. \english{model--view--controller}) 
-\item[$N$] liczebność zbioru danych
-\item[$\mu$] stopnień przyleżności do zbioru
-\item[$\mathbb{E}$] zbiór krawędzi grafu
-\item[$\mathcal{L}$] transformata Laplace'a 
+\item[ABS] akrylonitryl-butadien-styren
+\item[ATP] z ang. \english{Acquisition, Tracking, and Pointing}
+\item[BLDC] bezszczotkowy silnik prądu stałego, z ang. \english{Brushless DC}
+\item[BSP] bezzałogowy statek powietrzny
+\item[CAD] komputerowe wspomaganie projektowania, z ang. \english{Computer-Aided Design}
+\item[CCD] matryca światłoczuła, z ang. \english{Charge-Coupled Device}
+\item[CFRP] kompozyt zbrojony włóknem węglowym, z ang. \english{Carbon Fiber Reinforced Polymer}
+\item[CFRTP] z ang. \english{Carbon Fiber Reinforced Thermoplastics}
+\item[CHR] metoda strojenia regulatorów Chien-Hrones-Reswick
+\item[CIWS] system obrony bezpośredniej, z ang. \english{Close-In Weapon Systems}
+\item[CLI] interfejs wiersza poleceń, z ang. \english{Command Line Interface}
+\item[CMOS] matryca światłoczuła, z ang. \english{Complementary Metal-Oxide-Semiconductor}
+\item[COTS] komponenty z półki komercyjnej, z ang. \english{Commercial Off-The-Shelf}
+\item[CSI] z ang. \english{Camera Serial Interface}
+\item[CSV] format zapisu danych, z ang. \english{Comma-Separated Values}
+\item[CUDA] architektura procesorów wielordzeniowych, z ang. \english{Compute Unified Device Architecture}
+\item[EMI] zakłócenia elektromagnetyczne, z ang. \english{Electromagnetic Interference}
+\item[FFC] elastyczna taśma sygnałowa, z ang. \english{Flexible Flat Cable}
+\item[FOPDT] obiekt inercyjny pierwszego rzędu z opóźnieniem transportowym, z ang. \english{First Order Plus Dead Time}
+\item[FOV] kąt widzenia kamery, z ang. \english{Field of View}
+\item[FPV] widok z pierwszej osoby, z ang. \english{First Person View}
+\item[GND] masa układu zasilania, z ang. \english{Ground}
+\item[GPIO] piny wejścia/wyjścia ogólnego przeznaczenia, z ang. \english{General-Purpose Input/Output}
+\item[GUI] graficzny interfejs użytkownika, z ang. \english{Graphical User Interface}
+\item[HDT] odporność termiczna/temperatura ugięcia, z ang. \english{Heat Deflection Temperature}
+\item[HSV] model przestrzeni barw, z ang. \english{Hue, Saturation, Value}
+\item[IDE] zintegrowane środowisko programistyczne, z ang. \english{Integrated Development Environment}
+\item[LDO] stabilizator o niskim spadku napięcia, z ang. \english{Low-Dropout}
+\item[Li-Po] akumulator litowo-polimerowy
+\item[MIPI] interfejs szerokopasmowy, z ang. \english{Mobile Industry Processor Interface}
+\item[MOG2] algorytm mieszaniny rozkładów Gaussa, z ang. \english{Mixture of Gaussians 2}
+\item[MPC] zaawansowane sterowanie predykcyjne, z ang. \english{Model Predictive Control}
+\item[NEMA] standard wymiarowy silników krokowych, z ang. \english{National Electrical Manufacturers Association}
+\item[ODE] silnik symulacji fizyki, z ang. \english{Open Dynamics Engine}
+\item[OS] system operacyjny, z ang. \english{Operating System}
+\item[OSD] nakładka diagnostyczna/ekranowa, z ang. \english{On-Screen Display}
+\item[PAN] oś obrotu w płaszczyźnie horyzontalnej (z ang. \english{panning}) / poliakrylonitryl
+\item[PC] poliwęglan, z ang. \english{Polycarbonate}
+\item[PD] regulator proporcjonalno-różniczkujący
+\item[PID] regulator proporcjonalno-całkująco-różniczkujący
+\item[PPS] polifenylenosiarczek
+\item[PUB/SUB] wzorzec projektowy publikuj-subskrybuj, z ang. \english{Publish-Subscribe}
+\item[PWM] modulacja szerokości impulsu, z ang. \english{Pulse-Width Modulation}
+\item[RAM] pamięć operacyjna, z ang. \english{Random Access Memory}
+\item[RGB] model przestrzeni barw, z ang. \english{Red, Green, Blue}
+\item[RMSE] uchyb średniokwadratowy, z ang. \english{Root Mean Square Error}
+\item[ROI] obszar zainteresowania, z ang. \english{Region of Interest}
+\item[ROS 2] framework robotyczny, z ang. \english{Robot Operating System 2}
+\item[SPI] magistrala komunikacji szeregowej, z ang. \english{Serial Peripheral Interface}
+\item[STL] format plików przestrzennych, z ang. \english{STereoLithography}
+\item[TCP/IP] zestaw protokołów sieciowych, z ang. \english{Transmission Control Protocol / Internet Protocol}
+\item[TF] transformacja układów współrzędnych, z ang. \english{Transform}
+\item[TILT] oś obrotu w płaszczyźnie wertykalnej (z ang. \english{tilting})
+\item[UART] uniwersalny asynchroniczny nadajnik-odbiornik, z ang. \english{Universal Asynchronous Receiver-Transmitter}
+\item[UAV] bezzałogowy statek powietrzny, z ang. \english{Unmanned Aerial Vehicle}
+\item[UI] interfejs użytkownika, z ang. \english{User Interface}
+\item[URDF] ujednolicony format opisu robota, z ang. \english{Unified Robot Description Format}
+\item[USB] uniwersalna magistrala szeregowa, z ang. \english{Universal Serial Bus}
+\item[YOLO] architektura głębokich sieci neuronowych, z ang. \english{You Only Look Once}
+\end{itemize}
+
+\section*{Symbole}
+\begin{itemize}
+\item[$a$] współczynnik charakterystyczny obiektu
+\item[$d$] szerokość strefy nieczułości (ang. \english{deadband})
+\item[$\Delta\theta$] rozdzielczość kątowa na wale wyjściowym
+\item[$\Delta u$] skokowe wymuszenie sygnału sterującego
+\item[$\Delta y$] całkowity przyrost uchybu
+\item[$\Delta y_{stop}$] droga hamowania (nadbieg mechaniki)
+\item[$f_{s}$] częstotliwość próbkowania obrazu
+\item[$i$] całkowite przełożenie mechaniczne układu
+\item[$I_{F}$] prąd zasilania modułu laserowego
+\item[$k$] wzmocnienie statyczne obiektu w otwartej pętli
+\item[$K_{p}$] wzmocnienie członu proporcjonalnego regulatora
+\item[$K_{i}$] wzmocnienie członu całkującego regulatora
+\item[$K_{d}$] wzmocnienie członu różniczkującego regulatora
+\item[$L$] całkowite opóźnienie transportowe systemu (np. opóźnienie wizyjne)
+\item[$\lambda$] długość fali promieniowania laserowego
+\item[$\mu$] mnożnik podziału mikrokroku silnika krokowego
+\item[$P_{o}$] nominalna moc optyczna wyjściowa lasera
+\item[$S$] podstawowa rozdzielczość kątowa silnika krokowego
+\item[$s$] zmienna operatorowa w dziedzinie Laplace'a
+\item[$T$] stała czasowa inercji mechaniki
+\item[$T_{c}$] dopuszczalna temperatura obudowy lasera
+\item[$T_{d}$] opóźnienie wywołane torem obrazu
+\item[$T_{s}$] czas pomiędzy kolejnymi próbkami obrazu (okres próbkowania)
+\item[$u$] sygnał sterujący
+\item[$U_{max}$] amplituda sygnału sterującego / nominalna prędkość skoku
+\item[$v_{max}$] fizyczna maksymalna prędkość przemieszczania się obiektu po matrycy
+\item[$v_{sys}$] nominalna prędkość śledzenia systemu wizyjnego
+\item[$y$] uchyb położenia celu w płaszczyźnie obrazu
+\item[$z$] liczba zębów koła zębatego w przekładni
 \end{itemize}
 
 % TODO

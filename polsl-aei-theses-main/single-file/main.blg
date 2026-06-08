@@ -19,50 +19,47 @@ Reallocated singl_function (elt_size=4) to 100 items from 50.
 Reallocated singl_function (elt_size=4) to 100 items from 50.
 Database file #1: main-blx.bib
 Database file #2: biblio.bib
-Warning--I didn't find a database entry for "bib:Jones2024"
-Warning--I didn't find a database entry for "Miejsce_na_cytowanie_np_z_Google_Scholar"
 Biblatex version: 3.17
 Reallocated wiz_functions (elt_size=4) to 9000 items from 6000.
 Reallocated singl_function (elt_size=4) to 100 items from 50.
-You've used 17 entries,
+You've used 18 entries,
             6399 wiz_defined-function locations,
-            1321 strings with 13260 characters,
-and the built_in function-call counts, 183933 in all, are:
-= -- 15666
-> -- 2620
-< -- 870
-+ -- 6126
-- -- 1094
-* -- 13515
-:= -- 21876
+            1323 strings with 13347 characters,
+and the built_in function-call counts, 187392 in all, are:
+= -- 15843
+> -- 2701
+< -- 895
++ -- 6179
+- -- 1118
+* -- 13747
+:= -- 22150
 add.period$ -- 0
-call.type$ -- 17
-change.case$ -- 466
-chr.to.int$ -- 44
-cite$ -- 32
-duplicate$ -- 19671
-empty$ -- 14516
-format.name$ -- 1506
-if$ -- 36714
+call.type$ -- 18
+change.case$ -- 475
+chr.to.int$ -- 45
+cite$ -- 34
+duplicate$ -- 20075
+empty$ -- 14883
+format.name$ -- 1552
+if$ -- 37467
 int.to.chr$ -- 0
-int.to.str$ -- 48
+int.to.str$ -- 50
 missing$ -- 0
-newline$ -- 717
-num.names$ -- 965
-pop$ -- 6335
+newline$ -- 737
+num.names$ -- 1006
+pop$ -- 6661
 preamble$ -- 1
-purify$ -- 600
+purify$ -- 611
 quote$ -- 0
-skip$ -- 4035
+skip$ -- 4190
 stack$ -- 0
-substring$ -- 28610
-swap$ -- 3232
-text.length$ -- 641
-text.prefix$ -- 16
+substring$ -- 28834
+swap$ -- 3350
+text.length$ -- 665
+text.prefix$ -- 17
 top$ -- 1
-type$ -- 564
+type$ -- 598
 warning$ -- 0
-while$ -- 2734
+while$ -- 2769
 width$ -- 0
-write$ -- 701
-(There were 2 warnings)
+write$ -- 720

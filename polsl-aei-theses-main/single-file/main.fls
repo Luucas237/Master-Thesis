@@ -1338,11 +1338,6 @@ INPUT /usr/share/texmf/fonts/tfm/public/lm/ec-lmbx12.tfm
 INPUT /usr/share/texmf/fonts/tfm/public/lm/ec-lmri12.tfm
 INPUT /usr/share/texmf/fonts/tfm/public/lm/ec-lmr12.tfm
 INPUT /usr/share/texmf/fonts/tfm/public/lm/ec-lmbx12.tfm
-INPUT /usr/share/texmf/tex/latex/lm/ts1lmr.fd
-INPUT /usr/share/texmf/tex/latex/lm/ts1lmr.fd
-INPUT /usr/share/texmf/tex/latex/lm/ts1lmr.fd
-INPUT /usr/share/texmf/tex/latex/lm/ts1lmr.fd
-INPUT /usr/share/texmf/fonts/tfm/public/lm/ts1-lmr12.tfm
 INPUT /usr/share/texmf/fonts/tfm/public/lm/ec-lmbxi10.tfm
 INPUT ./Obrazy/Inventor/Komponenty.png
 INPUT ./Obrazy/Inventor/Komponenty.png
@@ -1351,6 +1346,11 @@ INPUT ./Obrazy/Inventor/Komponenty.png
 INPUT ./Obrazy/Inventor/Komponenty.png
 INPUT /usr/share/texmf/fonts/tfm/public/lm/ec-lmr8.tfm
 INPUT /usr/share/texmf/fonts/tfm/public/lm/ec-lmr6.tfm
+INPUT /usr/share/texmf/tex/latex/lm/ts1lmr.fd
+INPUT /usr/share/texmf/tex/latex/lm/ts1lmr.fd
+INPUT /usr/share/texmf/tex/latex/lm/ts1lmr.fd
+INPUT /usr/share/texmf/tex/latex/lm/ts1lmr.fd
+INPUT /usr/share/texmf/fonts/tfm/public/lm/ts1-lmr12.tfm
 INPUT ./Obrazy/Inventor/podstawa gora.png
 INPUT ./Obrazy/Inventor/podstawa gora.png
 INPUT ./Obrazy/Inventor/podstawa gora.png
@@ -1449,6 +1449,11 @@ INPUT /usr/share/texlive/texmf-dist/tex/latex/listings/lstlang1.sty
 INPUT /usr/share/texlive/texmf-dist/tex/latex/listings/lstlang1.sty
 INPUT /usr/share/texlive/texmf-dist/tex/latex/listings/lstlang1.sty
 INPUT /usr/share/texmf/fonts/tfm/public/lm/ec-lmtti10.tfm
+INPUT ./Obrazy/Gazebo/Good_2.png
+INPUT ./Obrazy/Gazebo/Good_2.png
+INPUT ./Obrazy/Gazebo/Good_2.png
+INPUT ./Obrazy/Gazebo/Good_2.png
+INPUT ./Obrazy/Gazebo/Good_2.png
 INPUT ./Obrazy/Real/pomiary_1.jpeg
 INPUT ./Obrazy/Real/pomiary_1.jpeg
 INPUT ./Obrazy/Real/pomiary_1.jpeg
@@ -1605,6 +1610,16 @@ INPUT ./Obrazy/Wyniki PID/wykres_A_Terrain_PID_lp.png
 INPUT ./Obrazy/Wyniki PID/wykres_A_Terrain_PID_lp.png
 INPUT ./Obrazy/Wyniki PID/wykres_A_Terrain_PID_lp.png
 INPUT ./Obrazy/Wyniki PID/wykres_A_Terrain_PID_lp.png
+INPUT ./Obrazy/Gazebo/Bad_1.png
+INPUT ./Obrazy/Gazebo/Bad_1.png
+INPUT ./Obrazy/Gazebo/Bad_1.png
+INPUT ./Obrazy/Gazebo/Bad_1.png
+INPUT ./Obrazy/Gazebo/Bad_1.png
+INPUT ./Obrazy/Gazebo/Bad_3.png
+INPUT ./Obrazy/Gazebo/Bad_3.png
+INPUT ./Obrazy/Gazebo/Bad_3.png
+INPUT ./Obrazy/Gazebo/Bad_3.png
+INPUT ./Obrazy/Gazebo/Bad_3.png
 INPUT ./main.lof
 INPUT main.lof
 INPUT main.lof
@@ -1619,10 +1634,10 @@ INPUT ./main.out
 INPUT main.run.xml
 OUTPUT main.run.xml
 INPUT /usr/share/texmf/fonts/enc/dvips/lm/lm-ec.enc
+INPUT /usr/share/texmf/fonts/enc/dvips/lm/lm-ts1.enc
 INPUT /usr/share/texmf/fonts/enc/dvips/lm/lm-rm.enc
 INPUT /usr/share/texmf/fonts/enc/dvips/lm/lm-mathsy.enc
 INPUT /usr/share/texmf/fonts/enc/dvips/lm/lm-mathit.enc
-INPUT /usr/share/texmf/fonts/enc/dvips/lm/lm-ts1.enc
 INPUT /usr/share/texmf/fonts/type1/public/lm/lmbx12.pfb
 INPUT /usr/share/texmf/fonts/type1/public/lm/lmbxi10.pfb
 INPUT /usr/share/texmf/fonts/type1/public/lm/lmmi12.pfb
@@ -1645,4 +1660,3 @@ INPUT /usr/share/texmf/fonts/type1/public/lm/lmtt10.pfb
 INPUT /usr/share/texmf/fonts/type1/public/lm/lmtt12.pfb
 INPUT /usr/share/texmf/fonts/type1/public/lm/lmtt8.pfb
 INPUT /usr/share/texmf/fonts/type1/public/lm/lmtti10.pfb
-INPUT /usr/share/texlive/texmf-dist/fonts/type1/public/amsfonts/symbols/msbm10.pfb

@@ -201,6 +201,27 @@
     \field{year}{2023}
   \endentry
 
+  \entry{bib:isaac879_pantilt}{misc}{}
+    \name{author}{1}{}{%
+      {{hash=i}{%
+         family={{isaac879}},
+         familyi={i\bibinitperiod},
+      }}%
+    }
+    \strng{namehash}{i1}
+    \strng{fullhash}{i1}
+    \field{labelnamesource}{author}
+    \field{labeltitlesource}{title}
+    \field{sortinit}{I}
+    \field{sortinithash}{I}
+    \field{howpublished}{\url{https://www.youtube.com/watch?v=uJO7mv4-0PY}}
+    \field{note}{Film w serwisie YouTube. Dostęp: 26.01.2026}
+    \field{title}{3D Printed DSLR Camera Pan Tilt Mount (Arduino/Stepper
+  Driven) 2020}
+    \field{year}{2020}
+    \warn{\item Invalid format of field 'month'}
+  \endentry
+
   \entry{bib:Kemeshi2024}{inproceedings}{}
     \name{author}{4}{}{%
       {{hash=KJ}{%
