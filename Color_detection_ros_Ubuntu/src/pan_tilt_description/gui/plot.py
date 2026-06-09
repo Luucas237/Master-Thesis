@@ -160,84 +160,101 @@
 # print(f"\nZakończono pracę! Sprawdź folder:\n{FIGURES_DIR}")
 
 
-#!/usr/bin/env python3
+# #!/usr/bin/env python3
+# import pandas as pd
+# import matplotlib.pyplot as plt
+# import numpy as np
+# import os
+
+# # 1. Konfiguracja ścieżek do katalogów
+# DATA_DIR = "/workspace/src/pan_tilt_description/data"
+# FIGURES_DIR = os.path.join(DATA_DIR, "Figures")
+
+# # Automatyczne tworzenie folderu Figures, jeśli jeszcze nie istnieje
+# os.makedirs(FIGURES_DIR, exist_ok=True)
+
+# # 2. Ścieżka do konkretnego pliku
+# plik_csv = os.path.join(DATA_DIR, "A_Terrain_PID_lp.csv")
+
+# # Sprawdzenie, czy plik istnieje
+# if not os.path.exists(plik_csv):
+#     print(f"[BŁĄD] Nie znaleziono pliku: {plik_csv}")
+#     exit(1)
+
+# print(f"Znaleziono plik {plik_csv}. Rozpoczynam generowanie wykresu...")
+
+# try:
+#     df = pd.read_csv(plik_csv)
+    
+#     # --- TYTUŁ NA SZTYWNO ZGODNIE Z WYMOGIEM ---
+#     title_text = 'Odpowiedź Skokowa Systemu Nadążnego - Regulator PID\nNastawy: PAN (Kp=0.058, Kd=0.0019) | TILT (Kp=0.058, Kd=0.0019)'
+    
+#     # -------------------------------------------
+
+#     czas = df['Czas_s'].to_numpy()
+#     uchyb_x = df['Uchyb_X_px'].to_numpy()
+#     uchyb_y = df['Uchyb_Y_px'].to_numpy()
+    
+#     if 'Deadband' in df.columns:
+#         deadband = df['Deadband'].to_numpy()
+#     else:
+#         deadband = np.full(len(czas), 25.0)
+
+#     # Inicjalizacja obszaru roboczego
+#     plt.figure(figsize=(12, 9))
+    
+#     # --- Oś PAN ---
+#     plt.subplot(2, 1, 1)
+#     plt.plot(czas, uchyb_x, label='Uchyb osi PAN', color='#2980b9', linewidth=2)
+#     plt.axhline(y=0, color='#e74c3c', linestyle='-', linewidth=1.5, label='Środek tarczy')
+#     plt.fill_between(czas, deadband, -deadband, color='#2ecc71', alpha=0.2, label='Dynamiczna Strefa Nieczułości')
+#     plt.title(title_text, fontsize=12, fontweight='bold')
+#     plt.ylabel('Uchyb PAN [px]', fontsize=12)
+#     plt.legend(loc='upper right')
+#     plt.grid(True, linestyle='--', alpha=0.7)
+    
+#     # Dynamiczne skalowanie osi Y
+#     max_uchyb = max(np.max(np.abs(uchyb_x)), np.max(np.abs(uchyb_y)), 100)
+#     plt.ylim(-max_uchyb * 1.1, max_uchyb * 1.1)
+    
+#     # --- Oś TILT ---
+#     plt.subplot(2, 1, 2)
+#     plt.plot(czas, uchyb_y, label='Uchyb osi TILT', color='#f39c12', linewidth=2)
+#     plt.axhline(y=0, color='#e74c3c', linestyle='-', linewidth=1.5, label='Środek tarczy')
+#     plt.fill_between(czas, deadband, -deadband, color='#2ecc71', alpha=0.2, label='Dynamiczna Strefa Nieczułości')
+#     plt.xlabel('Czas [s]', fontsize=12)
+#     plt.ylabel('Uchyb TILT [px]', fontsize=12)
+#     plt.legend(loc='upper right')
+#     plt.grid(True, linestyle='--', alpha=0.7)
+#     plt.ylim(-max_uchyb * 1.1, max_uchyb * 1.1)
+    
+#     plt.tight_layout()
+    
+#     # --- ZAPIS DO FOLDERU FIGURES ---
+#     out_filename = 'wykres_A_Terrain_PID_lp.png'
+#     out_path = os.path.join(FIGURES_DIR, out_filename)
+    
+#     plt.savefig(out_path, dpi=300, bbox_inches='tight')
+#     print(f"[SUKCES] Zapisano wykres: {out_path}")
+    
+#     plt.close()
+
+# except Exception as e:
+#     print(f"[BŁĄD] Wystąpił problem podczas przetwarzania pliku: {e}")
+
+# #!/usr/bin/env python3
 import pandas as pd
-import matplotlib.pyplot as plt
 import numpy as np
-import os
 
-# 1. Konfiguracja ścieżek do katalogów
-DATA_DIR = "/workspace/src/pan_tilt_description/data"
-FIGURES_DIR = os.path.join(DATA_DIR, "Figures")
+# Wczytanie pliku CSV
+df = pd.read_csv("/workspace/src/pan_tilt_description/data/GOOD_BB_circural_80_cm.csv")
 
-# Automatyczne tworzenie folderu Figures, jeśli jeszcze nie istnieje
-os.makedirs(FIGURES_DIR, exist_ok=True)
+# Obliczenie RMSE dla uchybu X i Y
+rmse_x = np.sqrt(np.mean(df['Uchyb_X_px']**2))
+rmse_y = np.sqrt(np.mean(df['Uchyb_Y_px']**2))
 
-# 2. Ścieżka do konkretnego pliku
-plik_csv = os.path.join(DATA_DIR, "A_Terrain_PID_lp.csv")
+# Obliczenie maksymalnego błędu dynamicznego
+max_error_x = df['Uchyb_X_px'].abs().max()
 
-# Sprawdzenie, czy plik istnieje
-if not os.path.exists(plik_csv):
-    print(f"[BŁĄD] Nie znaleziono pliku: {plik_csv}")
-    exit(1)
-
-print(f"Znaleziono plik {plik_csv}. Rozpoczynam generowanie wykresu...")
-
-try:
-    df = pd.read_csv(plik_csv)
-    
-    # --- TYTUŁ NA SZTYWNO ZGODNIE Z WYMOGIEM ---
-    title_text = 'Odpowiedź Skokowa Systemu Nadążnego - Regulator PID\nNastawy: PAN (Kp=0.058, Kd=0.0019) | TILT (Kp=0.058, Kd=0.0019)'
-    
-    # -------------------------------------------
-
-    czas = df['Czas_s'].to_numpy()
-    uchyb_x = df['Uchyb_X_px'].to_numpy()
-    uchyb_y = df['Uchyb_Y_px'].to_numpy()
-    
-    if 'Deadband' in df.columns:
-        deadband = df['Deadband'].to_numpy()
-    else:
-        deadband = np.full(len(czas), 25.0)
-
-    # Inicjalizacja obszaru roboczego
-    plt.figure(figsize=(12, 9))
-    
-    # --- Oś PAN ---
-    plt.subplot(2, 1, 1)
-    plt.plot(czas, uchyb_x, label='Uchyb osi PAN', color='#2980b9', linewidth=2)
-    plt.axhline(y=0, color='#e74c3c', linestyle='-', linewidth=1.5, label='Środek tarczy')
-    plt.fill_between(czas, deadband, -deadband, color='#2ecc71', alpha=0.2, label='Dynamiczna Strefa Nieczułości')
-    plt.title(title_text, fontsize=12, fontweight='bold')
-    plt.ylabel('Uchyb PAN [px]', fontsize=12)
-    plt.legend(loc='upper right')
-    plt.grid(True, linestyle='--', alpha=0.7)
-    
-    # Dynamiczne skalowanie osi Y
-    max_uchyb = max(np.max(np.abs(uchyb_x)), np.max(np.abs(uchyb_y)), 100)
-    plt.ylim(-max_uchyb * 1.1, max_uchyb * 1.1)
-    
-    # --- Oś TILT ---
-    plt.subplot(2, 1, 2)
-    plt.plot(czas, uchyb_y, label='Uchyb osi TILT', color='#f39c12', linewidth=2)
-    plt.axhline(y=0, color='#e74c3c', linestyle='-', linewidth=1.5, label='Środek tarczy')
-    plt.fill_between(czas, deadband, -deadband, color='#2ecc71', alpha=0.2, label='Dynamiczna Strefa Nieczułości')
-    plt.xlabel('Czas [s]', fontsize=12)
-    plt.ylabel('Uchyb TILT [px]', fontsize=12)
-    plt.legend(loc='upper right')
-    plt.grid(True, linestyle='--', alpha=0.7)
-    plt.ylim(-max_uchyb * 1.1, max_uchyb * 1.1)
-    
-    plt.tight_layout()
-    
-    # --- ZAPIS DO FOLDERU FIGURES ---
-    out_filename = 'wykres_A_Terrain_PID_lp.png'
-    out_path = os.path.join(FIGURES_DIR, out_filename)
-    
-    plt.savefig(out_path, dpi=300, bbox_inches='tight')
-    print(f"[SUKCES] Zapisano wykres: {out_path}")
-    
-    plt.close()
-
-except Exception as e:
-    print(f"[BŁĄD] Wystąpił problem podczas przetwarzania pliku: {e}")
+print(f"RMSE X: {rmse_x:.2f}")
+print(f"Maksymalny błąd dynamiczny X: {max_error_x} px")
