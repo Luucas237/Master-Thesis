@@ -522,6 +522,58 @@
     \field{year}{2004}
   \endentry
 
+  \entry{bib:2012Pkm}{book}{}
+    \list{language}{1}{%
+      {pol}%
+    }
+    \list{publisher}{1}{%
+      {Wydawnictwo Naukowe PWN}%
+    }
+    \keyw{Inżynieria mechaniczna -- podręczniki akademickie}
+    \field{labeltitlesource}{title}
+    \field{sortinit}{P}
+    \field{sortinithash}{P}
+    \field{edition}{Wydanie drugie, 1 dodruk..}
+    \field{isbn}{9788301164539}
+    \field{series}{Podstawy Konstrukcji Maszyn}
+    \field{title}{Podstawy konstrukcji maszyn}
+    \list{location}{1}{%
+      {Warszawa}%
+    }
+    \field{year}{2012}
+  \endentry
+
+  \entry{bib:PROUDFOOT1987414}{article}{}
+    \name{author}{1}{}{%
+      {{hash=PC}{%
+         family={Proudfoot},
+         familyi={P\bibinitperiod},
+         given={C.G.},
+         giveni={C\bibinitperiod},
+      }}%
+    }
+    \strng{namehash}{PC1}
+    \strng{fullhash}{PC1}
+    \field{labelnamesource}{author}
+    \field{labeltitlesource}{title}
+    \field{sortinit}{P}
+    \field{sortinithash}{P}
+    \verb{doi}
+    \verb https://doi.org/10.1016/0005-1098(87)90018-5
+    \endverb
+    \field{issn}{0005-1098}
+    \field{number}{3}
+    \field{pages}{414}
+    \field{title}{Principles and practice of automatic process control: Carlos
+  A. Smith and Armando B. Corripio}
+    \verb{url}
+    \verb https://www.sciencedirect.com/science/article/pii/0005109887900185
+    \endverb
+    \field{volume}{23}
+    \field{journaltitle}{Automatica}
+    \field{year}{1987}
+  \endentry
+
   \entry{bib:Seidaliyeva2020}{article}{}
     \name{author}{4}{}{%
       {{hash=SU}{%
@@ -564,6 +616,37 @@
     \field{volume}{20}
     \field{journaltitle}{Sensors}
     \field{year}{2020}
+  \endentry
+
+  \entry{bib:SKOGESTAD2003291}{article}{}
+    \name{author}{1}{}{%
+      {{hash=SS}{%
+         family={Skogestad},
+         familyi={S\bibinitperiod},
+         given={Sigurd},
+         giveni={S\bibinitperiod},
+      }}%
+    }
+    \strng{namehash}{SS1}
+    \strng{fullhash}{SS1}
+    \field{labelnamesource}{author}
+    \field{labeltitlesource}{title}
+    \field{sortinit}{S}
+    \field{sortinithash}{S}
+    \verb{doi}
+    \verb https://doi.org/10.1016/S0959-1524(02)00062-8
+    \endverb
+    \field{issn}{0959-1524}
+    \field{number}{4}
+    \field{pages}{291\bibrangedash 309}
+    \field{title}{Simple analytic rules for model reduction and PID controller
+  tuning}
+    \verb{url}
+    \verb https://www.sciencedirect.com/science/article/pii/S0959152402000628
+    \endverb
+    \field{volume}{13}
+    \field{journaltitle}{Journal of Process Control}
+    \field{year}{2003}
   \endentry
 
   \entry{bib:Son2021}{article}{}
@@ -752,6 +835,37 @@
     \field{volume}{9}
     \field{journaltitle}{CEAS Space Journal}
     \field{year}{2017}
+  \endentry
+
+  \entry{bib:WróbelTadeusz1993Ss}{book}{}
+    \name{author}{1}{}{%
+      {{hash=WT}{%
+         family={Wróbel},
+         familyi={W\bibinitperiod},
+         given={Tadeusz},
+         giveni={T\bibinitperiod},
+      }}%
+    }
+    \list{language}{1}{%
+      {pol}%
+    }
+    \list{publisher}{1}{%
+      {Wydawnictwa Naukowo-Techniczne}%
+    }
+    \keyw{Silniki skokowe}
+    \strng{namehash}{WT1}
+    \strng{fullhash}{WT1}
+    \field{labelnamesource}{author}
+    \field{labeltitlesource}{title}
+    \field{sortinit}{W}
+    \field{sortinithash}{W}
+    \field{edition}{Wydanie I..}
+    \field{isbn}{8320414911}
+    \field{title}{Silniki skokowe}
+    \list{location}{1}{%
+      {Warszawa}%
+    }
+    \field{year}{1993}
   \endentry
 \enddatalist
 \endinput

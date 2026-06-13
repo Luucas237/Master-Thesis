@@ -1,4 +1,4 @@
-This is pdfTeX, Version 3.141592653-2.6-1.40.22 (TeX Live 2022/dev/Debian) (preloaded format=pdflatex 2026.5.11)  9 JUN 2026 04:43
+This is pdfTeX, Version 3.141592653-2.6-1.40.22 (TeX Live 2022/dev/Debian) (preloaded format=pdflatex 2026.5.11)  13 JUN 2026 14:41
 entering extended mode
  restricted \write18 enabled.
  file:line:error style messages enabled.
@@ -1254,9 +1254,6 @@ Package fancyhdr Warning: \headheight is too small (12.0pt):
 (fancyhdr)                \addtolength{\topmargin}{-2.49998pt}.
 
 [10]
-Underfull \vbox (badness 10000) has occurred while \output is active []
-
-
 
 Package fancyhdr Warning: \headheight is too small (12.0pt): 
 (fancyhdr)                Make it at least 14.49998pt, for example:
@@ -1359,9 +1356,6 @@ File: ./Obrazy/Inventor/Komponenty.png Graphic file (type png)
 Package pdftex.def Info: ./Obrazy/Inventor/Komponenty.png  used on input line 847.
 (pdftex.def)             Requested size: 318.66948pt x 327.39058pt.
 
-Underfull \vbox (badness 10000) has occurred while \output is active []
-
-
 
 Package fancyhdr Warning: \headheight is too small (12.0pt): 
 (fancyhdr)                Make it at least 14.49998pt, for example:
@@ -1451,7 +1445,7 @@ Package fancyhdr Warning: \headheight is too small (12.0pt):
 (fancyhdr)                \addtolength{\topmargin}{-2.49998pt}.
 
 [26 <./Obrazy/Inventor/przekladnia lozysko.png>]
-<./Obrazy/Real/turret.jpeg, id=627, 1092.4815pt x 1275.8064pt>
+<./Obrazy/Real/turret.jpeg, id=630, 1092.4815pt x 1275.8064pt>
 File: ./Obrazy/Real/turret.jpeg Graphic file (type jpg)
 <use ./Obrazy/Real/turret.jpeg>
 Package pdftex.def Info: ./Obrazy/Real/turret.jpeg  used on input line 939.
@@ -1499,7 +1493,7 @@ Package fancyhdr Warning: \headheight is too small (12.0pt):
 (fancyhdr)                \addtolength{\topmargin}{-2.49998pt}.
 
 [29]
-<./Obrazy/Schemat elektryczny/Zasilanie.png, id=650, 473.51906pt x 371.88937pt>
+<./Obrazy/Schemat elektryczny/Zasilanie.png, id=654, 473.51906pt x 371.88937pt>
 File: ./Obrazy/Schemat elektryczny/Zasilanie.png Graphic file (type png)
 <use ./Obrazy/Schemat elektryczny/Zasilanie.png>
 Package pdftex.def Info: ./Obrazy/Schemat elektryczny/Zasilanie.png  used on input line 979.
@@ -1513,7 +1507,7 @@ Package fancyhdr Warning: \headheight is too small (12.0pt):
 (fancyhdr)                \addtolength{\topmargin}{-2.49998pt}.
 
 [30 <./Obrazy/Schemat elektryczny/Zasilanie.png (PNG copy)>]
-<./Obrazy/Schemat elektryczny/Rpi_ESP.png, id=657, 540.51938pt x 660.96938pt>
+<./Obrazy/Schemat elektryczny/Rpi_ESP.png, id=661, 540.51938pt x 660.96938pt>
 File: ./Obrazy/Schemat elektryczny/Rpi_ESP.png Graphic file (type png)
 <use ./Obrazy/Schemat elektryczny/Rpi_ESP.png>
 Package pdftex.def Info: ./Obrazy/Schemat elektryczny/Rpi_ESP.png  used on input line 997.
@@ -1527,7 +1521,7 @@ Package fancyhdr Warning: \headheight is too small (12.0pt):
 (fancyhdr)                \addtolength{\topmargin}{-2.49998pt}.
 
 [31 <./Obrazy/Schemat elektryczny/Rpi_ESP.png (PNG copy)>]
-<./Obrazy/Schemat elektryczny/Silniki.png, id=663, 670.75594pt x 635.37375pt>
+<./Obrazy/Schemat elektryczny/Silniki.png, id=667, 670.75594pt x 635.37375pt>
 File: ./Obrazy/Schemat elektryczny/Silniki.png Graphic file (type png)
 <use ./Obrazy/Schemat elektryczny/Silniki.png>
 Package pdftex.def Info: ./Obrazy/Schemat elektryczny/Silniki.png  used on input line 1016.
@@ -1541,7 +1535,7 @@ Package fancyhdr Warning: \headheight is too small (12.0pt):
 (fancyhdr)                \addtolength{\topmargin}{-2.49998pt}.
 
 [32 <./Obrazy/Schemat elektryczny/Silniki.png (PNG copy)>]
-<./Obrazy/Schemat elektryczny/Laser.png, id=670, 311.66437pt x 261.97874pt>
+<./Obrazy/Schemat elektryczny/Laser.png, id=674, 311.66437pt x 261.97874pt>
 File: ./Obrazy/Schemat elektryczny/Laser.png Graphic file (type png)
 <use ./Obrazy/Schemat elektryczny/Laser.png>
 Package pdftex.def Info: ./Obrazy/Schemat elektryczny/Laser.png  used on input line 1030.
@@ -1615,10 +1609,10 @@ Package fancyhdr Warning: \headheight is too small (12.0pt):
 (fancyhdr)                \addtolength{\topmargin}{-2.49998pt}.
 
 [40]
-<./Obrazy/Gazebo/gazebo.png, id=799, 1052.43187pt x 794.97pt>
+<./Obrazy/Gazebo/gazebo.png, id=802, 1052.43187pt x 794.97pt>
 File: ./Obrazy/Gazebo/gazebo.png Graphic file (type png)
 <use ./Obrazy/Gazebo/gazebo.png>
-Package pdftex.def Info: ./Obrazy/Gazebo/gazebo.png  used on input line 1185.
+Package pdftex.def Info: ./Obrazy/Gazebo/gazebo.png  used on input line 1184.
 (pdftex.def)             Requested size: 409.71692pt x 309.4912pt.
 
 
@@ -1637,7 +1631,7 @@ Package fancyhdr Warning: \headheight is too small (12.0pt):
 (fancyhdr)                \addtolength{\topmargin}{-2.49998pt}.
 
 [42]
-Overfull \hbox (5.82732pt too wide) in paragraph at lines 1223--1224
+Overfull \hbox (5.82732pt too wide) in paragraph at lines 1222--1223
 \T1/lmr/bx/n/12 xglove Stu-dio\T1/lmr/m/n/12 .Dzi¦ki in-sta-la-cji pa-kietu \T1/lmtt/m/n/12 ros-humble-foxglove-bridge\T1/lmr/m/n/12 , sy-mu-lo-wany stru-
  []
 
@@ -1649,10 +1643,10 @@ Package fancyhdr Warning: \headheight is too small (12.0pt):
 (fancyhdr)                \addtolength{\topmargin}{-2.49998pt}.
 
 [43]
-<./Obrazy/Gazebo/Foxglove.png, id=840, 811.53188pt x 606.01407pt>
+<./Obrazy/Gazebo/Foxglove.png, id=843, 811.53188pt x 606.01407pt>
 File: ./Obrazy/Gazebo/Foxglove.png Graphic file (type png)
 <use ./Obrazy/Gazebo/Foxglove.png>
-Package pdftex.def Info: ./Obrazy/Gazebo/Foxglove.png  used on input line 1234.
+Package pdftex.def Info: ./Obrazy/Gazebo/Foxglove.png  used on input line 1233.
 (pdftex.def)             Requested size: 409.71692pt x 305.96533pt.
 
 
@@ -1704,10 +1698,10 @@ Package fancyhdr Warning: \headheight is too small (12.0pt):
 (fancyhdr)                \addtolength{\topmargin}{-2.49998pt}.
 
 [49]
-<./Obrazy/Gazebo/Good_2.png, id=903, 674.52pt x 774.64406pt>
+<./Obrazy/Gazebo/Good_2.png, id=906, 674.52pt x 774.64406pt>
 File: ./Obrazy/Gazebo/Good_2.png Graphic file (type png)
 <use ./Obrazy/Gazebo/Good_2.png>
-Package pdftex.def Info: ./Obrazy/Gazebo/Good_2.png  used on input line 1334.
+Package pdftex.def Info: ./Obrazy/Gazebo/Good_2.png  used on input line 1333.
 (pdftex.def)             Requested size: 364.19667pt x 418.2661pt.
 
 
@@ -1742,10 +1736,10 @@ Package fancyhdr Warning: \headheight is too small (12.0pt):
 (fancyhdr)                \addtolength{\topmargin}{-2.49998pt}.
 
 [53]
-<./Obrazy/Nastawy/wykres_A_Skok.png, id=947, 860.4948pt x 644.4075pt>
+<./Obrazy/Nastawy/wykres_A_Skok.png, id=953, 860.4948pt x 644.4075pt>
 File: ./Obrazy/Nastawy/wykres_A_Skok.png Graphic file (type png)
 <use ./Obrazy/Nastawy/wykres_A_Skok.png>
-Package pdftex.def Info: ./Obrazy/Nastawy/wykres_A_Skok.png  used on input line 1413.
+Package pdftex.def Info: ./Obrazy/Nastawy/wykres_A_Skok.png  used on input line 1412.
 (pdftex.def)             Requested size: 364.19667pt x 272.7437pt.
 
 
@@ -1792,10 +1786,10 @@ Package fancyhdr Warning: \headheight is too small (12.0pt):
 ]
 Rozdzia\l  6.
 [59]
-<./Obrazy/Real/pomiary_1.jpeg, id=989, 1376.0208pt x 774.0117pt>
+<./Obrazy/Real/pomiary_1.jpeg, id=997, 1376.0208pt x 774.0117pt>
 File: ./Obrazy/Real/pomiary_1.jpeg Graphic file (type jpg)
 <use ./Obrazy/Real/pomiary_1.jpeg>
-Package pdftex.def Info: ./Obrazy/Real/pomiary_1.jpeg  used on input line 1631.
+Package pdftex.def Info: ./Obrazy/Real/pomiary_1.jpeg  used on input line 1630.
 (pdftex.def)             Requested size: 364.19667pt x 204.8523pt.
 
 
@@ -1806,15 +1800,15 @@ Package fancyhdr Warning: \headheight is too small (12.0pt):
 (fancyhdr)                \addtolength{\topmargin}{-2.49998pt}.
 
 [60 <./Obrazy/Real/pomiary_1.jpeg>]
-<./Obrazy/Wyniki PID/wykres_GOOD_PID_move_80_cm.png, id=999, 860.4948pt x 644.4075pt>
+<./Obrazy/Wyniki PID/wykres_GOOD_PID_move_80_cm.png, id=1007, 860.4948pt x 644.4075pt>
 File: ./Obrazy/Wyniki PID/wykres_GOOD_PID_move_80_cm.png Graphic file (type png)
 <use ./Obrazy/Wyniki PID/wykres_GOOD_PID_move_80_cm.png>
-Package pdftex.def Info: ./Obrazy/Wyniki PID/wykres_GOOD_PID_move_80_cm.png  used on input line 1657.
+Package pdftex.def Info: ./Obrazy/Wyniki PID/wykres_GOOD_PID_move_80_cm.png  used on input line 1656.
 (pdftex.def)             Requested size: 218.51521pt x 163.63835pt.
-<./Obrazy/Wyniki PID/wykres_UP_PID_move_80_cm.png, id=1000, 860.4948pt x 644.4075pt>
+<./Obrazy/Wyniki PID/wykres_UP_PID_move_80_cm.png, id=1008, 860.4948pt x 644.4075pt>
 File: ./Obrazy/Wyniki PID/wykres_UP_PID_move_80_cm.png Graphic file (type png)
 <use ./Obrazy/Wyniki PID/wykres_UP_PID_move_80_cm.png>
-Package pdftex.def Info: ./Obrazy/Wyniki PID/wykres_UP_PID_move_80_cm.png  used on input line 1662.
+Package pdftex.def Info: ./Obrazy/Wyniki PID/wykres_UP_PID_move_80_cm.png  used on input line 1661.
 (pdftex.def)             Requested size: 218.51521pt x 163.63835pt.
 
 
@@ -1825,15 +1819,15 @@ Package fancyhdr Warning: \headheight is too small (12.0pt):
 (fancyhdr)                \addtolength{\topmargin}{-2.49998pt}.
 
 [61 <./Obrazy/Wyniki PID/wykres_GOOD_PID_move_80_cm.png> <./Obrazy/Wyniki PID/wykres_UP_PID_move_80_cm.png>]
-<./Obrazy/Wyniki PID/wykres_GOOD_PID_move_30_cm.png, id=1010, 860.4948pt x 644.4075pt>
+<./Obrazy/Wyniki PID/wykres_GOOD_PID_move_30_cm.png, id=1018, 860.4948pt x 644.4075pt>
 File: ./Obrazy/Wyniki PID/wykres_GOOD_PID_move_30_cm.png Graphic file (type png)
 <use ./Obrazy/Wyniki PID/wykres_GOOD_PID_move_30_cm.png>
-Package pdftex.def Info: ./Obrazy/Wyniki PID/wykres_GOOD_PID_move_30_cm.png  used on input line 1675.
+Package pdftex.def Info: ./Obrazy/Wyniki PID/wykres_GOOD_PID_move_30_cm.png  used on input line 1674.
 (pdftex.def)             Requested size: 218.51521pt x 163.63835pt.
-<./Obrazy/Wyniki PID/wykres_UP_PID_move_30_cm.png, id=1011, 860.4948pt x 644.4075pt>
+<./Obrazy/Wyniki PID/wykres_UP_PID_move_30_cm.png, id=1019, 860.4948pt x 644.4075pt>
 File: ./Obrazy/Wyniki PID/wykres_UP_PID_move_30_cm.png Graphic file (type png)
 <use ./Obrazy/Wyniki PID/wykres_UP_PID_move_30_cm.png>
-Package pdftex.def Info: ./Obrazy/Wyniki PID/wykres_UP_PID_move_30_cm.png  used on input line 1680.
+Package pdftex.def Info: ./Obrazy/Wyniki PID/wykres_UP_PID_move_30_cm.png  used on input line 1679.
 (pdftex.def)             Requested size: 218.51521pt x 163.63835pt.
 
 
@@ -1844,15 +1838,15 @@ Package fancyhdr Warning: \headheight is too small (12.0pt):
 (fancyhdr)                \addtolength{\topmargin}{-2.49998pt}.
 
 [62 <./Obrazy/Wyniki PID/wykres_GOOD_PID_move_30_cm.png> <./Obrazy/Wyniki PID/wykres_UP_PID_move_30_cm.png>]
-<./Obrazy/Wyniki PID/wykres_GOOD_PID_move_150_cm.png, id=1022, 860.4948pt x 644.4075pt>
+<./Obrazy/Wyniki PID/wykres_GOOD_PID_move_150_cm.png, id=1030, 860.4948pt x 644.4075pt>
 File: ./Obrazy/Wyniki PID/wykres_GOOD_PID_move_150_cm.png Graphic file (type png)
 <use ./Obrazy/Wyniki PID/wykres_GOOD_PID_move_150_cm.png>
-Package pdftex.def Info: ./Obrazy/Wyniki PID/wykres_GOOD_PID_move_150_cm.png  used on input line 1693.
+Package pdftex.def Info: ./Obrazy/Wyniki PID/wykres_GOOD_PID_move_150_cm.png  used on input line 1692.
 (pdftex.def)             Requested size: 218.51521pt x 163.63835pt.
-<./Obrazy/Wyniki PID/wykres_UP_PID_move_150_cm.png, id=1023, 860.4948pt x 644.4075pt>
+<./Obrazy/Wyniki PID/wykres_UP_PID_move_150_cm.png, id=1031, 860.4948pt x 644.4075pt>
 File: ./Obrazy/Wyniki PID/wykres_UP_PID_move_150_cm.png Graphic file (type png)
 <use ./Obrazy/Wyniki PID/wykres_UP_PID_move_150_cm.png>
-Package pdftex.def Info: ./Obrazy/Wyniki PID/wykres_UP_PID_move_150_cm.png  used on input line 1698.
+Package pdftex.def Info: ./Obrazy/Wyniki PID/wykres_UP_PID_move_150_cm.png  used on input line 1697.
 (pdftex.def)             Requested size: 218.51521pt x 163.63835pt.
 
 
@@ -1863,25 +1857,25 @@ Package fancyhdr Warning: \headheight is too small (12.0pt):
 (fancyhdr)                \addtolength{\topmargin}{-2.49998pt}.
 
 [63 <./Obrazy/Wyniki PID/wykres_GOOD_PID_move_150_cm.png> <./Obrazy/Wyniki PID/wykres_UP_PID_move_150_cm.png>]
-<./Obrazy/Wyniki PID/wykres_GOOD_PID_circural_80_cm.png, id=1032, 860.4948pt x 644.4075pt>
+<./Obrazy/Wyniki PID/wykres_GOOD_PID_circural_80_cm.png, id=1040, 860.4948pt x 644.4075pt>
 File: ./Obrazy/Wyniki PID/wykres_GOOD_PID_circural_80_cm.png Graphic file (type png)
 <use ./Obrazy/Wyniki PID/wykres_GOOD_PID_circural_80_cm.png>
-Package pdftex.def Info: ./Obrazy/Wyniki PID/wykres_GOOD_PID_circural_80_cm.png  used on input line 1715.
+Package pdftex.def Info: ./Obrazy/Wyniki PID/wykres_GOOD_PID_circural_80_cm.png  used on input line 1714.
 (pdftex.def)             Requested size: 218.51521pt x 163.63835pt.
-<./Obrazy/Wyniki PID/wykres_UP_PID_circural_80_cm.png, id=1033, 860.4948pt x 644.4075pt>
+<./Obrazy/Wyniki PID/wykres_UP_PID_circural_80_cm.png, id=1041, 860.4948pt x 644.4075pt>
 File: ./Obrazy/Wyniki PID/wykres_UP_PID_circural_80_cm.png Graphic file (type png)
 <use ./Obrazy/Wyniki PID/wykres_UP_PID_circural_80_cm.png>
-Package pdftex.def Info: ./Obrazy/Wyniki PID/wykres_UP_PID_circural_80_cm.png  used on input line 1720.
+Package pdftex.def Info: ./Obrazy/Wyniki PID/wykres_UP_PID_circural_80_cm.png  used on input line 1719.
 (pdftex.def)             Requested size: 218.51521pt x 163.63835pt.
-<./Obrazy/Wyniki PID/wykres_GOOD_PID_circural_30_cm.png, id=1035, 860.4948pt x 644.4075pt>
+<./Obrazy/Wyniki PID/wykres_GOOD_PID_circural_30_cm.png, id=1043, 860.4948pt x 644.4075pt>
 File: ./Obrazy/Wyniki PID/wykres_GOOD_PID_circural_30_cm.png Graphic file (type png)
 <use ./Obrazy/Wyniki PID/wykres_GOOD_PID_circural_30_cm.png>
-Package pdftex.def Info: ./Obrazy/Wyniki PID/wykres_GOOD_PID_circural_30_cm.png  used on input line 1732.
+Package pdftex.def Info: ./Obrazy/Wyniki PID/wykres_GOOD_PID_circural_30_cm.png  used on input line 1731.
 (pdftex.def)             Requested size: 218.51521pt x 163.63835pt.
-<./Obrazy/Wyniki PID/wykres_UP_PID_circural_30_cm.png, id=1036, 860.4948pt x 644.4075pt>
+<./Obrazy/Wyniki PID/wykres_UP_PID_circural_30_cm.png, id=1044, 860.4948pt x 644.4075pt>
 File: ./Obrazy/Wyniki PID/wykres_UP_PID_circural_30_cm.png Graphic file (type png)
 <use ./Obrazy/Wyniki PID/wykres_UP_PID_circural_30_cm.png>
-Package pdftex.def Info: ./Obrazy/Wyniki PID/wykres_UP_PID_circural_30_cm.png  used on input line 1737.
+Package pdftex.def Info: ./Obrazy/Wyniki PID/wykres_UP_PID_circural_30_cm.png  used on input line 1736.
 (pdftex.def)             Requested size: 218.51521pt x 163.63835pt.
 
 
@@ -1892,15 +1886,15 @@ Package fancyhdr Warning: \headheight is too small (12.0pt):
 (fancyhdr)                \addtolength{\topmargin}{-2.49998pt}.
 
 [64 <./Obrazy/Wyniki PID/wykres_GOOD_PID_circural_80_cm.png> <./Obrazy/Wyniki PID/wykres_UP_PID_circural_80_cm.png> <./Obrazy/Wyniki PID/wykres_GOOD_PID_circural_30_cm.png> <./Obrazy/Wyniki PID/wykres_UP_PID_circural_30_cm.png>]
-<./Obrazy/Wyniki PID/wykres_GOOD_PID_circural_150_cm.png, id=1047, 860.4948pt x 644.4075pt>
+<./Obrazy/Wyniki PID/wykres_GOOD_PID_circural_150_cm.png, id=1055, 860.4948pt x 644.4075pt>
 File: ./Obrazy/Wyniki PID/wykres_GOOD_PID_circural_150_cm.png Graphic file (type png)
 <use ./Obrazy/Wyniki PID/wykres_GOOD_PID_circural_150_cm.png>
-Package pdftex.def Info: ./Obrazy/Wyniki PID/wykres_GOOD_PID_circural_150_cm.png  used on input line 1750.
+Package pdftex.def Info: ./Obrazy/Wyniki PID/wykres_GOOD_PID_circural_150_cm.png  used on input line 1749.
 (pdftex.def)             Requested size: 218.51521pt x 163.63835pt.
-<./Obrazy/Wyniki PID/wykres_UP_PID_circural_150_cm.png, id=1048, 860.4948pt x 644.4075pt>
+<./Obrazy/Wyniki PID/wykres_UP_PID_circural_150_cm.png, id=1056, 860.4948pt x 644.4075pt>
 File: ./Obrazy/Wyniki PID/wykres_UP_PID_circural_150_cm.png Graphic file (type png)
 <use ./Obrazy/Wyniki PID/wykres_UP_PID_circural_150_cm.png>
-Package pdftex.def Info: ./Obrazy/Wyniki PID/wykres_UP_PID_circural_150_cm.png  used on input line 1755.
+Package pdftex.def Info: ./Obrazy/Wyniki PID/wykres_UP_PID_circural_150_cm.png  used on input line 1754.
 (pdftex.def)             Requested size: 218.51521pt x 163.63835pt.
 
 
@@ -1911,15 +1905,15 @@ Package fancyhdr Warning: \headheight is too small (12.0pt):
 (fancyhdr)                \addtolength{\topmargin}{-2.49998pt}.
 
 [65 <./Obrazy/Wyniki PID/wykres_GOOD_PID_circural_150_cm.png> <./Obrazy/Wyniki PID/wykres_UP_PID_circural_150_cm.png>]
-<./Obrazy/Wyniki PID/wykres_GOOD_PID_move_30_150.png, id=1060, 860.4948pt x 644.4075pt>
+<./Obrazy/Wyniki PID/wykres_GOOD_PID_move_30_150.png, id=1068, 860.4948pt x 644.4075pt>
 File: ./Obrazy/Wyniki PID/wykres_GOOD_PID_move_30_150.png Graphic file (type png)
 <use ./Obrazy/Wyniki PID/wykres_GOOD_PID_move_30_150.png>
-Package pdftex.def Info: ./Obrazy/Wyniki PID/wykres_GOOD_PID_move_30_150.png  used on input line 1776.
+Package pdftex.def Info: ./Obrazy/Wyniki PID/wykres_GOOD_PID_move_30_150.png  used on input line 1775.
 (pdftex.def)             Requested size: 218.51521pt x 163.63835pt.
-<./Obrazy/Wyniki PID/wykres_UP_PID_move_30_150.png, id=1061, 860.4948pt x 644.4075pt>
+<./Obrazy/Wyniki PID/wykres_UP_PID_move_30_150.png, id=1069, 860.4948pt x 644.4075pt>
 File: ./Obrazy/Wyniki PID/wykres_UP_PID_move_30_150.png Graphic file (type png)
 <use ./Obrazy/Wyniki PID/wykres_UP_PID_move_30_150.png>
-Package pdftex.def Info: ./Obrazy/Wyniki PID/wykres_UP_PID_move_30_150.png  used on input line 1781.
+Package pdftex.def Info: ./Obrazy/Wyniki PID/wykres_UP_PID_move_30_150.png  used on input line 1780.
 (pdftex.def)             Requested size: 218.51521pt x 163.63835pt.
 
 
@@ -1930,34 +1924,34 @@ Package fancyhdr Warning: \headheight is too small (12.0pt):
 (fancyhdr)                \addtolength{\topmargin}{-2.49998pt}.
 
 [66 <./Obrazy/Wyniki PID/wykres_GOOD_PID_move_30_150.png> <./Obrazy/Wyniki PID/wykres_UP_PID_move_30_150.png>]
-Overfull \hbox (8.02896pt too wide) in paragraph at lines 1795--1795
+Overfull \hbox (8.02896pt too wide) in paragraph at lines 1794--1794
 []\T1/lmr/bx/n/14.4 Odpowied¹ ukªadu na sko-kow¡ zmian¦ po-ªo-»e-nia celu (Ruch
  []
 
-<./Obrazy/WYniki troj/wykres_GOOD_BB_move_80_cm.png, id=1070, 860.4948pt x 644.1666pt>
+<./Obrazy/WYniki troj/wykres_GOOD_BB_move_80_cm.png, id=1078, 860.4948pt x 644.1666pt>
 File: ./Obrazy/WYniki troj/wykres_GOOD_BB_move_80_cm.png Graphic file (type png)
 <use ./Obrazy/WYniki troj/wykres_GOOD_BB_move_80_cm.png>
-Package pdftex.def Info: ./Obrazy/WYniki troj/wykres_GOOD_BB_move_80_cm.png  used on input line 1803.
+Package pdftex.def Info: ./Obrazy/WYniki troj/wykres_GOOD_BB_move_80_cm.png  used on input line 1802.
 (pdftex.def)             Requested size: 218.51521pt x 163.57718pt.
 
-Underfull \hbox (badness 2418) in paragraph at lines 1804--1804
+Underfull \hbox (badness 2418) in paragraph at lines 1803--1803
 []\T1/lmr/m/n/10.95 (a) |Strefa heu-ry-styczna -- drga-nia wo-kóª
  []
 
-<./Obrazy/WYniki troj/wykres_UP_BB_move_80_cm.png, id=1071, 860.4948pt x 644.1666pt>
+<./Obrazy/WYniki troj/wykres_UP_BB_move_80_cm.png, id=1079, 860.4948pt x 644.1666pt>
 File: ./Obrazy/WYniki troj/wykres_UP_BB_move_80_cm.png Graphic file (type png)
 <use ./Obrazy/WYniki troj/wykres_UP_BB_move_80_cm.png>
-Package pdftex.def Info: ./Obrazy/WYniki troj/wykres_UP_BB_move_80_cm.png  used on input line 1808.
+Package pdftex.def Info: ./Obrazy/WYniki troj/wykres_UP_BB_move_80_cm.png  used on input line 1807.
 (pdftex.def)             Requested size: 218.51521pt x 163.57718pt.
-<./Obrazy/WYniki troj/wykres_GOOD_BB_move_30_cm.png, id=1073, 860.4948pt x 644.1666pt>
+<./Obrazy/WYniki troj/wykres_GOOD_BB_move_30_cm.png, id=1081, 860.4948pt x 644.1666pt>
 File: ./Obrazy/WYniki troj/wykres_GOOD_BB_move_30_cm.png Graphic file (type png)
 <use ./Obrazy/WYniki troj/wykres_GOOD_BB_move_30_cm.png>
-Package pdftex.def Info: ./Obrazy/WYniki troj/wykres_GOOD_BB_move_30_cm.png  used on input line 1820.
+Package pdftex.def Info: ./Obrazy/WYniki troj/wykres_GOOD_BB_move_30_cm.png  used on input line 1819.
 (pdftex.def)             Requested size: 218.51521pt x 163.57718pt.
-<./Obrazy/WYniki troj/wykres_UP_BB_move_30_cm.png, id=1074, 860.4948pt x 644.1666pt>
+<./Obrazy/WYniki troj/wykres_UP_BB_move_30_cm.png, id=1082, 860.4948pt x 644.1666pt>
 File: ./Obrazy/WYniki troj/wykres_UP_BB_move_30_cm.png Graphic file (type png)
 <use ./Obrazy/WYniki troj/wykres_UP_BB_move_30_cm.png>
-Package pdftex.def Info: ./Obrazy/WYniki troj/wykres_UP_BB_move_30_cm.png  used on input line 1825.
+Package pdftex.def Info: ./Obrazy/WYniki troj/wykres_UP_BB_move_30_cm.png  used on input line 1824.
 (pdftex.def)             Requested size: 218.51521pt x 163.57718pt.
 
 Underfull \vbox (badness 10000) has occurred while \output is active []
@@ -1971,15 +1965,15 @@ Package fancyhdr Warning: \headheight is too small (12.0pt):
 (fancyhdr)                \addtolength{\topmargin}{-2.49998pt}.
 
 [67 <./Obrazy/WYniki troj/wykres_GOOD_BB_move_80_cm.png> <./Obrazy/WYniki troj/wykres_UP_BB_move_80_cm.png>]
-<./Obrazy/WYniki troj/wykres_GOOD_BB_move_150_cm.png, id=1084, 860.4948pt x 644.1666pt>
+<./Obrazy/WYniki troj/wykres_GOOD_BB_move_150_cm.png, id=1092, 860.4948pt x 644.1666pt>
 File: ./Obrazy/WYniki troj/wykres_GOOD_BB_move_150_cm.png Graphic file (type png)
 <use ./Obrazy/WYniki troj/wykres_GOOD_BB_move_150_cm.png>
-Package pdftex.def Info: ./Obrazy/WYniki troj/wykres_GOOD_BB_move_150_cm.png  used on input line 1837.
+Package pdftex.def Info: ./Obrazy/WYniki troj/wykres_GOOD_BB_move_150_cm.png  used on input line 1836.
 (pdftex.def)             Requested size: 218.51521pt x 163.57718pt.
-<./Obrazy/WYniki troj/wykres_UP_BB_move_150_cm.png, id=1085, 860.4948pt x 644.1666pt>
+<./Obrazy/WYniki troj/wykres_UP_BB_move_150_cm.png, id=1093, 860.4948pt x 644.1666pt>
 File: ./Obrazy/WYniki troj/wykres_UP_BB_move_150_cm.png Graphic file (type png)
 <use ./Obrazy/WYniki troj/wykres_UP_BB_move_150_cm.png>
-Package pdftex.def Info: ./Obrazy/WYniki troj/wykres_UP_BB_move_150_cm.png  used on input line 1842.
+Package pdftex.def Info: ./Obrazy/WYniki troj/wykres_UP_BB_move_150_cm.png  used on input line 1841.
 (pdftex.def)             Requested size: 218.51521pt x 163.57718pt.
 
 
@@ -1990,15 +1984,15 @@ Package fancyhdr Warning: \headheight is too small (12.0pt):
 (fancyhdr)                \addtolength{\topmargin}{-2.49998pt}.
 
 [68 <./Obrazy/WYniki troj/wykres_GOOD_BB_move_30_cm.png> <./Obrazy/WYniki troj/wykres_UP_BB_move_30_cm.png> <./Obrazy/WYniki troj/wykres_GOOD_BB_move_150_cm.png> <./Obrazy/WYniki troj/wykres_UP_BB_move_150_cm.png>]
-<./Obrazy/WYniki troj/wykres_GOOD_BB_circural_80_cm.png, id=1097, 860.4948pt x 644.1666pt>
+<./Obrazy/WYniki troj/wykres_GOOD_BB_circural_80_cm.png, id=1106, 860.4948pt x 644.1666pt>
 File: ./Obrazy/WYniki troj/wykres_GOOD_BB_circural_80_cm.png Graphic file (type png)
 <use ./Obrazy/WYniki troj/wykres_GOOD_BB_circural_80_cm.png>
-Package pdftex.def Info: ./Obrazy/WYniki troj/wykres_GOOD_BB_circural_80_cm.png  used on input line 1860.
+Package pdftex.def Info: ./Obrazy/WYniki troj/wykres_GOOD_BB_circural_80_cm.png  used on input line 1859.
 (pdftex.def)             Requested size: 218.51521pt x 163.57718pt.
-<./Obrazy/WYniki troj/wykres_UP_BB_circural_80_cm.png, id=1098, 860.4948pt x 644.1666pt>
+<./Obrazy/WYniki troj/wykres_UP_BB_circural_80_cm.png, id=1107, 860.4948pt x 644.1666pt>
 File: ./Obrazy/WYniki troj/wykres_UP_BB_circural_80_cm.png Graphic file (type png)
 <use ./Obrazy/WYniki troj/wykres_UP_BB_circural_80_cm.png>
-Package pdftex.def Info: ./Obrazy/WYniki troj/wykres_UP_BB_circural_80_cm.png  used on input line 1865.
+Package pdftex.def Info: ./Obrazy/WYniki troj/wykres_UP_BB_circural_80_cm.png  used on input line 1864.
 (pdftex.def)             Requested size: 218.51521pt x 163.57718pt.
 
 
@@ -2009,25 +2003,25 @@ Package fancyhdr Warning: \headheight is too small (12.0pt):
 (fancyhdr)                \addtolength{\topmargin}{-2.49998pt}.
 
 [69 <./Obrazy/WYniki troj/wykres_GOOD_BB_circural_80_cm.png> <./Obrazy/WYniki troj/wykres_UP_BB_circural_80_cm.png>]
-<./Obrazy/WYniki troj/wykres_GOOD_BB_circural_30_cm.png, id=1109, 860.4948pt x 644.1666pt>
+<./Obrazy/WYniki troj/wykres_GOOD_BB_circural_30_cm.png, id=1117, 860.4948pt x 644.1666pt>
 File: ./Obrazy/WYniki troj/wykres_GOOD_BB_circural_30_cm.png Graphic file (type png)
 <use ./Obrazy/WYniki troj/wykres_GOOD_BB_circural_30_cm.png>
-Package pdftex.def Info: ./Obrazy/WYniki troj/wykres_GOOD_BB_circural_30_cm.png  used on input line 1879.
+Package pdftex.def Info: ./Obrazy/WYniki troj/wykres_GOOD_BB_circural_30_cm.png  used on input line 1878.
 (pdftex.def)             Requested size: 218.51521pt x 163.57718pt.
-<./Obrazy/WYniki troj/wykres_UP_BB_circural_30_cm.png, id=1110, 860.4948pt x 644.1666pt>
+<./Obrazy/WYniki troj/wykres_UP_BB_circural_30_cm.png, id=1118, 860.4948pt x 644.1666pt>
 File: ./Obrazy/WYniki troj/wykres_UP_BB_circural_30_cm.png Graphic file (type png)
 <use ./Obrazy/WYniki troj/wykres_UP_BB_circural_30_cm.png>
-Package pdftex.def Info: ./Obrazy/WYniki troj/wykres_UP_BB_circural_30_cm.png  used on input line 1884.
+Package pdftex.def Info: ./Obrazy/WYniki troj/wykres_UP_BB_circural_30_cm.png  used on input line 1883.
 (pdftex.def)             Requested size: 218.51521pt x 163.57718pt.
-<./Obrazy/WYniki troj/wykres_GOOD_BB_circural_150_cm.png, id=1113, 860.4948pt x 644.1666pt>
+<./Obrazy/WYniki troj/wykres_GOOD_BB_circural_150_cm.png, id=1121, 860.4948pt x 644.1666pt>
 File: ./Obrazy/WYniki troj/wykres_GOOD_BB_circural_150_cm.png Graphic file (type png)
 <use ./Obrazy/WYniki troj/wykres_GOOD_BB_circural_150_cm.png>
-Package pdftex.def Info: ./Obrazy/WYniki troj/wykres_GOOD_BB_circural_150_cm.png  used on input line 1896.
+Package pdftex.def Info: ./Obrazy/WYniki troj/wykres_GOOD_BB_circural_150_cm.png  used on input line 1895.
 (pdftex.def)             Requested size: 218.51521pt x 163.57718pt.
-<./Obrazy/WYniki troj/wykres_UP_BB_circural_150_cm.png, id=1114, 860.4948pt x 644.1666pt>
+<./Obrazy/WYniki troj/wykres_UP_BB_circural_150_cm.png, id=1122, 860.4948pt x 644.1666pt>
 File: ./Obrazy/WYniki troj/wykres_UP_BB_circural_150_cm.png Graphic file (type png)
 <use ./Obrazy/WYniki troj/wykres_UP_BB_circural_150_cm.png>
-Package pdftex.def Info: ./Obrazy/WYniki troj/wykres_UP_BB_circural_150_cm.png  used on input line 1901.
+Package pdftex.def Info: ./Obrazy/WYniki troj/wykres_UP_BB_circural_150_cm.png  used on input line 1900.
 (pdftex.def)             Requested size: 218.51521pt x 163.57718pt.
 
 
@@ -2046,24 +2040,20 @@ Package fancyhdr Warning: \headheight is too small (12.0pt):
 (fancyhdr)                \addtolength{\topmargin}{-2.49998pt}.
 
 [71]
-<./Obrazy/WYniki troj/wykres_GOOD_BB_move_30_150.png, id=1132, 860.4948pt x 644.1666pt>
+<./Obrazy/WYniki troj/wykres_GOOD_BB_move_30_150.png, id=1140, 860.4948pt x 644.1666pt>
 File: ./Obrazy/WYniki troj/wykres_GOOD_BB_move_30_150.png Graphic file (type png)
 <use ./Obrazy/WYniki troj/wykres_GOOD_BB_move_30_150.png>
-Package pdftex.def Info: ./Obrazy/WYniki troj/wykres_GOOD_BB_move_30_150.png  used on input line 1922.
+Package pdftex.def Info: ./Obrazy/WYniki troj/wykres_GOOD_BB_move_30_150.png  used on input line 1921.
 (pdftex.def)             Requested size: 218.51521pt x 163.57718pt.
-<./Obrazy/WYniki troj/wykres_UP_BB_move_30_150.png, id=1133, 860.4948pt x 644.1666pt>
+<./Obrazy/WYniki troj/wykres_UP_BB_move_30_150.png, id=1141, 860.4948pt x 644.1666pt>
 File: ./Obrazy/WYniki troj/wykres_UP_BB_move_30_150.png Graphic file (type png)
 <use ./Obrazy/WYniki troj/wykres_UP_BB_move_30_150.png>
-Package pdftex.def Info: ./Obrazy/WYniki troj/wykres_UP_BB_move_30_150.png  used on input line 1927.
+Package pdftex.def Info: ./Obrazy/WYniki troj/wykres_UP_BB_move_30_150.png  used on input line 1926.
 (pdftex.def)             Requested size: 218.51521pt x 163.57718pt.
 
-Underfull \hbox (badness 3439) in paragraph at lines 1928--1928
+Underfull \hbox (badness 3439) in paragraph at lines 1927--1927
 \T1/lmr/m/n/10.95 za-w¦-»a-nie to-le-ran-cji dla od-da-la-j¡-cego si¦
  []
-
-
-Underfull \vbox (badness 10000) has occurred while \output is active []
-
 
 
 Package fancyhdr Warning: \headheight is too small (12.0pt): 
@@ -2081,25 +2071,20 @@ Package fancyhdr Warning: \headheight is too small (12.0pt):
 (fancyhdr)                \addtolength{\topmargin}{-2.49998pt}.
 
 [73]
-
-Package fancyhdr Warning: \headheight is too small (12.0pt): 
-(fancyhdr)                Make it at least 14.49998pt, for example:
-(fancyhdr)                \setlength{\headheight}{14.49998pt}.
-(fancyhdr)                You might also make \topmargin smaller to compensate:
-(fancyhdr)                \addtolength{\topmargin}{-2.49998pt}.
-
-[74]
-<./Obrazy/Real/terrain_2.PNG, id=1152, 2124.93875pt x 1210.5225pt>
+<./Obrazy/Real/terrain_2.PNG, id=1155, 2124.93875pt x 1210.5225pt>
 File: ./Obrazy/Real/terrain_2.PNG Graphic file (type png)
 <use ./Obrazy/Real/terrain_2.PNG>
-Package pdftex.def Info: ./Obrazy/Real/terrain_2.PNG  used on input line 1989.
+Package pdftex.def Info: ./Obrazy/Real/terrain_2.PNG  used on input line 1988.
 (pdftex.def)             Requested size: 364.19667pt x 207.46696pt.
-<./Obrazy/Wyniki PID/wykres_A_Terrain_PID_lp.png, id=1154, 860.4948pt x 644.4075pt>
+<./Obrazy/Wyniki PID/wykres_A_Terrain_PID_lp.png, id=1157, 860.4948pt x 644.4075pt>
 File: ./Obrazy/Wyniki PID/wykres_A_Terrain_PID_lp.png Graphic file (type png)
 <use ./Obrazy/Wyniki PID/wykres_A_Terrain_PID_lp.png>
-Package pdftex.def Info: ./Obrazy/Wyniki PID/wykres_A_Terrain_PID_lp.png  used on input line 1998.
+Package pdftex.def Info: ./Obrazy/Wyniki PID/wykres_A_Terrain_PID_lp.png  used on input line 1997.
 (pdftex.def)             Requested size: 364.19667pt x 272.7437pt.
 
+Underfull \vbox (badness 10000) has occurred while \output is active []
+
+
 
 Package fancyhdr Warning: \headheight is too small (12.0pt): 
 (fancyhdr)                Make it at least 14.49998pt, for example:
@@ -2107,7 +2092,7 @@ Package fancyhdr Warning: \headheight is too small (12.0pt):
 (fancyhdr)                You might also make \topmargin smaller to compensate:
 (fancyhdr)                \addtolength{\topmargin}{-2.49998pt}.
 
-[75 <./Obrazy/Real/terrain_2.PNG> <./Obrazy/Wyniki PID/wykres_A_Terrain_PID_lp.png>]
+[74 <./Obrazy/Real/terrain_2.PNG>]
 
 Package fancyhdr Warning: \headheight is too small (12.0pt): 
 (fancyhdr)                Make it at least 14.49998pt, for example:
@@ -2115,11 +2100,19 @@ Package fancyhdr Warning: \headheight is too small (12.0pt):
 (fancyhdr)                You might also make \topmargin smaller to compensate:
 (fancyhdr)                \addtolength{\topmargin}{-2.49998pt}.
 
-[76]
-Rozdzia\l  7.
-[77
+[75 <./Obrazy/Wyniki PID/wykres_A_Terrain_PID_lp.png>]
+
+Package fancyhdr Warning: \headheight is too small (12.0pt): 
+(fancyhdr)                Make it at least 14.49998pt, for example:
+(fancyhdr)                \setlength{\headheight}{14.49998pt}.
+(fancyhdr)                You might also make \topmargin smaller to compensate:
+(fancyhdr)                \addtolength{\topmargin}{-2.49998pt}.
+
+[76
 
 ]
+Rozdzia\l  7.
+[77]
 
 Package fancyhdr Warning: \headheight is too small (12.0pt): 
 (fancyhdr)                Make it at least 14.49998pt, for example:
@@ -2128,15 +2121,15 @@ Package fancyhdr Warning: \headheight is too small (12.0pt):
 (fancyhdr)                \addtolength{\topmargin}{-2.49998pt}.
 
 [78]
-<./Obrazy/Gazebo/Bad_1.png, id=1175, 685.05937pt x 771.63281pt>
+<./Obrazy/Gazebo/Bad_1.png, id=1183, 685.05937pt x 771.63281pt>
 File: ./Obrazy/Gazebo/Bad_1.png Graphic file (type png)
 <use ./Obrazy/Gazebo/Bad_1.png>
-Package pdftex.def Info: ./Obrazy/Gazebo/Bad_1.png  used on input line 2109.
+Package pdftex.def Info: ./Obrazy/Gazebo/Bad_1.png  used on input line 2108.
 (pdftex.def)             Requested size: 218.51521pt x 246.12689pt.
-<./Obrazy/Gazebo/Bad_3.png, id=1176, 685.05937pt x 778.40813pt>
+<./Obrazy/Gazebo/Bad_3.png, id=1184, 685.05937pt x 778.40813pt>
 File: ./Obrazy/Gazebo/Bad_3.png Graphic file (type png)
 <use ./Obrazy/Gazebo/Bad_3.png>
-Package pdftex.def Info: ./Obrazy/Gazebo/Bad_3.png  used on input line 2114.
+Package pdftex.def Info: ./Obrazy/Gazebo/Bad_3.png  used on input line 2113.
 (pdftex.def)             Requested size: 218.51521pt x 248.28801pt.
 
 
@@ -2176,7 +2169,7 @@ Package fancyhdr Warning: \headheight is too small (12.0pt):
 
 
 ]
-Overfull \hbox (0.18314pt too wide) in paragraph at lines 2155--2155
+Overfull \hbox (0.18314pt too wide) in paragraph at lines 2154--2154
 []\T1/lmr/m/n/12 Ulzhalgas Se-ida-liy-eva, Da-ryn Akh-me-tov, Ly-az-zat Ilip-bay-eva i Eric T. Mat-son. ^^R  Real-
  []
 
@@ -2187,9 +2180,29 @@ Package fancyhdr Warning: \headheight is too small (12.0pt):
 (fancyhdr)                You might also make \topmargin smaller to compensate:
 (fancyhdr)                \addtolength{\topmargin}{-2.49998pt}.
 
-[84] [85
+[84]
+Overfull \hbox (7.54263pt too wide) in paragraph at lines 2154--2154
+[]\T1/lmr/m/n/12 Tadeusz Wró-bel. \T1/lmr/m/it/12 Sil-niki sko-kowe\T1/lmr/m/n/12 . pol. Wy-da-nie I.. War-szawa: Wy-daw-nic-twa Naukowo-
+ []
 
-] [86] [87
+
+Package fancyhdr Warning: \headheight is too small (12.0pt): 
+(fancyhdr)                Make it at least 14.49998pt, for example:
+(fancyhdr)                \setlength{\headheight}{14.49998pt}.
+(fancyhdr)                You might also make \topmargin smaller to compensate:
+(fancyhdr)                \addtolength{\topmargin}{-2.49998pt}.
+
+[85]
+
+Package fancyhdr Warning: \headheight is too small (12.0pt): 
+(fancyhdr)                Make it at least 14.49998pt, for example:
+(fancyhdr)                \setlength{\headheight}{14.49998pt}.
+(fancyhdr)                You might also make \topmargin smaller to compensate:
+(fancyhdr)                \addtolength{\topmargin}{-2.49998pt}.
+
+[86
+
+] [87] [88] [89
 
 ]
 
@@ -2199,9 +2212,9 @@ Package fancyhdr Warning: \headheight is too small (12.0pt):
 (fancyhdr)                You might also make \topmargin smaller to compensate:
 (fancyhdr)                \addtolength{\topmargin}{-2.49998pt}.
 
-[88
+[90
 
-] [89]
+] [91]
 
 Package fancyhdr Warning: \headheight is too small (12.0pt): 
 (fancyhdr)                Make it at least 14.49998pt, for example:
@@ -2209,8 +2222,8 @@ Package fancyhdr Warning: \headheight is too small (12.0pt):
 (fancyhdr)                You might also make \topmargin smaller to compensate:
 (fancyhdr)                \addtolength{\topmargin}{-2.49998pt}.
 
-[90]
-Overfull \hbox (24.6633pt too wide) in paragraph at lines 2221--2222
+[92]
+Overfull \hbox (24.6633pt too wide) in paragraph at lines 2220--2221
 []\T1/lmr/m/n/12 uniwersalny asyn-chro-niczny nadajnik-odbiornik, z ang. [][]\T1/lmr/m/it/12 Uni-ver-sal Asyn-chronous Receiver-
  []
 
@@ -2221,7 +2234,7 @@ Package fancyhdr Warning: \headheight is too small (12.0pt):
 (fancyhdr)                You might also make \topmargin smaller to compensate:
 (fancyhdr)                \addtolength{\topmargin}{-2.49998pt}.
 
-[91]
+[93]
 
 Package fancyhdr Warning: \headheight is too small (12.0pt): 
 (fancyhdr)                Make it at least 14.49998pt, for example:
@@ -2229,7 +2242,7 @@ Package fancyhdr Warning: \headheight is too small (12.0pt):
 (fancyhdr)                You might also make \topmargin smaller to compensate:
 (fancyhdr)                \addtolength{\topmargin}{-2.49998pt}.
 
-[92] [93
+[94] [95
 
 ]
 
@@ -2239,9 +2252,9 @@ Package fancyhdr Warning: \headheight is too small (12.0pt):
 (fancyhdr)                You might also make \topmargin smaller to compensate:
 (fancyhdr)                \addtolength{\topmargin}{-2.49998pt}.
 
-[94
+[96
 
-] (./main.lof [95]
+] (./main.lof [97]
 Overfull \hbox (3.62222pt too wide) in paragraph at lines 40--40
  [][] [][]\T1/lmr/m/n/12 Porównanie od-po-wie-dzi sko-ko-wej re-gu-la-tora trój-staw-nego na dy-stan-sie 150 cm.[] [][]  
  []
@@ -2258,11 +2271,11 @@ Package fancyhdr Warning: \headheight is too small (12.0pt):
 (fancyhdr)                You might also make \topmargin smaller to compensate:
 (fancyhdr)                \addtolength{\topmargin}{-2.49998pt}.
 
-[96] (./main.lot)
+[98] (./main.lot)
 \tf@lot=\write8
 \openout8 = `main.lot'.
 
- [97
+ [99
 
 ] (./main.aux)
 Package rerunfilecheck Info: File `main.out' has not changed.
@@ -2272,18 +2285,18 @@ Package logreq Info: Writing requests to 'main.run.xml'.
 
  ) 
 Here is how much of TeX's memory you used:
- 46316 strings out of 480212
- 1014142 string characters out of 5895275
- 1929176 words of memory out of 5000000
- 63043 multiletter control sequences out of 15000+600000
- 555307 words of font info for 75 fonts, out of 8000000 for 9000
+ 46343 strings out of 480212
+ 1015180 string characters out of 5895275
+ 1930393 words of memory out of 5000000
+ 63064 multiletter control sequences out of 15000+600000
+ 558102 words of font info for 76 fonts, out of 8000000 for 9000
  34 hyphenation exceptions out of 8191
  84i,12n,89p,1909b,3445s stack positions out of 5000i,500n,10000p,200000b,80000s
-{/usr/share/texmf/fonts/enc/dvips/lm/lm-ec.enc}{/usr/share/texmf/fonts/enc/dvips/lm/lm-mathex.enc}{/usr/share/texmf/fonts/enc/dvips/lm/lm-ts1.enc}{/usr/share/texmf/fonts/enc/dvips/lm/lm-rm.enc}{/usr/share/texmf/fonts/enc/dvips/lm/lm-mathsy.enc}{/usr/share/texmf/fonts/enc/dvips/lm/lm-mathit.enc}</usr/share/texmf/fonts/type1/public/lm/lmbx12.pfb></usr/share/texmf/fonts/type1/public/lm/lmbxi10.pfb></usr/share/texmf/fonts/type1/public/lm/lmex10.pfb></usr/share/texmf/fonts/type1/public/lm/lmmi12.pfb></usr/share/texmf/fonts/type1/public/lm/lmmi6.pfb></usr/share/texmf/fonts/type1/public/lm/lmmi8.pfb></usr/share/texmf/fonts/type1/public/lm/lmr10.pfb></usr/share/texmf/fonts/type1/public/lm/lmr12.pfb></usr/share/texmf/fonts/type1/public/lm/lmr6.pfb></usr/share/texmf/fonts/type1/public/lm/lmr8.pfb></usr/share/texmf/fonts/type1/public/lm/lmri10.pfb></usr/share/texmf/fonts/type1/public/lm/lmri12.pfb></usr/share/texmf/fonts/type1/public/lm/lmss10.pfb></usr/share/texmf/fonts/type1/public/lm/lmss12.pfb></usr/share/texmf/fonts/type1/public/lm/lmss8.pfb></usr/share/texmf/fonts/type1/public/lm/lmssbx10.pfb></usr/share/texmf/fonts/type1/public/lm/lmsy10.pfb></usr/share/texmf/fonts/type1/public/lm/lmsy8.pfb></usr/share/texmf/fonts/type1/public/lm/lmtk10.pfb></usr/share/texmf/fonts/type1/public/lm/lmtt10.pfb></usr/share/texmf/fonts/type1/public/lm/lmtt12.pfb></usr/share/texmf/fonts/type1/public/lm/lmtt8.pfb></usr/share/texmf/fonts/type1/public/lm/lmtti10.pfb>
-Output written on main.pdf (105 pages, 25683380 bytes).
+{/usr/share/texmf/fonts/enc/dvips/lm/lm-ec.enc}{/usr/share/texmf/fonts/enc/dvips/lm/lm-mathex.enc}{/usr/share/texmf/fonts/enc/dvips/lm/lm-ts1.enc}{/usr/share/texmf/fonts/enc/dvips/lm/lm-rm.enc}{/usr/share/texmf/fonts/enc/dvips/lm/lm-mathsy.enc}{/usr/share/texmf/fonts/enc/dvips/lm/lm-mathit.enc}</usr/share/texmf/fonts/type1/public/lm/lmbx12.pfb></usr/share/texmf/fonts/type1/public/lm/lmbxi10.pfb></usr/share/texmf/fonts/type1/public/lm/lmcsc10.pfb></usr/share/texmf/fonts/type1/public/lm/lmex10.pfb></usr/share/texmf/fonts/type1/public/lm/lmmi12.pfb></usr/share/texmf/fonts/type1/public/lm/lmmi6.pfb></usr/share/texmf/fonts/type1/public/lm/lmmi8.pfb></usr/share/texmf/fonts/type1/public/lm/lmr10.pfb></usr/share/texmf/fonts/type1/public/lm/lmr12.pfb></usr/share/texmf/fonts/type1/public/lm/lmr6.pfb></usr/share/texmf/fonts/type1/public/lm/lmr8.pfb></usr/share/texmf/fonts/type1/public/lm/lmri10.pfb></usr/share/texmf/fonts/type1/public/lm/lmri12.pfb></usr/share/texmf/fonts/type1/public/lm/lmss10.pfb></usr/share/texmf/fonts/type1/public/lm/lmss12.pfb></usr/share/texmf/fonts/type1/public/lm/lmss8.pfb></usr/share/texmf/fonts/type1/public/lm/lmssbx10.pfb></usr/share/texmf/fonts/type1/public/lm/lmsy10.pfb></usr/share/texmf/fonts/type1/public/lm/lmsy8.pfb></usr/share/texmf/fonts/type1/public/lm/lmtk10.pfb></usr/share/texmf/fonts/type1/public/lm/lmtt10.pfb></usr/share/texmf/fonts/type1/public/lm/lmtt12.pfb></usr/share/texmf/fonts/type1/public/lm/lmtt8.pfb></usr/share/texmf/fonts/type1/public/lm/lmtti10.pfb>
+Output written on main.pdf (107 pages, 25709107 bytes).
 PDF statistics:
- 1531 PDF objects out of 1728 (max. 8388607)
- 1275 compressed objects within 13 object streams
- 444 named destinations out of 1000 (max. 500000)
+ 1560 PDF objects out of 1728 (max. 8388607)
+ 1300 compressed objects within 13 object streams
+ 449 named destinations out of 1000 (max. 500000)
  831 words of extra memory for PDF output out of 10000 (max. 10000000)
 

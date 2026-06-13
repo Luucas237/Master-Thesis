@@ -20,7 +20,7 @@
 \contentsline {subsection}{\numberline {2.4.2}Hybrydowa detekcja obiektów w systemach o statycznym tle}{8}{subsection.2.4.2}%
 \contentsline {subsection}{\numberline {2.4.3}Ograniczenia sterowania skokowego w układach o wysokiej dynamice}{10}{subsection.2.4.3}%
 \contentsline {subsection}{\numberline {2.4.4}Wykorzystanie środowisk symulacyjnych w projektowaniu systemów wizyjnych}{11}{subsection.2.4.4}%
-\contentsline {subsection}{\numberline {2.4.5}Właściwości kamer o matrycy z jednoczesną ekspozycją w systemach percepcji robotów}{12}{subsection.2.4.5}%
+\contentsline {subsection}{\numberline {2.4.5}Właściwości kamer o matrycy z jednoczesną ekspozycją w systemach percepcji robotów}{11}{subsection.2.4.5}%
 \contentsline {subsection}{\numberline {2.4.6}Cechy fizyczne dronów}{13}{subsection.2.4.6}%
 \contentsline {subsection}{\numberline {2.4.7}Lasery niskomocowe}{14}{subsection.2.4.7}%
 \contentsline {subsection}{\numberline {2.4.8}Dobór geometrii uzębienia i struktury kinematycznej napędu}{16}{subsection.2.4.8}%
@@ -69,15 +69,15 @@
 \contentsline {subsection}{\numberline {6.3.3}Test płynnej zmiany dystansu i weryfikacja algorytmu adaptacyjnego}{71}{subsection.6.3.3}%
 \contentsline {section}{\numberline {6.4}Porównanie skuteczności badanych algorytmów}{72}{section.6.4}%
 \contentsline {subsection}{\numberline {6.4.1}Zestawienie wskaźników jakości sterowania}{72}{subsection.6.4.1}%
-\contentsline {subsection}{\numberline {6.4.2}Test działania algorytmu w warunkach środowiskowych}{73}{subsection.6.4.2}%
+\contentsline {subsection}{\numberline {6.4.2}Test działania algorytmu w warunkach środowiskowych}{74}{subsection.6.4.2}%
 \contentsline {chapter}{\numberline {7}Podsumowanie}{77}{chapter.7}%
 \contentsline {section}{\numberline {7.1}Rozwiązanie problemu badawczego}{77}{section.7.1}%
 \contentsline {section}{\numberline {7.2}Ocena osiągniętych wyników}{77}{section.7.2}%
 \contentsline {section}{\numberline {7.3}Wnioski i rekomendacje}{78}{section.7.3}%
 \contentsline {section}{\numberline {7.4}Perspektywy rozwoju i dalszych badań}{80}{section.7.4}%
 \contentsline {chapter}{Bibliografia}{83}{section*.53}%
-\contentsline {chapter}{Dokumentacja techniczna}{87}{appendix*.55}%
-\contentsline {chapter}{Spis skrótów i symboli}{89}{appendix*.56}%
+\contentsline {chapter}{Dokumentacja techniczna}{89}{appendix*.55}%
+\contentsline {chapter}{Spis skrótów i symboli}{91}{appendix*.56}%
 \babel@toc {british}{}\relax 
 \babel@toc {polish}{}\relax 
 \babel@toc {british}{}\relax 
@@ -184,6 +184,6 @@
 \babel@toc {polish}{}\relax 
 \babel@toc {british}{}\relax 
 \babel@toc {polish}{}\relax 
-\contentsline {chapter}{Lista dodatkowych plików, uzupełniających tekst pracy (jeżeli dotyczy)}{93}{appendix*.59}%
-\contentsline {chapter}{Spis rysunków}{96}{appendix*.60}%
-\contentsline {chapter}{Spis tabel}{97}{appendix*.61}%
+\contentsline {chapter}{Lista dodatkowych plików, uzupełniających tekst pracy (jeżeli dotyczy)}{95}{appendix*.59}%
+\contentsline {chapter}{Spis rysunków}{98}{appendix*.60}%
+\contentsline {chapter}{Spis tabel}{99}{appendix*.61}%
