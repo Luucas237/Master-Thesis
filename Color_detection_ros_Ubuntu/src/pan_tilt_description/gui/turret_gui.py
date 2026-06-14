@@ -43,9 +43,8 @@ class CommandCenterGUI(QMainWindow):
         self.timer.start(16) 
 
     def initUI(self):
-        self.setWindowTitle('Centrum Dowodzenia - Strojenie PID i Kontrola Ręczna')
-        self.resize(1100, 900) # Lekko powiększone okno by zmieścić wszystko
-
+        self.setWindowTitle('Control Center')
+        self.resize(1100, 900)
         central_widget = QWidget()
         self.setCentralWidget(central_widget)
         main_layout = QHBoxLayout(central_widget)
@@ -56,14 +55,14 @@ class CommandCenterGUI(QMainWindow):
         self.lbl_fps.setStyleSheet("color: lime; font-weight: bold; font-size: 14px;")
         left_layout.addWidget(self.lbl_fps)
 
-        self.lbl_rgb = QLabel("Czekam na obraz...")
+        self.lbl_rgb = QLabel("Waiting for image...")
         self.lbl_rgb.setFixedSize(640, 480)
         self.lbl_rgb.setAlignment(Qt.AlignCenter)
         self.lbl_rgb.setStyleSheet("background-color: black; border: 2px solid #333;")
         self.lbl_rgb.mousePressEvent = self.pipette_click 
         left_layout.addWidget(self.lbl_rgb)
 
-        self.lbl_mask = QLabel("Czekam na Maskę...")
+        self.lbl_mask = QLabel("Waiting for mask...")
         self.lbl_mask.setFixedSize(640, 240)
         self.lbl_mask.setAlignment(Qt.AlignCenter)
         self.lbl_mask.setStyleSheet("background-color: black; border: 2px solid #333;")
@@ -72,10 +71,10 @@ class CommandCenterGUI(QMainWindow):
 
         right_layout = QVBoxLayout()
 
-        # 1. AUDIO
-        audio_group = QGroupBox("Efekty Dźwiękowe")
+        #AUDIO
+        audio_group = QGroupBox("Sound Control")
         audio_layout = QHBoxLayout()
-        self.btn_audio = QPushButton("🔊 Dźwięk WŁĄCZONY")
+        self.btn_audio = QPushButton("On")
         self.btn_audio.setCheckable(True)
         self.btn_audio.setChecked(True)
         self.btn_audio.setStyleSheet("background-color: #27ae60; color: white; font-weight: bold;")
@@ -84,11 +83,11 @@ class CommandCenterGUI(QMainWindow):
         audio_group.setLayout(audio_layout)
         right_layout.addWidget(audio_group)
 
-        # 2. TRYB PRACY
-        mode_group = QGroupBox("Tryb Pracy")
+        #TRYB PRACY
+        mode_group = QGroupBox("Mode")
         mode_layout = QHBoxLayout()
-        self.radio_auto = QRadioButton("AUTOMATYCZNY")
-        self.radio_manual = QRadioButton("RĘCZNY")
+        self.radio_auto = QRadioButton("AUTO")
+        self.radio_manual = QRadioButton("MANUAL")
         self.radio_auto.setChecked(True)
         self.radio_auto.toggled.connect(self.change_mode)
         mode_layout.addWidget(self.radio_auto)
@@ -96,11 +95,11 @@ class CommandCenterGUI(QMainWindow):
         mode_group.setLayout(mode_layout)
         right_layout.addWidget(mode_group)
 
-        # 3. AKTYWACJA OSI (TESTOWANIE)
-        axes_group = QGroupBox("Aktywacja Osi (Do strojenia)")
+        #AKTYWACJA OSI
+        axes_group = QGroupBox("Axis Activation (For Tuning)")
         axes_layout = QHBoxLayout()
-        self.chk_pan = QCheckBox("Aktywuj PAN (Poziom)")
-        self.chk_tilt = QCheckBox("Aktywuj TILT (Pion)")
+        self.chk_pan = QCheckBox("Activate PAN")
+        self.chk_tilt = QCheckBox("Activate TILT")
         self.chk_pan.setChecked(True)
         self.chk_tilt.setChecked(True)
         self.chk_pan.stateChanged.connect(self.apply_axes)
@@ -110,8 +109,8 @@ class CommandCenterGUI(QMainWindow):
         axes_group.setLayout(axes_layout)
         right_layout.addWidget(axes_group)
 
-        # 4. NASTAWY PID
-        pid_group = QGroupBox("Nastawy PID")
+        #NASTAWY PID
+        pid_group = QGroupBox("PID Settings")
         pid_layout = QVBoxLayout()
         
         pan_form = QFormLayout()
@@ -134,7 +133,7 @@ class CommandCenterGUI(QMainWindow):
         pid_layout.addWidget(QLabel("---"))
         pid_layout.addLayout(tilt_form)
 
-        btn_apply_pid = QPushButton("Wyślij PID (PAN + TILT)")
+        btn_apply_pid = QPushButton("Send PID")
         btn_apply_pid.setStyleSheet("background-color: #3498db; color: white;")
         btn_apply_pid.clicked.connect(self.apply_pid)
         pid_layout.addWidget(btn_apply_pid)
@@ -142,26 +141,26 @@ class CommandCenterGUI(QMainWindow):
         pid_group.setLayout(pid_layout)
         right_layout.addWidget(pid_group)
 
-        # 5. STEROWANIE RĘCZNE (PRZYWRÓCONE)
-        manual_group = QGroupBox("Sterowanie Ręczne (PAN TILT LASER)")
+        #STEROWANIE RĘCZNE
+        manual_group = QGroupBox("Manual Control")
         manual_layout = QFormLayout()
         self.input_pan = QLineEdit("0")
         self.input_tilt = QLineEdit("0")
         self.input_laser = QLineEdit("0") # 0 lub 1
-        btn_apply_manual = QPushButton("Wyślij Komendę Ręczną")
+        btn_apply_manual = QPushButton("Send Manual Command")
         btn_apply_manual.setStyleSheet("background-color: #e67e22; color: white;")
         btn_apply_manual.clicked.connect(self.apply_manual)
-        manual_layout.addRow("Kąt PAN (-90 do 90):", self.input_pan)
-        manual_layout.addRow("Kąt TILT (-25 do 25):", self.input_tilt)
+        manual_layout.addRow("PAN Angle (-90 to 90):", self.input_pan)
+        manual_layout.addRow("TILT Angle (-25 to 25):", self.input_tilt)
         manual_layout.addRow("Laser (0/1):", self.input_laser)
         manual_layout.addRow(btn_apply_manual)
         manual_group.setLayout(manual_layout)
         right_layout.addWidget(manual_group)
 
-        # 6. PIPETA
-        color_group = QGroupBox("Cel HSV (Pipeta)")
+        #PIPETA
+        color_group = QGroupBox("Target Color")
         color_layout = QVBoxLayout()
-        self.lbl_color_patch = QLabel("Kliknij na RGB")
+        self.lbl_color_patch = QLabel("Click on RGB")
         self.lbl_color_patch.setFixedSize(150, 40)
         color_layout.addWidget(self.lbl_color_patch, alignment=Qt.AlignCenter)
         color_group.setLayout(color_layout)
@@ -173,7 +172,7 @@ class CommandCenterGUI(QMainWindow):
     def toggle_audio(self):
         self.sound_enabled = self.btn_audio.isChecked()
         if self.sound_enabled:
-            self.btn_audio.setText("🔊 Dźwięk WŁĄCZONY")
+            self.btn_audio.setText("Sound On")
             self.btn_audio.setStyleSheet("background-color: #27ae60; color: white; font-weight: bold;")
             if self.laser_firing:
                 try:
@@ -181,7 +180,7 @@ class CommandCenterGUI(QMainWindow):
                 except Exception as e:
                     print(f"Audio resume error: {e}")
         else:
-            self.btn_audio.setText("🔇 Wyciszony (MUTE)")
+            self.btn_audio.setText("MUTE")
             self.btn_audio.setStyleSheet("background-color: #c0392b; color: white; font-weight: bold;")
             pygame.mixer.music.stop()
 
@@ -201,7 +200,6 @@ class CommandCenterGUI(QMainWindow):
         msg = f"{kp_p} {ki_p} {kd_p} {kp_t} {ki_t} {kd_t}"
         self.pub_socket.send_multipart([b"PID", msg.encode('utf-8')])
 
-    # PRZYWRÓCONA FUNKCJA MANUAL
     def apply_manual(self):
         self.radio_manual.setChecked(True) 
         pan = self.input_pan.text()

@@ -12,10 +12,8 @@ from PyQt5.QtWidgets import (QApplication, QMainWindow, QWidget, QVBoxLayout,
 from PyQt5.QtGui import QImage, QPixmap
 from PyQt5.QtCore import QTimer, Qt
 
-# ==========================================
-# Wpisz IP swojej malinki (z drona/hotspotu)
+
 RASPBERRY_IP = "10.244.94.150" 
-# ==========================================
 
 class DigitalTwinGUI(QMainWindow):
     def __init__(self):
@@ -73,8 +71,7 @@ class DigitalTwinGUI(QMainWindow):
 
         right_layout = QVBoxLayout()
 
-        # 0. LOGOWANIE DANYCH (CSV) - DODANO PRZYCISKI
-        log_group = QGroupBox("Zapis logów lotu (CSV na Malince)")
+        log_group = QGroupBox("Zapis logów lotu")
         log_layout = QHBoxLayout()
         self.btn_log_start = QPushButton("Start Zapisu")
         self.btn_log_start.setStyleSheet("background-color: #c0392b; color: white; font-weight: bold;")
@@ -89,7 +86,6 @@ class DigitalTwinGUI(QMainWindow):
         log_group.setLayout(log_layout)
         right_layout.addWidget(log_group)
 
-        # 1. AUDIO
         audio_group = QGroupBox("Efekty Dźwiękowe")
         audio_layout = QHBoxLayout()
         self.btn_audio = QPushButton("Dźwięk WŁĄCZONY")
@@ -101,7 +97,6 @@ class DigitalTwinGUI(QMainWindow):
         audio_group.setLayout(audio_layout)
         right_layout.addWidget(audio_group)
 
-        # 2. TRYB PRACY
         mode_group = QGroupBox("Tryb Pracy")
         mode_layout = QHBoxLayout()
         self.radio_auto = QRadioButton("AUTOMATYCZNY")
@@ -112,8 +107,7 @@ class DigitalTwinGUI(QMainWindow):
         mode_layout.addWidget(self.radio_manual)
         mode_group.setLayout(mode_layout)
         right_layout.addWidget(mode_group)
-        
-        # 3. WYBÓR REGULATORA
+
         ctrl_group = QGroupBox("Wybór Regulatora")
         ctrl_layout = QHBoxLayout()
         self.radio_pid = QRadioButton("PID")
@@ -125,7 +119,6 @@ class DigitalTwinGUI(QMainWindow):
         ctrl_group.setLayout(ctrl_layout)
         right_layout.addWidget(ctrl_group)
 
-        # 4. AKTYWACJA OSI
         axes_group = QGroupBox("Aktywacja Osi")
         axes_layout = QHBoxLayout()
         self.chk_pan = QCheckBox("Aktywuj PAN")
@@ -139,7 +132,6 @@ class DigitalTwinGUI(QMainWindow):
         axes_group.setLayout(axes_layout)
         right_layout.addWidget(axes_group)
 
-        # 5. NASTAWY PID
         pid_group = QGroupBox("Nastawy PID")
         pid_layout = QVBoxLayout()
         pan_form = QFormLayout()
@@ -163,7 +155,6 @@ class DigitalTwinGUI(QMainWindow):
         pid_group.setLayout(pid_layout)
         right_layout.addWidget(pid_group)
 
-        # 6. STEROWANIE RĘCZNE
         manual_group = QGroupBox("Sterowanie Ręczne")
         manual_layout = QFormLayout()
         self.input_pan = QLineEdit("0")
@@ -179,7 +170,6 @@ class DigitalTwinGUI(QMainWindow):
         manual_group.setLayout(manual_layout)
         right_layout.addWidget(manual_group)
 
-        # 7. PIPETA KOLORÓW
         color_group = QGroupBox("Cel HSV (Pipeta ze streama)")
         color_layout = QVBoxLayout()
         self.lbl_color_patch = QLabel("Kliknij na RGB")
@@ -191,7 +181,6 @@ class DigitalTwinGUI(QMainWindow):
         right_layout.addStretch()
         main_layout.addLayout(right_layout)
 
-    # --- NOWE FUNKCJE DO CSV ---
     def start_logging(self):
         self.pub_socket.send_multipart([b"LOG", b"START"])
         self.btn_log_start.setStyleSheet("background-color: #e74c3c; color: white; border: 2px solid yellow; font-weight: bold;")
@@ -201,7 +190,6 @@ class DigitalTwinGUI(QMainWindow):
         self.pub_socket.send_multipart([b"LOG", b"STOP"])
         self.btn_log_start.setStyleSheet("background-color: #c0392b; color: white; font-weight: bold;")
         self.btn_log_stop.setStyleSheet("background-color: #95a5a6; color: black; border: 2px solid yellow; font-weight: bold;")
-    # ---------------------------
 
     def toggle_audio(self):
         self.sound_enabled = self.btn_audio.isChecked()

@@ -17,27 +17,22 @@ class SimplePID:
         self.kd = kd
         self.integral = 0.0
         self.prev_error = 0.0
-        self.prev_derivative = 0.0  # Pamięć poprzedniej różniczki dla filtra
+        self.prev_derivative = 0.0
 
     def compute(self, error, dt):
         if dt <= 0: return 0.0
         
         self.integral += error * dt
         
-        # Surowa różniczka
         raw_derivative = (error - self.prev_error) / dt
         self.prev_error = error
         
-        # FILTR DOLNOPRZEPUSTOWY CZŁONU D (Uspokaja drgawki od szumu kamery)
-        # alpha określa siłę filtra. 1.0 = brak filtra, 0.1 = bardzo silny filtr
         alpha = 0.3 
         filtered_derivative = (alpha * raw_derivative) + ((1.0 - alpha) * self.prev_derivative)
         self.prev_derivative = filtered_derivative
-        
-        # Obliczenie wyniku z przefiltrowaną różniczką
+
         output = (self.kp * error) + (self.ki * self.integral) + (self.kd * filtered_derivative)
         
-        # KAGANIEC / Saturacja wyjścia
         limit = 1.5 
         if output > limit: output = limit
         elif output < -limit: output = -limit
@@ -61,15 +56,13 @@ class HeadlessTurretTracker:
 
         self.latest_frame = None
         self.running = True
-        
-        # Bezpośredni odczyt sprzętowy kamery (bez obracania obrazu!)
+
         self.cap = cv2.VideoCapture(0)
         self.cap.set(cv2.CAP_PROP_FRAME_WIDTH, 640)
         self.cap.set(cv2.CAP_PROP_FRAME_HEIGHT, 480)
         self.cap.set(cv2.CAP_PROP_FPS, 30)
         self.cap.set(cv2.CAP_PROP_BUFFERSIZE, 1)
 
-        # Wątek kamery oraz wątek terminala
         threading.Thread(target=self.grab_frames, daemon=True).start()
         threading.Thread(target=self.terminal_listener, daemon=True).start()
 
@@ -91,7 +84,6 @@ class HeadlessTurretTracker:
         self.roi_rect = None
         self.lost_time = 0.0
         
-        # Logowanie
         self.logging_started = False
         self.log_file = None
         self.csv_writer = None
@@ -114,7 +106,6 @@ class HeadlessTurretTracker:
                                                  [0,0,1,0],
                                                  [0,0,0,1]], np.float32)
 
-        # Spokojniejsze nastawy Kalmana dla lepszej filtracji
         self.kalman.processNoiseCov = np.eye(4, dtype=np.float32) * 0.003
         self.kalman.measurementNoiseCov = np.eye(2, dtype=np.float32) * 5.0
 
@@ -122,7 +113,6 @@ class HeadlessTurretTracker:
         while self.running:
             ret, frame = self.cap.read()
             if ret: 
-                # Zostawiamy surowy odczyt, BEZ odwracania obrazu!
                 self.latest_frame = frame
             else: 
                 time.sleep(0.01)
@@ -180,9 +170,6 @@ class HeadlessTurretTracker:
                         print("Użycie: ctrl pid | ctrl bang")
                         
                 elif cmd == "move":
-                    # if self.mode != "MANUAL":
-                    #     print("[BŁĄD] Najpierw przełącz na tryb ręczny! (komenda: mode manual)")
-                    #     continue
                     if len(cmd_line) == 4:
                         self.current_pan = float(cmd_line[1])
                         self.current_tilt = float(cmd_line[2])
@@ -243,7 +230,7 @@ class HeadlessTurretTracker:
         BANG_SPEED_TILT = 1.0
         morph_kernel = np.ones((9, 9), np.uint8)
         
-        # Pamięć dla adaptacyjnego systemu śledzenia
+
         current_deadband = 80
         current_scale = 1.0
         
@@ -265,16 +252,14 @@ class HeadlessTurretTracker:
             error_x = 0
             error_y = 0
 
-            # --- PIPETA ---
             if self.do_probe:
                 roi = frame[center_y-10:center_y+10, center_x-10:center_x+10]
                 hsv_roi = cv2.cvtColor(roi, cv2.COLOR_BGR2HSV)
                 median_color = np.median(hsv_roi, axis=(0,1)).astype(np.uint8)
                 self.target_hsv = median_color
                 kolor_nazwa = self.classify_color_hsv(median_color[0], median_color[1], median_color[2])
-                print(f"\n[WIZJA] Sukces! Pobrany kolor: H:{median_color[0]} S:{median_color[1]} V:{median_color[2]} ({kolor_nazwa})\n> ", end="", flush=True)
+                print(f"\n[WIZJA]! Pobrany kolor: H:{median_color[0]} S:{median_color[1]} V:{median_color[2]} ({kolor_nazwa})\n> ", end="", flush=True)
                 self.do_probe = False
-            # --------------
 
             if self.mode == "AUTO":
                 gray = cv2.cvtColor(frame, cv2.COLOR_BGR2GRAY)
@@ -335,25 +320,11 @@ class HeadlessTurretTracker:
                         error_x = center_x - cx
                         error_y = center_y - cy
                         
-                        # --- ADAPTACYJNY SYSTEM (GAIN SCHEDULING) ---
+
                         area = cv2.contourArea(c)
-                        # if area > 15000:  
-                        #     # OBIEKT BLISKO: Cel ma ogromną prędkość kątową i szybko ucieka z kadru.
-                        #     current_deadband = 100 # Zwiększamy nieco martwą strefę (bo środek dużej plamy lubi pływać)
-                        #     current_scale = 1.0   # DOPALACZ: +30% mocy, żeby wieżyczka nadążyła za szybkim ruchem!
-                            
-                        # elif area < 3000: 
-                        #     # OBIEKT DALEKO: Cel to kropka, minimalne prędkości kątowe.
-                        #     current_deadband = 50 # Nie reagujemy na każdy szum z 10 pikseli
-                        #     current_scale = 0.3   # REDUKCJA: -70% mocy silnika! Delikatne ruchy, żeby nie przestrzelić i nie oscylować.
-                            
-                        # else:             
-                        #     # ŚREDNI DYSTANS (Optymalny)
-                        #     current_deadband = 80 
-                        #     current_scale = 0.7
-                        urrent_deadband = 75  # (Zmień na 75 dla testu analitycznego)
+
                         current_scale = 1.0
-                        # --------------------------------------------
+
                         
                         if self.ctrl_type == "PID":
                             if self.pan_enabled:
@@ -393,7 +364,7 @@ class HeadlessTurretTracker:
                                 error_x = center_x - px
                                 error_y = center_y - py
                                 
-                                # Podczas predykcji używamy ostatnich znanych wartości ze skali
+                                
                                 if self.ctrl_type == "PID":
                                     if self.pan_enabled:
                                         if abs(error_x) >= current_deadband:
@@ -417,26 +388,23 @@ class HeadlessTurretTracker:
                                 self.roi_rect = [max(0, px - roi_w//2), max(0, py - roi_h//2),
                                                  min(w, px + roi_w//2), min(h, py + roi_h//2)]
                             else:
-                                # self.current_pan = 0.0
-                                # self.current_tilt = 0.0
+
                                 self.laser_state = 0
                                 self.state = "SEARCHING"
                                 self.prev_gray = None
                                 self.reset_kalman()
 
-                # Zapis do CSV
                 if self.logging_started and self.csv_writer:
                     current_log_time = time.time() - self.start_log_time
                     
-                    # Pobieranie odpowiednich nastaw w zależności od aktywnego regulatora
+
                     if self.ctrl_type == "PID":
                         p1_pan, p2_pan = self.pid_pan.kp, self.pid_pan.kd
                         p1_tilt, p2_tilt = self.pid_tilt.kp, self.pid_tilt.kd
-                    else: # BANG_BANG
+                    else:
                         p1_pan, p2_pan = BANG_SPEED_PAN, 0.0
                         p1_tilt, p2_tilt = BANG_SPEED_TILT, 0.0
-                        
-                    # Zabezpieczenie na wypadek, gdyby obiekt zniknął (Kalman)
+
                     zapisane_pole = cv2.contourArea(c) if 'c' in locals() and self.state == "TRACKING" else 0
 
                     self.csv_writer.writerow([

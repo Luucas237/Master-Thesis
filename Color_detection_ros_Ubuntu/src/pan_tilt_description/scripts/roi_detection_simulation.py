@@ -208,11 +208,11 @@ class SimRoiTracker(Node):
                     self.best_kp = self.current_test_kp
                     self.best_ki = self.current_test_ki
                     self.best_kd = self.current_test_kd
-                    self.get_logger().info(f"    -> NOWY REKORD! Kp:{self.best_kp:.5f}, Ki:{self.best_ki:.6f}, Kd:{self.best_kd:.5f}")
+                    self.get_logger().info(f"    -> NOWY REKORD Kp:{self.best_kp:.5f}, Ki:{self.best_ki:.6f}, Kd:{self.best_kd:.5f}")
 
                 self.epoch_current += 1
                 if self.epoch_current > self.epoch_max:
-                    self.get_logger().info(f"[AUTOTUNE] KONIEC! Najlepsze nastawy: Kp:{self.best_kp:.5f}, Ki:{self.best_ki:.6f}, Kd:{self.best_kd:.5f}")
+                    self.get_logger().info(f"[AUTOTUNE]KOniec Najlepsze nastawy: Kp:{self.best_kp:.5f}, Ki:{self.best_ki:.6f}, Kd:{self.best_kd:.5f}")
                     self.AUTOTUNE_ENABLED = False
 
                     self.pid_pan = PIDController(self.best_kp, self.best_ki, self.best_kd)
