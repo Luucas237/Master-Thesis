@@ -493,6 +493,50 @@
     \field{year}{2016}
   \endentry
 
+  \entry{bib:NOWAKOVA2015148}{article}{}
+    \name{author}{3}{}{%
+      {{hash=NJ}{%
+         family={Nowaková},
+         familyi={N\bibinitperiod},
+         given={Jana},
+         giveni={J\bibinitperiod},
+      }}%
+      {{hash=PM}{%
+         family={Pokorný},
+         familyi={P\bibinitperiod},
+         given={Miroslav},
+         giveni={M\bibinitperiod},
+      }}%
+      {{hash=PM}{%
+         family={Pieš},
+         familyi={P\bibinitperiod},
+         given={Martin},
+         giveni={M\bibinitperiod},
+      }}%
+    }
+    \strng{namehash}{NJPMPM1}
+    \strng{fullhash}{NJPMPM1}
+    \field{labelnamesource}{author}
+    \field{labeltitlesource}{title}
+    \field{sortinit}{N}
+    \field{sortinithash}{N}
+    \verb{doi}
+    \verb https://doi.org/10.1016/j.jal.2014.11.008
+    \endverb
+    \field{issn}{1570-8683}
+    \field{note}{SI: SOCO12}
+    \field{number}{2, Part A}
+    \field{pages}{148\bibrangedash 155}
+    \field{title}{Conventional controller design based on Takagi–Sugeno fuzzy
+  models}
+    \verb{url}
+    \verb https://www.sciencedirect.com/science/article/pii/S1570868314000822
+    \endverb
+    \field{volume}{13}
+    \field{journaltitle}{Journal of Applied Logic}
+    \field{year}{2015}
+  \endentry
+
   \entry{bib:pantsar2004}{article}{}
     \true{moreauthor}
     \true{morelabelname}

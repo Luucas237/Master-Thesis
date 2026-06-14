@@ -482,12 +482,14 @@ escapeinside={@*}{*@},%
 \subsubsection*{Tytuł pracy} 
 \Title
 
-\subsubsection*{Streszczenie}  
-Celem pracy jest zaprojektowanie i wykonanie demonstratora systemu kierowania niskomocowym laserem, zdolnego do automatycznego śledzenia poruszającego się celu na podstawie danych wizyjnych. W systemie zastosowany zostanie dedykowany marker w celu ułatwienia detekcji i korekcji trajektorii wiązki. System będzie symulował neutralizację celu poprzez utrzymanie wiązki lasera na markerze przez określony czas.
+\subsubsection*{Streszczenie}
+
+Przedmiotem niniejszej pracy magisterskiej jest projekt oraz wykonanie zrobotyzowanego demonstratora systemu kierowania niskomocowym laserem, zdolnego do automatycznego śledzenia poruszającego się celu na podstawie obrazu rejestrowanego przez kamerę cyfrową. Zasadniczą część badań stanowiła synteza i optymalizacja algorytmów sterowania nadążnego, umożliwiających precyzyjne utrzymanie wiązki optycznej na dedykowanym markerze. W pracy szczegółowo opisano architekturę rozproszoną zaprojektowanego systemu, obejmującą jednostkę nadrzędną do przetwarzania wizji (mikrokomputer Raspberry Pi) oraz warstwę wykonawczą realizującą wysterowanie silników krokowych (mikrokontroler ESP32). Dokonano komparatywnego zestawienia klasycznego algorytmu ciągłego (regulator PID strojony analitycznie metodą CHR oraz heurystycznie) z nieliniowym sterowaniem przekaźnikowym (regulator trójstawny \textit{Bang-Off-Bang}). Przedstawiono również proces parametryzacji układu oraz zaimplementowane techniki poprawy jakości i stabilności śledzenia, w tym dyskretny filtr Kalmana kompensujący zjawisko okluzji. Integralną część pracy stanowi obszerny zestaw badań laboratoryjnych oraz poligonowych (z wykorzystaniem drona), w których zweryfikowano algorytmy pod kątem precyzji naprowadzania (błąd średniokwadratowy, maksymalny uchyb dynamiczny) i kultury pracy mechaniki w zróżnicowanych warunkach i dystansach. Praca stanowi kompleksowe studium projektowania wieloosiowych, optoelektronicznych systemów śledzenia na wbudowanych platformach sprzętowych.
 
 \subsubsection*{Słowa kluczowe} 
 Laser niskomocowy, BSP, system śledzenia, PID, Trójpozycyjna regulacja.
 
+\newpage
 \subsubsection*{Thesis title} 
 \begin{otherlanguage}{british}
 \TitleAlt
@@ -495,10 +497,7 @@ Laser niskomocowy, BSP, system śledzenia, PID, Trójpozycyjna regulacja.
 
 \subsubsection*{Abstract} 
 \begin{otherlanguage}{british}
-The aim of this work is to design and manufacture a demonstrator of a low-power laser steering system capable of automatically tracking a moving target at
-based on vision data. The system will use a dedicated marker at
-to facilitate detection and correction of the beam trajectory. The system will simulate the neutralisation
-of the target by keeping the laser beam on the marker for a specified period of time.
+The subject of this Master's thesis is the design and implementation of a robotic demonstrator for a low-power laser targeting system, capable of automatically tracking a moving target based on images captured by a digital camera. The core of the research involved the synthesis and optimization of tracking control algorithms, enabling the precise maintenance of the optical beam on a dedicated marker. This thesis details the distributed architecture of the designed system, comprising a master unit for vision processing (a Raspberry Pi microcomputer) and an execution layer responsible for driving stepper motors (an ESP32 microcontroller). A comparative analysis was conducted between a classical continuous algorithm (a PID controller tuned analytically using the CHR method as well as heuristically) and nonlinear relay control (a three-position \textit{Bang-Off-Bang} controller). The parameterization process of the system was also presented, along with implemented techniques for improving tracking quality and stability, including a discrete Kalman filter compensating for the occlusion phenomenon. An integral part of the thesis consists of an extensive set of laboratory and field tests (involving a drone), wherein the algorithms were verified in terms of targeting precision (Root Mean Square Error, peak dynamic error) and the smoothness of mechanical operation across diverse conditions and distances. This thesis provides a comprehensive study on the design of multi-axis, optoelectronic tracking systems on embedded hardware platforms.
 
 \end{otherlanguage}
 \subsubsection*{Key words}  
@@ -829,7 +828,7 @@ Istotnym wyzwaniem pozostaje strategia przeszukiwania przestrzeni powietrznej. C
 
 \section{Projekt mechaniczny platformy nadążnej}
 
-Celem procesu projektowania mechanicznego było założenie polegające na integracji cech systemu nadążnego czyli zdolności do śledzenia obiektu z wytrzymałą konstrukcją.
+Celem projektowania mechanicznego było założenie polegające na integracji cech systemu nadążnego czyli zdolności do śledzenia obiektu z wytrzymałą konstrukcją.
 
 Z uwagi na powszechnie przyjętą nomenklaturę w dziedzinie robotyki, w niniejszej pracy wprowadzono ujednolicone nazewnictwo osi kinematycznych głowicy. Oś napędowa odpowiadająca za ruch w płaszczyźnie horyzontalnej (z ang. \textit{panning}) określona została mianem osi \textbf{PAN}. Z kolei oś realizująca ruch w płaszczyźnie wertykalnej (z ang. \textit{tilting}) zdefiniowana została jako oś \textbf{TILT}. W celu zachowania zwięzłości tekstu oraz spójności z anglojęzyczną literaturą branżową, autor w dalszej części pracy będzie posługiwał się wyłącznie tymi skrótowymi terminami.
 
@@ -840,7 +839,7 @@ Proces syntezy układu mechanicznego demonstratora poprzedzono szczegółową an
 \newpage
 
 Większość konwencjonalnych konstrukcji amatorskich zakłada umieszczenie całej logiki sterującej oraz zasilania w stałej, płaskiej podstawie urządzenia. W podstawowyh aplikacjach jest to uzasadnione, ponieważ ruchoma głowica przenosi na ogół jedynie prosty układ optyczny, niewymagający skomplikowanego okablowania. W przypadku projektowanego demonstratora uwarunkowania sprzętowe były jednak odmienne. Ze względu na minimalizm gabarytowy zastosowanej kamery, przy jednoczesnej dużej złożoności i liczbie wymaganych komponentów (takich jak platforma komputerowa Raspberry Pi, mikrokontroler ESP32, emiter lasera, moduły zasilania oraz sterowniki silników), klasyczne podejście skutkowałoby koniecznością poprowadzenia grubej i podatnej na uszkodzenia mechaniczne wiązki sygnałowej przez obrotowy przegub osi PAN.
-Dlatego w niniejszej pracy zdecydowano się na zoptymalizowaną, odwróconą architekturę systemową. Cała elektronika obliczeniowa i wykonawcza została zintegrowana bezpośrednio wewnątrz ruchomej, hemisferycznej głowicy (Rys. \ref{fig:rozmieszczenie_komponentow}). Taki zabieg zredukował do absolutnego minimum liczbę przewodów ppodatnych na zginanie i skręcanie. Do wnętrza kopuły wprowadzono jedynie niezbędne okablowanie od zewnętrznie zamontowanych silników krokowych. Taka topologia, w odróżnieniu od napędów współosiowych, pozwala na ułatwione odprowadzanie ciepła z korpusów silników, zapewnia łatwy dostęp serwisowy.
+Dlatego w niniejszej pracy zdecydowano się na zoptymalizowaną, odwróconą architekturę systemową. Cała elektronika obliczeniowa i wykonawcza została zintegrowana bezpośrednio wewnątrz ruchomej, hemisferycznej głowicy (Rys. \ref{fig:rozmieszczenie_komponentow}). Taki zabieg zredukował do absolutnego minimum liczbę przewodów podatnych na zginanie i skręcanie. Do wnętrza kopuły wprowadzono jedynie niezbędne okablowanie od zewnętrznie zamontowanych silników krokowych. Taka topologia, w odróżnieniu od napędów współosiowych, pozwala na ułatwione odprowadzanie ciepła z korpusów silników, zapewnia łatwy dostęp serwisowy.
 
 \begin{figure}[H]
     \centering
@@ -875,9 +874,9 @@ Z punktu widzenia kinematyki i procesu montażowego, cały demonstrator został 
 \end{figure}
 
 \newpage
-\subsection{Modelowanie przestrzenne}
+% \subsection{Modelowanie przestrzenne}
 
-Wszystkie elementy mechaniczne demonstratora zostały zamodelowane z wykorzystaniem środowiska projektowego CAD 3D (Rys. \ref{fig:zlozenie_boczne} oraz \ref{fig:zlozenie_tyl}). Cyfrowe odwzorowanie konstrukcji pozwoliło na weryfikację całkowitej przestrzeni roboczej demonstratora.
+Wszystkie elementy mechaniczne demonstratora zostały zamodelowane z wykorzystaniem środowiska projektowego CAD 3D Autodesk Inventor 2026 (Rys. \ref{fig:zlozenie_boczne} oraz \ref{fig:zlozenie_tyl}). Cyfrowe odwzorowanie konstrukcji pozwoliło na weryfikację całkowitej przestrzeni roboczej demonstratora.
 
 \begin{figure}[H]
     \centering
@@ -902,14 +901,14 @@ Szczególny nacisk podczas projektowania położono na optymalizację rozkładu 
 \begin{figure}[h]
     \centering
     \includegraphics[width=0.6\textwidth]{./Obrazy/Inventor/kopula bok.png}
-    \caption{Przekrój czaszy głowicy uwidaczniający wewnętrzne półki montażowe, zaprojektowane w celu  wyważenia układu.}
+    \caption{Przekrój czaszy głowicy uwidaczniający wewnętrzne półki montażowe.}
     \label{fig:kopula_przekroj}
 \end{figure}
 
 \newpage
 \subsection{Analiza układu napędowego i przekładni zębatej}
 
-Zastosowanie tradycyjnych kół zębatych o zębach prostych zostało na wczesnym etapie odrzucone ze względu na nieodłączne zjawisko luzu międzyzębnego. Aby spełnić rygorystyczne wymagania układu celowania, w projekcie wdrożono przekładnie o zębach daszkowych (Rys. \ref{fig:przekladnia_pan}).
+Zastosowanie tradycyjnych kół zębatych o zębach prostych zostało na wczesnym etapie odrzucone ze względu na pojawiające się zjawisko luzu międzyzębnego. Aby spełnić rygorystyczne wymagania układu celowania, w projekcie wdrożono przekładnie o zębach daszkowych (Rys. \ref{fig:przekladnia_pan}).
 
 \begin{figure}[H]
     \centering
@@ -969,8 +968,8 @@ Schemat sekcji zasilania (Rys. \ref{fig:schemat_zasilania}) opiera się na pakie
 
 \begin{enumerate}
     \item \textbf{Szyna wysokoprądowa napędów (\texttt{+16V\_BATT}):} Napięcie z pakietu ogniw poprowadzono bezpośrednio do złączy zasilających sterowniki silników. Ze względu na wysokie prądy rozruchowe silników krokowych, zdecydowano się na bezpośrednie zasilanie z baterii.
-    \item \textbf{Gałąź logiczna jednostki nadrzędnej (\texttt{+5V\_RPi}):} Do zasilania mikrokomputera wykorzystano impulsową przetwornicę obniżającą (step-down) Pololu D24V50F5, charakteryzującą się wysoką wydajnością prądową rzędu 5~A. Na wejściu przetwornicy zastosowano kondensator filtrujący o pojemności 470~$\mu$F, którego zadaniem jest tłumienie impulsów napięciowych powstających podczas włączania zasilania.
-    \item \textbf{Gałąź peryferyjna efektora (\texttt{+5V\_LASER}):} Moduł lasera zasilany jest z dodatkowej przetwornicy obniżającej napięcie do 5~V. Takie odseparowanie gwarantuje, że wahania poboru prądu przez diodę laserową nie wpłyną na stabilność pracy jednostek obliczeniowych.
+    \item \textbf{Gałąź logiczna jednostki nadrzędnej (\texttt{+5V\_RPi}):} Do zasilania mikrokomputera wykorzystano impulsową przetwornicę obniżającą Pololu D24V50F5, charakteryzującą się wysoką wydajnością prądową rzędu 5~A. Na wejściu przetwornicy zastosowano kondensator filtrujący o pojemności 470~$\mu$F, którego zadaniem jest tłumienie impulsów napięciowych powstających podczas włączania zasilania.
+    \item \textbf{Gałąź peryferyjna efektora (\texttt{+5V\_LASER}):} Moduł lasera zasilany jest z przetwornicy obniżającej napięcie do 5~V. Takie odseparowanie gwarantuje, że wahania poboru prądu przez diodę laserową nie wpłyną na stabilność pracy jednostek obliczeniowych.
 \end{enumerate}
 
 \newpage
@@ -983,12 +982,12 @@ Schemat sekcji zasilania (Rys. \ref{fig:schemat_zasilania}) opiera się na pakie
 
 \subsection{Jednostka nadrzędna, interfejsy i komunikacja}
 
-Za zarządzanie systemem, przetwarzanie wizyjne i wyliczanie uchybu śledzenia odpowiada \textit{mikrokomputer Raspberry Pi 4} (Rys. \ref{fig:schemat_mozgu}). Do sprzętowej akwizycji obrazu wykorzystano dedykowaną kamerę \textit{Raspberry Pi Camera Module 3}. Rozwiązanie to pozwala na bezpośredni dostęp do strumienia wideo minimalizując opóźnienia transportowe w układzie zamkniętej pętli sprzężenia zwrotnego.
+Za zarządzanie systemem, przetwarzanie wizyjne i wyliczanie uchybu śledzenia odpowiada \textbf{mikrokomputer Raspberry Pi 4} (Rys. \ref{fig:schemat_mozgu}). Do sprzętowej akwizycji obrazu wykorzystano dedykowaną kamerę \textbf{Raspberry Pi Camera Module 3}. Rozwiązanie to pozwala na bezpośredni dostęp do strumienia wideo minimalizując opóźnienia transportowe w układzie zamkniętej pętli sprzężenia zwrotnego.
 
 Mikrokontrolerem wykonawczym jest ESP32-DevKitC-32E V4. Połączenie pomiędzy jednostkami zrealizowano za pomocą przewodu USB, który pełni podwójną funkcję:
 \begin{itemize}
     \item \textbf{Zasilającą:} Dostarcza napięcie 5~V bezpośrednio z portu Raspberry Pi do stabilizatora napięcia na płytce ESP32.
-    \item \textbf{Komunikacyjną:} Umożliwia asynchroniczną transmisję szeregową (\textit{UART over USB}) danych o docelowych pozycjach kątowych obu osi, przy prędkości 115200~bps.
+    \item \textbf{Komunikacyjną:} Umożliwia asynchroniczną transmisję szeregową danych o docelowych pozycjach kątowych obu osi, przy prędkości 115200~bps.
 \end{itemize}
 
 \newpage
@@ -1021,7 +1020,7 @@ Integracja sterowników z płytą bazową i mikrokontrolerem ESP32 wymagała pop
 \newpage
 \subsection{Układ efektora}
 
-System wyposażono w 5~mW moduł diody laserowej pełniący rolę wskaźnika punktu śledzenia. Piny wyjściowe GPIO mikrokontrolera ESP32 nie dysponują wydajnością prądową pozwalającą na bezpośrednie zasilenie emitera, dlatego na płycie zaimplementowano sprzętowy układ dopasowujący (Rys. \ref{fig:schemat_lasera}).
+System wyposażono w 5~mW moduł diody laserowej pełniący rolę wskaźnika punktu śledzenia. Piny wyjściowe GPIO mikrokontrolera ESP32 nie dysponują wydajnością prądową pozwalającą na bezpośrednie zasilenie emitera, dlatego zaimplementowano sprzętowy układ dopasowujący (Rys. \ref{fig:schemat_lasera}).
 
 Do kluczowania obwodu wykorzystano tranzystor bipolarny NPN. Sygnał cyfrowy (\texttt{LASER\_CTRL}) z pinu 25 mikrokontrolera doprowadzono do bazy tranzystora poprzez rezystor ograniczający prąd o wartości 1~k$\Omega$. Zasilanie główne diody poprowadzono z niezależnej linii \texttt{+5V\_LASER}, a obwód zamyka się do masy poprzez złącze kolektor-emiter tranzystora.
 
@@ -1438,7 +1437,7 @@ Współczynnik charakterystyczny obiektu wyznaczono jako:
 \begin{equation}
 a = \frac{k \cdot L}{T} = \frac{22.3 \cdot 0.0656}{0.142} = 10.3.
 \end{equation}
-Zgodnie z tabelami optymalizacyjnymi CHR, nastawy dla zachowania bezprzeregulowaniowej charakterystyki śledzenia wynoszą:
+Zgodnie z tabelami optymalizacyjnymi CHR\cite{bib:NOWAKOVA2015148}, nastawy dla zachowania bezprzeregulowaniowej charakterystyki śledzenia wynoszą:
 \begin{equation}
 K_{p} = \frac{0.6}{a} = \frac{0.6}{10.3} = 0.058,
 \end{equation}
@@ -1778,7 +1777,7 @@ Zgodnie z rejestracją sygnału, oscylacje uległy asymptotycznemu wygaszeniu w 
 \hfill
 \begin{subfigure}{0.48\textwidth}
     \includegraphics[width=\textwidth]{./Obrazy/Wyniki PID/wykres_UP_PID_move_30_150.png}
-    \caption{Algorytm \textit{Gain Scheduling} -- oscylacje w strefie bliskiej ulegające wytłumieniu.}
+    \caption{Nastawy analityczne -- oscylacje w strefie bliskiej ulegające wytłumieniu.}
 \end{subfigure}
 \caption{Porównanie odpowiedzi układów podczas oddalania celu (30 -- 150~cm).}
 \label{fig:pid_oddalanie}
@@ -1791,7 +1790,7 @@ Zgodnie z rejestracją sygnału, oscylacje uległy asymptotycznemu wygaszeniu w 
 Analogicznie do badań układu o działaniu ciągłym, skokowy algorytm przekaźnikowy w wariancie trójstawnym poddano ewaluacji w identycznych scenariuszach pomiarowych. Porównano zachowanie układu przy zastosowaniu wąskiej strefy nieczułości i niższej prędkości oraz przy podwyższonej dynamice i strefie zoptymalizowanej analitycznie na podstawie wyliczonego nadbiegu mechaniki.
 
 \newpage
-\subsection{Odpowiedź układu na skokową zmianę położenia celu (Ruch nagły przyspieszony)}
+\subsection{Odpowiedź układu na skokową zmianę położenia celu}
 \label{subsec:bb_skok}
 
 Zestawienie wyników na optymalnym dystansie 80~cm (rys. \ref{fig:bb_skok_80}) jednoznacznie ukazuje mechanikę powstawania drgań w układach inercyjnych ze sterowaniem skokowym. Zastosowanie wąskiej, dobranej heurystycznie strefy nieczułości skutkuje tym, że wyłączony napęd siłą bezwładności natychmiast opuszcza obszar tolerancji z przeciwnej strony. Algorytm w odpowiedzi gwałtownie zmienia kierunek wysterowania, wprowadzając platformę w permanentny cykl oscylacyjny. Wdrożenie strefy wyznaczonej analitycznie, celowo poszerzonej w celu zniwelowania drogi hamowania, pozwoliło na pewne wejście uchybu w obszar tolerancji i trwałe wyłączenie napędów. Należy jednak krytycznie zaznaczyć, że układ stabilizuje się daleko od idealnego środka tarczy, co jest immanentną wadą tego algorytmu w zastosowaniach celowniczych.
@@ -1905,7 +1904,7 @@ Testy na dystansie 150~cm (rys. \ref{fig:bb_okrag_150}) udowodniły skutecznoś�
 \end{figure}
 
 \newpage
-\subsection{Test płynnej zmiany dystansu i weryfikacja algorytmu adaptacyjnego}
+\subsection{Test płynnej zmiany dystansu}
 \label{subsec:bb_oddalanie}
 
 Ostatnim etapem weryfikacji algorytmu trójstawnego był test odporności na nieliniową zmianę parametrów kinematycznych, zrealizowany poprzez płynne oddalanie celu od odległości 30~cm do 150~cm wzdłuż osi optycznej obiektywu, przy jednoczesnym, powolnym wymuszaniu ruchu w płaszczyźnie XY. Taka zmiana dystansu powoduje drastyczny spadek pozornej prędkości kątowej obiektu na matrycy oraz diametralne zmniejszenie jego pola powierzchni.
@@ -1919,12 +1918,12 @@ Wdrożenie zoptymalizowanej, skalowanej strefy nieczułości wraz z nastawami an
 \centering
 \begin{subfigure}{0.48\textwidth}
     \includegraphics[width=\textwidth]{./Obrazy/WYniki troj/wykres_GOOD_BB_move_30_150.png}
-    \caption{Bez adaptacji parametrów -- naturalne tłumienie drgań wraz ze wzrostem dystansu.}
+    \caption{Strefa heurystyczna-- naturalne tłumienie drgań wraz ze wzrostem dystansu.}
 \end{subfigure}
 \hfill
 \begin{subfigure}{0.48\textwidth}
     \includegraphics[width=\textwidth]{./Obrazy/WYniki troj/wykres_UP_BB_move_30_150.png}
-    \caption{Aktywna adaptacja strefy -- dynamiczne zawężanie tolerancji dla oddalającego się obiektu.}
+    \caption{Strefa analityczna -- znaczne zmniejszenie okresu drgań.}
 \end{subfigure}
 \caption{Płynne oddalanie obiektu w zakresie 30 -- 150~cm (Regulator trójstawny).}
 \label{fig:bb_oddalanie}
@@ -2154,8 +2153,8 @@ Podsumowując, realizacja pracy udowodniła słuszność założeń dotyczących
 
 \begin{appendices}
 
-% TODO
-\chapter{Dokumentacja techniczna}
+% % TODO
+% \chapter{Dokumentacja techniczna}
 
 
 % TODO
@@ -2259,14 +2258,13 @@ Podsumowując, realizacja pracy udowodniła słuszność założeń dotyczących
 \end{itemize}
 
 % TODO
-\chapter{Lista dodatkowych plików, uzupełniających tekst pracy (jeżeli dotyczy)} 
+\chapter{Lista dodatkowych plików, uzupełniających tekst pracy} 
 
 W systemie do pracy dołączono dodatkowe pliki zawierające:
 \begin{itemize}
-\item źródła programu,
-\item zbiory danych użyte w~eksperymentach,
-\item film pokazujący działanie opracowanego oprogramowania lub zaprojektowanego i wykonanego urządzenia,
-\item itp.
+\item kod źródłowy oprogramowania demonstratora, 
+\item zbiory danych użyte w badaniach,
+\item film pokazujący działanie opracowanego oprogramowania
 \end{itemize}
 
 

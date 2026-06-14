@@ -13,7 +13,7 @@
 \contentsline {figure}{\numberline {3.3}{\ignorespaces Zewnętrzny model ruchomej czaszy (Moduł III) ze zintegrowanym wieńcem napędowym osi TILT.\relax }}{24}{figure.caption.17}%
 \contentsline {figure}{\numberline {3.4}{\ignorespaces Widok boczny kompletnego modelu przestrzennego demonstratora układu nadążnego.\relax }}{24}{figure.caption.18}%
 \contentsline {figure}{\numberline {3.5}{\ignorespaces Widok tylny zespołu głowicy, obrazujący umiejscowienie napędów krokowych.\relax }}{24}{figure.caption.18}%
-\contentsline {figure}{\numberline {3.6}{\ignorespaces Przekrój czaszy głowicy uwidaczniający wewnętrzne półki montażowe, zaprojektowane w celu wyważenia układu.\relax }}{25}{figure.caption.19}%
+\contentsline {figure}{\numberline {3.6}{\ignorespaces Przekrój czaszy głowicy uwidaczniający wewnętrzne półki montażowe.\relax }}{25}{figure.caption.19}%
 \contentsline {figure}{\numberline {3.7}{\ignorespaces Model przekładni o zębach daszkowych osi PAN oraz TILT.\relax }}{26}{figure.caption.20}%
 \contentsline {figure}{\numberline {3.8}{\ignorespaces Gotowy model demonstratora\relax }}{27}{figure.caption.21}%
 \contentsline {figure}{\numberline {3.9}{\ignorespaces Schemat ideowy układu zasilania uwzględniający pakiet ogniw 4S oraz przetwornice napięcia.\relax }}{30}{figure.caption.22}%
@@ -46,7 +46,6 @@
 \contentsline {figure}{\numberline {6.17}{\ignorespaces Zapis uchybu śledzenia w środowisku polowym (Regulator PD, nastawy analityczne). Widoczne szybkie nadążanie za dronem oraz incydent zgubienia celu z udaną re-akwizycją.\relax }}{75}{figure.caption.51}%
 \addvspace {10\p@ }
 \contentsline {figure}{\numberline {7.1}{\ignorespaces Przykłady problemów detekcyjnych w warunkach polowych przy zmiennym oświetleniu i niskim kontraście.\relax }}{79}{figure.caption.52}%
-\addvspace {10\p@ }
 \babel@toc {british}{}\relax 
 \babel@toc {polish}{}\relax 
 \babel@toc {british}{}\relax 
